@@ -1,5 +1,5 @@
-ARG CONTAINER_REPO=docker.io/polymathrobotics
-FROM $CONTAINER_REPO/buildpack-deps-arm64:focal-scm
+ARG CONTAINER_REGISTRY=docker.io/polymathrobotics
+FROM $CONTAINER_REGISTRY/buildpack-deps-arm64:focal-scm
 
 RUN set -ex; \
 	apt-get update; \
