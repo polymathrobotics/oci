@@ -8,10 +8,12 @@ Normally it is expected that you just use the GitHub Actions pipelines that have
 ```
 # Make the current working directory the location of the Containerfile for the image you want to build
 cd ros/ros-core-amd64
+# Check the Containerfile with hadolint
+$(git rev-parse --show-toplevel)/bin/lint.sh
 # Build the image with the default tag (image name is configured in the IMAGE_NAME file)
 $(git rev-parse --show-toplevel)/bin/build.sh
 # Tag the image with additional tags defined in the TAGS file
 $(git rev-parse --show-toplevel)/bin/tag.sh
 # (Optional) push the image to the container repository on dockerhub - ideally this should be done via a GitHub Actions workflow and not locally
-$(git rev-parse --show-toplevel)/bin/tag.sh
+$(git rev-parse --show-toplevel)/bin/push.sh
 ```
