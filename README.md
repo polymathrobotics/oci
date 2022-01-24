@@ -12,6 +12,8 @@ cd ros/ros-core-amd64
 $(git rev-parse --show-toplevel)/bin/lint.sh
 # Build the image with the default tag (image name is configured in the IMAGE_NAME file)
 $(git rev-parse --show-toplevel)/bin/build.sh
+# Run tests on the image with cinc-auditor
+$(git rev-parse --show-toplevel)/bin/test.sh
 # Tag the image with additional tags defined in the TAGS file
 $(git rev-parse --show-toplevel)/bin/tag.sh
 # (Optional) push the image to the container repository on dockerhub - ideally this should be done via a GitHub Actions workflow and not locally
