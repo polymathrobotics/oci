@@ -19,13 +19,13 @@ jobs:
       run:
         working-directory: cinc/cinc-auditor/cinc-auditor-amd64
 # Steps represent a sequence of tasks that will be executed as part of the job
-      steps:
-        # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
-        - uses: actions/checkout@v2
+  steps:
+    # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
+    - uses: actions/checkout@v2
 # Runs a single command using the runners shell
-        - name: Check the Containerfile with hadolint
-          run: |
-            $(git rev-parse --show-toplevel)/bin/lint.sh
-        - name: Check the Containerfile with hadolint
-          run: |
-            $(git rev-parse --show-toplevel)/bin/lint.sh
+    - name: Check the Containerfile with hadolint
+      run: |
+        $(git rev-parse --show-toplevel)/bin/lint.sh
+    - name: Check the Containerfile with hadolint
+      run: |
+        $(git rev-parse --show-toplevel)/bin/lint.sh
