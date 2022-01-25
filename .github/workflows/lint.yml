@@ -19,5 +19,5 @@ jobs:
       # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
       - uses: actions/checkout@v2
 # Runs a single command using the runners shell
-      - name: Run a one-line script
-        run: ls -al 
+      - name: Check the Containerfile with hadolint
+        run: $(git rev-parse --show-toplevel)/bin/lint.sh
