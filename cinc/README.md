@@ -35,6 +35,8 @@ dd6e9a9ce3df   nginx     "/docker-entrypoint.…"   14 seconds ago   Up 14 secon
   
 # Stop the container under test - give a chance for PID 1 to clean up processes
 % docker container stop ${CONTAINER_ID}
+dd6e9a9ce3df1b6cf8164ed093da6fcd309d411f5a45ddcc2cbebb518de3ad40
 # Fully clean up and remove the container image
 % docker container remove ${CONTAINER_ID}
+dd6e9a9ce3df1b6cf8164ed093da6fcd309d411f5a45ddcc2cbebb518de3ad40
 ```
