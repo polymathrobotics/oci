@@ -21,6 +21,5 @@ jobs:
 # Runs a single command using the runners shell
       - name: Check the Containerfile with hadolint
         run: |
-          pushd cinc/cinc-auditor-arm64
           $(git rev-parse --show-toplevel)/bin/lint.sh
-          popd
+        working-directory: cinc/cinc-auditor-arm64
