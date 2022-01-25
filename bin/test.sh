@@ -33,4 +33,4 @@ docker ps
 # run cinc-auditor
 echo "==> running cinc-auditor against ${TEST_CONTAINER_IMAGE}"
 docker pull ${CINC_AUDITOR_CONTAINER_IMAGE}
-docker container run -it --rm -v "${PROFILE_DIR}:/share" -v /var/run/docker.sock:/var/run/docker.sock ${CINC_AUDITOR_CONTAINER_IMAGE} exec . --no-create-lockfile -t docker://${CONTAINER_ID}
+docker container run -t --rm -v "${PROFILE_DIR}:/share" -v /var/run/docker.sock:/var/run/docker.sock ${CINC_AUDITOR_CONTAINER_IMAGE} exec . --no-create-lockfile -t docker://${CONTAINER_ID}
