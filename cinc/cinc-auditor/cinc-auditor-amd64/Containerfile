@@ -1,0 +1,37 @@
+FROM ubuntu:20.04 AS build
+
+ARG CINC_AUDITOR_VERSION=4.52.9
+ENV DEBIAN_FRONTEND=noninteractive
+
+ADD http://downloads.cinc.sh/files/stable/cinc-auditor/${CINC_AUDITOR_VERSION}/ubuntu/20.04/cinc-auditor_${CINC_AUDITOR_VERSION}-1_amd64.deb /tmp/cinc-auditor.deb
+
+FROM ubuntu:20.04
+
+ENV PATH=/opt/cinc-auditor/bin:/opt/cinc-auditor/embedded/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin
+
+# Run the entire container with the default locale to be en_US.UTF-8
+RUN apt-get update && \
+    apt-get install -y --no-install-recommends locales && \
+    locale-gen en_US.UTF-8 && \
+    update-locale LANG=en_US.UTF-8 && \
+    apt-get clean && rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/*
+
+ENV LANG=en_US.UTF-8 \
+    LANGUAGE=en_US:en \
+    LC_ALL=en_US.UTF-8
+
+RUN mkdir -p /share
+
+COPY --from=build /tmp/cinc-auditor.deb  /tmp/cinc-auditor.deb
+
+RUN apt-get update && \
+    apt-get install -y --no-install-recommends /tmp/cinc-auditor.deb && \
+    rm -rf /tmp/cinc-auditor.deb.rpm
+
+# Install any packages that make life easier for an InSpec installation
+RUN apt-get install -y --no-install-recommends git
+
+ENTRYPOINT ["cinc-auditor"]
+CMD ["help"]
+VOLUME ["/share"]
+WORKDIR /share

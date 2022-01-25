@@ -22,4 +22,4 @@ jobs:
       - name: Check the Containerfile with hadolint
         run: |
           $(git rev-parse --show-toplevel)/bin/lint.sh
-        working-directory: cinc/cinc-auditor-arm64
+        working-directory: cinc/cinc-auditor/cinc-auditor-amd64
