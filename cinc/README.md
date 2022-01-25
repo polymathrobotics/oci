@@ -26,7 +26,8 @@ If you need to run an inspec profile against a docker container image, make sure
 CONTAINER ID   IMAGE     COMMAND                  CREATED          STATUS          PORTS     NAMES
 dd6e9a9ce3df   nginx     "/docker-entrypoint.…"   14 seconds ago   Up 14 seconds   80/tcp    suspicious_shtern
 
-# Run the inspec profile against the container ID - need to mount /var/run/docker.sock for the docker tools inside the container image to work
+# Run the inspec profile against the container ID - need to mount /var/run/docker.sock for the docker tools inside the
+# container image to work
 % docker container run -it --rm \
   -v "$(pwd):/share" \
   -v /var/run/docker.sock:/var/run/docker.sock \
