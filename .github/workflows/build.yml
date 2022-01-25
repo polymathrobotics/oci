@@ -29,3 +29,6 @@ jobs:
       - name: Build the container image
         run: |
           $(git rev-parse --show-toplevel)/bin/build.sh
+      - name: Run tests on the image with cinc-auditor
+        run: |
+          $(git rev-parse --show-toplevel)/bin/test.sh
