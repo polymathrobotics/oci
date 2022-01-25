@@ -26,6 +26,6 @@ jobs:
       - name: Check the Containerfile with hadolint
         run: |
           $(git rev-parse --show-toplevel)/bin/lint.sh
-      - name: Check the Containerfile with hadolint
+      - name: Build the container image
         run: |
-          $(git rev-parse --show-toplevel)/bin/lint.sh
+          $(git rev-parse --show-toplevel)/bin/build.sh
