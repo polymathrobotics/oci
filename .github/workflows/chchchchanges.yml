@@ -1,0 +1,31 @@
+name: CD pipeline
+
+on:
+  push:
+    branches:
+      - 'main'
+
+jobs:
+  image-names:
+    name: Dump Docker images that changed
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v2
+
+    - uses: lots0logs/gh-action-get-changed-files@2.1.4
+      id: changed-files
+      with:
+        token: ${{ secrets.GITHUB_TOKEN }}
+
+    - name: Print changes
+      run: |
+        echo ALL
+        echo ${{ steps.changed-files.outputs.all }}
+        echo ADDDED
+        echo ${{ steps.changed-files.outputs.added }}
+        echo DELETED
+        echo ${{ steps.changed-files.outputs.deleted }}
+        echo RENAMED
+        echo ${{ steps.changed-files.outputs.renamed }}
+        echo MODIFIED
+        echo ${{ steps.changed-files.outputs.modified }}
