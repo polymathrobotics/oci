@@ -16,8 +16,9 @@ To run an inspec profile in order to test some infrastructure, just bind mount t
 If you need to run an inspec profile against a docker container image, make sure you start the other image first, sitting at a shell prompt, detached. Then also bind mount `/var/run/docker.sock` so the docker tools in the container work when you run cinc-auditor in a container:
 ```
 # Easiest to save the container ID that is returned, as you'll need to destroy it.
-# You could use a pre-defined name, but it should be unique so that it's possible to perform multiple cinc-auditor runs with the same image, so best to just use the returned container ID
-# We're using the nginx container image as an example
+# You could use a pre-defined name, but it should be unique so that it's possible to perform multiple cinc-auditor runs
+# with the same image, so best to just use the returned container ID.
+# We're using the nginx container image here as an example - you would typically use the name of some locally built image:
 % CONTAINER_ID=$(docker container run --detach nginx)
 
 # Verify the container is actually running with docker ps
