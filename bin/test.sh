@@ -13,7 +13,7 @@ CINC_AUDITOR_CONTAINER_IMAGE=polymathrobotics/cinc-auditor-amd64
 if [[ $(sysctl -n machdep.cpu.brand_string) =~ "Apple" ]]; then
   CINC_AUDITOR_CONTAINER_IMAGE=polymathrobotics/cinc-auditor-arm64
 fi
-PROFILE_DIR="${BASE_DIR}/test"
+PROFILE_DIR="${BASE_DIR}/../test"
 
 CONTAINER_ID=$(docker container run --interactive --entrypoint /bin/bash --detach $TEST_CONTAINER_IMAGE )
 
@@ -33,4 +33,4 @@ docker ps
 # run cinc-auditor
 echo "==> running cinc-auditor against ${TEST_CONTAINER_IMAGE}"
 docker pull ${CINC_AUDITOR_CONTAINER_IMAGE}
-docker container run -it --rm -v "$(pwd):/share" -v /var/run/docker.sock:/var/run/docker.sock ${CINC_AUDITOR_CONTAINER_IMAGE} exec ./test --no-create-lockfile -t docker://${CONTAINER_ID}
+docker container run -it --rm -v "${PROFILE_DIR}:/share" -v /var/run/docker.sock:/var/run/docker.sock ${CINC_AUDITOR_CONTAINER_IMAGE} exec . --no-create-lockfile -t docker://${CONTAINER_ID}
