@@ -20,4 +20,7 @@ jobs:
       - uses: actions/checkout@v2
 # Runs a single command using the runners shell
       - name: Check the Containerfile with hadolint
-        run: $(git rev-parse --show-toplevel)/bin/lint.sh
+        run: |
+          pushd cinc/cinc-auditor-arm64
+          $(git rev-parse --show-toplevel)/bin/lint.sh
+          popd
