@@ -3,7 +3,7 @@ CINC is a free, open source distribution of Chef. CINC is a recursive acronym - 
 
 ## cinc-auditor
 
-Cinc Auditor is built from Chef Inspec. Cinc Auditor is 100% compatible with its upstream Chef Inspec counterpart.
+Cinc Auditor is built from Chef Inspec. Cinc Auditor is 100% compatible with its upstream Chef Inspec counterpart. It's the Chef equivalent of Ansible molecule, except that Inspec can be used separate from the Chef Configuration Management language/tooling. Chef Inspec is more generic and doesn't have a dependency on Chef - perfect for testing containers!
 
 To run an inspec profile in order to test some infrastructure, just bind mount the source into `/share` like so:
 
