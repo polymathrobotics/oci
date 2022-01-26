@@ -1,10 +1,8 @@
-name: Lint Action
+name: Build Action
 # Controls when the action will run
 on:
   # Triggers the workflow on push or pull request events but only for the main branch
   push:
-    branches: [ main ]
-  pull_request:
     branches: [ main ]
 # Allows you to run this workflow manually from the Actions tab
   workflow_dispatch:
@@ -14,6 +12,10 @@ jobs:
   build:
     # The type of runner that the job will run on
     runs-on: ubuntu-latest
+    # Set job-wide defaults
+    defaults:
+      run:
+        working-directory: cinc/cinc-auditor/cinc-auditor-amd64
 # Steps represent a sequence of tasks that will be executed as part of the job
     steps:
       # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
@@ -22,4 +24,9 @@ jobs:
       - name: Check the Containerfile with hadolint
         run: |
           $(git rev-parse --show-toplevel)/bin/lint.sh
-        working-directory: cinc/cinc-auditor/cinc-auditor-amd64
+      - name: Build the container image
+        run: |
+          $(git rev-parse --show-toplevel)/bin/build.sh
+      - name: Run tests on the image with cinc-auditor
+        run: |
+          $(git rev-parse --show-toplevel)/bin/test.sh polymathrobotics/cinc-auditor-amd64
