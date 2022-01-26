@@ -1,4 +1,4 @@
-name: cinc-auditor-amd64 image Pull Request
+name: cinc-auditor-amd64 Pull Request
 # Controls when the action will run
 on:
   # Triggers the workflow on pull request events but only for the main branch
