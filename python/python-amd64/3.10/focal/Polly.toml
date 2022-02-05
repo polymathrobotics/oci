@@ -1,0 +1,3 @@
+[build_container_image]
+image_name = "python-amd64"
+tags = [ "3.10.2-focal", "3.10-focal", "3-focal", "focal" ]
