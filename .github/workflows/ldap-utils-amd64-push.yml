@@ -29,9 +29,9 @@ jobs:
       - name: Build the container image
         run: |
           $(git rev-parse --show-toplevel)/bin/build.sh
-      - name: Run tests on the image with cinc-auditor
+      - name: Run tests on the image with ldap-utils
         run: |
-          $(git rev-parse --show-toplevel)/bin/test.sh polymathrobotics/cinc-auditor-amd64
+          $(git rev-parse --show-toplevel)/bin/test.sh polymathrobotics/ldap-utils-amd64
       - name: Deploy the image to Dockerhub
         env:
           CONTAINER_REGISTRY_USERNAME: ${{ secrets.CONTAINER_REGISTRY_USERNAME }}
