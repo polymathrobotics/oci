@@ -5,7 +5,7 @@ on:
   push:
     branches: [ main ]
     paths:
-    - 'ldap/ldap-utils-amd64/**'
+    - 'ldap/ldap-utils/ldap-utils-amd64/**'
 # Allows you to run this workflow manually from the Actions tab
   workflow_dispatch:
 # A workflow run is made up of one or more jobs that can run sequentially or in parallel
@@ -17,7 +17,7 @@ jobs:
     # Set job-wide defaults
     defaults:
       run:
-        working-directory: ldap/ldap-utils-amd64
+        working-directory: ldap/ldap-utils/ldap-utils-amd64
 # Steps represent a sequence of tasks that will be executed as part of the job
     steps:
       # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
