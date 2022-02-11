@@ -1,0 +1,19 @@
+ARG CONTAINER_REGISTRY=docker.io
+FROM $CONTAINER_REGISTRY/ubuntu:20.04
+
+# metadata
+LABEL \
+    org.opencontainers.image.source="https://github.com/polymathrobotics/oci" \
+    org.opencontainers.image.licenses="Apache-2.0"
+
+# Create user and set ownership and permissions as required
+RUN useradd -m ldap
+
+RUN apt-get update -y \
+  && apt-get install -y --no-install-recommends \
+    ca-certificates \
+    ldap-utils \
+  && apt-get autoremove -y \
+  && rm -rf /var/lib/apt/lists/*
+
+USER ldap
