@@ -1,5 +1,7 @@
 #!/bin/bash
 
+set -x
+
 SCRIPT_PATH="$( cd -- "$(dirname "$0")" >/dev/null 2>&1 ; pwd -P )"
 BIN_DIR="${SCRIPT_PATH}"
 CONTAINERFILE_DIR=$(pwd)
@@ -9,7 +11,7 @@ DEFAULT_TAG="${CONTAINER_REGISTRY}/${IMAGE_NAME}"
 
 tags="${DEFAULT_TAG}"
 if [[ -f "${CONTAINERFILE_DIR}/TAGS" ]]; then
-  tags=$(sed "s/#.*//" "${CONTAINERFILE_DIR}/TAGS" | sed '/^[[:space:]]*$/d' | sed "s/^/${DEFAULT_TAG}:/ ")
+  tags=$(sed 's/#.*//' "${CONTAINERFILE_DIR}/TAGS" | sed '/^[[:space:]]*$/d' | sed "s|^|${DEFAULT_TAG}:| ")
 fi
 for tag in ${tags}; do
   echo "${tag}"
