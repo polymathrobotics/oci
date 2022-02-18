@@ -19,5 +19,5 @@ end
 
 describe command('parallel --version') do
   its('exit_status') { should eq 0 }
-  its('stdout') { shoud match (/GNU parallel/) }
+  its('stdout') { should match (/GNU parallel/) }
 end
