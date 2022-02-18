@@ -10,8 +10,8 @@ RUN apt-get update \
     unzip \
   && gpg --keyserver hkps://keyserver.ubuntu.com --receive-keys 3FEF9748469ADBE15DA7CA80AC2D62742012EA22 \
   && mkdir -p /tmp/build \
-  && curl -sSO https://cache.agilebits.com/dist/1P/op/pkg/v${OP_CLI_VERSION}/op_linux_arm64_v${OP_CLI_VERSION}.zip \
-  && unzip -d /tmp/build op_linux_arm64_v${OP_CLI_VERSION}.zip \
+  && curl -sSO https://cache.agilebits.com/dist/1P/op/pkg/v${OP_CLI_VERSION}/op_linux_amd64_v${OP_CLI_VERSION}.zip \
+  && unzip -d /tmp/build op_linux_amd64_v${OP_CLI_VERSION}.zip \
   && cp /tmp/build/op /usr/local/bin/op \
   && gpg --verify /tmp/build/op.sig /usr/local/bin/op \
 # tiny smoke test to ensure the binary we downloaded runs
@@ -19,21 +19,7 @@ RUN apt-get update \
 
 FROM ubuntu:20.04
 
-# Make the user/group settings arguments so a new container can be generated
-# based on this image more easily
-ARG user=opuser
-ARG group=opuser
-ARG uid=1000
-ARG gid=1000
-ARG OP_HOME=/home/opuser
-
-ENV OP_HOME $OP_HOME
-
-# op is run with user `opuser`, uid = 1000 by default
-RUN mkdir -p $OP_HOME \
-  && chown ${uid}:${gid} $OP_HOME \
-  && groupadd -g ${gid} ${group} \
-  && useradd -d "$OP_HOME" -u ${uid} -g ${gid} -m -s /bin/bash ${user}
+RUN useradd -m op
 
 RUN apt-get update \
   && apt-get install -y --no-install-recommends \
@@ -44,7 +30,7 @@ RUN apt-get update \
 
 COPY --from=build /usr/local/bin/op /usr/local/bin/op
 
-USER ${user}
-WORKDIR $OP_HOME
+USER op
+WORKDIR /home/op
 
 CMD ["/bin/bash"]
