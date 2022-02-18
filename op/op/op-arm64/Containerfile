@@ -26,6 +26,7 @@ RUN apt-get update \
     ca-certificates \
     curl \
     jq \
+    parallel \
   && rm -rf /var/lib/apt/lists/*
 
 COPY --from=build /usr/local/bin/op /usr/local/bin/op
