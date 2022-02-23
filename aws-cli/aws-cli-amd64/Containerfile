@@ -3,6 +3,7 @@ ARG EXE_FILENAME=awscli-exe-linux-x86_64
 
 ADD https://awscli.amazonaws.com/awscli-exe-linux-x86_64.zip $EXE_FILENAME
 
+# hadolint disable=DL3032, DL3033
 RUN yum update -y \
   && yum install -y unzip \
   && unzip $EXE_FILENAME \
