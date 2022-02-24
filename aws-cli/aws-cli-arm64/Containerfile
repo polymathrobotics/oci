@@ -1,7 +1,7 @@
 FROM amazonlinux:2 as installer
 ARG EXE_FILENAME=awscli-exe-linux-aarch64.zip
 
-ADD https://awscli.amazonaws.com/awscli-exe-linux-aarch64-2.4.40.zip $EXE_FILENAME
+ADD https://awscli.amazonaws.com/awscli-exe-linux-aarch64-2.4.20.zip $EXE_FILENAME
 
 # hadolint ignore=DL3032,DL3033
 RUN yum update -y \
