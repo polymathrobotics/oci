@@ -5,6 +5,17 @@ Configuration cache prevents using this image as a command alias
 When the `op` command line tool runs, it persists tokens and other state
 files to `$HOME/.op`.
 
+If you're not already running the 1password command line tools on your
+host, make sure you create the `$HOME/.op` directory with the right
+permissions:
+```
+# create the config directory owned by your UID and not root
+mkdir $HOME/.op
+# set the permissions so that it is not readable by others, this
+# directory stores keys and other credentials
+chmod 700 $HOME/.op
+```
+
 If you have an existing config on your host that you want to use in the
 container image, you can bind mount the directory into the image:
 
