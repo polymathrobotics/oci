@@ -7,7 +7,7 @@
   end
 end
 
-describe command('dasel --version') do
+describe command('/usr/local/bin/dasel --version') do
   its('exit_status') { should eq 0 }
   its('stdout') { should match(/dasel version/) }
 end
