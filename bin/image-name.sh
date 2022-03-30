@@ -11,7 +11,7 @@ fi
 if [[ -f "${CONTAINERFILE_DIR}/Polly.toml" ]]; then
   name=$(docker container run -t --rm \
     --mount type=bind,source="$(pwd)",target=/share,readonly \
-    polymathrobotics/dasel-arm64 \
+    ${DASEL_CONTAINER_IMAGE} \
       -f Polly.toml --null "container_image.name")
   name=$(echo ${name} | tr -d '\r')
 
