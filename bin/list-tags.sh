@@ -6,12 +6,12 @@ CONTAINERFILE_DIR=$(pwd)
 IMAGE_NAME="$(${BIN_DIR}/image-name.sh)"
 CONTAINER_REGISTRY="docker.io/polymathrobotics"
 DEFAULT_TAG="${CONTAINER_REGISTRY}/${IMAGE_NAME}"
-DASEL_CONTAINER_IMAGE=polymathrobotics/dasel-amd64
+DASEL_CONTAINER_IMAGE=polymathrobotics/dasel-amd64:1.24.1
 if [ "$(uname -s)" = Darwin ] && [ "$(uname -m)" = arm64 ]; then
-  DASEL_CONTAINER_IMAGE=polymathrobotics/dasel-arm64
+  DASEL_CONTAINER_IMAGE=polymathrobotics/dasel-arm64:1.24.1
 fi
+# No need to pull image on every build because we're using a specific tag
 
-docker image pull ${DASEL_CONTAINER_IMAGE} > /dev/null 2>&1
 docker container run --rm \
   --mount type=bind,source="$(pwd)",target=/share,readonly \
   --entrypoint /bin/bash \
