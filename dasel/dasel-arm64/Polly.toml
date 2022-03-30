@@ -1,0 +1,3 @@
+[container_image]
+image_name = "dasel-arm64"
+tags = [ "1.24.1", "latest" ]
