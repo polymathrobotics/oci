@@ -6,7 +6,7 @@ LABEL \
     org.opencontainers.image.source="https://github.com/polymathrobotics/oci" \
     org.opencontainers.image.licenses="Apache-2.0"
 
-ADD https://github.com/TomWright/dasel/releases/download/v1.24.1/dasel_linux_arm64 /tmp/dasel
+ADD https://github.com/TomWright/dasel/releases/download/v1.24.1/dasel_linux_amd64 /tmp/dasel
 
 FROM $CONTAINER_REGISTRY/ubuntu:20.04
 
