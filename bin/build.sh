@@ -10,4 +10,4 @@ IMAGE_NAME="$(${BIN_DIR}/image-name.sh)"
 CONTAINER_REGISTRY="docker.io/polymathrobotics"
 DEFAULT_TAG="${CONTAINER_REGISTRY}/${IMAGE_NAME}"
 
-docker image build --file Containerfile -t "${DEFAULT_TAG}" .
+DOCKER_BUILDKIT=1 docker image build --file Containerfile -t "${DEFAULT_TAG}" .
