@@ -10,7 +10,7 @@ BIN_DIR="${SCRIPT_PATH}"
 BASE_DIR=$(pwd)
 TEST_CONTAINER_IMAGE=$1
 CINC_AUDITOR_CONTAINER_IMAGE=polymathrobotics/cinc-auditor-amd64
-if [[ $(sysctl -n machdep.cpu.brand_string) =~ "Apple" ]]; then
+if [ "$(uname -s)" = Darwin ] && [ "$(uname -m)" = arm64 ]; then
   CINC_AUDITOR_CONTAINER_IMAGE=polymathrobotics/cinc-auditor-arm64
 fi
 PROFILE_DIR="${BASE_DIR}/../test"

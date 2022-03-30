@@ -2,8 +2,9 @@
 
 CONTAINERFILE_DIR=$(pwd)
 IMAGE_NAME=$(basename $(pwd))
+
 DASEL_CONTAINER_IMAGE=polymathrobotics/dasel-amd64
-if [[ $(sysctl -n machdep.cpu.brand_string) =~ "Apple" ]]; then
+if [ "$(uname -s)" = Darwin ] && [ "$(uname -m)" = arm64 ]; then
   DASEL_CONTAINER_IMAGE=polymathrobotics/dasel-arm64
 fi
 

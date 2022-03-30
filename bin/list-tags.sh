@@ -7,7 +7,7 @@ IMAGE_NAME="$(${BIN_DIR}/image-name.sh)"
 CONTAINER_REGISTRY="docker.io/polymathrobotics"
 DEFAULT_TAG="${CONTAINER_REGISTRY}/${IMAGE_NAME}"
 DASEL_CONTAINER_IMAGE=polymathrobotics/dasel-amd64
-if [[ $(sysctl -n machdep.cpu.brand_string) =~ "Apple" ]]; then
+if [ "$(uname -s)" = Darwin ] && [ "$(uname -m)" = arm64 ]; then
   DASEL_CONTAINER_IMAGE=polymathrobotics/dasel-arm64
 fi
 
