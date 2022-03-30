@@ -9,6 +9,7 @@ if [ "$(uname -s)" = Darwin ] && [ "$(uname -m)" = arm64 ]; then
 fi
 
 if [[ -f "${CONTAINERFILE_DIR}/Polly.toml" ]]; then
+  docker image pull ${DASEL_CONTAINER_IMAGE} > /dev/null 2>&1
   name=$(docker container run -t --rm \
     --mount type=bind,source="$(pwd)",target=/share,readonly \
     ${DASEL_CONTAINER_IMAGE} \

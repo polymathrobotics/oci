@@ -11,7 +11,9 @@ if [ "$(uname -s)" = Darwin ] && [ "$(uname -m)" = arm64 ]; then
   DASEL_CONTAINER_IMAGE=polymathrobotics/dasel-arm64
 fi
 
+docker image pull ${DASEL_CONTAINER_IMAGE} > /dev/null 2>&1
 docker container run -t --rm \
   --mount type=bind,source="$(pwd)",target=/share,readonly \
-  polymathrobotics/dasel-arm64 \
-    -f Polly.toml -w json | jq -r '.container_image.tags | .[]'
+  --entrypoint /bin/bash \
+  ${DASEL_CONTAINER_IMAGE} \
+    -c "dasel -f Polly.toml -w json | jq -r '.container_image.tags | .[]'"
