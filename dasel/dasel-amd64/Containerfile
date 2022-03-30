@@ -20,6 +20,6 @@ RUN apt-get update \
 COPY --chmod=755 --from=build /tmp/dasel /usr/local/bin/dasel
 
 ENTRYPOINT ["/usr/local/bin/dasel"]
-CMD [""]
+CMD ["--help"]
 VOLUME ["/share"]
 WORKDIR /share

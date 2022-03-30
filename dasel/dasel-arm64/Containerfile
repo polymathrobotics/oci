@@ -14,12 +14,12 @@ RUN apt-get update \
   && apt-get install -y --no-install-recommends \
     ca-certificates \
     jq \
-  && rm -rf /var/lib/apt/lists/* \
-  && mkdir -p /share
+  && rm -rf /var/lib/apt/lists/*
 
-COPY --chmod=755 --from=build /tmp/dasel /usr/local/bin/dasel
+COPY --from=build /tmp/dasel /usr/local/bin/dasel
+
+WORKDIR /share
 
 ENTRYPOINT ["/usr/local/bin/dasel"]
-CMD [""]
+CMD ["--help"]
 VOLUME ["/share"]
-WORKDIR /share
