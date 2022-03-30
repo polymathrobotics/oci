@@ -10,14 +10,13 @@ fi
 
 if [[ -f "${CONTAINERFILE_DIR}/Polly.toml" ]]; then
   docker image pull ${DASEL_CONTAINER_IMAGE} > /dev/null 2>&1
-  name=$(docker container run --rm \
+  _name=$(docker container run --rm \
     --mount type=bind,source="$(pwd)",target=/share,readonly \
     ${DASEL_CONTAINER_IMAGE} \
       -f Polly.toml --null "container_image.name")
-  name=$(echo ${name} | tr -d '\r')
 
-  if [ "${name}" != "null" ]; then
-    IMAGE_NAME=${name} 
+  if [ "${_name}" != "null" ]; then
+    IMAGE_NAME=${_name} 
   fi
 fi
 echo ${IMAGE_NAME}
