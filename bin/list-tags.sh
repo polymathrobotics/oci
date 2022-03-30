@@ -12,7 +12,7 @@ if [ "$(uname -s)" = Darwin ] && [ "$(uname -m)" = arm64 ]; then
 fi
 
 docker image pull ${DASEL_CONTAINER_IMAGE} > /dev/null 2>&1
-docker container run -t --rm \
+docker container run --rm \
   --mount type=bind,source="$(pwd)",target=/share,readonly \
   --entrypoint /bin/bash \
   ${DASEL_CONTAINER_IMAGE} \
