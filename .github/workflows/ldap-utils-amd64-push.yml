@@ -29,6 +29,7 @@ jobs:
       - name: Build the container image
         run: |
           $(git rev-parse --show-toplevel)/bin/build.sh
+          $(git rev-parse --show-toplevel)/bin/tag.sh
       - name: Run tests on the image with cinc-auditor
         run: |
           $(git rev-parse --show-toplevel)/bin/test.sh polymathrobotics/ldap-utils-amd64
