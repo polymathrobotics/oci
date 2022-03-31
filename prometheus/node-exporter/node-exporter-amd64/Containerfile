@@ -34,4 +34,5 @@ RUN apt-get update \
 COPY --chmod=755 --from=build /tmp/node_exporter/node_exporter /usr/local/bin/node_exporter
 
 EXPOSE 9100
+USER nobody
 ENTRYPOINT [ "/usr/local/bin/node_exporter" ]
