@@ -1,5 +1,8 @@
 #!/bin/bash
 
+set -eu
+set -o pipefail
+
 if [ "$*" == "" ]; then
   echo "ERROR: Please provide a container name to test!"
   exit 1
