@@ -12,8 +12,12 @@ if [ "$(uname -s)" = Darwin ] && [ "$(uname -m)" = arm64 ]; then
 fi
 # No need to pull image on every build because we're using a specific tag
 
-docker container run --rm \
-  --mount type=bind,source="$(pwd)",target=/share,readonly \
-  --entrypoint /bin/bash \
-  ${DASEL_CONTAINER_IMAGE} \
-    -c "dasel -f Polly.toml -w json | jq -r '.container_image.tags | \"${DEFAULT_TAG}:\" + .[]'"
+if [[ -f "${CONTAINERFILE_DIR}/Polly.toml" ]]; then
+  docker container run --rm \
+    --mount type=bind,source="$(pwd)",target=/share,readonly \
+    --entrypoint /bin/bash \
+    ${DASEL_CONTAINER_IMAGE} \
+      -c "dasel -f Polly.toml -w json | jq -r '.container_image.tags | \"${DEFAULT_TAG}:\" + .[]'"
+else
+  echo "${DEFAULT_TAG}"
+fi
