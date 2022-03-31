@@ -1,0 +1,3 @@
+[container_image]
+name="buildpack-deps-amd64"
+tags=["focal", "20.04"]

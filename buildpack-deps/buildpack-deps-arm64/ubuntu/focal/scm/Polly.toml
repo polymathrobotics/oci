@@ -1,0 +1,3 @@
+[container_image]
+name = "buildpack-deps-arm64"
+tags = ["focal-scm", "20.04-scm"]
