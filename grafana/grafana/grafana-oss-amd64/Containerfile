@@ -1,0 +1,75 @@
+ARG CONTAINER_REGISTRY=docker.io
+FROM $CONTAINER_REGISTRY/ubuntu:20.04 as build
+
+# metadata
+LABEL \
+    org.opencontainers.image.source="https://github.com/polymathrobotics/oci" \
+    org.opencontainers.image.licenses="Apache-2.0" \
+    org.opencontainers.image.description="Grafana - the open observability platform in a container image."
+
+ARG GRAFANA_URL=https://dl.grafana.com/oss/release/grafana-8.4.5.linux-amd64.tar.gz
+ARG GRAFANA_SHA256=3e30d3126ce30e64f55901aa1771b0a2327a986db0841a0f2b42967d723c001e
+
+# Making use of ADD curl capability for now
+# hadolint ignore=DL3020
+ADD $GRAFANA_URL /tmp/grafana.tar.gz
+
+SHELL ["/bin/bash", "-o", "pipefail", "-c"]
+RUN apt-get update \
+  && apt-get install -y --no-install-recommends \
+    ca-certificates \
+    curl \
+  && mkdir -p /tmp/grafana \
+  && echo "${GRAFANA_SHA256} /tmp/grafana.tar.gz" | sha256sum -c - \
+  && tar xvf /tmp/grafana.tar.gz -C /tmp/grafana --strip-components 1
+
+FROM $CONTAINER_REGISTRY/ubuntu:20.04
+
+ARG GF_UID="472"
+ARG GF_GID="0"
+
+ENV PATH=/usr/share/grafana/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin \
+    GF_PATHS_CONFIG="/etc/grafana/grafana.ini" \
+    GF_PATHS_DATA="/var/lib/grafana" \
+    GF_PATHS_HOME="/usr/share/grafana" \
+    GF_PATHS_LOGS="/var/log/grafana" \
+    GF_PATHS_PLUGINS="/var/lib/grafana/plugins" \
+    GF_PATHS_PROVISIONING="/etc/grafana/provisioning"
+
+WORKDIR $GF_PATHS_HOME
+
+RUN apt-get update \
+  && DEBIAN_FRONTEND=noninteractive apt-get install -y --no-install-recommends \
+    ca-certificates \
+    curl \
+    tzdata \
+  && apt-get autoremove -y \
+  && rm -rf /var/lib/apt/lists/*
+
+COPY --from=build /tmp/grafana "$GF_PATHS_HOME"
+
+RUN if [ ! $(getent group "$GF_GID") ]; then \
+      addgroup --system --gid $GF_GID grafana; \
+    fi
+
+RUN export GF_GID_NAME=$(getent group $GF_GID | cut -d':' -f1) && \
+    mkdir -p "$GF_PATHS_HOME/.aws" && \
+    adduser --system --uid $GF_UID --ingroup "$GF_GID_NAME" grafana && \
+    mkdir -p "$GF_PATHS_PROVISIONING/datasources" \
+             "$GF_PATHS_PROVISIONING/dashboards" \
+             "$GF_PATHS_PROVISIONING/notifiers" \
+             "$GF_PATHS_PROVISIONING/plugins" \
+             "$GF_PATHS_PROVISIONING/access-control" \
+             "$GF_PATHS_LOGS" \
+             "$GF_PATHS_PLUGINS" \
+             "$GF_PATHS_DATA" && \
+    cp "$GF_PATHS_HOME/conf/sample.ini" "$GF_PATHS_CONFIG" && \
+    cp "$GF_PATHS_HOME/conf/ldap.toml" /etc/grafana/ldap.toml && \
+    chown -R "grafana:$GF_GID_NAME" "$GF_PATHS_DATA" "$GF_PATHS_HOME/.aws" "$GF_PATHS_LOGS" "$GF_PATHS_PLUGINS" "$GF_PATHS_PROVISIONING" && \
+    chmod -R 777 "$GF_PATHS_DATA" "$GF_PATHS_HOME/.aws" "$GF_PATHS_LOGS" "$GF_PATHS_PLUGINS" "$GF_PATHS_PROVISIONING"
+
+COPY ./run.sh /run.sh
+
+EXPOSE 3000
+USER "$GF_UID"
+ENTRYPOINT [ "/run.sh" ]
