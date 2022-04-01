@@ -17,7 +17,7 @@ jobs:
     # Set job-wide defaults
     defaults:
       run:
-        working-directory: grafana/grafana/grafana-amd64
+        working-directory: grafana/grafana/grafana-oss-amd64
 # Steps represent a sequence of tasks that will be executed as part of the job
     steps:
       # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
@@ -36,7 +36,7 @@ jobs:
 
       - name: Run tests on the image with cinc-auditor
         run: |
-          $(git rev-parse --show-toplevel)/bin/test.sh polymathrobotics/grafana-amd64
+          $(git rev-parse --show-toplevel)/bin/test.sh polymathrobotics/grafana-oss-amd64
 
       - name: Deploy the image to Dockerhub
         env:
