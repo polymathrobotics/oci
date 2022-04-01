@@ -49,12 +49,13 @@ RUN apt-get update \
 COPY --from=build /tmp/grafana "$GF_PATHS_HOME"
 
 # Group names won't have spaces in them
-# hadolint ignore=SC2046,SC2155
+# hadolint ignore=SC2046
 RUN if [ ! $(getent group "$GF_GID") ]; then \
       addgroup --system --gid $GF_GID grafana; \
     fi
 
 SHELL ["/bin/bash", "-o", "pipefail", "-c"]
+# hadolint ignore=SC2155
 RUN export GF_GID_NAME=$(getent group $GF_GID | cut -d':' -f1) && \
     mkdir -p "$GF_PATHS_HOME/.aws" && \
     adduser --system --uid $GF_UID --ingroup "$GF_GID_NAME" grafana && \
