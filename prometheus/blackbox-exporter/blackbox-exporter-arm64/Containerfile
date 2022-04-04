@@ -1,0 +1,39 @@
+ARG CONTAINER_REGISTRY=docker.io
+FROM $CONTAINER_REGISTRY/ubuntu:20.04 as build
+
+# metadata
+LABEL \
+    org.opencontainers.image.source="https://github.com/polymathrobotics/oci" \
+    org.opencontainers.image.licenses="Apache-2.0" \
+    org.opencontainers.image.description="Blackbox exporter for probing remote machine metrics, in a container image."
+
+ARG BLACKBOX_EXPORTER_URL=https://github.com/prometheus/blackbox_exporter/releases/download/v0.20.0/blackbox_exporter-0.20.0.linux-arm64.tar.gz
+ARG BLACKBOX_EXPORTER_SHA256=ecf7fa27410dc9189e97a957be9b98556c55e51409d1864aab8d23cef226fd1f
+
+# Making use of ADD curl capability for now
+# hadolint ignore=DL3020
+ADD $BLACKBOX_EXPORTER_URL /tmp/blackbox_exporter.tar.gz
+
+SHELL ["/bin/bash", "-o", "pipefail", "-c"]
+RUN apt-get update \
+  && apt-get install -y --no-install-recommends \
+    ca-certificates \
+    curl \
+  && mkdir -p /tmp/blackbox_exporter \
+  && echo "${BLACKBOX_EXPORTER_SHA256} /tmp/blackbox_exporter.tar.gz" | sha256sum -c - \
+  && tar xvf /tmp/blackbox_exporter.tar.gz -C /tmp/blackbox_exporter --strip-components 1
+
+FROM $CONTAINER_REGISTRY/ubuntu:20.04
+
+RUN apt-get update \
+  && DEBIAN_FRONTEND=noninteractive apt-get install -y --no-install-recommends \
+    ca-certificates \
+  && rm -rf /var/lib/apt/lists/*
+
+COPY --chmod=755 --from=build /tmp/blackbox_exporter/blackbox_exporter /usr/local/bin/blackbox_exporter
+COPY --from=build /tmp/blackbox_exporter/blackbox.yml /etc/blackbox_exporter/config.yml
+
+EXPOSE 9115
+USER nobody
+ENTRYPOINT [ "/usr/local/bin/blackbox_exporter" ]
+CMD ["--config.file=/etc/blackbox_exporter/config.yml"]
