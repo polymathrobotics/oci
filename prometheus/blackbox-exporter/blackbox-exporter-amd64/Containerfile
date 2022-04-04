@@ -8,7 +8,7 @@ LABEL \
     org.opencontainers.image.description="Blackbox exporter for probing remote machine metrics, in a container image."
 
 ARG BLACKBOX_EXPORTER_URL=https://github.com/prometheus/blackbox_exporter/releases/download/v0.20.0/blackbox_exporter-0.20.0.linux-amd64.tar.gz
-ARG BLACKBOX_EXPORTER_SHA256=ecf7fa27410dc9189e97a957be9b98556c55e51409d1864aab8d23cef226fd1f
+ARG BLACKBOX_EXPORTER_SHA256=d0235f16dc45c3b1fd5712b613474358f5a0342447553726c9239307dc39c844
 
 # Making use of ADD curl capability for now
 # hadolint ignore=DL3020
