@@ -31,6 +31,10 @@ jobs:
           $(git rev-parse --show-toplevel)/bin/build.sh
           $(git rev-parse --show-toplevel)/bin/tag.sh
 
+      - name: Run tests on the image with cinc-auditor
+        run: |
+          $(git rev-parse --show-toplevel)/bin/test.sh polymathrobotics/dokken-ubuntu-amd64:20.04
+
       - name: Deploy the image to Dockerhub
         env:
           CONTAINER_REGISTRY_USERNAME: ${{ secrets.CONTAINER_REGISTRY_USERNAME }}
