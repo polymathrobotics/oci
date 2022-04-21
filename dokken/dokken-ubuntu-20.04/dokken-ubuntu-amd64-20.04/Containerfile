@@ -7,8 +7,7 @@ LABEL \
     org.opencontainers.image.description="A container image for testing with Ubuntu 20.04."
 
 RUN apt-get update \
-  && apt-get dist-upgrade -y \
-  && DEBIAN_FRONTEND=noninteractive apt-get -y install \
+  && DEBIAN_FRONTEND=noninteractive apt-get -y --no-install-recommends install \
     apt-transport-https \
     apt-utils \
     curl \
@@ -55,7 +54,7 @@ RUN apt-get update \
     -or -name '*systemd-vconsole-setup*' \
     -or -name '*systemd-readahead*' \
     -or -name '*udev*' \) \
-    -exec rm -v \{} \; \
+    -exec rm -v \{\} \; \
   && systemctl set-default multi-user.target \
   && systemctl mask dev-hugepages.mount sys-fs-fuse-connections.mount network.service
 
