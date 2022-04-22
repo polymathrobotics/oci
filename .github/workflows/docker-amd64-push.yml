@@ -34,7 +34,7 @@ jobs:
 
       - name: Run tests on the image with cinc-auditor
         run: |
-          $(git rev-parse --show-toplevel)/bin/test.sh polymathrobotics/docker /bin/sh
+          $(git rev-parse --show-toplevel)/bin/test.sh polymathrobotics/docker-amd64 /bin/sh
 
       - name: Deploy the image to Dockerhub
         env:
