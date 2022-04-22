@@ -1,0 +1,51 @@
+ARG CONTAINER_REGISTRY=docker.io
+FROM $CONTAINER_REGISTRY/ubuntu:20.04 as build
+
+LABEL \
+  org.opencontainers.image.source="https://github.com/polymathrobotics/oci" \
+  org.opencontainers.image.licenses="Apache-2.0" \
+  org.opencontainers.image.description="Cinc Workstation"
+
+ARG CINC_WORKSTATION_URL=http://downloads.cinc.sh/files/stable/cinc-workstation/22.4.861/ubuntu/20.04/cinc-workstation_22.4.861-1_amd64.deb
+
+# Making use of ADD curl download capability for now
+# hdolint ignore=DL3020
+ADD $CINC_WORKSTATION_URL /tmp/cinc-workstation.deb
+
+FROM $CONTAINER_REGISTRY/ubuntu:20.04
+
+# From cinc shell-init bash
+ENV GEM_HOME=/root/.chefdk/gem/ruby/3.0.0 \
+    GEM_PATH=/root/.chefdk/gem/ruby/3.0.0:/opt/cinc-workstation/embedded/lib/ruby/gems/3.0.0 \
+    GEM_ROOT=/opt/cinc-workstation/embedded/lib/ruby/gems/3.0.0 \
+    PATH=/opt/cinc-workstation/bin:/root/.chefdk/gem/ruby/3.0.0/bin:/opt/cinc-workstation/embedded/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/opt/cinc-workstation/gitbin
+
+# Run the entire container with the default local to be en_US.UTF-8
+RUN DEBIAN_FRONTEND=noninteractive apt-get update \
+  && apt-get install -y locales \
+  && locale-gen en_US.UTF-8 \
+  && update-locale LANG=en_US.UTF-8
+
+ENV LANG=en_US.UTF-8 \
+    LANGUAGE=en_US:en \
+    LC_ALL=en_US.UTF-8
+
+COPY --from=build /tmp/cinc-workstation.deb /tmp/cinc-workstation.deb
+
+RUN apt-get update \
+  && DEBIAN_FRONTEND=noninteractive apt-get install -y --no-install-recommends \
+    ca-certificates \
+    curl \
+    gcc \
+    git \
+    graphviz \
+    make \
+    rsync \
+    ssh \
+    vim-tiny \
+  && dpkg -i /tmp/cinc-workstation.deb \
+  && apt-get clean \
+  && rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/* /var/log*log /var/log/apt/* /var/lib/dkpg*-old /var/cache/debconf/*-old
+
+CMD ["/bin/bash"]
+
