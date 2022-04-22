@@ -8,6 +8,7 @@ LABEL \
 
 FROM alpine:3.15
 
+# hadolint ignore=DL3018
 RUN apk add --no-cache \
 		ca-certificates \
 # Workaround for golang not producing a static ctr binary on Go 1.15 and up https://github.com/containerd/containerd/issues/5824
@@ -45,7 +46,7 @@ RUN set -eux; \
 		*) echo >&2 "error: unsupported architecture ($apkArch)"; exit 1 ;; \
 	esac; \
 	\
-	wget -O docker.tgz "$url"; \
+	wget -nv -O docker.tgz "$url"; \
 	\
 	tar --extract \
 		--file docker.tgz \
