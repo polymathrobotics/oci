@@ -1,4 +1,5 @@
 # syntax=docker/dockerfile:1.3
+# https://github.com/moby/buildkit/blob/master/frontend/dockerfile/docs/syntax.md
 ARG BUILD_CONTAINER_REGISTRY=docker.io
 ARG CONTAINER_REGISTRY=docker.io/polymathrobotics
 FROM $BUILD_CONTAINER_REGISTRY/ubuntu:20.04 as build
