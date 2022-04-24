@@ -6,7 +6,7 @@ LABEL \
   org.opencontainers.image.licenses="Apache-2.0" \
   org.opencontainers.image.description="Cinc Infra"
 
-ARG CINC_URL=http://downloads.cinc.sh/files/stable/cinc/17.10.0/ubuntu/20.04/cinc_17.10.0-1_arm64.deb
+ARG CINC_URL=http://downloads.cinc.sh/files/stable/cinc/17.10.0/ubuntu/20.04/cinc_17.10.0-1_amd64.deb
 
 # Making use of ADD curl download capability for now
 # hadolint ignore=DL3020
