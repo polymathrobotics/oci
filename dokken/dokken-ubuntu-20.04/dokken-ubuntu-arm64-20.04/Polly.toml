@@ -1,3 +1,0 @@
-[container_image]
-name = "dokken-ubuntu-arm64"
-tags = [ "20.04" ]
