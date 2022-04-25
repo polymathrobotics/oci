@@ -43,7 +43,7 @@ jobs:
       - name: Set the tags
         id: tags
         run: |
-          echo "tags=latest,foo" >> $IGTHUB_ENV
+          echo "tags=latest,foo" >> $GITHUB_ENV
 
       - name: Echo tags
         run: |
