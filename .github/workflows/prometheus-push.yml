@@ -27,6 +27,7 @@ jobs:
       - name: Check the Containerfile with hadolint
         run: |
           $(git rev-parse --show-toplevel)/bin/lint.sh
+
       - name: Install QEMU static binaries
         uses: docker/setup-qemu-action@v1
 
@@ -43,8 +44,8 @@ jobs:
         uses: docker/build-push-action@v2
         with:
           load: true
-          context: prometheus
-          file: prometheus/Containerfile
+          context: prometheus/prometheus
+          file: prometheus/prometheus/Containerfile
           tags: ${{ env.tags }}
 
       - name: Run tests on the image with cinc-auditor
@@ -66,7 +67,7 @@ jobs:
         uses: docker/build-push-action@v2
         with:
           push: true
-          context: prometheus
-          file: prometheus/Containerfile
+          context: prometheus/prometheus
+          file: prometheus/prometheus/Containerfile
           platforms: ${{env.platforms}}
           tags: ${{env.tags}}
