@@ -17,13 +17,11 @@ fi
 # No need to pull image on every build because we're using a specific tag
 
 if [[ -f "${CONTAINERFILE_DIR}/Polly.toml" ]]; then
-  TOML_TAGS=$(docker container run --rm \
+  docker container run --rm \
     --mount type=bind,source="$(pwd)",target=/share,readonly \
     --entrypoint /bin/bash \
     ${DASEL_CONTAINER_IMAGE} \
-      -c "dasel -f Polly.toml -w json | jq -r '[ .container_image.tags | \"${DEFAULT_TAG}:\" + .[] ] | @csv'")
-  echo "tags=${TOML_TAGS}" >> $GITHUB_ENV
+      -c "dasel -f Polly.toml -w json | jq -r '[ .container_image.tags | \"${DEFAULT_TAG}:\" + .[] ] | @csv'"
 else
-  # echo "${DEFAULT_TAG}"
-  echo "tags=${DEFAULT_TAG}" >> $GITHUB_ENV
+  echo "${DEFAULT_TAG}"
 fi
