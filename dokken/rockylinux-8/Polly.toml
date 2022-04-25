@@ -1,0 +1,3 @@
+[container_image]
+name = "dokken-rockylinux-8"
+tags = [ "latest" ]
