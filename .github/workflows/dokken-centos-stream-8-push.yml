@@ -34,7 +34,7 @@ jobs:
 
       - name: Run tests on the image with cinc-auditor
         run: |
-          $(git rev-parse --show-toplevel)/bin/test.sh
+          $(git rev-parse --show-toplevel)/bin/buildx-test.sh
 
       - name: Deploy the image to Dockerhub
         env:
