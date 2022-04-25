@@ -40,10 +40,6 @@ jobs:
         run: |
           echo "tags=$($(git rev-parse --show-toplevel)/bin/list-tags-github-env.sh)" >> $GITHUB_ENV
 
-      - name: Echo tags
-        run: |
-          echo "MMM: ${{ env.tags }}" 
-
       - name: Build locally for testing
         uses: docker/build-push-action@v2
         with:
@@ -68,4 +64,4 @@ jobs:
           push: true
           context: dokken/amazonlinux-2022
           file: dokken/amazonlinux-2022/Containerfile
-          tags: $${env.tags}
+          tags: ${{env.tags}}
