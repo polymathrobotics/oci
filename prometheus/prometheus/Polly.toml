@@ -1,0 +1,2 @@
+[container_image]
+tags = [ "2.35.0", "latest" ]

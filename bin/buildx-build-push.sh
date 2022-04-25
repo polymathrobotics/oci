@@ -7,7 +7,7 @@ SCRIPT_PATH="$( cd -- "$(dirname "$0")" >/dev/null 2>&1 ; pwd -P )"
 BIN_DIR="${SCRIPT_PATH}"
 BASE_DIR=$(pwd)
 CONTAINERFILE_DIR="${BASE_DIR}"
-PLATFORMS=linux/arm64,linux/amd64
+PLATFORMS=linux/arm64,linux/amd64,linux/arm/v7
 
 if [[ -z ${CONTAINER_REGISTRY_USERNAME} ]] || [[ -z ${CONTAINER_REGISTRY_PASSWORD} ]]; then
   echo "CONTAINER_REGISTRY_USERNAME and CONTAINER_REGISTRY_PASSWORD must be set in order to push"

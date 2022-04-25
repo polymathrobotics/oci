@@ -7,12 +7,7 @@ LABEL \
     org.opencontainers.image.licenses="Apache-2.0" \
     org.opencontainers.image.description="Prometheus monitoring system and time series database in a docker image."
 
-ARG PROMETHEUS_URL=https://github.com/prometheus/prometheus/releases/download/v2.34.0/prometheus-2.34.0.linux-amd64.tar.gz
-ARG PROMETHEUS_SHA256=9ec560940bf53361dd9d3a867d51ceb96f3854ae12f5e532b7d3f60c27f364d0
-
-# Making use of ADD curl auto-download capability for now
-# hadolint ignore=DL3020
-ADD $PROMETHEUS_URL /tmp/prometheus.tar.gz
+ARG PROMETHEUS_VERSION=2.35.0
 
 SHELL ["/bin/bash", "-o", "pipefail", "-c"]
 RUN apt-get update \
@@ -20,7 +15,25 @@ RUN apt-get update \
     ca-certificates \
     curl \
   && mkdir -p /tmp/prometheus \
-  && echo "${PROMETHEUS_SHA256} /tmp/prometheus.tar.gz" | sha256sum -c - \
+  && ARCH= \
+  && dpkgArch="$(dpkg --print-architecture)" \
+  && case "${dpkgArch##*-}" in \
+    amd64) \
+      ARCH='amd64' \
+      SHA256='e4546960688d1c85530ec3a93e109d15b540f3251e1f4736d0d9735e1e857faf' \
+      ;; \
+    arm64) \
+      ARCH='arm64' \
+      SHA256='3ebe0c533583a9ab03363a80aa629edd8e0cc42da3583e33958eb7abe74d4cd2' \
+      ;; \
+    armhf) \
+      ARCH='armv7' \
+      SHA256='a50274c833ef058502fb723806e28537ef276ec628d63e0c3fdc407ca7b65272' \
+      ;; \
+    *) echo "unsupported architecture"; exit 1 ;; \
+    esac \
+  && curl -fsSL -o /tmp/prometheus.tar.gz  https://github.com/prometheus/prometheus/releases/download/v${PROMETHEUS_VERSION}/prometheus-${PROMETHEUS_VERSION}.linux-${ARCH}.tar.gz \
+  && echo "${SHA256} /tmp/prometheus.tar.gz" | sha256sum -c - \
   && tar xvf /tmp/prometheus.tar.gz -C /tmp/prometheus --strip-components 1
 
 FROM $CONTAINER_REGISTRY/ubuntu:20.04
