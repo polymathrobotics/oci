@@ -17,7 +17,7 @@ jobs:
     # Set job-wide defaults
     defaults:
       run:
-        working-directory: dokken/centos-stream-8-amd64
+        working-directory: dokken/centos-stream-8
 # Steps represent a sequence of tasks that will be executed as part of the job
     steps:
       # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
