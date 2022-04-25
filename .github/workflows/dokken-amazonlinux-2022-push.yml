@@ -55,7 +55,7 @@ jobs:
           load: true
           context: dokken/amazonlinux-2022
           file: dokken/amazonlinux-2022/Containerfile
-          tags: docker.io/polymathrobotics/dokken-amazonlinux-2022:latest
+          tags: docker.io/polymathrobotics/dokken-amazonlinux-2022:latest,docker.io/polymathrobotics/dokken-amazonlinux-2022:foo
 
       - name: Run tests on the image with cinc-auditor
         run: |
