@@ -53,7 +53,8 @@ jobs:
         uses: docker/build-push-action@v2
         with:
           load: true
-          file: {context}/Containerfile
+          context: dokken/amazonlinux-2022
+          file: dokken/amazonlinux-2022/Containerfile
           tags: docker.io/polymathrobotics/dokken-amazonlinux-2022:latest
 
       # - name: Set the tags
