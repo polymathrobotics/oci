@@ -61,6 +61,20 @@ jobs:
         run: |
           $(git rev-parse --show-toplevel)/bin/buildx-test.sh
 
+      - name: Login to DockerHub
+        uses: docker/login-action@v1 
+        with:
+          username: ${{ secrets.CONTAINER_REGISTRY_USERNAME }}
+          password: ${{ secrets.CONTAINER_REGISTRY_PASSWORD }}
+
+      - name: Build and push
+        uses: docker/build-push-action@v2
+        with:
+          push: true
+          context: dokken/amazonlinux-2022
+          file: dokken/amazonlinux-2022/Containerfile
+          tags: docker.io/polymathrobotics/dokken-amazonlinux-2022:latest,docker.io/polymathrobotics/dokken-amazonlinux-2022:foo
+
       # - name: Build the container image
       #   run: |
       #     $(git rev-parse --show-toplevel)/bin/build.sh
