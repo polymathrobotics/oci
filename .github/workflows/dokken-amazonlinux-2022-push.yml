@@ -57,11 +57,9 @@ jobs:
           file: dokken/amazonlinux-2022/Containerfile
           tags: docker.io/polymathrobotics/dokken-amazonlinux-2022:latest
 
-      # - name: Set the tags
-      #   id: tags
-      #   run: |
-      #    $(git rev-parse --show-toplevel)/bin/list-tags-github-env.sh
-          
+      - name: Run tests on the image with cinc-auditor
+        run: |
+          $(git rev-parse --show-toplevel)/bin/test.sh
 
       # - name: Build the container image
       #   run: |
