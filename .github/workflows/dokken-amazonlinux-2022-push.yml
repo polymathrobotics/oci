@@ -54,7 +54,7 @@ jobs:
         with:
           load: true
           file: ./Containerfile
-          tags: "$(( env.tags }}"
+          tags: docker.io/polymathrobotics/dokken-amazonlinux-2022:latest
 
       # - name: Set the tags
       #   id: tags
