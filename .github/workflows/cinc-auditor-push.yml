@@ -44,8 +44,8 @@ jobs:
         uses: docker/build-push-action@v2
         with:
           load: true
-          context: cinc-auditor
-          file: cinc-auditor/Containerfile
+          context: cinc/cinc-auditor
+          file: cinc/cinc-auditor/Containerfile
           tags: ${{ env.tags }}
 
       - name: Run tests on the image with cinc-auditor
@@ -67,8 +67,8 @@ jobs:
         uses: docker/build-push-action@v2
         with:
           push: true
-          context: cinc-auditor
-          file: cinc-auditor/Containerfile
+          context: cinc/cinc-auditor
+          file: cinc/cinc-auditor/Containerfile
           platforms: ${{env.platforms}}
           tags: ${{env.tags}}
 
