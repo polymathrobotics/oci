@@ -13,6 +13,7 @@ FROM $CONTAINER_REGISTRY/ubuntu:20.04
 
 RUN apt-get update \
   && apt-get install -y --no-install-recommends \
+    curl \
     ca-certificates \
     jq \
   && dpkgArch="$(dpkg --print-architecture)" \
