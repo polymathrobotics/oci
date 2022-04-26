@@ -45,7 +45,7 @@ jobs:
         with:
           load: true
           context: grafana/grafana-oss
-          file: prometheus/prometheus/Containerfile
+          file: grafana/grafana-oss/Containerfile
           tags: ${{ env.tags }}
 
       - name: Run tests on the image with cinc-auditor
