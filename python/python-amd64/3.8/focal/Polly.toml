@@ -1,3 +1,0 @@
-[container_image]
-name = "python-amd64"
-tags = ["3.8.12-focal", "3.8-focal"]
