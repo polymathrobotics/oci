@@ -1,3 +1,0 @@
-[container_image]
-name="buildpack-deps-arm64"
-tags=["focal-curl", "20.04-curl"]
