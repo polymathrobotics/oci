@@ -56,7 +56,7 @@ jobs:
           $(git rev-parse --show-toplevel)/bin/buildx-test.sh
 
       - name: Set the platforms for focal-curl
-        id: platforms
+        id: focal-curl-platforms
         working-directory: buildpack-deps/ubuntu/focal/curl
         run: |
           echo "platforms=$($(git rev-parse --show-toplevel)/bin/list-platforms-github-env.sh)" >> $GITHUB_ENV
@@ -96,7 +96,7 @@ jobs:
           $(git rev-parse --show-toplevel)/bin/buildx-test.sh
 
       - name: Set the platforms for focal-scm
-        id: platforms
+        id: focal-scm-platforms
         working-directory: buildpack-deps/ubuntu/focal/scm
         run: |
           echo "platforms=$($(git rev-parse --show-toplevel)/bin/list-platforms-github-env.sh)" >> $GITHUB_ENV
