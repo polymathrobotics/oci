@@ -7,8 +7,8 @@ LABEL \
     org.opencontainers.image.licenses="Apache-2.0" \
     org.opencontainers.image.description="Blackbox exporter for probing remote machine metrics, in a container image."
 
-ARG BLACKBOX_EXPORTER_URL=https://github.com/prometheus/blackbox_exporter/releases/download/v0.20.0/blackbox_exporter-0.20.0.linux-arm64.tar.gz
-ARG BLACKBOX_EXPORTER_SHA256=ecf7fa27410dc9189e97a957be9b98556c55e51409d1864aab8d23cef226fd1f
+ARG BLACKBOX_EXPORTER_URL=https://github.com/prometheus/blackbox_exporter/releases/download/v0.20.0/blackbox_exporter-0.20.0.linux-amd64.tar.gz
+ARG BLACKBOX_EXPORTER_SHA256=d0235f16dc45c3b1fd5712b613474358f5a0342447553726c9239307dc39c844
 
 # Making use of ADD curl capability for now
 # hadolint ignore=DL3020
@@ -20,6 +20,23 @@ RUN apt-get update \
     ca-certificates \
     curl \
   && mkdir -p /tmp/blackbox_exporter \
+  && dpkgArch="$(dpkg --print-architecture)" \
+  && case "${dpkgArch##*-}" in \
+    amd64) \
+      BLACKBOX_EXPORTER_URL='https://github.com/prometheus/blackbox_exporter/releases/download/v0.20.0/blackbox_exporter-0.20.0.linux-amd64.tar.gz'; \
+      BLACKBOX_EXPORTER_SHA256='d0235f16dc45c3b1fd5712b613474358f5a0342447553726c9239307dc39c844' \
+      ;; \
+    arm64) \
+      BLACKBOX_EXPORTER_URL='https://github.com/prometheus/blackbox_exporter/releases/download/v0.20.0/blackbox_exporter-0.20.0.linux-arm64.tar.gz'; \
+      BLACKBOX_EXPORTER_SHA256='ecf7fa27410dc9189e97a957be9b98556c55e51409d1864aab8d23cef226fd1f' \
+      ;; \
+    armhf) \
+      BLACKBOX_EXPORTER_URL='https://github.com/prometheus/blackbox_exporter/releases/download/v0.20.0/blackbox_exporter-0.20.0.linux-armv7.tar.gz'; \
+      BLACKBOX_EXPORTER_SHA256='37427f01124e0edb3212e0edff5b93f773a8cbabc3f403466d683d72b2e5f7b1' \
+      ;; \
+    *) echo "unsupported architecture"; exit 1 ;; \
+    esac \
+  && curl -fsSL -o /tmp/blackbox_exporter.tar.gz ${BLACKBOX_EXPORTER_URL} \
   && echo "${BLACKBOX_EXPORTER_SHA256} /tmp/blackbox_exporter.tar.gz" | sha256sum -c - \
   && tar xvf /tmp/blackbox_exporter.tar.gz -C /tmp/blackbox_exporter --strip-components 1
 
