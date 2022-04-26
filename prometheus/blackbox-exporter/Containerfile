@@ -7,13 +7,6 @@ LABEL \
     org.opencontainers.image.licenses="Apache-2.0" \
     org.opencontainers.image.description="Blackbox exporter for probing remote machine metrics, in a container image."
 
-ARG BLACKBOX_EXPORTER_URL=https://github.com/prometheus/blackbox_exporter/releases/download/v0.20.0/blackbox_exporter-0.20.0.linux-amd64.tar.gz
-ARG BLACKBOX_EXPORTER_SHA256=d0235f16dc45c3b1fd5712b613474358f5a0342447553726c9239307dc39c844
-
-# Making use of ADD curl capability for now
-# hadolint ignore=DL3020
-ADD $BLACKBOX_EXPORTER_URL /tmp/blackbox_exporter.tar.gz
-
 SHELL ["/bin/bash", "-o", "pipefail", "-c"]
 RUN apt-get update \
   && apt-get install -y --no-install-recommends \
