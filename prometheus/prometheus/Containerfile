@@ -13,21 +13,17 @@ RUN apt-get update \
     ca-certificates \
     curl \
   && mkdir -p /tmp/prometheus \
-  && ARCH= \
   && dpkgArch="$(dpkg --print-architecture)" \
   && case "${dpkgArch##*-}" in \
     amd64) \
-      ARCH='amd64' \
       PROMETHEUS_URL='https://github.com/prometheus/prometheus/releases/download/v2.35.0/prometheus-2.35.0.linux-amd64.tar.gz' \
       PROMETHEUS_SHA256='e4546960688d1c85530ec3a93e109d15b540f3251e1f4736d0d9735e1e857faf' \
       ;; \
     arm64) \
-      ARCH='arm64' \
       PROMETHEUS_URL='https://github.com/prometheus/prometheus/releases/download/v2.35.0/prometheus-2.35.0.linux-arm64.tar.gz' \
       PROMETHEUS_SHA256='3ebe0c533583a9ab03363a80aa629edd8e0cc42da3583e33958eb7abe74d4cd2' \
       ;; \
     armhf) \
-      ARCH='armv7' \
       PROMETHEUS_URL='https://github.com/prometheus/prometheus/releases/download/v2.35.0/prometheus-2.35.0.linux-armv7.tar.gz' \
       PROMETHEUS_SHA256='a50274c833ef058502fb723806e28537ef276ec628d63e0c3fdc407ca7b65272' \
       ;; \
