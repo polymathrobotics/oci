@@ -28,7 +28,7 @@ RUN apt-get update \
       ;; \
     *) echo "unsupported architecture"; exit 1 ;; \
     esac \
-  && curl -fsSL -o /tmp/dasel -L ${DASEL_URL} \
+  && curl -fsSL -o /tmp/dasel ${DASEL_URL} \
   && rm -rf /var/lib/apt/lists/* \
   && mkdir -p /share
 
