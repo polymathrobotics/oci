@@ -48,7 +48,7 @@ jobs:
           file: hadolint/Containerfile
           tags: ${{ env.tags }}
 
-      * No tests right now because this is from scratch
+      # No tests right now because this is from scratch
 
       - name: Set the platforms
         id: platforms
