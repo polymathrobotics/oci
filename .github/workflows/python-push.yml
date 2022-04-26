@@ -49,7 +49,7 @@ jobs:
           tags: ${{ env.tags }}
       - name: Run tests on the image with cinc-auditor
         run: |
-          $(git rev-parse --show-toplevel)/bin/buildx-test.sh
+          $(git rev-parse --show-toplevel)/bin/buildx-test.sh polymathrobotics/python:3.8.12-focal
 
       - name: Set the platforms
         id: platforms
