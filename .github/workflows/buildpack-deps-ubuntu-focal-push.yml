@@ -53,7 +53,7 @@ jobs:
       - name: Run tests on the focal-curl image with cinc-auditor
         working-directory: buildpack-deps/ubuntu/focal/curl
         run: |
-          $(git rev-parse --show-toplevel)/bin/buildx-test.sh
+          $(git rev-parse --show-toplevel)/bin/buildx-test.sh polymathrobotics/buildpack-deps:focal-curl
 
       - name: Set the platforms for focal-curl
         id: focal-curl-platforms
@@ -93,7 +93,8 @@ jobs:
       - name: Run tests on the focal-scm image with cinc-auditor
         working-directory: buildpack-deps/ubuntu/focal/scm
         run: |
-          $(git rev-parse --show-toplevel)/bin/buildx-test.sh
+          $(git rev-parse --show-toplevel)/bin/buildx-test.sh polymathrobotics/b
+uildpack-deps:focal-scm
 
       - name: Set the platforms for focal-scm
         id: focal-scm-platforms
@@ -136,7 +137,8 @@ jobs:
       - name: Run tests on the focal image with cinc-auditor
         working-directory: buildpack-deps/ubuntu/focal
         run: |
-          $(git rev-parse --show-toplevel)/bin/buildx-test.sh
+          $(git rev-parse --show-toplevel)/bin/buildx-test.sh polymathrobotics/b
+uildpack-deps:focal
 
       - name: Set the platforms for focal
         id: platforms
