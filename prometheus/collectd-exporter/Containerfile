@@ -7,19 +7,29 @@ LABEL \
     org.opencontainers.image.licenses="Apache-2.0" \
     org.opencontainers.image.description="A server that accepts collectd stats via HTTP POST and exports them via HTTP for Prometheus consumption."
 
-ARG COLLECTD_EXPORTER_URL=https://github.com/prometheus/collectd_exporter/releases/download/v0.5.0/collectd_exporter-0.5.0.linux-amd64.tar.gz
-ARG COLLECTD_EXPORTER_SHA256=5b906b1ea49c119024350c10b4b8491857a20336a0ffd778a3f10d7536a6d123
-
-# Making use of ADD curl capability for now
-# hadolint ignore=DL3020
-ADD $COLLECTD_EXPORTER_URL /tmp/collectd_exporter.tar.gz
-
 SHELL ["/bin/bash", "-o", "pipefail", "-c"]
 RUN apt-get update \
   && apt-get install -y --no-install-recommends \
     ca-certificates \
     curl \
   && mkdir -p /tmp/collectd_exporter \
+  && dpkgArch="$(dpkg --print-architecture)" \
+  && case "${dpkgArch##*-}" in \
+    amd64) \
+      COLLECTD_EXPORTER_URL='https://github.com/prometheus/collectd_exporter/releases/download/v0.5.0/collectd_exporter-0.5.0.linux-amd64.tar.gz' \
+      COLLECTD_EXPORTER_SHA256='5b906b1ea49c119024350c10b4b8491857a20336a0ffd778a3f10d7536a6d123' \
+      ;; \
+    arm64) \
+      COLLECTD_EXPORTER_URL='https://github.com/prometheus/collectd_exporter/releases/download/v0.5.0/collectd_exporter-0.5.0.linux-arm64.tar.gz' \
+      COLLECTD_EXPORTER_SHA256='eef28573acb3410137640e80787784027858831bfd8502c5c43df4ca6dc34d45' \
+      ;; \
+    armhf) \
+      COLLECTD_EXPORTER_URL='https://github.com/prometheus/collectd_exporter/releases/download/v0.5.0/collectd_exporter-0.5.0.linux-armv7.tar.gz' \
+      COLLECTD_EXPORTER_SHA256='53cea60cd356f76ac3b67a9f0246ffe4a0c43ea5cca2f0d88f944e32a6494cfd' \
+      ;; \
+    *) echo "unsupported architecture"; exit 1 ;; \
+    esac \
+  && curl -fsSL -o /tmp/collectd_exporter.tar.gz ${COLLECTD_EXPORTER_URL} \
   && echo "${COLLECTD_EXPORTER_SHA256} /tmp/collectd_exporter.tar.gz" | sha256sum -c - \
   && tar xvf /tmp/collectd_exporter.tar.gz --strip-components 1 -C /tmp/collectd_exporter
 
