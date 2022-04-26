@@ -7,19 +7,29 @@ LABEL \
     org.opencontainers.image.licenses="Apache-2.0" \
     org.opencontainers.image.description="Prometheus Alermanager."
 
-ARG ALERTMANAGER_URL=https://github.com/prometheus/alertmanager/releases/download/v0.24.0/alertmanager-0.24.0.linux-amd64.tar.gz
-ARG ALERTMANAGER_SHA256=6fa982232ae7be5524f5b3cd4e90b7c6a75086368200c917644eaa3e806555dc
-
-# Making use of ADD curl capability for now
-# hadolint ignore=DL3020
-ADD $ALERTMANAGER_URL /tmp/alertmanager.tar.gz
-
 SHELL ["/bin/bash", "-o", "pipefail", "-c"]
 RUN apt-get update \
   && apt-get install -y --no-install-recommends \
     ca-certificates \
     curl \
   && mkdir -p /tmp/alertmanager \
+  && dpkgArch="$(dpkg --print-architecture)" \
+  && case "${dpkgArch##*-}" in \
+    amd64) \
+      ALERTMANAGER_URL='https://github.com/prometheus/alertmanager/releases/download/v0.24.0/alertmanager-0.24.0.linux-amd64.tar.gz' \
+      ALERTMANAGER_SHA256='6fa982232ae7be5524f5b3cd4e90b7c6a75086368200c917644eaa3e806555dc' \
+      ;; \
+    arm64) \
+      ALERTMANAGER_URL='https://github.com/prometheus/alertmanager/releases/download/v0.24.0/alertmanager-0.24.0.linux-arm64.tar.gz' \
+      ALERTMANAGER_SHA256='f54dd97f20b5d06517cbe83bae6333325fc26bc6595ede433f165aefb562d421' \
+      ;; \
+    armhf) \
+      ALERTMANAGER_URL='https://github.com/prometheus/alertmanager/releases/download/v0.24.0/alertmanager-0.24.0.linux-armv7.tar.gz' \
+      ALERTMANAGER_SHA256='0a8f12b92974392a4760b22afa05c1b85fd121c457124f555d1ab3c92ad94222' \
+      ;; \
+    *) echo "unsupported architecture"; exit 1 ;; \
+    esac \
+  && curl -fsSL -o /tmp/alertmanager.tar.gz ${ALERTMANAGER_URL} \
   && echo "${ALERTMANAGER_SHA256} /tmp/alertmanager.tar.gz" | sha256sum -c - \
   && tar xvf /tmp/alertmanager.tar.gz --strip-components 1 -C /tmp/alertmanager
 
