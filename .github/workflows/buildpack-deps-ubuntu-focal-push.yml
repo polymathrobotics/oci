@@ -37,7 +37,7 @@ jobs:
         uses: docker/setup-buildx-action@v1
 
       - name: Set the tags for focal-curl
-        id: tags
+        id: focal-curl-tags
         working-directory: buildpack-deps/ubuntu/focal/curl
         run: |
           echo "tags=$($(git rev-parse --show-toplevel)/bin/list-tags-github-env.sh)" >> $GITHUB_ENV
@@ -77,7 +77,7 @@ jobs:
           tags: ${{env.tags}}
 
       - name: Set the tags for focal-scm
-        id: tags
+        id: focal-scm-tags
         working-directory: buildpack-deps/ubuntu/focal/scm
         run: |
           echo "tags=$($(git rev-parse --show-toplevel)/bin/list-tags-github-env.sh)" >> $GITHUB_ENV
