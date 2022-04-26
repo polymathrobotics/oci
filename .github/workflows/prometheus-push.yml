@@ -55,7 +55,7 @@ jobs:
       - name: Set the platforms
         id: platforms
         run: |
-          echo "tags=$($(git rev-parse --show-toplevel)/bin/list-platforms-github-env.sh)" >> $GITHUB_ENV
+          echo "platforms=$($(git rev-parse --show-toplevel)/bin/list-platforms-github-env.sh)" >> $GITHUB_ENV
 
       - name: Login to DockerHub
         uses: docker/login-action@v1 
