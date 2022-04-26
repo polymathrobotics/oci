@@ -1,9 +1,28 @@
-FROM ubuntu:20.04 AS build
+ARG CONTAINER_REGISTRY=docker.io
+FROM $CONTAINER_REGISTRY/ubuntu:20.04 AS build
 
-ARG CINC_AUDITOR_VERSION=4.52.9
+LABEL \
+    org.opencontainers.image.source="https://github.com/polymathrobotics/oci" \
+    org.opencontainers.image.licenses="Apache-2.0" \
+    org.opencontainers.image.description="Cinc Auditing and Testing Framework."
+
 ENV DEBIAN_FRONTEND=noninteractive
 
-ADD http://downloads.cinc.sh/files/stable/cinc-auditor/${CINC_AUDITOR_VERSION}/ubuntu/20.04/cinc-auditor_${CINC_AUDITOR_VERSION}-1_arm64.deb /tmp/cinc-auditor.deb
+RUN apt-get update \
+  && apt-get install -y --no-install-recommends \
+    ca-certificates \
+    curl \
+  && dpkgArch="$(dpkg --print-architecture)" \
+  && case "${dpkgArch##*-}" in \
+    amd64) \
+      CINC_AUDITOR_URL='http://downloads.cinc.sh/files/stable/cinc-auditor/5.14.0/ubuntu/20.04/cinc-auditor_5.14.0-1_amd64.deb' \
+      ;; \
+    arm64) \
+      CINC_AUDITOR_URL='http://downloads.cinc.sh/files/stable/cinc-auditor/5.14.0/ubuntu/20.04/cinc-auditor_5.14.0-1_arm64.deb' \
+      ;; \
+    *) echo "unsupported architecture"; exit 1 ;; \
+    esac \
+  && curl -fsSL -o /tmp/cinc-auditor.deb ${CINC_AUDITOR_URL}
 
 FROM ubuntu:20.04
 
