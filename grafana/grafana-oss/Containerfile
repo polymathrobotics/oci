@@ -7,19 +7,29 @@ LABEL \
     org.opencontainers.image.licenses="Apache-2.0" \
     org.opencontainers.image.description="Grafana - the open observability platform in a container image."
 
-ARG GRAFANA_URL=https://dl.grafana.com/oss/release/grafana-8.4.5.linux-amd64.tar.gz
-ARG GRAFANA_SHA256=3e30d3126ce30e64f55901aa1771b0a2327a986db0841a0f2b42967d723c001e
-
-# Making use of ADD curl capability for now
-# hadolint ignore=DL3020
-ADD $GRAFANA_URL /tmp/grafana.tar.gz
-
 SHELL ["/bin/bash", "-o", "pipefail", "-c"]
 RUN apt-get update \
   && apt-get install -y --no-install-recommends \
     ca-certificates \
     curl \
   && mkdir -p /tmp/grafana \
+  && dpkgArch="$(dpkg --print-architecture)" \
+  && case "${dpkgArch##*-}" in \
+    amd64) \
+      GRAFANA_URL='https://dl.grafana.com/oss/release/grafana-8.5.0.linux-amd64.tar.gz' \
+      GRAFANA_SHA256='ad5e858e2255d69da45f83f9571cf741c6867ed8ccede5ad42e90079119b98aa'
+      ;; \
+    arm64) \
+      GRAFANA_URL='https://dl.grafana.com/oss/release/grafana-8.5.0.linux-arm64.tar.gz' \
+      GRAFANA_SHA256='6e906e0902b88314cd8f5a49c11140398981a7643b268dc04632fc30667581ae' \
+      ;; \
+    armhf) \
+      GRAFANA_URL='https://dl.grafana.com/oss/release/grafana-8.5.0.linux-armv7.tar.gz' \
+      GRAFANA_SHA256='a9ca8e1581683be904067b049cecf119e97f085c0948b3db897bea73eac9c6c1' \
+      ;; \
+    *) echo "unsupported architecture"; exit 1 ;; \
+    esac \
+  && curl -fsSL -o /tmp/grafana.tar.gz ${GRAFANA_URL} \
   && echo "${GRAFANA_SHA256} /tmp/grafana.tar.gz" | sha256sum -c - \
   && tar xvf /tmp/grafana.tar.gz -C /tmp/grafana --strip-components 1
 
