@@ -23,8 +23,8 @@ ENV PYTHON_VERSION 3.8.12
 
 RUN set -eux; \
 	\
-	wget -O python.tar.xz "https://www.python.org/ftp/python/${PYTHON_VERSION%%[a-z]*}/Python-$PYTHON_VERSION.tar.xz"; \
-	wget -O python.tar.xz.asc "https://www.python.org/ftp/python/${PYTHON_VERSION%%[a-z]*}/Python-$PYTHON_VERSION.tar.xz.asc"; \
+	curl -fsSL -o python.tar.xz "https://www.python.org/ftp/python/${PYTHON_VERSION%%[a-z]*}/Python-$PYTHON_VERSION.tar.xz"; \
+	curl -fsSL -o python.tar.xz.asc "https://www.python.org/ftp/python/${PYTHON_VERSION%%[a-z]*}/Python-$PYTHON_VERSION.tar.xz.asc"; \
 	GNUPGHOME="$(mktemp -d)"; export GNUPGHOME; \
 	gpg --batch --keyserver hkps://keys.openpgp.org --recv-keys "$GPG_KEY"; \
 	gpg --batch --verify python.tar.xz.asc python.tar.xz; \
@@ -84,7 +84,7 @@ ENV PYTHON_GET_PIP_SHA256 7c5239cea323cadae36083079a5ee6b2b3d56f25762a0c060d2867
 
 RUN set -eux; \
 	\
-	wget -O get-pip.py "$PYTHON_GET_PIP_URL"; \
+	curl -fsSL -o get-pip.py "$PYTHON_GET_PIP_URL"; \
 	echo "$PYTHON_GET_PIP_SHA256 *get-pip.py" | sha256sum -c -; \
 	\
 	python get-pip.py \
