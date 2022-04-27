@@ -11,12 +11,10 @@ Normally it is expected that you just use the GitHub Actions pipelines that have
 cd ros/ros-core-amd64
 # Check the Containerfile with hadolint
 $(git rev-parse --show-toplevel)/bin/lint.sh
-# Build the image with the default tag (image name is configured in the IMAGE_NAME file)
-$(git rev-parse --show-toplevel)/bin/build.sh
+# Build the image for testing locally (image name is configured in the `Polly.toml`)
+$(git rev-parse --show-toplevel)/bin/buildx-build-local.sh
 # Run tests on the image with cinc-auditor
-$(git rev-parse --show-toplevel)/bin/test.sh
-# Tag the image with additional tags defined in the TAGS file
-$(git rev-parse --show-toplevel)/bin/tag.sh
+$(git rev-parse --show-toplevel)/bin/buildx-test.sh
 # (Optional) push the image to the container repository on dockerhub - ideally this should be done via a GitHub Actions workflow and not locally
-$(git rev-parse --show-toplevel)/bin/push.sh
+$(git rev-parse --show-toplevel)/bin/buildx-build-push.sh
 ```
