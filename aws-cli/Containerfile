@@ -33,7 +33,8 @@ RUN yum update -y \
   # into /usr/local/bin of the final stage without
   # accidentally copying over any other executables that
   # may be present in /usr/local/bin of the installer stage.
-  && /tmp/aws-cli/awscliv2/aws/install --bin-dir /aws-cli-bin/
+  && /tmp/aws-cli/awscliv2/aws/install --bin-dir /aws-cli-bin/ \
+  && yum clean all
 
 FROM amazonlinux:2
 RUN yum update -y \
