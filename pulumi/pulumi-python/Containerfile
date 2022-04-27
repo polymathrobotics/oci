@@ -1,5 +1,4 @@
 # syntax=docker/dockerfile:1.3
-# https://github.com/moby/buildkit/blob/master/frontend/dockerfile/docs/syntax.md
 ARG BUILD_CONTAINER_REGISTRY=docker.io
 ARG CONTAINER_REGISTRY=docker.io/polymathrobotics
 FROM $BUILD_CONTAINER_REGISTRY/ubuntu:20.04 as build
@@ -22,7 +21,7 @@ RUN curl -fsSL https://get.pulumi.com/ | bash -s -- --version $PULUMI_VERSION
 
 # The runtime container
 # This is our base container, so let's copy all the runtimes to .pulumi/bin
-FROM $CONTAINER_REGISTRY/python-arm64:3.8-focal
+FROM $CONTAINER_REGISTRY/python-amd64:3.8-focal
 
 WORKDIR /pulumi/projects
 
