@@ -14,10 +14,12 @@ RUN apt-get update \
   && case "${dpkgArch##*-}" in \
     amd64) \
       CINC_WORKSTATION_URL='http://downloads.cinc.sh/files/stable/cinc-workstation/22.4.861/ubuntu/20.04/cinc-workstation_22.4.861-1_amd64.deb' \
+      CINC_WORKSTATION_SHA256='fb3d5b0ae75ebbb68f8c2efaf1a74794c801d9e9ed19802ff54e429729a2550a' \
       ;; \
     *) echo "unsupported architecture"; exit 1 ;; \
     esac \
-  && curl -fsSL -o /tmp/cinc-workstation.deb ${CINC_WORKSTATION_URL}
+  && curl -fsSL -o /tmp/cinc-workstation.deb ${CINC_WORKSTATION_URL} \
+  && echo "${CINC_WORKSTATION_SHA256} /tmp/cinc-workstation.deb" | sha256sum -c -
 
 FROM $CONTAINER_REGISTRY/ubuntu:20.04
 
