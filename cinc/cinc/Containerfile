@@ -6,6 +6,7 @@ LABEL \
   org.opencontainers.image.licenses="Apache-2.0" \
   org.opencontainers.image.description="Cinc Infra"
 
+SHELL ["/bin/bash", "-o", "pipefail", "-c"]
 RUN apt-get update \
   && apt-get install -y --no-install-recommends \
     ca-certificates \
@@ -23,11 +24,11 @@ RUN apt-get update \
     *) echo "unsupported architecture"; exit 1 ;; \
     esac \
   && curl -fsSL -o /tmp/cinc.deb ${CINC_URL} \
-  && echo "${CINC_SHA256} /tmp/cinc.deb" | sha256sum -c - \
+  && echo "${CINC_SHA256} /tmp/cinc.deb" | sha256sum -c -
 
 FROM $CONTAINER_REGISTRY/ubuntu:20.04
 
-COPY --from=build /tmp/cinc.deb  /tmp/cinc.deb
+COPY --from=build /tmp/cinc.deb /tmp/cinc.deb
 
 RUN --mount=type=cache,target=/var/lib/apt/list \
     --mount=type=cache,target=/var/cache/apt \
