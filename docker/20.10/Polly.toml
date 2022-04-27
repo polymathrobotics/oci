@@ -1,2 +1,3 @@
 [container_image]
+name = "docker"
 tags = [ "20.10.14", "20.10", "20", "latest", "20.10.14-alpine3.15" ]
