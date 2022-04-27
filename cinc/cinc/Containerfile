@@ -1,0 +1,39 @@
+ARG CONTAINER_REGISTRY=docker.io
+FROM $CONTAINER_REGISTRY/ubuntu:20.04 as build
+
+LABEL \
+  org.opencontainers.image.source="https://github.com/polymathrobotics/oci" \
+  org.opencontainers.image.licenses="Apache-2.0" \
+  org.opencontainers.image.description="Cinc Infra"
+
+RUN apt-get update \
+  && apt-get install -y --no-install-recommends \
+    ca-certificates \
+    curl \
+  && dpkgArch="$(dpkg --print-architecture)" \
+  && case "${dpkgArch##*-}" in \
+    amd64) \
+      CINC_URL='http://downloads.cinc.sh/files/stable/cinc/17.10.0/ubuntu/20.04/cinc_17.10.0-1_amd64.deb' \
+      CINC_SHA256='79f3b62e1768f1deb0c505fc44fa5c180b0298605fcf3f6baafa0bb962924d12' \
+      ;; \
+    arm64) \
+      CINC_URL='http://downloads.cinc.sh/files/stable/cinc/17.10.0/ubuntu/20.04/cinc_17.10.0-1_arm64.deb' \
+      CINC_SHA256='3df81ab25896e5fc1dde929864fe77bf96d053071f268e1b23cc3d44907e389e' \
+      ;; \
+    *) echo "unsupported architecture"; exit 1 ;; \
+    esac \
+  && curl -fsSL -o /tmp/cinc.deb ${CINC_URL} \
+  && echo "${CINC_SHA256} /tmp/cinc.deb" | sha256sum -c - \
+
+FROM $CONTAINER_REGISTRY/ubuntu:20.04
+
+COPY --from=build /tmp/cinc.deb  /tmp/cinc.deb
+
+RUN --mount=type=cache,target=/var/lib/apt/list \
+    --mount=type=cache,target=/var/cache/apt \
+  apt-get update \
+  && DEBIAN_FRONTEND=noninteractive apt-get install -y --no-install-recommends \
+    ca-certificates \
+  && dpkg -i /tmp/cinc.deb
+    
+VOLUME ["/opt/cinc"]
