@@ -30,7 +30,7 @@ RUN apt-get update \
     *) echo "unsupported architecture"; exit 1 ;; \
     esac \
   && curl -fsSL -o /tmp/op_linux.zip ${OP_CLI_URL} \
-  && unzip -d /tmp/build op_linux.zip \
+  && unzip -d /tmp/build /tmp/op_linux.zip \
   && cp /tmp/build/op /usr/local/bin/op \
   && gpg --verify /tmp/build/op.sig /usr/local/bin/op \
 # tiny smoke test to ensure the binary we downloaded runs
