@@ -9,10 +9,7 @@ BIN_DIR="${SCRIPT_PATH}"
 CONTAINERFILE_DIR=$(pwd)
 DEFAULT_PLATFORMS=linux/arm64,linux/amd64,linux/arm/v7
 
-DASEL_CONTAINER_IMAGE=polymathrobotics/dasel-amd64:1.24.1
-if [ "$(uname -s)" = Darwin ] && [ "$(uname -m)" = arm64 ]; then
-  DASEL_CONTAINER_IMAGE=polymathrobotics/dasel-arm64:1.24.1
-fi
+DASEL_CONTAINER_IMAGE=polymathrobotics/dasel:1.24.1
 # No need to pull image on every build because we're using a specific tag
 
 if [[ -f "${CONTAINERFILE_DIR}/Polly.toml" ]]; then

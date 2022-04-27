@@ -10,10 +10,7 @@ CONTAINERFILE_DIR=$(pwd)
 IMAGE_NAME="$(${BIN_DIR}/image-name.sh)"
 CONTAINER_REGISTRY="docker.io/polymathrobotics"
 DEFAULT_TAG="${CONTAINER_REGISTRY}/${IMAGE_NAME}"
-DASEL_CONTAINER_IMAGE=polymathrobotics/dasel-amd64:1.24.1
-if [ "$(uname -s)" = Darwin ] && [ "$(uname -m)" = arm64 ]; then
-  DASEL_CONTAINER_IMAGE=polymathrobotics/dasel-arm64:1.24.1
-fi
+DASEL_CONTAINER_IMAGE=polymathrobotics/dasel:1.24.1
 # No need to pull image on every build because we're using a specific tag
 
 if [[ -f "${CONTAINERFILE_DIR}/Polly.toml" ]]; then

@@ -3,10 +3,7 @@
 CONTAINERFILE_DIR=$(pwd)
 IMAGE_NAME=$(basename $(pwd))
 
-DASEL_CONTAINER_IMAGE=polymathrobotics/dasel-amd64
-if [ "$(uname -s)" = Darwin ] && [ "$(uname -m)" = arm64 ]; then
-  DASEL_CONTAINER_IMAGE=polymathrobotics/dasel-arm64
-fi
+DASEL_CONTAINER_IMAGE=polymathrobotics/dasel:1.24.1
 
 if [[ -f "${CONTAINERFILE_DIR}/Polly.toml" ]]; then
   docker image pull ${DASEL_CONTAINER_IMAGE} > /dev/null 2>&1

@@ -18,10 +18,7 @@ if [ "$#" -gt 1 ]; then
   ENTRYPOINT_COMMAND="$2"
 fi
 
-CINC_AUDITOR_CONTAINER_IMAGE=polymathrobotics/cinc-auditor-amd64:4.52.9
-if [ "$(uname -s)" = Darwin ] && [ "$(uname -m)" = arm64 ]; then
-  CINC_AUDITOR_CONTAINER_IMAGE=polymathrobotics/cinc-auditor-arm64:4.52.9
-fi
+CINC_AUDITOR_CONTAINER_IMAGE=polymathrobotics/cinc-auditor:5.14.0
 # No need to pull on every build because we're referring to a speicifc tag
 PROFILE_DIR="${BASE_DIR}/../test"
 
