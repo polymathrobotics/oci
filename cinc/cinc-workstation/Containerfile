@@ -6,11 +6,18 @@ LABEL \
   org.opencontainers.image.licenses="Apache-2.0" \
   org.opencontainers.image.description="Cinc Workstation"
 
-ARG CINC_WORKSTATION_URL=http://downloads.cinc.sh/files/stable/cinc-workstation/22.4.861/ubuntu/20.04/cinc-workstation_22.4.861-1_amd64.deb
-
-# Making use of ADD curl download capability for now
-# hadolint ignore=DL3020
-ADD $CINC_WORKSTATION_URL /tmp/cinc-workstation.deb
+RUN apt-get update \
+  && apt-get install -y --no-install-recommends \
+    ca-certificates \
+    curl \
+  && dpkgArch="$(dpkg --print-architecture)" \
+  && case "${dpkgArch##*-}" in \
+    amd64) \
+      CINC_WORKSTATION_URL='http://downloads.cinc.sh/files/stable/cinc-workstation/22.4.861/ubuntu/20.04/cinc-workstation_22.4.861-1_amd64.deb' \
+      ;; \
+    *) echo "unsupported architecture"; exit 1 ;; \
+    esac \
+  && curl -fsSL -o /tmp/cinc-workstation.deb ${CINC_WORKSTATION_URL}
 
 FROM $CONTAINER_REGISTRY/ubuntu:20.04
 
