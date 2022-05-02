@@ -45,7 +45,7 @@ jobs:
         with:
           load: true
           context: pycqa/flake8
-          file: pyca/flake8/Containerfile
+          file: pycqa/flake8/Containerfile
           tags: ${{ env.tags }}
 
       - name: Run tests on the image with cinc-auditor
