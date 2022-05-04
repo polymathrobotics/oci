@@ -1,11 +1,11 @@
-name: cinc Merge
+name: cinc-ubuntu-20.04 Merge
 # Controls when the action will run
 on:
   # Triggers the workflow on push or pull request events but only for the main branch
   push:
     branches: [ main ]
     paths:
-    - 'cinc/cinc/**'
+    - 'cinc/cinc/ubuntu-20.04/**'
 # Allows you to run this workflow manually from the Actions tab
   workflow_dispatch:
 # A workflow run is made up of one or more jobs that can run sequentially or in parallel
@@ -17,7 +17,7 @@ jobs:
     # Set job-wide defaults
     defaults:
       run:
-        working-directory: cinc/cinc
+        working-directory: cinc/cinc/ubuntu-20.04
 # Steps represent a sequence of tasks that will be executed as part of the job
     steps:
       # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
@@ -42,8 +42,8 @@ jobs:
         uses: docker/build-push-action@v2
         with:
           load: true
-          context: cinc/cinc
-          file: cinc/cinc/Containerfile
+          context: cinc/cinc/ubuntu-20.04
+          file: cinc/cinc/ubuntu-20.04/Containerfile
           tags: ${{ env.tags }}
 
       - name: Run tests on the image with cinc-auditor
@@ -63,7 +63,7 @@ jobs:
         uses: docker/build-push-action@v2
         with:
           push: true
-          context: cinc/cinc
-          file: cinc/cinc/Containerfile
+          context: cinc/cinc/ubuntu-20.04
+          file: cinc/cinc/ubuntu-20.04/Containerfile
           platforms: ${{env.platforms}}
           tags: ${{env.tags}}

@@ -1,0 +1,17 @@
+ARG CONTAINER_REGISTRY=docker.io
+FROM $CONTAINER_REGISTRY/opensuse/leap:15.4
+
+LABEL \
+  org.opencontainers.image.source="https://github.com/polymathrobotics/oci" \
+  org.opencontainers.image.licenses="Apache-2.0" \
+  org.opencontainers.image.description="Cinc Infra"
+
+ARG CINC_CLIENT_VERSION=17.10.0
+
+SHELL ["/bin/bash", "-o", "pipefail", "-c"]
+RUN zypper update -y \
+  && zypper install -y curl \
+  && curl -L https://omnitruck.cinc.sh/install.sh | bash -s -- -v ${CINC_CLIENT_VERSION} \
+  && zypper clean
+
+VOLUME ["/opt/cinc"]

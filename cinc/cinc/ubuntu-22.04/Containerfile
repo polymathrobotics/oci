@@ -1,0 +1,18 @@
+ARG CONTAINER_REGISTRY=docker.io
+FROM $CONTAINER_REGISTRY/ubuntu:22.04
+
+LABEL \
+  org.opencontainers.image.source="https://github.com/polymathrobotics/oci" \
+  org.opencontainers.image.licenses="Apache-2.0" \
+  org.opencontainers.image.description="Cinc Infra"
+
+ARG CINC_CLIENT_VERSION=17.10.0
+
+SHELL ["/bin/bash", "-o", "pipefail", "-c"]
+RUN apt-get update \
+  && apt-get install -y --no-install-recommends curl \
+    ca-certificates \
+  && curl -L https://omnitruck.cinc.sh/install.sh | bash -s -- -v ${CINC_CLIENT_VERSION} \
+  && rm -rf /tmp/* /var/tmp/*
+
+VOLUME ["/opt/cinc"]

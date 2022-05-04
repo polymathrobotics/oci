@@ -1,0 +1,4 @@
+[container_image]
+name = "cinc-debian-11"
+tags = ["17.10.0", "latest"]
+platforms = ["linux/arm64", "linux/amd64"]
