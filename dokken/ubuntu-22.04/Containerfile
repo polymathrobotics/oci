@@ -34,7 +34,7 @@ RUN apt-get update \
     strace \
     sudo \
     systemd \
-    systemd-timesync \
+    systemd-timesyncd \
     tcpdump \
     telnet \
     tzdata \
