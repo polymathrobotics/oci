@@ -1,5 +1,5 @@
-ARG CONTAINER_REGISTRY=docker.io/polymathrobotics
-FROM $CONTAINER_REGISTRY/buildpack-deps:focal
+ARG CONTAINER_REGISTRY=docker.io
+FROM $CONTAINER_REGISTRY/polymathrobotics/buildpack-deps:focal
 
 # ensure local python is preferred over distribution python
 ENV PATH /usr/local/bin:$PATH
