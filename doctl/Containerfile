@@ -1,0 +1,44 @@
+ARG CONTAINER_REGISTRY=docker.io
+FROM $CONTAINER_REGISTRY/ubuntu:20.04 as build
+
+LABEL \
+    org.opencontainers.image.source="https://github.com/polymathrobotics/oci" \
+    org.opencontainers.image.licenses="Apache-2.0" \
+    org.opencontainers.image.description="Digital Ocean command-line interface."
+
+RUN apt-get update \
+  && DEBIAN_FRONTEND=noninteractive apt-get install -y --no-install-recommends \
+    ca-certificates \
+    curl \
+  && dpkgArch="$(dpkg --print-architecture)" \
+  && case "${dpkgArch##*-}" in \
+    amd64) \
+      DOCTL_URL='https://github.com/digitalocean/doctl/releases/download/v1.74.0/doctl-1.74.0-linux-amd64.tar.gz' \
+      DOCTL_SHA256='6f1be0fc00532c9bef29a1e616250f672790786b1471482379a5653c01088c57' \
+      ;; \
+    arm64) \
+      DOCTL_URL='https://github.com/digitalocean/doctl/releases/download/v1.74.0/doctl-1.74.0-linux-arm64.tar.gz' \
+      DOCTL_SHA256='e21f9c5ce20cc02bffe8f219bb3f2a133eae81297be20607edb31474b5f62f0a' \
+      ;; \
+    *) echo "unsupported architecture"; exit 1 ;; \
+    esac \
+  && curl -fsSL -o /tmp/doctl.tar.gz ${DOCTL_URL} \
+  && echo "${DOCTL_SHA256} /tmp/doctl.tar.gz" | sha256sum -c - \
+  && mkdir -p /tmp/doctl \
+  && tar xvf /tmp/doctl.tar.gz -C /tmp/doctl
+
+FROM $CONTAINER_REGISTRY/ubuntu:20.04
+
+RUN apt-get update -y \
+  && apt-get install -y --no-install-recommends \
+    ca-certificates \
+    curl \
+    jq \
+    openssh-client \
+  && apt-get autoremove -y \
+  && rm -rf /var/lib/apt/lists/*
+
+WORKDIR /app
+COPY --from=build /tmp/doctl/doctl /usr/local/bin/doctl
+
+ENTRYPOINT ["/usr/local/bin/doctl"]
