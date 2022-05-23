@@ -1,0 +1,3 @@
+[container_image]
+name = "node"
+tags = ["18.2.0-focal", "18.2-focal", "18-focal"]
