@@ -1,0 +1,28 @@
+ARG CONTAINER_REGISTRY=docker.io
+FROM $CONTAINER_REGISTRY/polymathrobotics/node:18-focal
+
+LABEL \
+    org.opencontainers.image.source="https://github.com/polymathrobotics/oci" \
+    org.opencontainers.image.licenses="Apache-2.0" \
+    org.opencontainers.image.description="Paperspace command-line interface."
+
+ARG NODE_ENV=production
+ENV NODE_ENV $NODE_ENV
+
+RUN apt-get update -y \
+  && apt-get install -y --no-install-recommends \
+    ca-certificates \
+    curl \
+    jq \
+    openssh-client \
+    tini \
+  && apt-get autoremove -y \
+  && rm -rf /var/lib/apt/lists/*
+
+RUN npm install -g paperspace-node@0.2.2 && npm cache clean --force
+
+USER node
+WORKDIR /app
+
+ENTRYPOINT ["/usr/bin/tini", "--"]
+CMD ["paperspace"]
