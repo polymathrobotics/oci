@@ -1,83 +1,102 @@
-Based on https://github.com/digitalocean/doctl#use-with-docker
-https://hub.docker.com/r/digitalocean/doctl
+Refer to https://github.com/Paperspace/paperspace-node for more
+details.
 
-It's probably a good idea to set up two environment variables:
-- DIGITALOCEAN_ACCESS_TOKEN
-- DIGITALOCEAN_SSH_KEY_IDS
-- DIGITALOCEAN_REGION
+The Paperspace-Node module looks for the api key:
+- PAPERSPACE_API_KEY
 
-You can generate a new token via https://cloud.digitalocean.com/account/api/tokens
+There are `login` and `logout` commands, but they currently don't do
+anything. You must pass in the api key via the `--apiKey` parameter
+or with this environment variable.
 
-SSH_KEY_IDS is the Digital Ocean API numeric identifier for each ssh key, not 
-the friendly string name. You can get the numeric identifier with the following
-API call. It's the `id` field:
-```
-curl -X GET https://api.digitalocean.com/v2/account/keys -H "Authorization: Bearer $DIGITALOCEAN_ACCESS_TOKEN"
-```
+You can generate an API Keys by going to "My Account > Team settings"
+then click on the "API Keys" tab.
 
 Many commands require user input, so it is recommend to pass the 
 `--interactive` and `--tty` flags as well:
 
-```
-docker run --rm --interactive --tty \
-  --env=DIGITALOCEAN \
-  polymathrobotics/doctl account get
-```
-
 Listing public images
 ```
 docker run --rm --interactive --tty \
-  --env=DIGITALOCEAN_ACCESS_TOKEN \
-  polymathrobotics/doctl compute image list-distribution --public
+  --env=PAPERSPACE_API_KEY \
+  polymathrobotics/paperspace-cli paperspace templates list
 ```
 
-Listing regions
+Creating a machine
+
+Valid entries for `region`:
+- `West Coast (CA1)`
+- `East Coast (NY2)`
+- `Europe (AMS1)`
+
+Valid entries for `machineType`:
+- `C1`, `C2`, `C3`, `C4`, `C5`, `C6`, `C7`, `C8`, `C9`, `C10`
+- `Air`
+- `Standard`
+- `Pro`
+- `Advanced`
+- `GPU+`
+- `P4000`, `P5000`, `P6000`, `V100`
+
+Valid entries for `billingType`:
+- `monthly`
+- `hourly`
+
 ```
 docker run --rm --interactive --tty \
-  --env=DIGITALOCEAN_ACCESS_TOKEN \
-  polymathrobotics/doctl compute region list
+  --env=PAPERSPACE_API_KEY \
+  polymathrobotics/paperspace-cli paperspace machines create \
+    --machineName "Testy" \
+    --region "East Coast (NY2)" \
+    --machineType "C1" \
+    --size 50 \
+    --billingType "hourly" \
+    --templateId "tkni3aa4" \
+    --teamId "t21p7hla3g" \
+    --assignPublicIp true \
+    --startOnCreate true
+
+PAPERSPACE_MACHINE_ID=$(docker run --rm --tty \
+  --env=PAPERSPACE_API_KEY \
+  --env=PAPERSPACE_MACHINE_ID \
+  polymathrobotics/paperspace-cli paperspace machines list | jq -r '.[] | select(.name|test("Testy")) | .id')
+
+docker run --rm --interactive --tty \
+  --env=PAPERSPACE_API_KEY \
+  --env=PAPERSPACE_MACHINE_ID \
+  polymathrobotics/paperspace-cli paperspace machines waitfor \
+    --machineId "$PAPERSPACE_MACHINE_ID" \
+    --state "ready"
+
+PAPERSPACE_PUBLIC_IP=$(docker run --rm --tty \
+  --env=PAPERSPACE_API_KEY \
+  --env=PAPERSPACE_MACHINE_ID \
+  polymathrobotics/paperspace-cli paperspace machines list | jq -r '.[] | select(.name|test("Testy")) | .publicIpAddress')
+
+ssh -A "paperspace@${PAPERSPACE_PUBLIC_IP}"
 ```
 
-Listing image sizes/pricing
+Listing machines:
 ```
 docker run --rm --interactive --tty \
-  --env=DIGITALOCEAN_ACCESS_TOKEN \
-  polymathrobotics/doctl compute size list
+  --env=PAPERSPACE_API_KEY \
+  --env=PAPERSPACE_MACHINE_ID \
+  polymathrobotics/paperspace-cli paperspace machines list
 ```
 
-Creating a Droplet
+Stopping a machine:
 ```
 docker run --rm --interactive --tty \
-  --env=DIGITALOCEAN_ACCESS_TOKEN \
-  --env=DIGITALOCEAN_SSH_KEY_IDS \
-  --env=DIGITALOCEAN_REGION \
-  polymathrobotics/doctl compute droplet create ubuntu20-04 \
-    --ssh-keys $DIGITALOCEAN_SSH_KEY_IDS \
-    --size s-1vcpu-1gb \
-    --image ubuntu-20-04-x64 \
-    --region $DIGITALOCEAN_REGION \
-    --enable-ipv6 \
-    --enable-monitoring
+  --env=PAPERSPACE_API_KEY \
+  --env=PAPERSPACE_MACHINE_ID \
+  polymathrobotics/paperspace-cli paperspace machines stop \
+    --machineId "$PAPERSPACE_MACHINE_ID"
 ```
 
-SSH into a running instance
+Destroying a machine:
 ```
 docker run --rm --interactive --tty \
-  --env=DIGITALOCEAN_ACCESS_TOKEN \
-  -v $HOME/.ssh/id_ed25519:/root/.ssh/id_ed25519 \
-  polymathrobotics/doctl compute ssh <DROPLET_ID>
-```
-
-Listing current droplets
-```
-docker run --rm --interactive --tty \
-  --env=DIGITALOCEAN_ACCESS_TOKEN \
-  polymathrobotics/doctl compute droplet list
-```
-
-Deleting a Droplet
-```
-docker run --rm --interactive --tty \
-  --env=DIGITALOCEAN_ACCESS_TOKEN \
-  polymathrobotics/doctl compute droplet delete --force <DROPLET_ID>
+  --env=PAPERSPACE_API_KEY \
+  --env=PAPERSPACE_MACHINE_ID \
+  polymathrobotics/paperspace-cli paperspace machines destroy \
+    --machineId "$PAPERSPACE_MACHINE_ID"
 ```
