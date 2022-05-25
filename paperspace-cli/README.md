@@ -57,7 +57,6 @@ docker run --rm --interactive --tty \
 
 PAPERSPACE_MACHINE_ID=$(docker run --rm --tty \
   --env=PAPERSPACE_API_KEY \
-  --env=PAPERSPACE_MACHINE_ID \
   polymathrobotics/paperspace-cli paperspace machines list | jq -r '.[] | select(.name|test("Testy")) | .id')
 
 docker run --rm --interactive --tty \
