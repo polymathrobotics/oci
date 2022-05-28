@@ -1,0 +1,4 @@
+[container_image]
+name = "certbot"
+tags = ["1.27.0"]
+platforms=["linux/arm64","linux/amd64"]
