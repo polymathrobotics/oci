@@ -1,0 +1,14 @@
+ARG CONTAINER_REGISTRY=docker.io
+FROM $CONTAINER_REGISTRY/polymathrobotics/python:3.8-focal as build
+
+ARG CERTBOT_VERSION=1.27.0
+
+RUN python3 -m venv /opt/certbot/ \
+  && /opt/certbot/bin/pip install certbot==$CERTBOT_VERSION \
+  && /opt/certbot/bin/pip install certbot-dns-cloudflare==$CERTBOT_VERSION \
+  && ln -s /opt/certbot/bin/certbot /usr/local/bin/certbot
+
+VOLUME /etc/letsencrypt /var/lib/letsencrypt
+
+ENTRYPOINT [ "certbot" ]
+
