@@ -23,6 +23,23 @@ For more information, refer to the plugin docs at https://certbot-dns-cloudflare
 
 ## Examples
 
+Acquire a test certificate from a staging server for example.com:
+```
+docker run --rm --interactive --tty \
+  --mount type=bind,source=$(pwd)/etc/letsencrypt,target=/etc/letsencrypt \
+  --mount type=bind,source=$(pwd)/var/lib/letsencrypt,target=/var/lib/letsencrypt \
+  --mount type=bind,source=$HOME/.secrets/certbot/cloudflare.ini,target=/root/.secrets/certbot/cloudflare.ini,readonly \
+  polymathrobotics/certbot-dns-cloudflare certonly \
+    --test-cert \
+    --dns-cloudflare \
+    --dns-cloudflare-credentials /root/.secrets/certbot/cloudflare.ini \
+    --email=infrastructure@polymathrobotics.com \
+    --agree-tos \
+    --no-eff-email \
+    -d example.com
+```
+
+
 To acquire a certificate for example.com:
 ```
 docker run --rm --interactive --tty \
@@ -35,5 +52,5 @@ docker run --rm --interactive --tty \
     --email=infrastructure@polymathrobotics.com \
     --agree-tos \
     --no-eff-email \
-    -d api.farmonacci.com
+    -d example.com
 ```
