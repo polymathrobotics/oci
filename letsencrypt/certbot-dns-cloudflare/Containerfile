@@ -3,14 +3,11 @@ FROM $CONTAINER_REGISTRY/polymathrobotics/python:3.8-focal as build
 
 ARG CERTBOT_VERSION=1.27.0
 
-# Install rustc compiler to /root/.cargo/bin to avoid con't find rust compiler
-# issues on armv7
-ENV PATH=$PATH:~/.cargo/bin
-
 SHELL ["/bin/bash", "-o", "pipefail", "-c"]
 RUN curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | bash -s -- -y
 
 RUN python3 -m venv /opt/certbot/ \
+  && export PATH=$PATH:~/.cargo/bin \
   && /opt/certbot/bin/pip install certbot==$CERTBOT_VERSION \
   && /opt/certbot/bin/pip install certbot-dns-cloudflare==$CERTBOT_VERSION
 
