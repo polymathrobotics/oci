@@ -26,8 +26,6 @@ For more information, refer to the plugin docs at https://certbot-dns-cloudflare
 Acquire a test certificate from a staging server for example.com:
 ```
 docker run --rm --interactive --tty \
-  --mount type=bind,source=$(pwd)/etc/letsencrypt,target=/etc/letsencrypt \
-  --mount type=bind,source=$(pwd)/var/lib/letsencrypt,target=/var/lib/letsencrypt \
   --mount type=bind,source=$HOME/.secrets/certbot/cloudflare.ini,target=/root/.secrets/certbot/cloudflare.ini,readonly \
   polymathrobotics/certbot-dns-cloudflare certonly \
     --test-cert \
