@@ -11,7 +11,7 @@ or with this environment variable.
 You can generate an API Keys by going to "My Account > Team settings"
 then click on the "API Keys" tab.
 
-Many commands require user input, so it is recommend to pass the 
+Many commands require user input, so it is recommended to pass the 
 `--interactive` and `--tty` flags as well:
 
 Listing public images
