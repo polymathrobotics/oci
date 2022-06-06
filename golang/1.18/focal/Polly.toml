@@ -1,0 +1,3 @@
+[container_image]
+name = "golang"
+tags = ["1.18.3-focal", "1.18-focal", "1-focal", "focal"]
