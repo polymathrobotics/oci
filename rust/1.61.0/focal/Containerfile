@@ -1,5 +1,5 @@
 ARG CONTAINER_REGISTRY=docker.io
-FROM $CONTAINER_REGISTRY/buildpack-deps:focal
+FROM $CONTAINER_REGISTRY/polymathrobotics/buildpack-deps:focal
 
 ENV RUSTUP_HOME=/usr/local/rustup \
     CARGO_HOME=/usr/local/cargo \
