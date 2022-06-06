@@ -50,7 +50,7 @@ jobs:
 
       - name: Run tests on the image with cinc-auditor
         run: |
-          $(git rev-parse --show-toplevel)/bin/buildx-test.sh polymathrobotics/rust:1.18-focal
+          $(git rev-parse --show-toplevel)/bin/buildx-test.sh polymathrobotics/golang:1.18-focal
 
       - name: Set the platforms
         id: platforms
