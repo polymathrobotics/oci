@@ -1,3 +1,4 @@
 [container_image]
 name = "rust"
 tags = ["1-focal", "1.61-focal", "1.61.0-focal", "focal"]
+platforms=["linux/arm64","linux/amd64"]
