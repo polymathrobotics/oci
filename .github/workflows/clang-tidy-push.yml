@@ -44,7 +44,7 @@ jobs:
         uses: docker/build-push-action@v2
         with:
           load: true
-          context: clang/clang-tiday/14
+          context: clang/clang-tidy/14
           file: clang/clang-tidy/14/Containerfile
           tags: ${{ env.tags }}
 
