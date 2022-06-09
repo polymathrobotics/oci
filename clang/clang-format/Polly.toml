@@ -1,0 +1,3 @@
+[container_image]
+name = "clang-format"
+tags = ["14.0.4", "latest"]
