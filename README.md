@@ -1,8 +1,7 @@
-# oci
-This repo is used to build the commonly used docker container images at Polymath Robotics. Currently these images are published to https://hub.docker.com/u/polymathrobotics. This repo is intended for public images that we share with others, so please don't put
-anything specific to internal use in this repo.
+# Polymath Robotics Open Container Initiative (OCI) Images
+Public container images published by Polymath Robotics.
 
-The images with the `-amd64` suffix are for intel linux and mac machines, and the `-arm64` images for for Apple Mx silicon.
+The images are pubished to https://hub.docker.com/u/polymathrobotics
 
 Normally it is expected that you just use the GitHub Actions pipelines that have been configured in `.github/workflows`. However, the scripts to build the container images in the `/bin` subdirectory can be used to build any image locally on your machine. For example, to build `ros-core-amd64`:
 
