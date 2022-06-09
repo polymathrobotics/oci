@@ -1,4 +1,4 @@
-# clang-format ![clang-format](https://github.com/polymathrobotics/oci/actions/workflows/clang-format-push.yml/badge.svg) 
+# clang-format [![clang-format](https://github.com/polymathrobotics/oci/actions/workflows/clang-format-push.yml/badge.svg)](https://github.com/polymathrobotics/oci/actions/workflows/clang-format-push.yml)
 
 Based on:
 https://clang.llvm.org/docs/ClangFormat.html
