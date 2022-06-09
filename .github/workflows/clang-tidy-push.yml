@@ -1,11 +1,11 @@
-name: clang-format Merge
+name: clang-tidy Merge
 # Controls when the action will run
 on:
   # Triggers the workflow on push or pull request events but only for the main branch
   push:
     branches: [ main ]
     paths:
-    - 'clang/clang-format/14/**'
+    - 'clang/clang-tidy/14/**'
 # Allows you to run this workflow manually from the Actions tab
   workflow_dispatch:
 # A workflow run is made up of one or more jobs that can run sequentially or in parallel
@@ -17,7 +17,7 @@ jobs:
     # Set job-wide defaults
     defaults:
       run:
-        working-directory: clang/clang-format/14
+        working-directory: clang/clang-tidy/14
 # Steps represent a sequence of tasks that will be executed as part of the job
     steps:
       # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
@@ -44,8 +44,8 @@ jobs:
         uses: docker/build-push-action@v2
         with:
           load: true
-          context: clang/clang-format/14
-          file: clang/clang-format/14/Containerfile
+          context: clang/clang-tiday/14
+          file: clang/clang-tidy/14/Containerfile
           tags: ${{ env.tags }}
 
       - name: Run tests on the image with cinc-auditor
@@ -67,8 +67,8 @@ jobs:
         uses: docker/build-push-action@v2
         with:
           push: true
-          context: clang/clang-format/14
-          file: clang/clang-format/14/Containerfile
+          context: clang/clang-tidy/14
+          file: clang/clang-tidy/14/Containerfile
           platforms: ${{env.platforms}}
           tags: ${{env.tags}}
 
