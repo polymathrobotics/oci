@@ -1,10 +1,23 @@
-# clang-format
+# clang-format ![clang-format](https://github.com/polymathrobotics/oci/actions/workflows/clang-format-push.yml/badg.svg) 
 
 Based on:
 https://clang.llvm.org/docs/ClangFormat.html
 
 clang-format is a standalone tool that can be use to format
-C/C++/Java/JavScript?JSON/Objective-C/Protobuf/C# code.
+C/C++/Java/JavaScript/JSON/Objective-C/Protobuf/C# code.
+
+DockerHub: https://hub.docker.com/r/polymathrobotics/clang-format
+
+## Using the image
+
+```
+docker pull polymathrobotics/clang-format:14.0.4
+docker run -it --rm \
+  -v "$(pwd)":/src \
+  polymathrobotics/clang-format:14.0.4
+```
+
+Command-line help:
 
 ```
 % docker run -it --rm polymathrobotics/clang-format --help
@@ -109,13 +122,13 @@ Get the latest Visual Studio Code extension from the [Visual Studio Marketplace]
 
 ## Vim Integration
 
-There is an integration for **vim** which lets you run the **clang-format** standalone tool on your current buffer, optionally selecting regions to reformat. The integration has the form of a *python*-file which can be found under *clang/tools/clang-format/clang-format.py*.
+There is an integration for **vim** which lets you run the **clang-format** standalone tool on your current buffer, optionally selecting regions to reformat. The integration has the form of a *python*-file which can be found under *editorintegration/vim/clang-format.py*.
 
 This can be integrated by adding the following to your *.vimrc*:
 
 ```
-map <C-K> :pyf <path-to-this-file>/clang-format.py<cr>
-imap <C-K> <c-o>:pyf <path-to-this-file>/clang-format.py<cr>
+map <C-K> :py3f <path-to-this-file>/clang-format.py<cr>
+imap <C-K> <c-o>:py3f <path-to-this-file>/clang-format.py<cr>
 ```
 
 The first line enables **clang-format** for NORMAL and VISUAL mode, the second line adds support for INSERT mode. Change “C-K” to another binding if you need **clang-format** on a different key (C-K stands for Ctrl+k).
@@ -129,7 +142,7 @@ An alternative option is to format changes when saving a file and thus to have a
 ```
 function! Formatonsave()
   let l:formatdiff = 1
-  pyf ~/llvm/tools/clang/tools/clang-format/clang-format.py
+  py3f ~/llvm/tools/clang/tools/clang-format/clang-format.py
 endfunction
 autocmd BufWritePre *.h,*.cc,*.cpp call Formatonsave()
 ```
