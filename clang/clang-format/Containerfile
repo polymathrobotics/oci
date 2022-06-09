@@ -36,6 +36,8 @@ EOF
 
 FROM $CONTAINER_REGISTRY/ubuntu:focal-20220531
 
+LABEL org.opencontainers.image.source=https://github.com/taylorific/dockerfile
+
 WORKDIR /src
 
 COPY --from=build /build/llvm-project/llvm/build/bin/clang-format /usr/local/bin
