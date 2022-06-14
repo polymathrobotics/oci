@@ -42,17 +42,17 @@ jobs:
           echo "Flags:     ${{ steps.buildx.outputs.flags }}"
           echo "Platforms: ${{ steps.buildx.outputs.platforms }}"
 
-      # - name: "Append arm64 buildx builder"
-      #   uses: baschny/append-buildx-action@v1
-      #   with:
-      #     builder: ${{ steps.buildx.outputs.name }}
-      #     node_name: "mahowald"
-      #     endpoint: "ssh://taylor@mahowald"
-
       - name: "Append arm64 buildx builder"
-        run: |
-          echo "Name:      ${{ steps.buildx.outputs.name }}"
-          docker buildx create --append --name ${{ steps.buildx.outputs.name }} --platform linux/arm64 --driver docker-container ssh://taylor@mahowald
+        uses: baschny/append-buildx-action@v1
+        with:
+          builder: ${{ steps.buildx.outputs.name }}
+          node_name: "mahowald"
+          endpoint: "ssh://taylor@mahowald"
+
+      # - name: "Append arm64 buildx builder"
+      #   run: |
+      #     echo "Name:      ${{ steps.buildx.outputs.name }}"
+      #    docker buildx create --append --name ${{ steps.buildx.outputs.name }} --node mahowald --platform linux/arm64 --driver docker-container ssh://taylor@mahowald
 
       - name: Set the tags
         id: tags
