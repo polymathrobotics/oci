@@ -72,18 +72,18 @@ jobs:
         run: |
           echo "platforms=$($(git rev-parse --show-toplevel)/bin/list-platforms-github-env.sh)" >> $GITHUB_ENV
 
-      # - name: Login to DockerHub
-      #   uses: docker/login-action@v1 
-      #   with:
-      #     username: ${{ secrets.CONTAINER_REGISTRY_USERNAME }}
-      #     password: ${{ secrets.CONTAINER_REGISTRY_PASSWORD }}
+      - name: Login to DockerHub
+        uses: docker/login-action@v1 
+        with:
+          username: ${{ secrets.CONTAINER_REGISTRY_USERNAME }}
+          password: ${{ secrets.CONTAINER_REGISTRY_PASSWORD }}
 
-      # - name: Build and push
-      #   uses: docker/build-push-action@v2
-      #   with:
-      #     push: true
-      #     context: clang/clang-tidy/14
-      #     file: clang/clang-tidy/14/Containerfile
-      #     platforms: ${{env.platforms}}
-      #    tags: ${{env.tags}}
+      - name: Build and push
+        uses: docker/build-push-action@v2
+        with:
+          push: true
+          context: clang/clang-tidy/14
+          file: clang/clang-tidy/14/Containerfile
+          platforms: ${{env.platforms}}
+          tags: ${{env.tags}}
 
