@@ -45,7 +45,7 @@ jobs:
       - name: "Append amd64 buildx builder"
         uses: baschny/append-buildx-action@v1
         with:
-          builder: ${{ steps.builder.outputs.name }}
+          builder: ${{ steps.buildx.outputs.name }}
           platform: "linux/amd64"
           node_name: "orlok"
           endpoint: "ssh://taylor@orlok"
