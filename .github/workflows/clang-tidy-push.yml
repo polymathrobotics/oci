@@ -64,8 +64,8 @@ jobs:
           tags: ${{ env.tags }}
 
       - name: Run tests on the image with cinc-auditor
-          run: |
-            $(git rev-parse --show-toplevel)/bin/buildx-test.sh
+        run: |
+          $(git rev-parse --show-toplevel)/bin/buildx-test.sh
 
       - name: Set the platforms
         id: platforms
