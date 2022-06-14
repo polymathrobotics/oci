@@ -42,13 +42,12 @@ jobs:
           echo "Flags:     ${{ steps.buildx.outputs.flags }}"
           echo "Platforms: ${{ steps.buildx.outputs.platforms }}"
 
-      - name: "Append amd64 buildx builder"
+      - name: "Append arm64 buildx builder"
         uses: baschny/append-buildx-action@v1
         with:
           builder: ${{ steps.buildx.outputs.name }}
-          platform: "linux/amd64"
-          node_name: "orlok"
-          endpoint: "ssh://taylor@orlok"
+          node_name: "mahowald"
+          endpoint: "ssh://taylor@mahowald"
 
       - name: Set the tags
         id: tags
