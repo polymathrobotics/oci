@@ -28,6 +28,7 @@ Valid entries for `region`:
 - `East Coast (NY2)`
 - `Europe (AMS1)`
 
+https://support.paperspace.com/hc/en-us/articles/234711428-Machine-Pricing
 Valid entries for `machineType`:
 - `C1`, `C2`, `C3`, `C4`, `C5`, `C6`, `C7`, `C8`, `C9`, `C10`
 - `Air`
