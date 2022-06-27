@@ -16,9 +16,9 @@ Many commands require user input, so it is recommended to pass the
 
 Listing public images
 ```
-docker run --rm --interactive --tty \
+docker run --rm \
   --env=PAPERSPACE_API_KEY \
-  polymathrobotics/paperspace-cli paperspace templates list
+  polymathrobotics/paperspace-cli paperspace templates list | less
 ```
 
 Creating a machine
