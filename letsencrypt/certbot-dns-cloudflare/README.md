@@ -31,10 +31,10 @@ docker run --rm --interactive --tty \
     --test-cert \
     --dns-cloudflare \
     --dns-cloudflare-credentials /root/.secrets/certbot/cloudflare.ini \
-    --email=infrastructure@polymathrobotics.com \
+    --email=letsencrypt@polymathrobotics.com \
     --agree-tos \
     --no-eff-email \
-    -d example.com
+    -d testy.polymathrobotics.dev
 ```
 
 
@@ -47,7 +47,7 @@ docker run --rm --interactive --tty \
   polymathrobotics/certbot-dns-cloudflare certonly \
     --dns-cloudflare \
     --dns-cloudflare-credentials /root/.secrets/certbot/cloudflare.ini \
-    --email=infrastructure@polymathrobotics.com \
+    --email=letsencrypt@polymathrobotics.com \
     --agree-tos \
     --no-eff-email \
     -d example.com
