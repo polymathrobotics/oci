@@ -92,6 +92,34 @@ docker run --rm --interactive --tty \
     --machineId "$PAPERSPACE_MACHINE_ID"
 ```
 
+(Re)starting a machine:
+```
+docker run --rm --interactive --tty \
+  --env=PAPERSPACE_API_KEY \
+  --env=PAPERSPACE_MACHINE_ID \
+  polymathrobotics/paperspace-cli paperspace machines start \
+    --machineId "$PAPERSPACE_MACHINE_ID"
+```
+
+Display machine attributes:
+```
+docker run --rm --interactive --tty \
+  --env=PAPERSPACE_API_KEY \
+  --env=PAPERSPACE_MACHINE_ID \
+  polymathrobotics/paperspace-cli paperspace machines show \
+    --machineId "$PAPERSPACE_MACHINE_ID"
+```
+
+Disabling auto-start on a running machine:
+```
+docker run --rm --interactive --tty \
+  --env=PAPERSPACE_API_KEY \
+  --env=PAPERSPACE_MACHINE_ID \
+  polymathrobotics/paperspace-cli paperspace machines update \
+    --machineId "$PAPERSPACE_MACHINE_ID" \
+	--shutdownTimeoutForces false
+```  
+
 Destroying a machine:
 ```
 docker run --rm --interactive --tty \
