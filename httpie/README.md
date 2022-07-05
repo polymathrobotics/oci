@@ -1,6 +1,6 @@
 # httpie
 
-# Examples
+## Examples
 Hello World:
 
 ```
