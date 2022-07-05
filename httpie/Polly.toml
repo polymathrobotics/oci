@@ -1,0 +1,3 @@
+[container_image]
+name = "httpie"
+tags = ["3.2.1", "latest"]

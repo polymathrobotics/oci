@@ -1,0 +1,21 @@
+# syntax=docker/dockerfile:1
+# Currently there are only amd64 packages, so we install via python for now
+ARG CONTAINER_REGISTRY=docker.io
+FROM $CONTAINER_REGISTRY/polymathrobotics/python:3.8-focal as build
+
+ARG HTTPIE_VERSION=3.2.1
+
+RUN <<EOF
+  python3 -m venv /opt/httpie/
+  /opt/httpie/bin/pip install --upgrade pip wheel httpie==$HTTPIE_VERSION
+EOF
+
+FROM $CONTAINER_REGISTRY/polymathrobotics/python:3.8-focal
+
+COPY --from=build /opt/httpie /opt/httpie
+
+RUN ln -s /opt/httpie/bin/http /usr/local/bin/http
+
+ENTRYPOINT ["http"]
+CMD ["--help"]
+
