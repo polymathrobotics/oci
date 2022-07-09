@@ -40,3 +40,10 @@ dd6e9a9ce3df1b6cf8164ed093da6fcd309d411f5a45ddcc2cbebb518de3ad40
 % docker container remove ${CONTAINER_ID}
 dd6e9a9ce3df1b6cf8164ed093da6fcd309d411f5a45ddcc2cbebb518de3ad40
 ```
+
+To create a new InSpec profile
+```
+docker container run -it --rm \
+  -v "$(pwd):/share" \
+  docker.io/polymathrobotics/cinc-auditor init profile example
+```
