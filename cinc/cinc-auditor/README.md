@@ -47,3 +47,10 @@ docker container run -it --rm \
   -v "$(pwd):/share" \
   docker.io/polymathrobotics/cinc-auditor init profile example
 ```
+
+Test a remote machine via ssh
+```
+docker container run -it --rm \
+  -v "$(pwd):/share" \
+  docker.io/polymathrobotics/cinc-auditor exec example --key-files /path/keys/ssh.key --target ssh://root@192.168.1.12
+```
