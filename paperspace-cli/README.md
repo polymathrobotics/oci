@@ -16,21 +16,21 @@ then click on the "API Keys" tab.
 Many commands require user input, so it is recommended to pass the 
 `--interactive` and `--tty` flags as well:
 
-# Listing machine types
+Listing machine types
 ```
 docker run --rm \
   --env=PAPERSPACE_API_KEY \
   polymathrobotics/paperspace-cli paperspace jobs machineTypes | less
 ```
   
-# Listing templates
+Listing templates
 ```
 docker run --rm \
   --env=PAPERSPACE_API_KEY \
   polymathrobotics/paperspace-cli paperspace templates list | less
 ```
 
-# Creating a machine
+Creating a machine:
 
 Valid entries for `region`:
 - `West Coast (CA1)`
