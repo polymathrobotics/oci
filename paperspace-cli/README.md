@@ -16,14 +16,21 @@ then click on the "API Keys" tab.
 Many commands require user input, so it is recommended to pass the 
 `--interactive` and `--tty` flags as well:
 
-Listing public images
+# Listing machine types
+```
+docker run --rm \
+  --env=PAPERSPACE_API_KEY \
+  polymathrobotics/paperspace-cli paperspace jobs machineTypes | less
+```
+  
+# Listing templates
 ```
 docker run --rm \
   --env=PAPERSPACE_API_KEY \
   polymathrobotics/paperspace-cli paperspace templates list | less
 ```
 
-Creating a machine
+# Creating a machine
 
 Valid entries for `region`:
 - `West Coast (CA1)`
@@ -78,14 +85,14 @@ PAPERSPACE_PUBLIC_IP=$(docker run --rm --tty \
 ssh -A "paperspace@${PAPERSPACE_PUBLIC_IP}"
 ```
 
-Listing machines:
+# Listing running machines:
 ```
 docker run --rm --interactive --tty \
   --env=PAPERSPACE_API_KEY \
   polymathrobotics/paperspace-cli paperspace machines list
 ```
 
-Stopping a machine:
+# Stopping a machine:
 ```
 docker run --rm --interactive --tty \
   --env=PAPERSPACE_API_KEY \
@@ -94,7 +101,7 @@ docker run --rm --interactive --tty \
     --machineId "$PAPERSPACE_MACHINE_ID"
 ```
 
-(Re)starting a machine:
+# (Re)starting a machine:
 ```
 docker run --rm --interactive --tty \
   --env=PAPERSPACE_API_KEY \
@@ -103,7 +110,7 @@ docker run --rm --interactive --tty \
     --machineId "$PAPERSPACE_MACHINE_ID"
 ```
 
-Display machine attributes:
+# Display machine attributes:
 ```
 docker run --rm --interactive --tty \
   --env=PAPERSPACE_API_KEY \
@@ -112,7 +119,7 @@ docker run --rm --interactive --tty \
     --machineId "$PAPERSPACE_MACHINE_ID"
 ```
 
-Disabling auto-start on a running machine:
+# Disabling auto-start on a running machine:
 ```
 docker run --rm --interactive --tty \
   --env=PAPERSPACE_API_KEY \
@@ -122,7 +129,7 @@ docker run --rm --interactive --tty \
 	--shutdownTimeoutForces false
 ```  
 
-Destroying a machine:
+# Destroying a machine:
 ```
 docker run --rm --interactive --tty \
   --env=PAPERSPACE_API_KEY \
