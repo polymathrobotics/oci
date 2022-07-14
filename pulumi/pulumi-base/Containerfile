@@ -8,7 +8,7 @@ LABEL \
     org.opencontainers.image.licenses="Apache-2.0" \
     org.opencontainers.image.description="Pulumi CLI container, bring your own SDK."
 
-ARG PULUMI_VERSION=3.35.3
+ARG PULUMI_VERSION=3.36.0
 RUN <<EOF
   apt-get update
   apt-get install -y --no-install-recommends \
