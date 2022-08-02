@@ -1,7 +1,9 @@
 Obtain a [Paperspace API Key](docs/PAPERSPACE_API_KEY.md).
 
-For more information on the API, refer to https://github.com/Paperspace/paperspace-node for more
-details.
+For more information on the API, refer to the following:
+- https://github.com/Paperspace/paperspace-node
+- https://docs.paperspace.com/core/api-reference/
+- https://github.com/Paperspace/paperspace-node/blob/master/scripts.md
 
 The Paperspace-Node module looks for the api key:
 - PAPERSPACE_API_KEY
