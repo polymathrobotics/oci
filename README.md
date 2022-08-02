@@ -3,6 +3,18 @@ Public container images published by Polymath Robotics.
 
 The images are pubished to https://hub.docker.com/u/polymathrobotics
 
+# Why are you re-publishing some official images?
+
+Very few official images use Ubuntu 20.04 as a base image in their "FROM" field. These container images nearly all consistently use Ubuntu 20.04 as the base image, which is the preferred base for the Robot Operating System.
+
+Because ROS uses Python heavily, it's not a good idea to use an alpine base image. It does not have a compatible C-runtime. And adding all the necessary C dependencies to an alpine image ironically makes it BIGGER than an equivalent Debian/Ubuntu image.
+
+The official Debian images aren't nearly as good as a base for container images as the Ubuntu ones, because they are updated less frequently with security updates than the Ubuntu ones. Most Debian base images contain more security vulnerabilities than the equivalent Ubuntu ones, simply because they aren't updated as often. Also the commonly used "buildpack-deps" base images contain a lot of extra unused packages that aren't ever used in ROS, like the subversion, bzr and mercurial source control management programs to try to save space for a broader set of images, but unfortunately also increase the threat surface with a lot of extra packages we don't need.
+
+It would be best to use Google's distroless images, but they are on the other end of the spectrum for dependencies, they don't include nearly enough. The Ubuntu images strike the best compromise in having most of the packages we need for ROS while not having too much we don't need.
+
+# Building these container images locally
+
 Normally it is expected that you just use the GitHub Actions pipelines that have been configured in `.github/workflows`. However, the scripts to build the container images in the `/bin` subdirectory can be used to build any image locally on your machine. For example, to build `ros-core-amd64`:
 
 ```
