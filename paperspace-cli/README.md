@@ -25,6 +25,26 @@ docker run --rm \
   --env=PAPERSPACE_API_KEY \
   polymathrobotics/paperspace-cli paperspace jobs machineTypes | less
 ```
+
+Checking if a machine type is available to spin up
+```
+# Region can be `West Coast (CA1)`, `East Coast (NY2)`, `Europe (AMS1)`
+%docker run --rm \
+  --env=PAPERSPACE_API_KEY \
+  polymathrobotics/paperspace-cli paperspace machines availability \
+    --region "West Coast (CA1)" --machineType "GPU+"
+{
+  "available": true
+}
+
+% docker run --rm \
+  --env=PAPERSPACE_API_KEY \
+  polymathrobotics/paperspace-cli paperspace machines availability \
+    --region "East Coast (NY2)" --machineType "GPU+"
+{
+  "available": false
+}
+```
   
 Listing templates
 ```
