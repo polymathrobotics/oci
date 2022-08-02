@@ -89,7 +89,7 @@ ssh -A "paperspace@${PAPERSPACE_PUBLIC_IP}"
 
 # Listing running machines:
 ```
-docker run --rm --interactive --tty \
+docker run --rm \
   --env=PAPERSPACE_API_KEY \
   polymathrobotics/paperspace-cli paperspace machines list
 ```
