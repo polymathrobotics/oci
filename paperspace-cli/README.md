@@ -121,13 +121,17 @@ docker run --rm --interactive --tty \
     --machineId "$PAPERSPACE_MACHINE_ID"
 ```
 
-# Disabling auto-start on a running machine:
+# Disabling auto-shutdown on a running machine:
+
+You cannot disable or set the  shutdown timeout on machine creation, but you can set it afterwards via `machines update`:
+
 ```
 docker run --rm --interactive --tty \
   --env=PAPERSPACE_API_KEY \
   --env=PAPERSPACE_MACHINE_ID \
   polymathrobotics/paperspace-cli paperspace machines update \
     --machineId "$PAPERSPACE_MACHINE_ID" \
+        --shutdownTimeoutInHours 0 \
 	--shutdownTimeoutForces false
 ```  
 
