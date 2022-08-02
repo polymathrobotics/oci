@@ -113,6 +113,11 @@ ssh -A "paperspace@${PAPERSPACE_PUBLIC_IP}"
 docker run --rm \
   --env=PAPERSPACE_API_KEY \
   polymathrobotics/paperspace-cli paperspace machines list
+  
+# List running machines of a specific type
+docker run --rm \
+  --env=PAPERSPACE_API_KEY \
+  polymathrobotics/paperspace-cli paperspace machines list | jq -r '.[] | select(.shutdownTimeoutInHours == 168) | .name'
 ```
 
 # Stopping a machine:
