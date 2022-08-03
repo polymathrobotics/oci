@@ -5,7 +5,7 @@ The images are pubished to https://hub.docker.com/u/polymathrobotics
 
 # Why are you re-publishing some official images?
 
-Very few official images use Ubuntu 20.04 as a base image in their "FROM" field. These container images nearly all consistently use Ubuntu 20.04 as the base image, which is the preferred base for the Robot Operating System.
+Very few official images use Ubuntu 20.04 as a base image in their "FROM" field. These container images produced from this repository nearly all consistently use Ubuntu 20.04 as the base image, which is the preferred base for the Robot Operating System.
 
 Because ROS uses Python heavily, it's not a good idea to use an alpine base image. It does not have a compatible C-runtime. And adding all the necessary C dependencies to an alpine image ironically makes it BIGGER than an equivalent Debian/Ubuntu image.
 
