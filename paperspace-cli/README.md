@@ -157,8 +157,7 @@ docker run --rm --interactive --tty \
   --env=PAPERSPACE_MACHINE_ID \
   polymathrobotics/paperspace-cli paperspace machines update \
     --machineId "$PAPERSPACE_MACHINE_ID" \
-        --shutdownTimeoutInHours 0 \
-	--shutdownTimeoutForces false
+        --shutdownTimeoutInHours null
 ```  
 
 # Destroying a machine:
