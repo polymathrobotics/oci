@@ -16,6 +16,12 @@ or with this environment variable.
 You can generate an API Keys by going to "My Account > Team settings"
 then click on the "API Keys" tab.
 
+{% note %}
+
+**Note:** Make sure you install `jq` the command line json processor: `sudo apt-get update && sudo apt-get install jq`
+
+{% endnote %}
+
 Many commands require user input, so it is recommended to pass the 
 `--interactive` and `--tty` flags as well:
 
