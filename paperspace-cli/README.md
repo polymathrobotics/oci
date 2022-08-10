@@ -18,7 +18,7 @@ then click on the "API Keys" tab.
 
 {% note %}
 
-**Note:** Make sure you install `jq` the command line json processor: `sudo apt-get update && sudo apt-get install jq`
+**Note:** Make sure you install "jq" the command line json processor: "sudo apt-get update && sudo apt-get install jq"
 
 {% endnote %}
 
