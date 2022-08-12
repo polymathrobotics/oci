@@ -48,8 +48,9 @@ RUN <<EOF
   rm -rf /var/lib/apt/lists/*
 EOF
 
-COPY --from=build /tmp/terraform/terraform /opt/hashicorp/terraform/terraform
+COPY --from=build /tmp/terraform/terraform /opt/hashicorp/terraform/bin/terraform
 
 WORKDIR /terraform
+ENV PATH "/opt/hashicorp/terraform/bin:${PATH}"
 
 ENTRYPOINT ["/opt/hashicorp/terraform/terraform"]
