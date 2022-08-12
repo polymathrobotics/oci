@@ -50,4 +50,6 @@ EOF
 
 COPY --from=build /tmp/terraform/terraform /opt/hashicorp/terraform/terraform
 
+WORKDIR /terraform
+
 ENTRYPOINT ["/opt/hashicorp/terraform/terraform"]
