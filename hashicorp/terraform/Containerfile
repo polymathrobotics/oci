@@ -1,0 +1,52 @@
+# syntax=docker/dockerfile:1
+ARG CONTAINER_REGISTRY=docker.io
+FROM $CONTAINER_REGISTRY/ubuntu:focal-20220801 as build
+
+RUN <<EOF
+  apt-get update
+  DEBIAN_FRONTEND=noninteractive apt-get install -y --no-install-recommends \
+    ca-certificates \
+    curl \
+    unzip
+  mkdir -p /tmp/terraform
+  dpkgArch="$(dpkg --print-architecture)"
+  case "${dpkgArch##*-}" in
+  amd64)
+    TERRAFORM_URL='https://releases.hashicorp.com/terraform/1.2.7/terraform_1.2.7_linux_amd64.zip'
+    TERRAFORM_SHA256='dfd7c44a5b6832d62860a01095a15b53616fb3ea4441ab89542f9364e3fca718'
+    ;;
+  arm64)
+    TERRAFORM_URL='https://releases.hashicorp.com/terraform/1.2.7/terraform_1.2.7_linux_arm64.zip'
+    TERRAFORM_SHA256='80d064008d57ba5dc97e189215c87275bf39ca14b1234430eae2f114394ea229'
+    ;;
+  armhf)
+    TERRAFORM_URL='https://releases.hashicorp.com/terraform/1.2.7/terraform_1.2.7_linux_arm.zip'
+    TERRAFORM_SHA256='c2557f3f878330a66a02de3c08ae8d0824b658c66fcb36b1eb07939bf2bc0468'
+    ;;
+  *)
+    echo "unsupported architecture"
+    exit 1
+    ;;
+  esac
+  curl -fsSL -o /tmp/terraform.zip ${TERRAFORM_URL}
+  echo "${TERRAFORM_SHA256} /tmp/terraform.zip" | sha256sum -c - 
+  unzip /tmp/terraform.zip -d /tmp/terraform/
+EOF
+
+FROM $CONTAINER_REGISTRY/ubuntu:focal-20220801
+
+RUN <<EOF
+  apt-get update
+  DEBIAN_FRONTEND=noninteractive apt-get -y --no-install-recommends install \
+    ca-certificates \
+    curl \
+    git \
+    openssh-client
+  apt-get clean
+  apt-get -y autoremove
+  rm -rf /var/lib/apt/lists/*
+EOF
+
+COPY --from=build /tmp/terraform/terraform /opt/hashicorp/terraform/terraform
+
+ENTRYPOINT ["/opt/hashicorp/terraform/terraform"]
