@@ -53,4 +53,4 @@ COPY --from=build /tmp/terraform/terraform /opt/hashicorp/terraform/bin/terrafor
 WORKDIR /terraform
 ENV PATH "/opt/hashicorp/terraform/bin:${PATH}"
 
-ENTRYPOINT ["/opt/hashicorp/terraform/terraform"]
+ENTRYPOINT ["/opt/hashicorp/terraform/bin/terraform"]
