@@ -21,7 +21,7 @@ RUN <<EOF
       ;; \
     *) echo "unsupported architecture"; exit 1 ;; \
     esac
-  curl -o /tmp/meshcmd/meshcmd $MESHCMD_URL
+  curl -o /tmp/meshcmd/meshcmd "$MESHCMD_URL"
 EOF
 
 FROM $CONTAINER_REGISTRY/ubuntu:focal-20220531
