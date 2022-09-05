@@ -31,5 +31,6 @@ WORKDIR /opt/meshcmd/bin
 COPY --from=build --chmod=755 /tmp/meshcmd /opt/meshcmd/bin
 
 ENV PATH "/opt/meshcmd/bin:${PATH}"
+EXPOSE 3000
 
 ENTRYPOINT ["meshcmd"]
