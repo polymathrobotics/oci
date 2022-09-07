@@ -72,3 +72,11 @@ jobs:
           platforms: ${{env.platforms}}
           tags: ${{env.tags}}
 
+      - name: Update Docker Hub Description
+        uses: peter-evans/dockerhub-description@v3
+        with:
+          username: ${{ secrets.CONTAINER_REGISTRY_USERNAME }}
+          password: ${{ secrets.CONTAINER_REGISTRY_PASSWORD }}
+          repository: polymathrobotics/oci/tree/main/cinc/cinc-auditor
+          short-description: 'Cinc Auditing and Testing Framework'
+          readme-filepath: cinc/cinc-auditor/README.md
