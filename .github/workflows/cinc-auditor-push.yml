@@ -78,4 +78,5 @@ jobs:
           username: ${{ secrets.CONTAINER_REGISTRY_USERNAME }}
           password: ${{ secrets.CONTAINER_DESCRIPTION_PASSWORD }}
           short-description: 'Cinc Auditing and Testing Framework'
+          repository: 'polymathrobotics/cinc-auditor'
           readme-filepath: cinc/cinc-auditor/README.md
