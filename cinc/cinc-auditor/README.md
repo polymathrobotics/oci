@@ -7,9 +7,9 @@ Cinc Auditor is built from Chef Inspec. Cinc Auditor is 100% compatible with its
 To run an inspec profile in order to test some infrastructure, just bind mount the source into `/share` like so:
 
 ```
-% docker container run -it --rm \
-  -v "$(pwd):/share" \
-  polymathrobotics/cinc-auditor-amd64 exec .
+% docker container run --rm --interactive --tty \
+    --mount type=bind,source="$(pwd)",target=/share \
+    docker.io/polymathrobotics/cinc-auditor exec .
 ```
 
 If you need to run an inspec profile against a docker container image, make sure you start the other image first, sitting at a shell prompt, detached. Then also bind mount `/var/run/docker.sock` so the docker tools in the container work when you run cinc-auditor in a container:
@@ -27,29 +27,30 @@ dd6e9a9ce3df   nginx     "/docker-entrypoint.…"   14 seconds ago   Up 14 secon
 
 # Run the inspec profile against the container ID - need to mount /var/run/docker.sock for the docker tools inside the
 # container image to work
-% docker container run -it --rm \
-  -v "$(pwd):/share" \
-  -v /var/run/docker.sock:/var/run/docker.sock \
-  polymathrobotics/cinc-auditor-arm64 exec . -t docker://${CONTAINER_ID}
+% docker container run --rm --interactive --tty \
+  --env=CONTAINER_ID \
+  --mount type=bind,source="$(pwd)",target=/share \
+  --mount type=bind,source=/var/run/docker.sock,target=/var/run/docker.sock \
+  docker.io/polymathrobotics/cinc-auditor exec . -t docker://${CONTAINER_ID}
   
 # Stop the container under test - give a chance for PID 1 to clean up processes
 % docker container stop ${CONTAINER_ID}
 dd6e9a9ce3df1b6cf8164ed093da6fcd309d411f5a45ddcc2cbebb518de3ad40
 # Fully clean up and remove the container image
-% docker container remove ${CONTAINER_ID}
+% docker container rm ${CONTAINER_ID}
 dd6e9a9ce3df1b6cf8164ed093da6fcd309d411f5a45ddcc2cbebb518de3ad40
 ```
 
 To create a new InSpec profile
 ```
-docker container run -it --rm \
-  -v "$(pwd):/share" \
+docker container run --rm --interactive --tty \
+  --mount type=bind,source="$(pwd)",target=/share \
   docker.io/polymathrobotics/cinc-auditor init profile example
 ```
 
 Test a remote machine via ssh
 ```
-docker container run -it --rm \
-  -v "$(pwd):/share" \
+docker container run --rm --interactive --tty \
+  --mount type=bind,source="$(pwd)",target=/share \
   docker.io/polymathrobotics/cinc-auditor exec example --key-files /path/keys/ssh.key --target ssh://root@192.168.1.12
 ```

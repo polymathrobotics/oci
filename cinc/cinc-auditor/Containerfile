@@ -2,11 +2,6 @@
 ARG CONTAINER_REGISTRY=docker.io
 FROM $CONTAINER_REGISTRY/ubuntu:focal-20220826 as build
 
-LABEL \
-    org.opencontainers.image.source="https://github.com/polymathrobotics/oci" \
-    org.opencontainers.image.licenses="Apache-2.0" \
-    org.opencontainers.image.description="Cinc Auditing and Testing Framework."
-
 ARG DEBIAN_FRONTEND=noninteractive
 
 SHELL ["/bin/bash", "-o", "pipefail", "-c"]
@@ -31,7 +26,12 @@ RUN <<EOF
   echo "${CINC_AUDITOR_SHA256} /tmp/cinc-auditor.deb" | sha256sum -c -
 EOF
 
-FROM $CONTAINER_REGISTRY/ubuntu:focal-20220826 
+FROM $CONTAINER_REGISTRY/ubuntu:focal-20220826
+
+LABEL \
+    org.opencontainers.image.source="https://github.com/polymathrobotics/oci" \
+    org.opencontainers.image.licenses="Apache-2.0" \
+    org.opencontainers.image.description="Cinc Auditing and Testing Framework."
 
 ENV PATH=/opt/cinc-auditor/bin:/opt/cinc-auditor/embedded/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin
 
