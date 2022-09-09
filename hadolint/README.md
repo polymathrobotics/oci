@@ -325,17 +325,6 @@ label-schema:
   version: text
 ```
 
-## Integrations
-
-To get most of `hadolint`, it is useful to integrate it as a check in your CI
-or into your editor, or as a pre-commit hook, to lint your `Dockerfile` as you
-write it. See our [Integration][] docs.
-
-- [Code Review Platform Integrations][]
-- [Continuous Integrations][]
-- [Editor Integrations][]
-- [Version Control Integrations][]
-
 ## Rules
 
 An incomplete list of implemented rules. Click on the error code to get more
@@ -454,93 +443,6 @@ Please [create an issue][] if you have an idea for a good rule.
 | [SC2164](https://github.com/koalaman/shellcheck/wiki/SC2164) |                  | Use <code>cd ... &#124;&#124; exit</code> in case `cd` fails.                                                                                       |
 
 <!--lint enable maximum-line-length-->
-
-## Develop
-
-If you are an experienced Haskeller, we would be very grateful if you would
-tear our code apart in a review.
-
-### Setup
-
-1.  Clone repository
-
-    ```bash
-    git clone --recursive git@github.com:hadolint/hadolint.git
-    ```
-
-1.  Install the dependencies
-
-    ```bash
-    stack install
-    ```
-
-### REPL
-
-The easiest way to try out the parser is using the REPL.
-
-```bash
-# start the repl
-stack repl
-# overload strings to be able to use Text
-:set -XOverloadedStrings
-# import parser library
-import Language.Docker
-# parse instruction and look at AST representation
-parseText "FROM debian:jessie"
-```
-
-### Tests
-
-Run unit tests:
-
-```bash
-stack test
-```
-
-Run integration tests:
-
-```bash
-./integration_test.sh
-```
-
-### AST
-
-Dockerfile syntax is fully described in the [Dockerfile reference][].
-Just take a look at [Syntax.hs][] in the `language-docker` project to see
-the AST definition.
-
-### Building against custom libraries
-
-Hadolint uses many libraries to do the dirty work. In particular,
-language-docker is used to parse Dockerfiles and produce an AST which then can
-be analyzed. To build Hadolint against a custom version of such libraries, do
-the following. This example uses language-docker, but it would work with any
-other libaray as well.
-
- 1) In the same directory (e.g. `/home/user/repos`) clone Hadolint and
-    language-docker git repositories
-```bash
-cd /home/user/repos
-git clone https://github.com/hadolint/hadolint.git
-git clone https://github.com/hadolint/language-docker.git
-```
-
- 2) Make your modifications to language-docker
-
- 3) In the Hadolint repo, edit the `stack.yaml` file, such that the `extra-deps`
-    property points to the other repo
-```yaml
-[...]
-extra-deps:
-  - ../language-docker
-[...]
-```
-
- 4) Recompile Hadolint and run the tests
-```bash
-cd /home/user/repos/hadolint
-stack test
-```
 
 <!-- References -->
 
