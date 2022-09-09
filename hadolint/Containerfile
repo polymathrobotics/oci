@@ -1,19 +1,15 @@
+# syntax=docker/dockerfile:1
 ARG CONTAINER_REGISTRY=docker.io
 FROM $CONTAINER_REGISTRY/ubuntu:20.04 AS build
 
-LABEL \
-    org.opencontainers.image.source="https://github.com/polymathrobotics/oci" \
-    org.opencontainers.image.licenses="Apache-2.0" \
-    org.opencontainers.image.description="Dockerfile linter, validate inline bash, written in Haskell."
-
-
-RUN apt-get update \
-  && apt-get install --no-install-recommends -y \
+RUN <<EOF
+  apt-get update
+  apt-get install --no-install-recommends -y \
     ca-certificates \
     curl \
-    xz-utils \
-  && dpkgArch="$(dpkg --print-architecture)" \
-  && case "${dpkgArch##*-}" in \
+    xz-utils
+  dpkgArch="$(dpkg --print-architecture)"
+  case "${dpkgArch##*-}" in \
     amd64) \
       HADOLINT_URL=https://github.com/hadolint/hadolint/releases/download/v2.10.0/hadolint-Linux-x86_64 \
       ;; \
@@ -21,11 +17,18 @@ RUN apt-get update \
       HADOLINT_URL=https://github.com/hadolint/hadolint/releases/download/v2.10.0/hadolint-Linux-arm64 \
       ;; \
     *) echo "unsupported architecture"; exit 1 ;; \
-    esac \
-  && curl -fsSL -o /usr/local/bin/hadolint -L ${HADOLINT_URL} \
-  && chmod +x /usr/local/bin/hadolint
+  esac
+  curl -fsSL -o /usr/local/bin/hadolint -L ${HADOLINT_URL}
+  chmod +x /usr/local/bin/hadolint
+EOF
 
 FROM scratch
-COPY --from=build /usr/local/bin/hadolint /bin/
+
+LABEL \
+    org.opencontainers.image.source="https://github.com/polymathrobotics/oci" \
+    org.opencontainers.image.licenses="Apache-2.0" \
+    org.opencontainers.image.description="Dockerfile linter, validate inline bash, written in Haskell."
+
+COPY --chmod=755 --from=build /usr/local/bin/hadolint /bin/hadolint
 
 CMD ["/bin/hadolint", "-"]
