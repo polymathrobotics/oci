@@ -16,10 +16,10 @@ This will display the **API Keys** tab in your private workspace.
   
 Export the API Key as the environment variable `PAPERSPACE_API_KEY` in your `~/.bashrc`. It is suggested that you used the `~/.bashrc.d` pattern to manage this environment variable.
   
-```
+```bash
 # Add the following section to the end of your ~/.bashrc
 ...
-for config in ~/.bashrc.d/*.bashrc; do
+for config in ~/.bashrc.d/*.sh; do
     source $config
 done
 unset config
@@ -33,4 +33,11 @@ $ tee ~/.bashrc.d/140.paperspace.sh<<EOF
 
 export PAPERSPACE_API_KEY=<your_api_key>
 EOF
+```
+
+If you need to switch between multiple Paperspace API keys, you may want to make use of the direnv tool and create a `.envrc` file
+in the directory that contains the related automation code:
+```bash
+# Create .envrc file with different api from ~/.bashrc.d
+export PAPERSPACE_API_KEY=<other_api_key>
 ```
