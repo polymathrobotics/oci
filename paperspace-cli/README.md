@@ -31,7 +31,9 @@ then click on the "API Keys" tab.
 Many commands require user input, so it is recommended to pass the 
 `--interactive` and `--tty` flags as well:
 
-# Listing machine types
+# Command-line interface examples
+
+## Listing machine types
 ```
 docker run --rm \
   --env=PAPERSPACE_API_KEY \
