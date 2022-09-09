@@ -4,9 +4,17 @@ https://github.com/polymathrobotics/oci/tree/main/cinc/cinc-auditor
 
 Cinc Auditor is built from Chef Inspec. Cinc Auditor is 100% compatible with its upstream Chef Inspec counterpart. It's the Chef equivalent of Ansible molecule, except that Inspec can be used separate from the Chef Configuration Management language/tooling. Chef Inspec is more generic and doesn't have a dependency on Chef - perfect for testing containers!
 
+To create a new InSpec profile
+```
+docker container run --rm --interactive --tty \
+  --mount type=bind,source="$(pwd)",target=/share \
+  docker.io/polymathrobotics/cinc-auditor init profile example
+```
+
 To run an inspec profile in order to test some infrastructure, just bind mount the source into `/share` like so:
 
 ```
+% cd <profile_dir>
 % docker container run --rm --interactive --tty \
     --mount type=bind,source="$(pwd)",target=/share \
     docker.io/polymathrobotics/cinc-auditor exec .
@@ -39,13 +47,6 @@ dd6e9a9ce3df1b6cf8164ed093da6fcd309d411f5a45ddcc2cbebb518de3ad40
 # Fully clean up and remove the container image
 % docker container rm ${CONTAINER_ID}
 dd6e9a9ce3df1b6cf8164ed093da6fcd309d411f5a45ddcc2cbebb518de3ad40
-```
-
-To create a new InSpec profile
-```
-docker container run --rm --interactive --tty \
-  --mount type=bind,source="$(pwd)",target=/share \
-  docker.io/polymathrobotics/cinc-auditor init profile example
 ```
 
 Test a remote machine via ssh
