@@ -103,7 +103,7 @@ docker run --rm --interactive --tty \
     --size 50 \
     --billingType "hourly" \
     --templateId "tkni3aa4" \
-    --teamId "t21p7hla3g" \
+    --teamId "<team_id>" \
     --assignPublicIp true \
     --startOnCreate true
 
