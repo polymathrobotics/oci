@@ -4,8 +4,9 @@ Command-line interface for the Paperspace cloud.
 
 For Polymath Robotics employees - supplemental internal docs: https://www.notion.so/polymathrobotics/Paperspace-Guide-30430f2245e148edb500fe92c1a8a297
 
-You might want to consider using the Terraform provider instead of this command-line interface CLI, as
-you have to string together multiple commands to do anything useful with the CLI.
+You might want to consider using the Terraform provider instead of this command-line interface (CLI).
+Tp do anything useful with the CLI, you have to string together multiple commands together. This is
+oftentimes easier to do with Terraform than with the raw command-line interface.
 Terraform provider example: https://github.com/polymathrobotics/oci/tree/main/paperspace-cli/terraform
 
 # Getting started with the command-line interface
