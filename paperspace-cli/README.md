@@ -2,6 +2,12 @@
 
 Command-line interface for the Paperspace cloud.
 
+For Polymath Robotics employees - supplemental internal docs: https://www.notion.so/polymathrobotics/Paperspace-Guide-30430f2245e148edb500fe92c1a8a297
+
+Terraform provider example: https://github.com/polymathrobotics/oci/tree/main/paperspace-cli/terraform
+
+# Getting started with the command-line interface
+
 Obtain a [Paperspace API Key](docs/PAPERSPACE_API_KEY.md).
 
 For more information on the API, refer to the following:
@@ -25,18 +31,14 @@ then click on the "API Keys" tab.
 Many commands require user input, so it is recommended to pass the 
 `--interactive` and `--tty` flags as well:
 
-For Polymath Robotics employees - supplemental internal docs: https://www.notion.so/polymathrobotics/Paperspace-Guide-30430f2245e148edb500fe92c1a8a297
-
-Terraform provider example: https://github.com/polymathrobotics/oci/tree/main/paperspace-cli/terraform
-
-Listing machine types
+# Listing machine types
 ```
 docker run --rm \
   --env=PAPERSPACE_API_KEY \
   polymathrobotics/paperspace-cli paperspace jobs machineTypes | less
 ```
 
-Checking if a machine type is available to spin up
+## Checking if a machine type is available to spin up
 ```
 # Region can be `West Coast (CA1)`, `East Coast (NY2)`, `Europe (AMS1)`
 %docker run --rm \
@@ -56,14 +58,14 @@ Checking if a machine type is available to spin up
 }
 ```
   
-Listing templates
+## Listing templates
 ```
 docker run --rm \
   --env=PAPERSPACE_API_KEY \
   polymathrobotics/paperspace-cli paperspace templates list | less
 ```
 
-Creating a machine:
+## Creating a machine:
 
 Valid entries for `region`:
 - `West Coast (CA1)`
@@ -118,7 +120,7 @@ PAPERSPACE_PUBLIC_IP=$(docker run --rm --tty \
 ssh -A "paperspace@${PAPERSPACE_PUBLIC_IP}"
 ```
 
-# Listing running machines:
+## Listing running machines:
 ```
 docker run --rm \
   --env=PAPERSPACE_API_KEY \
@@ -130,7 +132,7 @@ docker run --rm \
   polymathrobotics/paperspace-cli paperspace machines list | jq -r '.[] | select(.shutdownTimeoutInHours == 168) | .name'
 ```
 
-# Stopping a machine:
+## Stopping a machine:
 ```
 docker run --rm --interactive --tty \
   --env=PAPERSPACE_API_KEY \
@@ -139,7 +141,7 @@ docker run --rm --interactive --tty \
     --machineId "$PAPERSPACE_MACHINE_ID"
 ```
 
-# (Re)starting a machine:
+## (Re)starting a machine:
 ```
 docker run --rm --interactive --tty \
   --env=PAPERSPACE_API_KEY \
@@ -148,7 +150,7 @@ docker run --rm --interactive --tty \
     --machineId "$PAPERSPACE_MACHINE_ID"
 ```
 
-# Display machine attributes:
+## Display machine attributes:
 ```
 docker run --rm --interactive --tty \
   --env=PAPERSPACE_API_KEY \
@@ -157,7 +159,7 @@ docker run --rm --interactive --tty \
     --machineId "$PAPERSPACE_MACHINE_ID"
 ```
 
-# Disabling auto-shutdown on a running machine:
+## Disabling auto-shutdown on a running machine:
 
 You cannot disable or set the  shutdown timeout on machine creation, but you can set it afterwards via `machines update`:
 
@@ -170,7 +172,7 @@ docker run --rm --interactive --tty \
         --shutdownTimeoutInHours null
 ```  
 
-# Destroying a machine:
+## Destroying a machine:
 ```
 docker run --rm --interactive --tty \
   --env=PAPERSPACE_API_KEY \
