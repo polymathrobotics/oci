@@ -11,9 +11,10 @@ However, the gradient installer uses the terraform provider and includes some
 more useful examples:
 https://github.com/Paperspace/gradient-installer/tree/master/gradient-ps-cloud
 
-## Using Terraform to spin up an instance
+## Using Terraform example to spin up an instance
 
 ```
+% cd example
 % docker run -it --rm \
   --env PAPERSPACE_API_KEY \
   --mount type=bind,source="$(pwd)",target=/terraform \
@@ -22,4 +23,6 @@ https://github.com/Paperspace/gradient-installer/tree/master/gradient-ps-cloud
 # terraform init
 # terraform plan
 # terraform apply
+# terraform output
+# exit
 ```
