@@ -35,7 +35,7 @@ export PAPERSPACE_API_KEY=<your_api_key>
 EOF
 ```
 
-If you need to switch between multiple Paperspace API keys, you may want to make use of the direnv tool and create a `.envrc` file
+If you need to switch between multiple Paperspace API keys, you may want to make use of the [direnv tool](https://manpages.ubuntu.com/manpages/xenial/en/man1/direnv.1.html) and create a `.envrc` file
 in the directory that contains the related automation code:
 ```bash
 # Create .envrc file with different api from ~/.bashrc.d
