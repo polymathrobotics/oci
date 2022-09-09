@@ -1,3 +1,7 @@
+# paperspace-cli [![hadolint](https://github.com/polymathrobotics/oci/actions/workflows/paperspace-cli-push.yml/badge.svg)](https://github.com/polymathrobotics/oci/actions/workflows/paperspace-cli-push.yml)
+
+Command-line interface for the Paperspace cloud.
+
 Obtain a [Paperspace API Key](docs/PAPERSPACE_API_KEY.md).
 
 For more information on the API, refer to the following:
@@ -20,6 +24,10 @@ then click on the "API Keys" tab.
 
 Many commands require user input, so it is recommended to pass the 
 `--interactive` and `--tty` flags as well:
+
+For Polymath Robotics employees - supplemental internal docs: https://www.notion.so/polymathrobotics/Paperspace-Guide-30430f2245e148edb500fe92c1a8a297
+
+Terraform provider example: https://github.com/polymathrobotics/oci/tree/main/paperspace-cli/terraform
 
 Listing machine types
 ```
