@@ -11,29 +11,15 @@ However, the gradient installer uses the terraform provider and includes some
 more useful examples:
 https://github.com/Paperspace/gradient-installer/tree/master/gradient-ps-cloud
 
-## Spinning up a single instance
+## Using Terraform to spin up an instance
 
 ```
-docker run -it --rm \
-  --env PAPERSPACE_API_KEY \
-  --mount type=bind,source="$(pwd)",target=/terraform \
-  docker.io/polymathrobotics/terraform init
-
-docker run -it --rm \
-  --env PAPERSPACE_API_KEY \
-  --mount type=bind,source="$(pwd)",target=/terraform \
-  docker.io/polymathrobotics/terraform plan -var="username=${USER}"
-
-docker run -it --rm \
-  --env PAPERSPACE_API_KEY \
-  --mount type=bind,source="$(pwd)",target=/terraform \
-  docker.io/polymathrobotics/terraform apply -var="username=${USER}"
-```
-
-```
-docker run -it --rm \
+% docker run -it --rm \
   --env PAPERSPACE_API_KEY \
   --mount type=bind,source="$(pwd)",target=/terraform \
   --entrypoint /bin/bash \
   docker.io/polymathrobotics/terraform
+# terraform init
+# terraform plan
+# terraform apply
 ```
