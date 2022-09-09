@@ -11,7 +11,7 @@ However, the gradient installer uses the terraform provider and includes some
 more useful examples:
 https://github.com/Paperspace/gradient-installer/tree/master/gradient-ps-cloud
 
-## Using Terraform example to spin up an instance
+## Using this Terraform example to spin up an instance
 
 ```
 % cd example
