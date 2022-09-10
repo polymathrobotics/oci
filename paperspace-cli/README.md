@@ -45,7 +45,7 @@ docker run --rm \
 ```
 
 ## Checking if a machine type is available to spin up
-```
+```bash
 # Region can be `West Coast (CA1)`, `East Coast (NY2)`, `Europe (AMS1)`
 %docker run --rm \
   --env=PAPERSPACE_API_KEY \
