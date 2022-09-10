@@ -10,7 +10,7 @@ jobs:
     runs-on: ubuntu-latest
     outputs:
       # Expose matched filters as job 'images' output variable
-      packages: ${{ steps.filter.outputs.changes }}
+      images: ${{ steps.filter.outputs.changes }}
     steps:
       - uses: actions/checkout@v3
       - uses: dorny/paths-filter@v2
