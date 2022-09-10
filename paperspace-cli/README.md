@@ -139,7 +139,7 @@ docker run --rm \
 ```
 
 ## Stopping a machine:
-```
+```bash
 docker run --rm --interactive --tty \
   --env=PAPERSPACE_API_KEY \
   --env=PAPERSPACE_MACHINE_ID \
