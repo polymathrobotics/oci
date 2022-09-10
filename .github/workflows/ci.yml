@@ -1,0 +1,44 @@
+name: CI
+
+on:
+  push:
+    branches: [ main ]
+
+jobs:
+  # Job to run change detection
+  changes:
+    runs-on: ubuntu-latest
+    outputs:
+      # Expose matched filters as job 'images' output variable
+      packages: ${{ steps.filter.outputs.changes }}
+    steps:
+      - uses: actions/checkout@v3
+      - uses: dorny/paths-filter@v2
+        id: filter
+        with:
+          # Use context to get the branch where commits were pushed.
+          # If there is only one long-lived branch (e.g. master),
+          # you can specify it directly.
+          # If it's not configured, the repository default branch is used.
+          base: ${{ github.ref }}
+          filters: |
+            cinc-auditor: 'cinc/cinc-auditor/**'
+            haldolint: 'hadolint/**'
+            paperspace-cli: 'paperspace-cli/**'
+            pulumi-base: 'pulumi/pulumi-base/**'
+            pulumi-python: 'pulumi/pulumi-python/**'
+
+  # Job to build and test each of the modified images
+  build:
+    needs: changes
+    strategy:
+      matrix:
+        # Parse JSON array containing names of all filters matching any of changed files
+        # e.g. ['image1', 'image2'] if both image folders contains changes
+        image: ${{ fromJSON(needs.changes.outputs.images) }}
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+      - name: Debug
+        run: |
+          echo ${{ matrix.ruby }}
