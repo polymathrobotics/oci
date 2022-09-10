@@ -22,11 +22,11 @@ jobs:
           # If it's not configured, the repository default branch is used.
           base: ${{ github.ref }}
           filters: |
-            cinc-auditor: 'cinc/cinc-auditor/**'
+            cinc/cinc-auditor: 'cinc/cinc-auditor/**'
             haldolint: 'hadolint/**'
             paperspace-cli: 'paperspace-cli/**'
-            pulumi-base: 'pulumi/pulumi-base/**'
-            pulumi-python: 'pulumi/pulumi-python/**'
+            pulumi/pulumi-base: 'pulumi/pulumi-base/**'
+            pulumi/pulumi-python: 'pulumi/pulumi-python/**'
 
   # Job to build and test each of the modified images
   build:

@@ -38,7 +38,7 @@ Many commands require user input, so it is recommended to pass the
 # Command-line interface examples
 
 ## Listing machine types
-```
+```bash
 docker run --rm \
   --env=PAPERSPACE_API_KEY \
   polymathrobotics/paperspace-cli paperspace jobs machineTypes | less
