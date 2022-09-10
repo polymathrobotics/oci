@@ -1,4 +1,6 @@
-# paperspace-cli [![hadolint](https://github.com/polymathrobotics/oci/actions/workflows/paperspace-cli-push.yml/badge.svg)](https://github.com/polymathrobotics/oci/actions/workflows/paperspace-cli-push.yml)
+# paperspace-cli
+
+https://github.com/polymathrobotics/oci/tree/main/paperspace-cli
 
 Command-line interface for the Paperspace cloud.
 

@@ -1,4 +1,4 @@
-# Polymath Robotics Open Container Initiative (OCI) Images
+# Polymath Robotics Open Container Initiative (OCI) Images [![oci](https://github.com/polymathrobotics/oci/actions/workflows/ci.yml/badge.svg)](https://github.com/polymathrobotics/oci/actions/workflows/ci.yml)
 Public container images published by Polymath Robotics.
 
 The images are pubished to https://hub.docker.com/u/polymathrobotics

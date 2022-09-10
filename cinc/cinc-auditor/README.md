@@ -1,4 +1,4 @@
-## cinc-auditor [![cinc-auditor](https://github.com/polymathrobotics/oci/actions/workflows/cinc-auditor-push.yml/badge.svg)](https://github.com/polymathrobotics/oci/actions/workflows/cinc-auditor-push.yml)
+## cinc-auditor
 
 https://github.com/polymathrobotics/oci/tree/main/cinc/cinc-auditor
 
