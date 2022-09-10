@@ -1,12 +1,6 @@
 # syntax=docker/dockerfile:1
 ARG CONTAINER_REGISTRY=docker.io
-FROM $CONTAINER_REGISTRY/ubuntu:focal-20220531 as build
-
-# metadata
-LABEL \
-    org.opencontainers.image.source="https://github.com/polymathrobotics/oci" \
-    org.opencontainers.image.licenses="Apache-2.0" \
-    org.opencontainers.image.description="Pulumi CLI container for python."
+FROM $CONTAINER_REGISTRY/ubuntu:focal-20220826 as build
 
 ARG PULUMI_VERSION=3.38.0
 RUN <<EOF
@@ -23,6 +17,11 @@ RUN curl -fsSL https://get.pulumi.com/ | bash -s -- --version $PULUMI_VERSION
 # The runtime container
 # This is our base container, so let's copy all the runtimes to .pulumi/bin
 FROM $CONTAINER_REGISTRY/polymathrobotics/python:3.8-focal
+
+LABEL \
+    org.opencontainers.image.source="https://github.com/polymathrobotics/oci" \
+    org.opencontainers.image.licenses="Apache-2.0" \
+    org.opencontainers.image.description="Pulumi CLI container for python."
 
 WORKDIR /pulumi/projects
 
