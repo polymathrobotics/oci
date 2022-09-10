@@ -13,7 +13,7 @@ https://github.com/Paperspace/gradient-installer/tree/master/gradient-ps-cloud
 
 ## Using this Terraform example to spin up an instance
 
-```
+```bash
 % cd example
 % docker run -it --rm \
   --env PAPERSPACE_API_KEY \
