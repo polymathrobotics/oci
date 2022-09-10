@@ -87,5 +87,24 @@ jobs:
           push: true
           context: ${{ matrix.image }}
           file: ${{ matrix.image }}/Containerfile
-          platforms: ${{env.platforms}}
-          tags: ${{env.tags}}
+          platforms: ${{ env.platforms }}
+          tags: ${{ env.tags }}
+
+      - name: Set the image name
+        id: platforms
+        run: |
+          echo "image_name=$($(git rev-parse --show-toplevel)/bin/image-name.sh)" >> $GITHUB_ENV
+
+      - name: Set the image description
+        id: platforms
+        run: |
+          echo "image_description=$($(git rev-parse --show-toplevel)/bin/image-description.sh)" >> $GITHUB_ENV
+
+      - name: Update Docker Hub Description
+        uses: peter-evans/dockerhub-description@v3
+        with:
+          username: ${{ secrets.CONTAINER_REGISTRY_USERNAME }}
+          password: ${{ secrets.CONTAINER_DESCRIPTION_PASSWORD }}
+          short-description: ${{ env.image_description }}
+          repository: polymathrobotics/${{ env.image_name }}
+          readme-filepath: ${{ matrix.image }}/README.md
