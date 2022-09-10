@@ -91,12 +91,12 @@ jobs:
           tags: ${{ env.tags }}
 
       - name: Set the image name
-        id: platforms
+        id: image_name
         run: |
           echo "image_name=$($(git rev-parse --show-toplevel)/bin/image-name.sh)" >> $GITHUB_ENV
 
       - name: Set the image description
-        id: platforms
+        id: image_description
         run: |
           echo "image_description=$($(git rev-parse --show-toplevel)/bin/image-description.sh)" >> $GITHUB_ENV
 
