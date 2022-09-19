@@ -55,7 +55,7 @@ tools have a single target directory for source files and by default the image t
 for some operations. Thus there is a subdirectory per image, though a single image may be built for multiple
 platforms. The source for all the container images is under the `src/` tree in this repo. GitHub Actions pipelines
 in `.github/workflows` have been set up to publish these images to the 
-[boxcutter org](https://hub.docker.com/u/boxcutter) on DockerHub.
+[polymathrobotics org](https://hub.docker.com/u/polymathrobotics) on DockerHub.
 
 Since container image source code packaging is small, for convenience all the source is together in one big
 repo. We try to organize the the subdirectories under `src/` by a broad category of application type, then by
@@ -156,6 +156,6 @@ $(git rev-parse --show-toplevel)/bin/build-push.sh
 
 | Image | Description | Location | DockerHub URL |
 | --- | --- | --- | --- |
-| cinc-auditor | Framework compatible with Chef InSpec for testing infrastructure | [src/bootstrap/cinc-auditor](https://github.com/boxcutter/oci/tree/main/src/bootstrap/cinc-auditor) | https://hub.docker.com/r/boxcutter/cinc-auditor |
-| dasel | Command line process for JSON, YAML, TOML, XML and CSV files | [src/bootstrap/dasel](https://github.com/boxcutter/oci/tree/main/src/bootstrap/dasel) | https://hub.docker.com/r/boxcutter/dasel |
-| hadolint | Containerfile/Dockerfiles linter | [src/bootstrap/hadolint](https://github.com/boxcutter/oci/tree/main/src/bootstrap/hadolint) | https://hub.docker.com/r/boxcutter/dasel |
+| cinc-auditor | Framework compatible with Chef InSpec for testing infrastructure | [src/bootstrap/cinc-auditor](https://github.com/polymathrobotics/oci/tree/main/src/bootstrap/cinc-auditor) | https://hub.docker.com/r/polymathrobotics/cinc-auditor |
+| dasel | Command line process for JSON, YAML, TOML, XML and CSV files | [src/bootstrap/dasel](https://github.com/polymathrobotics/oci/tree/main/src/bootstrap/dasel) | https://hub.docker.com/r/polymathrobotics/dasel |
+| hadolint | Containerfile/Dockerfiles linter | [src/bootstrap/hadolint](https://github.com/polymathrobotics/oci/tree/main/src/bootstrap/hadolint) | https://hub.docker.com/r/polymathrobotics/dasel |
