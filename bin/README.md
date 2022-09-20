@@ -11,7 +11,6 @@ There are top level scripts used in each stage of our build pipeline:
 - test
   - `build-local.sh` - Generates one container image matching the local
     platform architecture on which to run tests
-  - 
 - build
   - `build-push.sh` - Build a multi-architecture container image and
     push the result to a container registry
