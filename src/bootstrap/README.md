@@ -30,7 +30,7 @@ docker buildx build \
   .
 
 # Publish cinc-auditor
-# Needed by test.sh to lint Containerfiles
+# Needed by test.sh to run InSpec tests
 cd $(git rev-parse --show-toplevel)/src/bootstrap/cinc-auditor
 docker buildx build \
   --platform linux/arm64,linux/amd64 \
