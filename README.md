@@ -5,11 +5,11 @@ The images are pubished to https://hub.docker.com/u/polymathrobotics
 
 # Alphabetical index of images
 
-| Image | Description | Location | DockerHub URL |
-| --- | --- | --- | --- |
-| cinc-auditor | Framework compatible with Chef InSpec for testing infrastructure | [src/bootstrap/cinc-auditor](https://github.com/polymathrobotics/oci/tree/main/src/bootstrap/cinc-auditor) | https://hub.docker.com/r/polymathrobotics/cinc-auditor |
-| dasel | Command line processor for JSON, YAML, TOML, XML and CSV files | [src/bootstrap/dasel](https://github.com/polymathrobotics/oci/tree/main/src/bootstrap/dasel) | https://hub.docker.com/r/polymathrobotics/dasel |
-| hadolint | Containerfile/Dockerfile linter | [src/bootstrap/hadolint](https://github.com/polymathrobotics/oci/tree/main/src/bootstrap/hadolint) | https://hub.docker.com/r/polymathrobotics/hadolint |
+| Image | Description | Source Location |
+| --- | --- | --- |
+| [cinc-auditor](https://hub.docker.com/r/polymathrobotics/cinc-auditor) | Framework compatible with Chef InSpec for testing infrastructure | [src/bootstrap/cinc-auditor](https://github.com/polymathrobotics/oci/tree/main/src/bootstrap/cinc-auditor) |
+| [dasel](https://hub.docker.com/r/polymathrobotics/dasel) | Command line processor for JSON, YAML, TOML, XML and CSV files | [src/bootstrap/dasel](https://github.com/polymathrobotics/oci/tree/main/src/bootstrap/dasel) |
+| [hadolint](https://hub.docker.com/r/polymathrobotics/hadolint) | Containerfile/Dockerfile linter | [src/bootstrap/hadolint](https://github.com/polymathrobotics/oci/tree/main/src/bootstrap/hadolint) |
 
 # Why are you re-publishing some official images?
 
