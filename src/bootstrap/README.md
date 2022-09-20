@@ -7,7 +7,7 @@ The images in this subdirectory are needed to bootstrap the build system. The sc
 
 If you happen to want to transplant this repo to your local environment and customize it for your purposes, just make sure you bootstrap the system by making sure these images are published to a container repo.
 
-This is how we bootstrapped the current images. This only need to be done once, then after that point you can use the build system to update everything.
+This is how we bootstrapped the current images. This only need to be done once, then after that point you can use the build system to update everything. Just make sure you publish new bootstrap images before updating the references in the build scripts in `bin`.
 ```bash
 # Publish dasel
 # Needed by image-name.sh, list-platforms.sh, and list-tags.sh to grab parameters from Polly.toml
