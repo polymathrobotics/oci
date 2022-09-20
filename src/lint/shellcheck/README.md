@@ -29,6 +29,7 @@ docker container run --rm \
 
 # CLI
 
+```
 % docker container run --rm docker.io/polymathrobotics/shellcheck
 No files specified.
 
@@ -48,3 +49,4 @@ Usage: shellcheck [OPTIONS...] FILES...
   -W NUM              --wiki-link-count=NUM      The number of wiki links to show, when applicable
   -x                  --external-sources         Allow 'source' outside of FILES
                       --help                     Show this usage summary and exit
+```
