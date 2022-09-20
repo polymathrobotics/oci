@@ -29,7 +29,7 @@ docker container run --rm \
 
 # CLI
 
-```bash
+```
 % docker container run -it --rm polymathrobotics/dasel --help
 Select properties from the given file.
 
