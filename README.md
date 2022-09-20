@@ -10,6 +10,7 @@ The images are pubished to https://hub.docker.com/u/polymathrobotics
 | [cinc-auditor](https://hub.docker.com/r/polymathrobotics/cinc-auditor) | Framework compatible with Chef InSpec for testing infrastructure | [src/bootstrap/cinc-auditor](https://github.com/polymathrobotics/oci/tree/main/src/bootstrap/cinc-auditor) |
 | [dasel](https://hub.docker.com/r/polymathrobotics/dasel) | Command line processor for JSON, YAML, TOML, XML and CSV files | [src/bootstrap/dasel](https://github.com/polymathrobotics/oci/tree/main/src/bootstrap/dasel) |
 | [hadolint](https://hub.docker.com/r/polymathrobotics/hadolint) | Containerfile/Dockerfile linter | [src/bootstrap/hadolint](https://github.com/polymathrobotics/oci/tree/main/src/bootstrap/hadolint) |
+| [shellcheck](https://hub.docker.com/r/polymathrobotics/shellcheck) | Static analysis tool for shell scripts | [src/lint/shellcheck](https://github.com/polymathrobotics/oci/tree/main/src/lint/shellcheck) |
 
 # Why are you re-publishing some official images?
 

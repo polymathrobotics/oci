@@ -1,10 +1,6 @@
+# syntax=docker/dockerfile:1
 ARG CONTAINER_REGISTRY=docker.io
-FROM $CONTAINER_REGISTRY/ubuntu:20.04 AS build
-
-LABEL \
-    org.opencontainers.image.source="https://github.com/polymathrobotics/oci" \
-    org.opencontainers.image.licenses="Apache-2.0" \
-    org.opencontainers.image.description="ShellCheck, a static analysis tool for shell scripts."
+FROM $CONTAINER_REGISTRY/ubuntu:jammy-20220815 AS build
 
 RUN apt-get update \
   && apt-get install -y --no-install-recommends \
@@ -28,6 +24,13 @@ RUN apt-get update \
   && tar -xf /tmp/shellcheck.tar.gz --wildcards '*/shellcheck' --strip-components=1
 
 FROM scratch
+
+LABEL \
+    org.opencontainers.image.source="https://github.com/polymathrobotics/oci" \
+    org.opencontainers.image.licenses="Apache-2.0" \
+    org.opencontainers.image.description="ShellCheck, a static analysis tool for shell scripts."
+
 COPY --from=build /shellcheck /usr/local/bin/shellcheck
 
-CMD ["shellcheck"]
+WORKDIR /share
+ENTRYPOINT ["/usr/local/bin/shellcheck"]
