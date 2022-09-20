@@ -8,7 +8,7 @@ The images are pubished to https://hub.docker.com/u/polymathrobotics
 | Image | Description | Location | DockerHub URL |
 | --- | --- | --- | --- |
 | cinc-auditor | Framework compatible with Chef InSpec for testing infrastructure | [src/bootstrap/cinc-auditor](https://github.com/polymathrobotics/oci/tree/main/src/bootstrap/cinc-auditor) | https://hub.docker.com/r/polymathrobotics/cinc-auditor |
-| dasel | Command line process for JSON, YAML, TOML, XML and CSV files | [src/bootstrap/dasel](https://github.com/polymathrobotics/oci/tree/main/src/bootstrap/dasel) | https://hub.docker.com/r/polymathrobotics/dasel |
+| dasel | Command line processor for JSON, YAML, TOML, XML and CSV files | [src/bootstrap/dasel](https://github.com/polymathrobotics/oci/tree/main/src/bootstrap/dasel) | https://hub.docker.com/r/polymathrobotics/dasel |
 | hadolint | Containerfile/Dockerfiles linter | [src/bootstrap/hadolint](https://github.com/polymathrobotics/oci/tree/main/src/bootstrap/hadolint) | https://hub.docker.com/r/polymathrobotics/hadolint |
 
 # Why are you re-publishing some official images?
