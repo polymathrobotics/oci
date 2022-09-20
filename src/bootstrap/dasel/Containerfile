@@ -25,7 +25,7 @@ RUN <<EOF
 EOF
 
 
-FROM $CONTAINER_REGISTRY/ubuntu:jammy-20220815
+FROM $CONTAINER_REGISTRY/ubuntu:focal-20220826
 
 LABEL \
     org.opencontainers.image.source="https://github.com/polymathrobotics/oci" \
