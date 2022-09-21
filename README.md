@@ -7,10 +7,10 @@ The images are pubished to https://hub.docker.com/u/polymathrobotics
 
 | Image | Description | Source Location |
 | --- | --- | --- |
-| [cinc-auditor](https://hub.docker.com/r/polymathrobotics/cinc-auditor) | Framework compatible with Chef InSpec for testing infrastructure | [src/bootstrap/cinc-auditor](https://github.com/polymathrobotics/oci/tree/main/src/bootstrap/cinc-auditor) |
-| [dasel](https://hub.docker.com/r/polymathrobotics/dasel) | Command line processor for JSON, YAML, TOML, XML and CSV files | [src/bootstrap/dasel](https://github.com/polymathrobotics/oci/tree/main/src/bootstrap/dasel) |
-| [hadolint](https://hub.docker.com/r/polymathrobotics/hadolint) | Containerfile/Dockerfile linter | [src/bootstrap/hadolint](https://github.com/polymathrobotics/oci/tree/main/src/bootstrap/hadolint) |
-| [shellcheck](https://hub.docker.com/r/polymathrobotics/shellcheck) | Static analysis tool for shell scripts | [src/lint/shellcheck](https://github.com/polymathrobotics/oci/tree/main/src/lint/shellcheck) |
+| [cinc-auditor](https://hub.docker.com/r/polymathrobotics/cinc-auditor) | Framework compatible with Chef InSpec for testing infrastructure | [bootstrap/cinc-auditor](https://github.com/polymathrobotics/oci/tree/main/bootstrap/cinc-auditor) |
+| [dasel](https://hub.docker.com/r/polymathrobotics/dasel) | Command line processor for JSON, YAML, TOML, XML and CSV files | [bootstrap/dasel](https://github.com/polymathrobotics/oci/tree/main/bootstrap/dasel) |
+| [hadolint](https://hub.docker.com/r/polymathrobotics/hadolint) | Containerfile/Dockerfile linter | [bootstrap/hadolint](https://github.com/polymathrobotics/oci/tree/main/bootstrap/hadolint) |
+| [shellcheck](https://hub.docker.com/r/polymathrobotics/shellcheck) | Static analysis tool for shell scripts | [shellcheck](https://github.com/polymathrobotics/oci/tree/main/shellcheck) |
 
 # Why are you re-publishing some official images?
 
@@ -52,9 +52,11 @@ The repo has the following structure:
   everything uses the same code, whether or not you are building locally or
   using automated builds in the cloud.
 
-- `src/` contains all the source code for the images, primarily
-  Containerfiles/Dockerfiles in BuildKit format. The subdirectories are
-  vaguely organized into categories and by vendors. An alphabetical
+- `bootstrap/` contains the source code for the container images needed to
+  bootstrap the build system.
+
+- Rest of the directories contain all the source code for the images, primarily
+  Containerfiles/Dockerfiles in BuildKit format. An alphabetical
   index is also provided in this README.md.
   
 # Developing

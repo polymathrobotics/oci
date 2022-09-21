@@ -5,8 +5,6 @@ set -o pipefail
 
 DASEL_CONTAINER_IMAGE=polymathrobotics/dasel:1.26.1
 
-SCRIPT_PATH="$( cd -- "$(dirname "$0")" >/dev/null 2>&1 ; pwd -P )"
-BIN_DIR="${SCRIPT_PATH}"
 CONTAINERFILE_DIR=$(pwd)
 
 MODE=plain
@@ -25,9 +23,6 @@ EOF
 args() {
   while getopts dhct opt; do
     case "$opt" in
-      d)
-        DEBUG=1
-        ;;
       h)
         usage
         exit
@@ -37,6 +32,10 @@ args() {
         ;;
       t)
         MODE=plain
+        ;;
+      *)
+        usage
+        exit 1
         ;;
     esac
   done
@@ -74,7 +73,7 @@ print_platforms_csv() {
       -c "dasel -f Polly.toml -w json | jq --raw-output '.container_image.platforms | @csv'"
 }
 
-args $*
+args "$*"
 
 if [[ -f "${CONTAINERFILE_DIR}/Polly.toml" ]]; then
   if [[ "$MODE" == "csv" ]]; then

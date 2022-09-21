@@ -5,12 +5,11 @@ set -o pipefail
 
 DASEL_CONTAINER_IMAGE=polymathrobotics/dasel:1.26.1
 
-SCRIPT_PATH="$( cd -- "$(dirname "$0")" >/dev/null 2>&1 ; pwd -P )"
-BIN_DIR="${SCRIPT_PATH}"
+BIN_DIR="$(dirname -- "$(readlink -f "${BASH_SOURCE[0]}")")"
 CONTAINERFILE_DIR=$(pwd)
 
 MODE=plain
-DEFAULT_TAG="$(${BIN_DIR}/full-image-name.sh)"
+DEFAULT_TAG=$("${BIN_DIR}/full-image-name.sh")
 
 usage() {
   cat <<EOF
@@ -24,11 +23,8 @@ EOF
 }
 
 args() {
-  while getopts dhct opt; do
+  while getopts hct opt; do
     case "$opt" in
-      d)
-        DEBUG=1
-        ;;
       h)
         usage
         exit
@@ -38,6 +34,10 @@ args() {
         ;;
       t)
         MODE=plain
+        ;;
+      *)
+        usage
+        exit 1
         ;;
     esac
   done
@@ -59,8 +59,8 @@ print_tags_csv() {
       -c "dasel -f Polly.toml -w json | jq -r '[ .container_image.tags | \"${DEFAULT_TAG}:\" + .[] ] | @csv'"
 }
 
-args $*
-DEFAULT_TAG="$(${BIN_DIR}/full-image-name.sh)"
+args "$*"
+DEFAULT_TAG=$("${BIN_DIR}/full-image-name.sh")
 
 if [[ -f "${CONTAINERFILE_DIR}/Polly.toml" ]]; then
   if [[ "$MODE" == "csv" ]]; then
