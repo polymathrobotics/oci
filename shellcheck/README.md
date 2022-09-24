@@ -24,7 +24,7 @@ filename parameters as well:
 ```
 docker container run --rm \
   --mount type=bind,source="$(pwd)",target=/share \
-  docker.io/polymathrobotics/shellcheck *.sh
+  docker.io/polymathrobotics/shellcheck ./*.sh
 ```
 
 # CLI
