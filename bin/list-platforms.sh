@@ -14,14 +14,13 @@ usage() {
   cat <<EOF
 Usage:  $0
 
-  -d    Enable debug messages
   -h    Print help
   -c    Print tags in CSV format for GitHub Actions (default)
 EOF
 }
 
 args() {
-  while getopts dhct opt; do
+  while getopts hct opt; do
     case "$opt" in
       h)
         usage
@@ -73,7 +72,7 @@ print_platforms_csv() {
       -c "dasel -f Polly.toml -w json | jq --raw-output '.container_image.platforms | @csv'"
 }
 
-args "$*"
+args "$@"
 
 if [[ -f "${CONTAINERFILE_DIR}/Polly.toml" ]]; then
   if [[ "$MODE" == "csv" ]]; then

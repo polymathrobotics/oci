@@ -5,8 +5,7 @@ set -o pipefail
 
 CINC_AUDITOR_CONTAINER_IMAGE=polymathrobotics/cinc-auditor:5.14.0
 
-SCRIPT_PATH="$( cd -- "$(dirname "$0")" >/dev/null 2>&1 ; pwd -P )"
-BIN_DIR="${SCRIPT_PATH}"
+BIN_DIR="$(dirname -- "$(readlink -f "${BASH_SOURCE[0]}")")"
 CONTAINERFILE_DIR=$(pwd)
 CINC_PROFILE_DIR="${CONTAINERFILE_DIR}/test"
 
@@ -84,7 +83,7 @@ cleanup_image_under_test() {
 trap cleanup_image_under_test EXIT
 
 "${BIN_DIR}/check-image.sh" "${CINC_AUDITOR_CONTAINER_IMAGE}"
-args "$*"
+args "$@"
 check_profile
 start_image_under_test
 run_cinc_auditor

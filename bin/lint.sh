@@ -5,8 +5,7 @@ set -o pipefail
 
 HADOLINT_CONTAINER_IMAGE=polymathrobotics/hadolint:2.10.0
 
-SCRIPT_PATH="$( cd -- "$(dirname "$0")" >/dev/null 2>&1 ; pwd -P )"
-BIN_DIR="${SCRIPT_PATH}"
+BIN_DIR="$(dirname -- "$(readlink -f "${BASH_SOURCE[0]}")")"
 
 "${BIN_DIR}/check-image.sh" "${HADOLINT_CONTAINER_IMAGE}"
 
@@ -16,4 +15,4 @@ if [[ -f "${BIN_DIR}/hadolint-ignore" ]]; then
   exit 0
 fi
 
-docker container run --rm -i ${HADOLINT_CONTAINER_IMAGE} hadolint - < "Containerfile"
+docker container run --rm -i "${HADOLINT_CONTAINER_IMAGE}" hadolint - < "Containerfile"
