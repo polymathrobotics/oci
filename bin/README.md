@@ -21,11 +21,13 @@ files:
 - `full-image-name.sh` - prints full image name using config info from Polly.toml (e.g. docker.io/polymathrobotics/ros:noetic)
 - `image-name.sh` - prints image name component of full image name using config info from Polly.toml (e.g. ros)
 - `list-platforms.sh` - prints image platforms from Polly.toml
-- `list-tsgs.sh` - prints tag component of full image name using config info from Polly.toml (e.g. noetic)
+- `list-tags.sh` - prints tag component of full image name using config info from Polly.toml (e.g. noetic)
 
 These are the rest of the supporting scripts:
 - `check-image.sh` - checks if an image is present in a container registry
 - `image-description.sh` - prints image description using container image label metadata
+- `run_shellcheck.sh` - runs shellcheck linter on the bash scripts in this directory
+- `run_tests.sh` - runs bats tests on the bash scripts in this directory
 
 We use bats to verify the scripts. Because the scripts use container images,
 it's easier to have the bats scripts running on the host outside of docker.
