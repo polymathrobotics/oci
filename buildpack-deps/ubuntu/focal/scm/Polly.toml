@@ -1,4 +1,4 @@
 [container_image]
 name = "buildpack-deps"
-tags = ["focal-scm", "20.04-scm" ]
+tags = ["focal-scm", "20.04-scm"]
 readme = "buildpack-deps/README.md"
