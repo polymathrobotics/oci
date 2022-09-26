@@ -1,6 +1,9 @@
+# syntax=docker/dockerfile:1
 ARG CONTAINER_REGISTRY=docker.io
 FROM $CONTAINER_REGISTRY/polymathrobotics/buildpack-deps:focal-scm
 
+SHELL ["/bin/bash", "-o", "pipefail", "-c"]
+# hadolint ignore=SC2046
 RUN set -ex; \
 	apt-get update; \
 	apt-get install -y --no-install-recommends \
