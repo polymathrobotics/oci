@@ -12,7 +12,6 @@ The images are pubished to https://hub.docker.com/u/polymathrobotics
 | [dasel](https://hub.docker.com/r/polymathrobotics/dasel) | Command line processor for JSON, YAML, TOML, XML and CSV files | [bootstrap/dasel](https://github.com/polymathrobotics/oci/tree/main/bootstrap/dasel) |
 | [hadolint](https://hub.docker.com/r/polymathrobotics/hadolint) | Containerfile/Dockerfile linter | [bootstrap/hadolint](https://github.com/polymathrobotics/oci/tree/main/bootstrap/hadolint) |
 | [python](https://hub.docker.com/r/polymathrobotics/python) | The Python programming language | [python](https://github.com/polymathrobotics/oci/tree/main/python) |
-| [ruby](https://hub.docker.com/r/polymathrobotics/ruby) | Ruby is a dynamic, reflective, object-oriented, general-purpose, open-source programming language | [ruby](https://github.com/polymathrobotics/oci/tree/main/ruby) |
 | [shellcheck](https://hub.docker.com/r/polymathrobotics/shellcheck) | Static analysis tool for shell scripts | [shellcheck](https://github.com/polymathrobotics/oci/tree/main/shellcheck) |
 
 # Why are you re-publishing some official images?

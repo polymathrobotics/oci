@@ -1,4 +1,0 @@
-[container_image]
-name = 'ruby'
-readme = 'ruby/README.md'
-tags = ["3.1.2-focal", "3.1-focal", "3-focal", "focal"]
