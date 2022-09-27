@@ -2,7 +2,7 @@
 ARG CONTAINER_REGISTRY=docker.io
 FROM $CONTAINER_REGISTRY/ubuntu:focal-20220826 as build
 
-ARG PULUMI_VERSION=3.39.3
+ARG PULUMI_VERSION=3.40.2
 RUN <<EOF
   apt-get update
   apt-get install -y --no-install-recommends \
@@ -31,7 +31,8 @@ RUN --mount=type=cache,target=/var/lib/apt/list \
   apt-get update
   DEBIAN_FRONTEND=noninteractive apt-get install -y --no-install-recommends \
     ca-certificates \
-    git
+    git \
+    vim
 EOF
 
 ENV PATH "/pulumi/bin:${PATH}"
