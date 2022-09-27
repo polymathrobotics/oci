@@ -1,3 +1,4 @@
 [container_image]
 name = "python"
 tags = ["3.8.14-focal", "3.8-focal" ]
+readme='python/README.md'
