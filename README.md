@@ -32,7 +32,7 @@ for intel, arm64 and arm32 chips. So we try as much as we can for a wider variet
 Very few official images use Ubuntu as a base image in their "FROM" field. The container images produced from this repository
 nearly all consistently use Ubuntu as the base image, which is the preferred base for the Robot Operating System (ROS).
 
-Because ROS use Python heavily, it's not a good idea to use an alpine base image. It does not have
+Because ROS uses Python heavily, it's not a good idea to use an alpine base image. It does not have
 a compatible C-runtime. And adding all the necessary C dependencies to an alpine image ironically makes it BIGGER than an
 equivalent Debian/Ubuntu image.
 
