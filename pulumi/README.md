@@ -30,14 +30,32 @@ docker container run -it --rm \
 
 ### How to remove resources from a stack without deleting them in the cloud
 
-Find the urn for the resource of interest via `pulumi stack --show-urns`.
+Find the urn for the resource of interest via `pulumi stack --show-urns`:
+```
+docker container run -it --rm \
+  --env PULUMI_ACCESS_TOKEN \
+  --workdir /app \
+  --mount type=bind,source="$(pwd)",target=/app \
+  --entrypoint bash \
+  docker.io/polymathrobotics/pulumi-python \
+    -c "pip install -r requirements.txt \
+          && pulumi stack --show-urns"
+```
 
 Then use the following command to delete the urn: `pulumi state delete <urn>`.
 
 To do this in bulk, you can export the stack as JSON, delete the resources, then import it back in:
 ```
 # Get the current stack as json:
-pulumi stack export --file stack.json
+# pulumi stack export --file stack.json
+docker container run -it --rm \
+  --env PULUMI_ACCESS_TOKEN \
+  --workdir /app \
+  --mount type=bind,source="$(pwd)",target=/app \
+  --entrypoint bash \
+  docker.io/polymathrobotics/pulumi-python \
+    -c "pip install -r requirements.txt \
+          && pulumi stack export --file stack.json"
 
 # Delete what you don't want from your stack file and then:
 pulumi stack import --file stack.json

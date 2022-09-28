@@ -30,7 +30,8 @@ RUN --mount=type=cache,target=/var/lib/apt/list \
   apt-get update
   DEBIAN_FRONTEND=noninteractive apt-get install -y --no-install-recommends \
     ca-certificates \
-    git
+    git \
+    vim
 EOF
 
 # Uses the workdir, copies from pulumi interim container
