@@ -11,6 +11,7 @@ The images are pubished to https://hub.docker.com/u/polymathrobotics
 | [cinc-auditor](https://hub.docker.com/r/polymathrobotics/cinc-auditor) | Framework compatible with Chef InSpec for testing infrastructure | [bootstrap/cinc-auditor](https://github.com/polymathrobotics/oci/tree/main/bootstrap/cinc-auditor) |
 | [dasel](https://hub.docker.com/r/polymathrobotics/dasel) | Command line processor for JSON, YAML, TOML, XML and CSV files | [bootstrap/dasel](https://github.com/polymathrobotics/oci/tree/main/bootstrap/dasel) |
 | [hadolint](https://hub.docker.com/r/polymathrobotics/hadolint) | Containerfile/Dockerfile linter | [bootstrap/hadolint](https://github.com/polymathrobotics/oci/tree/main/bootstrap/hadolint) |
+| [paperspace-cli](https://hub.docker.com/r/polymathrobotics/paperspace-cli) | Command-line interface for the Paperspace cloud | [paperspace-cli](https://github.com/polymathrobotics/oci/tree/main/paperspace-cli) |
 | [python](https://hub.docker.com/r/polymathrobotics/python) | The Python programming language | [python](https://github.com/polymathrobotics/oci/tree/main/python) |
 | [pulumi-base](https://hub.docker.com/r/polymathrobotics/pulumi-base) | Pulumi CLI container, bring your own SDK | [pulumi-base](https://github.com/polymathrobotics/oci/tree/main/pulumi/pulumi-base) |
 | [pulumi-python](https://hub.docker.com/r/polymathrobotics/pulumi-python) | Pulumi CLI container for python | [pulumi-python](https://github.com/polymathrobotics/oci/tree/main/pulumi/pulumi-python) |
