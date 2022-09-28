@@ -5,6 +5,8 @@ These images repackage releases from https://github.com/pulumi/pulumi-docker-con
 - `pulumi-base`: A slim image that contains the Pulumi CLI, but no SDKs.
 - `pulumi-python`: A slim image that contains the Pulumi CLI along with the Python runtime and Pulumi SDK.
 
+Image source: https://github.com/polymathrobotics/oci/tree/main/pulumi
+
 ## Using pulumi
 
 The container's default `entrypoint` is the `pulumi` executable, but you'll usually want to provide additional command-line arguments in order to perform useful work, like:
