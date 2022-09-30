@@ -33,7 +33,7 @@ docker container run -it --rm \
 
 # CLI
 
-```bash
+```
 % docker container run -it --rm docker.io/polymathrobotics/flake8 --help
 usage: flake8 [options] file file ...
 
