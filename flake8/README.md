@@ -8,7 +8,7 @@ Flake8 is a wrapper around these tools:
 
 Flake8 runs all the tools by launching the single flake8 command. It displays the warnings in a per-file, merged output.
 
-This image packages flake8 releases from PyPI.
+This image packages flake8 releases from PyPI: https://github.com/PyCQA/flake8
 
 Image source: https://github.com/polymathrobotics/oci/tree/main/dasel
 
