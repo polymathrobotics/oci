@@ -31,6 +31,7 @@ jobs:
             buildpack-deps/ubuntu/jammy/curl: 'buildpack-deps/ubuntu/jammy/curl/**'
             buildpack-deps/ubuntu/jammy/scm: 'buildpack-deps/ubuntu/jammy/scm/**'
             buildpack-deps/ubuntu/jammy: 'buildpack-deps/ubuntu/jammy/*'
+            flake8: 'flake8/**'
             paperspace-cli: 'paperspace-cli/**'
             pulumi/pulumi-base: 'pulumi/pulumi-base/**'
             pulumi/pulumi-python: 'pulumi/pulumi-python/**'
