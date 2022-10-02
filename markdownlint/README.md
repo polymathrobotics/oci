@@ -18,7 +18,7 @@ docker container run --rm \
 
 Markdownlint can also take a directory, and it will scan all markdown files within the directory (and nested directories):
 
-```
+```bash
 docker container run --rm \
   --mount type=bind,source="$(pwd)",target=/data \
   docker.io/polymathrobotics/markdownlint docs/
