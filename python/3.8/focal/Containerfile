@@ -2,6 +2,11 @@
 ARG CONTAINER_REGISTRY=docker.io
 FROM $CONTAINER_REGISTRY/polymathrobotics/buildpack-deps:focal
 
+LABEL \
+    org.opencontainers.image.source="https://github.com/boxcutter/oci" \
+    org.opencontainers.image.licenses="Apache-2.0" \
+    org.opencontainers.image.description="The Python programming language."
+
 # ensure local python is preferred over distribution python
 ENV PATH /usr/local/bin:$PATH
 
