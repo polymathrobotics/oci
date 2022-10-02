@@ -10,7 +10,7 @@ Image Source: https://github.com/polymathrobotics/oci/tree/main/markdownlint
 
 By default, the container image will run markdownlint (mdl) in the /data directory:
 
-```
+```bash
 docker container run --rm \
   --mount type=bind,source="$(pwd)",target=/data \
   docker.io/polymathrobotics/markdownlint .
