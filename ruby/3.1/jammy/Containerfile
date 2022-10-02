@@ -2,6 +2,11 @@
 ARG CONTAINER_REGISTRY=docker.io
 FROM $CONTAINER_REGISTRY/polymathrobotics/buildpack-deps:jammy
 
+LABEL \
+    org.opencontainers.image.source="https://github.com/boxcutter/oci" \
+    org.opencontainers.image.licenses="Apache-2.0" \
+    org.opencontainers.image.description="Ruby is a dynamic, reflective, object-oriented, general-purpose, open-source programming language."
+
 # skip installing gem documentation
 RUN set -eux; \
 	mkdir -p /usr/local/etc; \
