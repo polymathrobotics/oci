@@ -37,6 +37,8 @@ jobs:
             pulumi/pulumi-base: 'pulumi/pulumi-base/**'
             pulumi/pulumi-python: 'pulumi/pulumi-python/**'
             python/3.8/focal: 'python/3.8/focal/**'
+            ruby/3.1/jammy: 'ruby/3.1/jammy/**'
+            ruby/3.1/slim-jammy: 'ruby/3.1/slim-jammy/**'
             shellcheck: 'shellcheck/**'
 
   # Job to build and test each of the modified images
