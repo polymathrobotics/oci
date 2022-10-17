@@ -1,6 +1,6 @@
 # syntax=docker/dockerfile:1
 ARG CONTAINER_REGISTRY=docker.io
-FROM $CONTAINER_REGISTRY/ubuntu:focal-20220801 as build
+FROM $CONTAINER_REGISTRY/ubuntu:focal-20220922 as build
 
 RUN <<EOF
   apt-get update
@@ -24,7 +24,14 @@ RUN <<EOF
   curl -o /tmp/meshcmd/meshcmd "$MESHCMD_URL"
 EOF
 
-FROM $CONTAINER_REGISTRY/ubuntu:focal-20220531
+FROM $CONTAINER_REGISTRY/ubuntu:focal-20220922
+
+LABEL \
+    org.opencontainers.image.source="https://github.com/boxcutter/oci" \
+    org.opencontainers.image.licenses="Apache-2.0" \
+    org.opencontainers.image.description="Command line tool used to perform many
+ tasks related to computer management of Intel Active Management Technology (AMT
+) devices."
 
 WORKDIR /opt/meshcmd/bin
 
