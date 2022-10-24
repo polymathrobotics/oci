@@ -20,6 +20,8 @@ The images are pubished to https://hub.docker.com/u/polymathrobotics
 | [pulumi-base](https://hub.docker.com/r/polymathrobotics/pulumi-base) | Pulumi CLI container, bring your own SDK | [pulumi-base](https://github.com/polymathrobotics/oci/tree/main/pulumi/pulumi-base) |
 | [pulumi-python](https://hub.docker.com/r/polymathrobotics/pulumi-python) | Pulumi CLI container for python | [pulumi-python](https://github.com/polymathrobotics/oci/tree/main/pulumi/pulumi-python) |
 | [ruby](https://hub.docker.com/r/polymathrobotics/ruby) | Ruby is a dynamic, reflective, object-oriented, general-purpose, open-source programming language | [ruby](https://github.com/polymathrobotics/oci/tree/main/ruby) |
+| [rust](https://hub.docker.com/r/polymathrobotics/rust) |  Rust is a systems programming language sponsored by Mozilla Research. | [rust](https://github.com/polymathrobotics/oci/tree/main/rust) |
+| [ruby](https://hub.docker.com/r/polymathrobotics/ruby) | Ruby is a dynamic, reflective, object-oriented, general-purpose, open-source programming language | [ruby](https://github.com/polymathrobotics/oci/tree/main/ruby) |
 | [shellcheck](https://hub.docker.com/r/polymathrobotics/shellcheck) | Static analysis tool for shell scripts | [shellcheck](https://github.com/polymathrobotics/oci/tree/main/shellcheck) |
 
 # Why are you re-publishing some official images?
