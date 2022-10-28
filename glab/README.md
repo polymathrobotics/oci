@@ -13,7 +13,7 @@ Image source: https://github.com/polymathrobotics/oci/tree/main/glab
 You'll need to pass in a `GITLAB_TOKEN` for glab to use and mount your
 source into the container:
 
-```
+```bash
 docker run -it --rm \
   --env GITLAB_TOKEN \
   --mount type=bind,source="$(pwd)",target=/code \
