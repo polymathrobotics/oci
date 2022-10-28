@@ -5,6 +5,7 @@ FROM $CONTAINER_REGISTRY/ubuntu:focal-20221019 as builder
 
 WORKDIR /tmp
 
+SHELL ["/bin/bash", "-o", "pipefail", "-c"]
 RUN <<EOF
   apt-get update
   apt-get install -y --no-install-recommends \
@@ -71,9 +72,9 @@ COPY --from=builder /usr/local/bin/docker /usr/local/bin/docker
 COPY entrypoint.sh /entrypoint.sh
 
 RUN <<EOF
-  groupadd --gid $USER_GID $USERNAME
-  useradd --uid $USER_UID --gid $USER_GID -m $USERNAME
-  mkdir -p /home/$USERNAME/.config 
+  groupadd --gid "$USER_GID" "$USERNAME"
+  useradd --uid "$USER_UID" --gid "$USER_GID" -m "$USERNAME"
+  mkdir -p "/home/$USERNAME/.config"
   apt-get update
   apt-get install -y --no-install-recommends \
     ca-certificates \
@@ -81,6 +82,7 @@ RUN <<EOF
     git \
     openssh-client
   dpkg -i /tmp/glab.deb
+  rm -rf /var/lib/apt/lists/*
 EOF
 
 ENTRYPOINT ["/entrypoint.sh"]
