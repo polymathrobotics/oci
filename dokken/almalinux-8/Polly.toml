@@ -1,4 +1,4 @@
 [container_image]
 name = "dokken-almalinux-8"
-tags = [ "latest"  ]
+tags = [ "latest" ]
 readme = "dokken/README.md"
