@@ -2,3 +2,4 @@
 name = "dokken-amazonlinux-2"
 tags = [ "latest"  ]
 readme = "dokken/README.md"
+platforms=["linux/arm64","linux/amd64"]

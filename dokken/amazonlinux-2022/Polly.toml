@@ -2,3 +2,4 @@
 name = "dokken-amazonlinux-2022"
 tags = [ "latest"  ]
 readme = "cinc/README.md"
+platforms=["linux/arm64","linux/amd64"]
