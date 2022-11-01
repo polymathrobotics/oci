@@ -1,4 +1,4 @@
 [container_image]
 name = "dokken-amazonlinux-2"
-tags = [ "latest" ]
+tags = [ "latest"  ]
 readme = "dokken/README.md"
