@@ -1,5 +1,5 @@
-ARG CONTAINER_REGISTRY=quay.io/centos
-FROM $CONTAINER_REGISTRY/centos:stream8
+ARG CONTAINER_REGISTRY=quay.io
+FROM $CONTAINER_REGISTRY/centos/centos:stream8
 
 LABEL \
     org.opencontainers.image.source="https://github.com/polymathrobotics/oci" \
