@@ -1,4 +1,4 @@
-ARG CONTAINER_REGISTRY=docker.io/rockylinux
+ARG CONTAINER_REGISTRY=docker.io
 FROM $CONTAINER_REGISTRY/rockylinux:8
 
 LABEL \
