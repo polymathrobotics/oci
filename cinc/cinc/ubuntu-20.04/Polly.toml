@@ -1,4 +1,0 @@
-[container_image]
-name = "cinc-ubuntu-20.04"
-tags = ["17.10.0", "latest"]
-platforms = ["linux/arm64", "linux/amd64"]

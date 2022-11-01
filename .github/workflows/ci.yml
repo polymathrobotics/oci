@@ -32,6 +32,7 @@ jobs:
             buildpack-deps/ubuntu/jammy/curl: 'buildpack-deps/ubuntu/jammy/curl/**'
             buildpack-deps/ubuntu/jammy/scm: 'buildpack-deps/ubuntu/jammy/scm/**'
             buildpack-deps/ubuntu/jammy: 'buildpack-deps/ubuntu/jammy/*'
+            cinc/cinc/focal: 'cinc/cinc/focal/**'
             flake8: 'flake8/**'
             glab: 'glab/**'
             markdownlint: 'markdownlint/**'

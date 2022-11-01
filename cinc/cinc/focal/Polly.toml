@@ -1,4 +1,4 @@
 [container_image]
-name = "cinc-oraclelinux-8"
-tags = ["17.10.0", "latest"]
+name = "cinc"
+tags = ["focal-17.10.0"]
 platforms = ["linux/arm64", "linux/amd64"]

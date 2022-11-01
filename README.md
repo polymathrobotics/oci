@@ -9,6 +9,7 @@ The images are pubished to https://hub.docker.com/u/polymathrobotics
 | --- | --- | --- |
 | [black](https://hub.docker.com/r/polymathrobotics/black) | The uncompromising Python code formatter | [black](https://github.com/polymathrobotics/oci/tree/main/black) |
 | [buildpack-deps](https://hub.docker.com/r/polymathrobotics/buildpack-deps) | A collection of common build dependencies used for installing various modules, e.g., gems | [buildpack-deps](https://github.com/polymathrobotics/oci/tree/main/buildpack-deps) |
+| [cinc](https://hub.docker.com/r/polymathrobotics/cinc) | Cinc Client is an automation platform built from Chef Infra | [cinc/cinc](https://github.com/polymathrobotics/oci/tree/main/cinc/cinc) |
 | [cinc-auditor](https://hub.docker.com/r/polymathrobotics/cinc-auditor) | Framework compatible with Chef InSpec for testing infrastructure | [bootstrap/cinc-auditor](https://github.com/polymathrobotics/oci/tree/main/bootstrap/cinc-auditor) |
 | [dasel](https://hub.docker.com/r/polymathrobotics/dasel) | Command line processor for JSON, YAML, TOML, XML and CSV files | [bootstrap/dasel](https://github.com/polymathrobotics/oci/tree/main/bootstrap/dasel) |
 | [flake8](https://hub.docker.com/r/polymathrobotics/flake8) | flake8 is a python tool that glues together pycodestyle, pyflakes, mccabe, and third-party plugins to check the style and quality of some python code | [flake8](https://github.com/polymathrobotics/oci/tree/main/flake8) |
