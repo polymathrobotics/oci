@@ -4,7 +4,7 @@ FROM $CONTAINER_REGISTRY/amazonlinux:2
 LABEL \
     org.opencontainers.image.source="https://github.com/polymathrobotics/oci" \
     org.opencontainers.image.licenses="Apache-2.0" \
-    org.opencontainers.image.description="A container image for testing with amazonlinux-2."
+    org.opencontainers.image.description="Amazon Linux 2 image for kitchen-dokken"
 
 RUN yum -y install \
     binutils \

@@ -4,7 +4,7 @@ FROM $CONTAINER_REGISTRY/almalinux:8
 LABEL \
     org.opencontainers.image.source="https://github.com/polymathrobotics/oci" \
     org.opencontainers.image.licenses="Apache-2.0" \
-    org.opencontainers.image.description="A container image for testing with almalinux-8."
+    org.opencontainers.image.description="Alma Linux 8 image for use with the kitchen-dokken Test Kitchen plugin"
 
 # hadolint ignore=DL3041
 RUN dnf -y install \

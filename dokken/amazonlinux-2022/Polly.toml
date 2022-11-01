@@ -1,3 +1,4 @@
 [container_image]
 name = "dokken-amazonlinux-2022"
 tags = [ "latest" ]
+readme = "cinc/README.md"

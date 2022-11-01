@@ -4,7 +4,7 @@ FROM $CONTAINER_REGISTRY/opensuse/leap:15.4
 LABEL \
     org.opencontainers.image.source="https://github.com/polymathrobotics/oci" \
     org.opencontainers.image.licenses="Apache-2.0" \
-    org.opencontainers.image.description="A container image for testing with opensuse-leap-15.4."
+    org.opencontainers.image.description="openSUSE Leap 15.3 image for use with kitchen-dokken"
 
 # hadolint ignore=DL3037
 RUN zypper update -y && \

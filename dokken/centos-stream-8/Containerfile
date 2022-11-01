@@ -4,7 +4,7 @@ FROM $CONTAINER_REGISTRY/centos:stream8
 LABEL \
     org.opencontainers.image.source="https://github.com/polymathrobotics/oci" \
     org.opencontainers.image.licenses="Apache-2.0" \
-    org.opencontainers.image.description="A container image for testing with centos-stream-8."
+    org.opencontainers.image.description="CentOS Stream 8 image for kitchen-dokken"
 
 # hadolint ignore=DL3041
 RUN dnf -y install \

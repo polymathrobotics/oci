@@ -4,7 +4,7 @@ FROM $CONTAINER_REGISTRY/debian:11
 LABEL \
     org.opencontainers.image.source="https://github.com/polymathrobotics/oci" \
     org.opencontainers.image.licenses="Apache-2.0" \
-    org.opencontainers.image.description="A container image for testing with debian-11."
+    org.opencontainers.image.description="Debian 11 image for use with kitchen-dokken"
 
 ENV DEBIAN_FRONTEND noninteractive
 # hadolint ignore=DL3004

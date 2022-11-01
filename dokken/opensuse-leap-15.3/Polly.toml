@@ -1,3 +1,4 @@
 [container_image]
 name = "dokken-opensuse-leap-15.3"
 tags = [ "latest" ]
+readme = "dokken/README.md"

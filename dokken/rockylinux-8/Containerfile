@@ -4,7 +4,7 @@ FROM $CONTAINER_REGISTRY/rockylinux:8
 LABEL \
     org.opencontainers.image.source="https://github.com/polymathrobotics/oci" \
     org.opencontainers.image.licenses="Apache-2.0" \
-    org.opencontainers.image.description="A container image for testing with rocklinux-8."
+    org.opencontainers.image.description="Rocky Linux 8 image for use with kitchen-dokken"
 
 # hadolint ignore=DL3041
 RUN dnf -y install \

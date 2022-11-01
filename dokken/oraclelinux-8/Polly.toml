@@ -1,3 +1,4 @@
 [container_image]
 name = "dokken-oraclelinux-8"
 tags = [ "latest" ]
+readme = "dokken/README.md"
