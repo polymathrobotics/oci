@@ -67,7 +67,7 @@ RUN dnf -y install \
     -or -name '*kdump*' \
     -or -name '*dnf-makecache*' \
     -or -name '*udev*' \) \
-    -exec rm -v \{} \; && \
+    -exec rm -v \{\} \; && \
     systemctl set-default multi-user.target && \
     systemctl mask dev-hugepages.mount sys-fs-fuse-connections.mount network.service
 
