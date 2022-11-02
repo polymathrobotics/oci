@@ -1,5 +1,4 @@
 [container_image]
 name = "cinc"
-tags = ["focal-17.10.0"]
+tags = ["17.10.0"]
 platforms = ["linux/arm64", "linux/amd64"]
-readme = "cinc/cinc/README.md"

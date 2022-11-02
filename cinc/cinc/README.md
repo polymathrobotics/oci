@@ -1,6 +1,6 @@
 # cinc
 
-Cinc Client is a configuration management tool designed to bring automation to your entire infrastructure that is built on Chef Infra.
+Cinc Client is a configuration management tool designed to bring automation to your entire infrastructure that is built on Chef Infra. The tags on this image must be integers matching cinc version strings.
 
 This image packages releases from https://cinc.sh/start/client/. This image is intended for use with [kitchen-dokken](https://github.com/test-kitchen/kitchen-dokken). 
 
