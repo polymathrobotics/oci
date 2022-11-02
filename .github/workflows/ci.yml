@@ -38,6 +38,7 @@ jobs:
             dokken/amazonlinux-2: 'dokken/amazonlinux-2/**'
             dokken/amazonlinux-2022: 'dokken/amazonlinux-2022/**'
             dokken/centos-stream-8: 'dokken/centos-stream-8/**'
+            dokken/centos-stream-9: 'dokken/centos-stream-9/**'
             dokken/debian-11: 'dokken/debian-11/**'
             dokken/opensuse-leap-15.3: 'dokken/opensuse-leap-15.3/**'
             dokken/opensuse-leap-15.4: 'dokken/opensuse-leap-15.4/**'
