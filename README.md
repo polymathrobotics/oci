@@ -9,8 +9,9 @@ The images are pubished to https://hub.docker.com/u/polymathrobotics
 | --- | --- | --- |
 | [black](https://hub.docker.com/r/polymathrobotics/black) | The uncompromising Python code formatter | [black](https://github.com/polymathrobotics/oci/tree/main/black) |
 | [buildpack-deps](https://hub.docker.com/r/polymathrobotics/buildpack-deps) | A collection of common build dependencies used for installing various modules, e.g., gems | [buildpack-deps](https://github.com/polymathrobotics/oci/tree/main/buildpack-deps) |
-| [cinc](https://hub.docker.com/r/polymathrobotics/cinc) | Cinc Client is an automation platform built from Chef Infra | [cinc](https://github.com/polymathrobotics/oci/tree/main/cinc/cinc) |
+| [cinc](https://hub.docker.com/r/polymathrobotics/cinc) | Cinc Client is an automation platform built from Chef Infra | [cinc/cinc](https://github.com/polymathrobotics/oci/tree/main/cinc/cinc) |
 | [cinc-auditor](https://hub.docker.com/r/polymathrobotics/cinc-auditor) | Framework compatible with Chef InSpec for testing infrastructure | [bootstrap/cinc-auditor](https://github.com/polymathrobotics/oci/tree/main/bootstrap/cinc-auditor) |
+| [cinc-workstation](https://hub.docker.com/r/polymathrobotics/cinc-workstation) | Cinc Workstation, built from Chef Workstation | [cinc/cinc-workstation](https://github.com/polymathrobotics/oci/tree/main/cinc/cinc-workstation) |
 | [dasel](https://hub.docker.com/r/polymathrobotics/dasel) | Command line processor for JSON, YAML, TOML, XML and CSV files | [bootstrap/dasel](https://github.com/polymathrobotics/oci/tree/main/bootstrap/dasel) |
 | [dokken-almalinux-8](https://hub.docker.com/r/polymathrobotics/dokken-almalinux-8) | Alma Linux 8 image for use with the kitchen-dokken Test Kitchen plugin  | [dokken-almalinux-8](https://github.com/polymathrobotics/oci/tree/main/dokken/almalinux-8) |
 | [dokken-almalinux-9](https://hub.docker.com/r/polymathrobotics/dokken-almalinux-9) | Alma Linux 9 image for use with the kitchen-dokken Test Kitchen plugin  | [dokken-almalinux-9](https://github.com/polymathrobotics/oci/tree/main/dokken/almalinux-9) |
