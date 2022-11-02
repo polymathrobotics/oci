@@ -1,3 +1,3 @@
-describe command('lsb_release --release') do
-  its('stdout') { should match(/12/) }
+describe file('/etc/os-release') do
+  its('content') { should match(/bookworm/) }
 end
