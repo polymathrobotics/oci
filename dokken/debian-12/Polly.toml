@@ -1,4 +1,4 @@
 [container_image]
-name = "dokken-debian-11"
+name = "dokken-debian-12"
 tags = [ "latest" ]
 readme = "dokken/README.md"
