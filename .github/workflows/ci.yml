@@ -44,6 +44,7 @@ jobs:
             dokken/opensuse-leap-15.4: 'dokken/opensuse-leap-15.4/**'
             dokken/oraclelinux-8: 'dokken/oraclelinux-8/**'
             dokken/rockylinux-8: 'dokken/rockylinux-8/**'
+            dokken/rockylinux-9: 'dokken/rockylinux-9/**'
             dokken/ubuntu-20.04: 'dokken/ubuntu-20.04/**'
             dokken/ubuntu-22.04: 'dokken/ubuntu-22.04/**'
             flake8: 'flake8/**'
