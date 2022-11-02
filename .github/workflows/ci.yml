@@ -34,6 +34,7 @@ jobs:
             buildpack-deps/ubuntu/jammy: 'buildpack-deps/ubuntu/jammy/*'
             cinc/cinc/focal: 'cinc/cinc/focal/**'
             dokken/almalinux-8: 'dokken/almalinux-8/**'
+            dokken/almalinux-9: 'dokken/almalinux-9/**'
             dokken/amazonlinux-2: 'dokken/amazonlinux-2/**'
             dokken/amazonlinux-2022: 'dokken/amazonlinux-2022/**'
             dokken/centos-stream-8: 'dokken/centos-stream-8/**'
