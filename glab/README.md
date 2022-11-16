@@ -111,3 +111,35 @@ FEEDBACK
   Encountered a bug or want to suggest a feature?
   Open an issue using 'glab issue create -R profclems/glab'
 ```
+
+## Command examples
+
+### Cloning a repo
+
+```
+$ glab repo clone profclems/glab
+
+$ glab repo clone https://gitlab.com/profclems/glab
+
+$ glab repo clone profclems/glab mydirectory  # Clones repo into mydirectory
+
+$ glab repo clone glab   # clones repo glab for current user
+
+$ glab repo clone 4356677   # finds the project by the ID provided and clones it
+
+# Clone all repos in a group
+$ glab repo clone -g everyonecancontribute
+```
+
+### Make an authenticated request to the api
+
+GitLab REST API Docs: https://docs.gitlab.com/ce/api/README.html
+GitLab GraphQL Docs: https://docs.gitlab.com/ee/api/graphql/
+
+https://gitlab.com/polymathrobotics/customer_future_acres_bringup
+https://gitlab.com/polymathrobotics/customer_future_acres_config
+https://gitlab.com/polymathrobotics/customer_future_acres_description
+https://gitlab.com/polymathrobotics/customer_future_acres_sim
+https://gitlab.com/polymathrobotics/example_python_pkg
+```
+```
