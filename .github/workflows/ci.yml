@@ -11,7 +11,8 @@ jobs:
     outputs:
       # Expose matched filters as job 'images' output variable
       images: ${{ steps.filter.outputs.changes }}
-    steps: - uses: actions/checkout@v3
+    steps:
+      - uses: actions/checkout@v3
       - uses: dorny/paths-filter@v2
         id: filter
         with:
