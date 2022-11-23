@@ -35,6 +35,7 @@ The images are pubished to https://hub.docker.com/u/polymathrobotics
 | [markdownlint](https://hub.docker.com/r/polymathrobotics/markdownlint) | A tool to check markdown files and flag style issues | [markdownlint](https://github.com/polymathrobotics/oci/tree/main/markdownlint) |
 | [meshcmd](https://hub.docker.com/r/polymathrobotics/meshcmd) | Command line tool used to perform many tasks related to computer management of Intel Active Management Technology (AMT) devices | [meshcmd](https://github.com/polymathrobotics/oci/tree/main/meshcmd) |
 | [paperspace-cli](https://hub.docker.com/r/polymathrobotics/paperspace-cli) | Command-line interface for the Paperspace cloud | [paperspace-cli](https://github.com/polymathrobotics/oci/tree/main/paperspace-cli) |
+| [postgres](https://hub.docker.com/r/polymathrobotics/postgres) | The PostgreSQL object-relational database system provides reliability and data integrity | [postgres](https://github.com/polymathrobotics/oci/tree/main/postgres) |
 | [python](https://hub.docker.com/r/polymathrobotics/python) | The Python programming language | [python](https://github.com/polymathrobotics/oci/tree/main/python) |
 | [pulumi-base](https://hub.docker.com/r/polymathrobotics/pulumi-base) | Pulumi CLI container, bring your own SDK | [pulumi-base](https://github.com/polymathrobotics/oci/tree/main/pulumi/pulumi-base) |
 | [pulumi-python](https://hub.docker.com/r/polymathrobotics/pulumi-python) | Pulumi CLI container for python | [pulumi-python](https://github.com/polymathrobotics/oci/tree/main/pulumi/pulumi-python) |

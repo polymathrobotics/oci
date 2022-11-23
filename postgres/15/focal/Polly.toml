@@ -1,0 +1,4 @@
+[container_image]
+name = "postgres"
+tags = [ "15.1-focal", "15-focal", "focal" ]
+readme = "postgres/README.md"

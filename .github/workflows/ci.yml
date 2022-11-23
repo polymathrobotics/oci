@@ -11,8 +11,7 @@ jobs:
     outputs:
       # Expose matched filters as job 'images' output variable
       images: ${{ steps.filter.outputs.changes }}
-    steps:
-      - uses: actions/checkout@v3
+    steps: - uses: actions/checkout@v3
       - uses: dorny/paths-filter@v2
         id: filter
         with:
@@ -55,6 +54,7 @@ jobs:
             markdownlint: 'markdownlint/**'
             meshcmd: 'meshcmd/**'
             paperspace-cli: 'paperspace-cli/**'
+            postgres/15/focal: 'postgres/15/focal/**'
             pulumi/pulumi-base: 'pulumi/pulumi-base/**'
             pulumi/pulumi-python: 'pulumi/pulumi-python/**'
             python/3.8/focal: 'python/3.8/focal/**'
