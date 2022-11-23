@@ -12,7 +12,7 @@ Image source: https://github.com/polymathrobotics/oci/tree/main/postgres
 
 ### start a postgres instance
 
-```
+```bash
 $ docker run --name some-postgres -e POSTGRES_PASSWORD=mysecretpassword -d docker.io/polymathrobotics/postgres-focal
 ```
 
