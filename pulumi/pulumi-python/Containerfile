@@ -2,7 +2,7 @@
 ARG CONTAINER_REGISTRY=docker.io
 FROM $CONTAINER_REGISTRY/ubuntu:focal-20220826 as build
 
-ARG PULUMI_VERSION=3.47.1
+ARG PULUMI_VERSION=3.48.0
 RUN <<EOF
   apt-get update
   apt-get install -y --no-install-recommends \
