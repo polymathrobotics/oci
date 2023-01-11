@@ -55,6 +55,7 @@ jobs:
             glab: 'glab/**'
             markdownlint: 'markdownlint/**'
             meshcmd: 'meshcmd/**'
+            op: 'op/**'
             paperspace-cli: 'paperspace-cli/**'
             postgres/15/focal: 'postgres/15/focal/**'
             pulumi/pulumi-base: 'pulumi/pulumi-base/**'

@@ -186,7 +186,7 @@ docker run --rm --interactive --tty \
 
 Listing current droplets
 ```
-docker run --rm --interactive --tty \
+docker run --rm  \
   --env=DIGITALOCEAN_ACCESS_TOKEN \
   polymathrobotics/doctl compute droplet list
 ```

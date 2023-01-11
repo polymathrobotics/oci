@@ -35,6 +35,7 @@ The images are pubished to https://hub.docker.com/u/polymathrobotics
 | [hadolint](https://hub.docker.com/r/polymathrobotics/hadolint) | Containerfile/Dockerfile linter | [bootstrap/hadolint](https://github.com/polymathrobotics/oci/tree/main/bootstrap/hadolint) |
 | [markdownlint](https://hub.docker.com/r/polymathrobotics/markdownlint) | A tool to check markdown files and flag style issues | [markdownlint](https://github.com/polymathrobotics/oci/tree/main/markdownlint) |
 | [meshcmd](https://hub.docker.com/r/polymathrobotics/meshcmd) | Command line tool used to perform many tasks related to computer management of Intel Active Management Technology (AMT) devices | [meshcmd](https://github.com/polymathrobotics/oci/tree/main/meshcmd) |
+| [op](https://hub.docker.com/r/polymathrobotics/op) | 1Password command-line interface 2 | [op](https://github.com/polymathrobotics/oci/tree/main/op) |
 | [paperspace-cli](https://hub.docker.com/r/polymathrobotics/paperspace-cli) | Command-line interface for the Paperspace cloud | [paperspace-cli](https://github.com/polymathrobotics/oci/tree/main/paperspace-cli) |
 | [postgres](https://hub.docker.com/r/polymathrobotics/postgres) | The PostgreSQL object-relational database system provides reliability and data integrity | [postgres](https://github.com/polymathrobotics/oci/tree/main/postgres) |
 | [python](https://hub.docker.com/r/polymathrobotics/python) | The Python programming language | [python](https://github.com/polymathrobotics/oci/tree/main/python) |

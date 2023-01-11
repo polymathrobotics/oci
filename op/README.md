@@ -1,4 +1,8 @@
-This image contains the 1Password CLI.
+# op
+
+The 1Password command-line tool.
+
+This image repackages the 1Password CLI releases from https://1password.com/downloads/command-line/
 
 Configuration cache prevents using this image as a command alias
 ================================================================
@@ -33,7 +37,7 @@ in a container standalone.
 While there are some workarounds for this by passing in the UID/GID,
 there are so many drawbacks and bugs around this in Docker when new files
 are generated, it's not worth trying to make this work in Docker the
-way it is right now. The user will still actually be $HOME-less - you'll 
+way it is right now. The user will still actually be $HOME-less - you'll
 see `I have no name!` in the image. And the container also won't know about
 the username:
 https://medium.com/redbubble/running-a-docker-container-as-a-non-root-user-7d2e00f8ee15
@@ -46,22 +50,21 @@ image. Don't bother trying to hack things to get the config written out as
 another user besides root in the container image:
 
 ```
-FROM polymathrobotics/op-cli-amd64
+FROM polymathrobotics/op
 
-COPY ./my-script.sh /home/opuser
+COPY ./my-script.sh /home/op
 RUN chmod +x ~/my-script.sh
 
 ENTRYPOINT ~/my-script.sh
 ```
 
-
-Also make sure you supply the UID and GID of the current user, otherwise
+Make sure you supply the UID and GID of the current user, otherwise
 the config files will be created inside the image as root. Then on subsequent
 runs, 1Password will complain that the files aren't readable.
 
 ```
-$ docker container run -it --rm \
-  -v $HOME/.op:/home/opuser/.op \
-  --user $(id -u):$(id -g) \
-  polymathrobotics/op-cli-amd64 /bin/bash
+$ docker container run --rm --interactive --tty \
+--mount type=bind,source="$HOME/.op",target="/home/opuser/.op" \
+--user $(id -u):$(id -g) \
+polymathrobotics/op /bin/bash
 ```
