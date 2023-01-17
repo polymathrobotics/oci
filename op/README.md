@@ -63,8 +63,8 @@ the config files will be created inside the image as root. Then on subsequent
 runs, 1Password will complain that the files aren't readable.
 
 ```
-$ docker container run --rm --interactive --tty \
---mount type=bind,source="$HOME/.op",target="/home/opuser/.op" \
---user $(id -u):$(id -g) \
-polymathrobotics/op /bin/bash
+% docker container run --rm --interactive --tty \
+    --mount type=bind,source="$HOME/.op",target="/home/opuser/.op" \
+    --user $(id -u):$(id -g) \
+    polymathrobotics/op:2 /bin/bash
 ```
