@@ -1,6 +1,6 @@
 # syntax=docker/dockerfile:1
 ARG CONTAINER_REGISTRY=docker.io
-FROM $CONTAINER_REGISTRY/ubuntu:jammy-20221130 as build
+FROM $CONTAINER_REGISTRY/ubuntu:jammy-20230126 as build
 
 ARG DEBIAN_FRONTEND=noninteractive
 
@@ -13,12 +13,12 @@ RUN <<EOF
   dpkgArch="$(dpkg --print-architecture)"
   case "${dpkgArch##*-}" in \
     amd64) \
-      CINC_AUDITOR_URL='http://downloads.cinc.sh/files/stable/cinc-auditor/5.18.14/ubuntu/20.04/cinc-auditor_5.18.14-1_amd64.deb' \
-      CINC_AUDITOR_SHA256='fbd55f0dbe73d51204206401ff4b507f2729ac96d688127e8b97ce822e06a9b4' \
+      CINC_AUDITOR_URL='http://downloads.cinc.sh/files/stable/cinc-auditor/5.21.29/ubuntu/22.04/cinc-auditor_5.21.29-1_amd64.deb' \
+      CINC_AUDITOR_SHA256='2926aa49a8cebcba32134a485296aa74b70d3f91370e5604ffc877307846ac21' \
       ;; \
     arm64) \
-      CINC_AUDITOR_URL='http://downloads.cinc.sh/files/stable/cinc-auditor/5.18.14/ubuntu/20.04/cinc-auditor_5.18.14-1_arm64.deb' \
-      CINC_AUDITOR_SHA256='568c2ff1e9bdd7fd325f5fc1ef55cf5f049f80bbf1e97041aabeebff3a5de3a8' \
+      CINC_AUDITOR_URL='http://downloads.cinc.sh/files/stable/cinc-auditor/5.21.29/ubuntu/22.04/cinc-auditor_5.21.29-1_arm64.deb' \
+      CINC_AUDITOR_SHA256='5221c89573228dcfd377ac62890d88419350c08a88eddd102f3bcf93c11a59f8' \
       ;; \
     *) echo "unsupported architecture"; exit 1 ;; \
     esac
