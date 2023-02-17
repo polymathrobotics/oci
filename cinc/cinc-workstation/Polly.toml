@@ -1,4 +1,4 @@
 [container_image]
-tags=["22.10.1013", "latest"]
+tags=["23.2.1028", "latest"]
 platforms=["linux/amd64"]
 readme="cinc/cinc-workstation/README.md"

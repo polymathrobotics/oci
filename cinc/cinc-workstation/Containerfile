@@ -1,6 +1,6 @@
 # syntax=docker/dockerfile:1
 ARG CONTAINER_REGISTRY=docker.io
-FROM $CONTAINER_REGISTRY/ubuntu:focal-20221019 as builder
+FROM $CONTAINER_REGISTRY/ubuntu:jammy-20230126 as builder
 
 WORKDIR /tmp
 
@@ -13,8 +13,8 @@ RUN <<EOF
   dpkgArch="$(dpkg --print-architecture)"
   case "${dpkgArch##*-}" in \
     amd64) \
-      CINC_WORKSTATION_URL='http://downloads.cinc.sh/files/stable/cinc-workstation/22.10.1013/ubuntu/20.04/cinc-workstation_22.10.1013-1_amd64.deb' \
-      CINC_WORKSTATION_SHA256='1935632f4e4085c817930f7b03dc979142c786a85c0b6308613e79eb26ed0bf9' \
+      CINC_WORKSTATION_URL='http://downloads.cinc.sh/files/stable/cinc-workstation/23.2.1028/ubuntu/22.04/cinc-workstation_23.2.1028-1_amd64.deb' \
+      CINC_WORKSTATION_SHA256='07838c3b7f582828b8fe583da89b3fa8b480a1f3f30bf3ca4ed63b7db252e478' \
       ;; \
     *) echo "unsupported architecture"; exit 1 ;; \
   esac
@@ -22,7 +22,7 @@ RUN <<EOF
   echo "${CINC_WORKSTATION_SHA256} cinc-workstation.deb" | sha256sum -c -
 EOF
 
-FROM $CONTAINER_REGISTRY/ubuntu:focal-20221019
+FROM $CONTAINER_REGISTRY/ubuntu:jammy-20230126
 
 LABEL \
   org.opencontainers.image.source="https://github.com/polymathrobotics/oci" \
@@ -30,10 +30,11 @@ LABEL \
   org.opencontainers.image.description="Cinc Workstation"
 
 # From cinc shell-init bash
-ENV GEM_HOME=/root/.chefdk/gem/ruby/3.0.0 \
-    GEM_PATH=/root/.chefdk/gem/ruby/3.0.0:/opt/cinc-workstation/embedded/lib/ruby/gems/3.0.0 \
-    GEM_ROOT=/opt/cinc-workstation/embedded/lib/ruby/gems/3.0.0 \
-    PATH=/opt/cinc-workstation/bin:/root/.chefdk/gem/ruby/3.0.0/bin:/opt/cinc-workstation/embedded/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/opt/cinc-workstation/gitbin
+ENV PATH="/opt/cinc-workstation/bin:/home/taylor/.chef/gem/ruby/3.1.0/bin:/opt/cinc-workstation/embedded/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/usr/games:/usr/local/games:/snap/bin:/opt/cinc-workstation/gitbin" \
+    GEM_ROOT="/opt/cinc-workstation/embedded/lib/ruby/gems/3.1.0" \
+    GEM_HOME="/root/.chef/gem/ruby/3.1.0" \
+    GEM_PATH="/root/.chef/gem/ruby/3.1.0:/opt/cinc-workstation/embedded/lib/ruby/gems/3.1.0"
+
 
 # Run the entire container with the default local to be en_US.UTF-8
 RUN <<EOF
