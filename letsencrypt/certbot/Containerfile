@@ -1,5 +1,5 @@
 ARG CONTAINER_REGISTRY=docker.io
-FROM $CONTAINER_REGISTRY/polymathrobotics/python:3.8-focal as build
+FROM $CONTAINER_REGISTRY/boxcutter/python:3.11-jammy as build
 
 ARG CERTBOT_VERSION=1.27.0
 
@@ -9,7 +9,7 @@ RUN curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | bash -s -- -y
 RUN python3 -m venv /opt/certbot/ \
   && /opt/certbot/bin/pip install certbot==$CERTBOT_VERSION
 
-FROM $CONTAINER_REGISTRY/polymathrobotics/python:3.8-focal
+FROM $CONTAINER_REGISTRY/boxcutter/python:3.11-jammy
 
 COPY --from=build /opt/certbot /opt/certbot
 
