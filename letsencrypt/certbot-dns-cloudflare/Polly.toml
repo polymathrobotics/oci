@@ -1,4 +1,4 @@
 [container_image]
 name = "certbot-dns-cloudflare"
-tags = ["1.27.0", "latest"]
+tags = ["2.3.0", "latest"]
 platforms=["linux/arm64","linux/amd64"]
