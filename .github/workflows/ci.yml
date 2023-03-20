@@ -62,6 +62,7 @@ jobs:
             paperspace-cli: 'paperspace-cli/**'
             postgres/15/focal: 'postgres/15/focal/**'
             prometheus/node_exporter: 'prometheus/node_exporter/**'
+            prometheus/prometheus: 'prometheus/prometheus/**'
             pulumi/pulumi-base: 'pulumi/pulumi-base/**'
             pulumi/pulumi-python: 'pulumi/pulumi-python/**'
             python/3.8/focal: 'python/3.8/focal/**'

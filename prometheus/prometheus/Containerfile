@@ -1,11 +1,5 @@
 ARG CONTAINER_REGISTRY=docker.io
-FROM $CONTAINER_REGISTRY/ubuntu:20.04 as build
-
-# metadata
-LABEL \
-    org.opencontainers.image.source="https://github.com/polymathrobotics/oci" \
-    org.opencontainers.image.licenses="Apache-2.0" \
-    org.opencontainers.image.description="Prometheus monitoring system and time series database in a docker image."
+FROM $CONTAINER_REGISTRY/ubuntu:jammy-20230308 as build
 
 SHELL ["/bin/bash", "-o", "pipefail", "-c"]
 RUN apt-get update \
@@ -16,16 +10,16 @@ RUN apt-get update \
   && dpkgArch="$(dpkg --print-architecture)" \
   && case "${dpkgArch##*-}" in \
     amd64) \
-      PROMETHEUS_URL='https://github.com/prometheus/prometheus/releases/download/v2.35.0/prometheus-2.35.0.linux-amd64.tar.gz' \
-      PROMETHEUS_SHA256='e4546960688d1c85530ec3a93e109d15b540f3251e1f4736d0d9735e1e857faf' \
+      PROMETHEUS_URL='https://github.com/prometheus/prometheus/releases/download/v2.42.0/prometheus-2.42.0.linux-amd64.tar.gz' \
+      PROMETHEUS_SHA256='422dab055ed9c7bcaff52b718705f9192c6fac0de6b7e78dd278e70ee2663dcc' \
       ;; \
     arm64) \
-      PROMETHEUS_URL='https://github.com/prometheus/prometheus/releases/download/v2.35.0/prometheus-2.35.0.linux-arm64.tar.gz' \
-      PROMETHEUS_SHA256='3ebe0c533583a9ab03363a80aa629edd8e0cc42da3583e33958eb7abe74d4cd2' \
+      PROMETHEUS_URL='https://github.com/prometheus/prometheus/releases/download/v2.42.0/prometheus-2.42.0.linux-arm64.tar.gz' \
+      PROMETHEUS_SHA256='b947e4890d221f6b1d09c963fd0440720f2b5d08c29e190d6365f4b3d3e92a9d' \
       ;; \
     armhf) \
-      PROMETHEUS_URL='https://github.com/prometheus/prometheus/releases/download/v2.35.0/prometheus-2.35.0.linux-armv7.tar.gz' \
-      PROMETHEUS_SHA256='a50274c833ef058502fb723806e28537ef276ec628d63e0c3fdc407ca7b65272' \
+      PROMETHEUS_URL='https://github.com/prometheus/prometheus/releases/download/v2.42.0/prometheus-2.42.0.linux-armv7.tar.gz' \
+      PROMETHEUS_SHA256='0409d72ecf92d7884274f7b19df8f7b97ad4dd32e04d9952eb7417afbc48f35f' \
       ;; \
     *) echo "unsupported architecture"; exit 1 ;; \
     esac \
@@ -33,7 +27,13 @@ RUN apt-get update \
   && echo "${PROMETHEUS_SHA256} /tmp/prometheus.tar.gz" | sha256sum -c - \
   && tar xvf /tmp/prometheus.tar.gz -C /tmp/prometheus --strip-components 1
 
-FROM $CONTAINER_REGISTRY/ubuntu:20.04
+FROM $CONTAINER_REGISTRY/ubuntu:jammy-20230308
+
+# metadata
+LABEL \
+    org.opencontainers.image.source="https://github.com/polymathrobotics/oci" \
+    org.opencontainers.image.licenses="Apache-2.0" \
+    org.opencontainers.image.description="Prometheus monitoring system and time series database in a docker image."
 
 WORKDIR /prometheus
 
