@@ -1,2 +1,3 @@
 [container_image]
 tags = [ "1.5.0", "latest" ]
+readme='prometheus/node_exporter/README.md'
