@@ -1,11 +1,5 @@
 ARG CONTAINER_REGISTRY=docker.io
-FROM $CONTAINER_REGISTRY/ubuntu:20.04 as build
-
-# metadata
-LABEL \
-    org.opencontainers.image.source="https://github.com/polymathrobotics/oci" \
-    org.opencontainers.image.licenses="Apache-2.0" \
-    org.opencontainers.image.description="A server that accepts collectd stats via HTTP POST and exports them via HTTP for Prometheus consumption."
+FROM $CONTAINER_REGISTRY/ubuntu:jammy-20230308 as build
 
 SHELL ["/bin/bash", "-o", "pipefail", "-c"]
 RUN apt-get update \
@@ -33,7 +27,12 @@ RUN apt-get update \
   && echo "${COLLECTD_EXPORTER_SHA256} /tmp/collectd_exporter.tar.gz" | sha256sum -c - \
   && tar xvf /tmp/collectd_exporter.tar.gz --strip-components 1 -C /tmp/collectd_exporter
 
-FROM $CONTAINER_REGISTRY/ubuntu:20.04
+FROM $CONTAINER_REGISTRY/ubuntu:jammy-20230308
+
+LABEL \
+    org.opencontainers.image.source="https://github.com/polymathrobotics/oci" \
+    org.opencontainers.image.licenses="Apache-2.0" \
+    org.opencontainers.image.description="A server that accepts collectd stats via HTTP POST and exports them via HTTP for Prometheus consumption."
 
 RUN apt-get update \
   && DEBIAN_FRONTEND=noninteractive apt-get install -y --no-install-recommends \
