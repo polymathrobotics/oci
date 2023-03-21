@@ -1,11 +1,5 @@
 ARG CONTAINER_REGISTRY=docker.io
-FROM $CONTAINER_REGISTRY/ubuntu:20.04 as build
-
-# metadata
-LABEL \
-    org.opencontainers.image.source="https://github.com/polymathrobotics/oci" \
-    org.opencontainers.image.licenses="Apache-2.0" \
-    org.opencontainers.image.description="Grafana - the open observability platform in a container image."
+FROM $CONTAINER_REGISTRY/ubuntu:jammy-20230308 as build
 
 SHELL ["/bin/bash", "-o", "pipefail", "-c"]
 RUN apt-get update \
@@ -16,16 +10,16 @@ RUN apt-get update \
   && dpkgArch="$(dpkg --print-architecture)" \
   && case "${dpkgArch##*-}" in \
     amd64) \
-      GRAFANA_URL='https://dl.grafana.com/oss/release/grafana-8.5.0.linux-amd64.tar.gz' \
-      GRAFANA_SHA256='ad5e858e2255d69da45f83f9571cf741c6867ed8ccede5ad42e90079119b98aa' \
+      GRAFANA_URL='https://dl.grafana.com/oss/release/grafana-9.4.3.linux-amd64.tar.gz' \
+      GRAFANA_SHA256='6aaebfb0c7d855e6f1878ebecf1a617d6b6d14de2f06952008b5e86cb595a339' \
       ;; \
     arm64) \
-      GRAFANA_URL='https://dl.grafana.com/oss/release/grafana-8.5.0.linux-arm64.tar.gz' \
-      GRAFANA_SHA256='6e906e0902b88314cd8f5a49c11140398981a7643b268dc04632fc30667581ae' \
+      GRAFANA_URL='https://dl.grafana.com/oss/release/grafana-9.4.3.linux-arm64.tar.gz' \
+      GRAFANA_SHA256='2c18bfee509dfc474df709c405b24cd8d847ff4a726927c40454d7e3bc4bd45c' \
       ;; \
     armhf) \
-      GRAFANA_URL='https://dl.grafana.com/oss/release/grafana-8.5.0.linux-armv7.tar.gz' \
-      GRAFANA_SHA256='a9ca8e1581683be904067b049cecf119e97f085c0948b3db897bea73eac9c6c1' \
+      GRAFANA_URL='https://dl.grafana.com/oss/release/grafana-9.4.3.linux-armv7.tar.gz' \
+      GRAFANA_SHA256='f1003e88d6d57ec12998ee6dbc13d73015f78734dbe9e9cb63d3b273c6c0f14d' \
       ;; \
     *) echo "unsupported architecture"; exit 1 ;; \
     esac \
@@ -33,7 +27,12 @@ RUN apt-get update \
   && echo "${GRAFANA_SHA256} /tmp/grafana.tar.gz" | sha256sum -c - \
   && tar xvf /tmp/grafana.tar.gz -C /tmp/grafana --strip-components 1
 
-FROM $CONTAINER_REGISTRY/ubuntu:20.04
+FROM $CONTAINER_REGISTRY/ubuntu:jammy-20230308
+
+LABEL \
+    org.opencontainers.image.source="https://github.com/polymathrobotics/oci" \
+    org.opencontainers.image.licenses="Apache-2.0" \
+    org.opencontainers.image.description="Grafana - the open observability platform in a container image."
 
 ARG GF_UID="472"
 ARG GF_GID="0"

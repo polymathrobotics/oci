@@ -1,4 +1,10 @@
-Based on https://github.com/grafana/grafana/blob/main/Dockerfile.ubuntu
+grafana-oss
+-----------
+This image repackages grafana_OSS releases from 
+https://github.com/grafana/grafana/releases
+
+This images is based on
+https://github.com/grafana/grafana/blob/main/Dockerfile.ubuntu
 
 # Run the Grafana Docker container
 
