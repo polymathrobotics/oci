@@ -54,6 +54,7 @@ jobs:
             dokken/ubuntu-22.04: 'dokken/ubuntu-22.04/**'
             flake8: 'flake8/**'
             glab: 'glab/**'
+            grafana/grafana-oss: 'grafana/grafana-oss/**'
             letsencrypt/certbot: 'letsencrypt/certbot/**'
             letsencrypt/certbot-dns-cloudflare: 'letsencrypt/certbot-dns-cloudflare/**'
             markdownlint: 'markdownlint/**'
