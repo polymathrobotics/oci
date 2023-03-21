@@ -61,7 +61,7 @@ jobs:
             letsencrypt/certbot-dns-cloudflare: 'letsencrypt/certbot-dns-cloudflare/**'
             markdownlint: 'markdownlint/**'
             meshcmd: 'meshcmd/**'
-            node/18/focal: 'node/18/focal/**'
+            node/18/jammy: 'node/18/jammy/**'
             op: 'op/**'
             paperspace-cli: 'paperspace-cli/**'
             postgres/15/focal: 'postgres/15/focal/**'
