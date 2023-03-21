@@ -1,5 +1,5 @@
 ARG CONTAINER_REGISTRY=docker.io
-FROM $CONTAINER_REGISTRY/polymathrobotics/node:18-focal
+FROM $CONTAINER_REGISTRY/polymathrobotics/node:18-jammy
 
 LABEL \
     org.opencontainers.image.source="https://github.com/polymathrobotics/oci" \
