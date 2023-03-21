@@ -23,6 +23,7 @@ jobs:
           # If it's not configured, the repository default branch is used.
           base: ${{ github.ref }}
           filters: |
+            aws-cli: 'aws-cli/**'
             black: 'black/**'
             bootstrap/cinc-auditor: 'bootstrap/cinc-auditor/**'
             bootstrap/dasel: 'bootstrap/dasel/**'
