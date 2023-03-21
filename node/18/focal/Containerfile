@@ -6,6 +6,7 @@ RUN groupadd --gid 1000 node \
 
 ENV NODE_VERSION 18.15.0
 
+SHELL ["/bin/bash", "-o", "pipefail", "-c"]
 RUN ARCH= && dpkgArch="$(dpkg --print-architecture)" \
     && case "${dpkgArch##*-}" in \
       amd64) ARCH='x64';; \
@@ -51,6 +52,7 @@ RUN ARCH= && dpkgArch="$(dpkg --print-architecture)" \
 
 ENV YARN_VERSION 1.22.19
 
+# hadolint ignore=SC2043
 RUN set -ex \
   && for key in \
     6A010C5166006599AA17F08146C2130DFD2497F5 \
