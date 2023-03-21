@@ -1,5 +1,5 @@
 ARG CONTAINER_REGISTRY=docker.io
-FROM $CONTAINER_REGISTRY/ubuntu:20.04 as build
+FROM $CONTAINER_REGISTRY/ubuntu:jammy-20230308 as build
 
 # metadata
 LABEL \
@@ -16,16 +16,16 @@ RUN apt-get update \
   && dpkgArch="$(dpkg --print-architecture)" \
   && case "${dpkgArch##*-}" in \
     amd64) \
-      BLACKBOX_EXPORTER_URL='https://github.com/prometheus/blackbox_exporter/releases/download/v0.20.0/blackbox_exporter-0.20.0.linux-amd64.tar.gz'; \
-      BLACKBOX_EXPORTER_SHA256='d0235f16dc45c3b1fd5712b613474358f5a0342447553726c9239307dc39c844' \
+      BLACKBOX_EXPORTER_URL='https://github.com/prometheus/blackbox_exporter/releases/download/v0.23.0/blackbox_exporter-0.23.0.linux-amd64.tar.gz'; \
+      BLACKBOX_EXPORTER_SHA256='63bd4fde6984db79c95e1502a0ab47da6194d763bff22a04d1f50c4fd8322b84' \
       ;; \
     arm64) \
-      BLACKBOX_EXPORTER_URL='https://github.com/prometheus/blackbox_exporter/releases/download/v0.20.0/blackbox_exporter-0.20.0.linux-arm64.tar.gz'; \
-      BLACKBOX_EXPORTER_SHA256='ecf7fa27410dc9189e97a957be9b98556c55e51409d1864aab8d23cef226fd1f' \
+      BLACKBOX_EXPORTER_URL='https://github.com/prometheus/blackbox_exporter/releases/download/v0.23.0/blackbox_exporter-0.23.0.linux-arm64.tar.gz'; \
+      BLACKBOX_EXPORTER_SHA256='4750a91055a53093c7fdb4817ca39ba02b429232b0ac659de3cbe156d018b8fd' \
       ;; \
     armhf) \
-      BLACKBOX_EXPORTER_URL='https://github.com/prometheus/blackbox_exporter/releases/download/v0.20.0/blackbox_exporter-0.20.0.linux-armv7.tar.gz'; \
-      BLACKBOX_EXPORTER_SHA256='37427f01124e0edb3212e0edff5b93f773a8cbabc3f403466d683d72b2e5f7b1' \
+      BLACKBOX_EXPORTER_URL='https://github.com/prometheus/blackbox_exporter/releases/download/v0.23.0/blackbox_exporter-0.23.0.linux-armv7.tar.gz'; \
+      BLACKBOX_EXPORTER_SHA256='1fdd52e860f358e6f514fe3372cbd238d2fe4a82ca2e4116c02d9e5b263c61c6' \
       ;; \
     *) echo "unsupported architecture"; exit 1 ;; \
     esac \
@@ -33,7 +33,12 @@ RUN apt-get update \
   && echo "${BLACKBOX_EXPORTER_SHA256} /tmp/blackbox_exporter.tar.gz" | sha256sum -c - \
   && tar xvf /tmp/blackbox_exporter.tar.gz -C /tmp/blackbox_exporter --strip-components 1
 
-FROM $CONTAINER_REGISTRY/ubuntu:20.04
+FROM $CONTAINER_REGISTRY/ubuntu:jammy-20230308
+
+LABEL \
+    org.opencontainers.image.source="https://github.com/polymathrobotics/oci" \
+    org.opencontainers.image.licenses="Apache-2.0" \
+    org.opencontainers.image.description="Blackbox exporter for probing remote machine metrics, in a container image."
 
 RUN apt-get update \
   && DEBIAN_FRONTEND=noninteractive apt-get install -y --no-install-recommends \
