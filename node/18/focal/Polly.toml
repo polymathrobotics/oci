@@ -1,4 +1,4 @@
 [container_image]
 name = "node"
-tags = ["18.8.0-focal", "18.8-focal", "18-focal"]
+tags = ["18.15.0-focal", "18.15-focal", "18-focal"]
 platforms=["linux/arm64","linux/amd64"]
