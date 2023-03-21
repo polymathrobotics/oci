@@ -1,2 +1,3 @@
 [container_image]
-tags = [ "1.2.7", "latest" ]
+tags = [ "1.4.2", "latest" ]
+readme = 'hashicorp/terraform/README.md'

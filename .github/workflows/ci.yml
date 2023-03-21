@@ -56,6 +56,7 @@ jobs:
             flake8: 'flake8/**'
             glab: 'glab/**'
             grafana/grafana-oss: 'grafana/grafana-oss/**'
+            hashicorp/terraform: 'hashicorp/terraform/**'
             letsencrypt/certbot: 'letsencrypt/certbot/**'
             letsencrypt/certbot-dns-cloudflare: 'letsencrypt/certbot-dns-cloudflare/**'
             markdownlint: 'markdownlint/**'

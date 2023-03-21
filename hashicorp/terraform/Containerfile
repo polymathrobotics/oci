@@ -1,6 +1,6 @@
 # syntax=docker/dockerfile:1
 ARG CONTAINER_REGISTRY=docker.io
-FROM $CONTAINER_REGISTRY/ubuntu:focal-20220801 as build
+FROM $CONTAINER_REGISTRY/ubuntu:jammy-20230308 as build
 
 SHELL ["/bin/bash", "-o", "pipefail", "-c"]
 RUN <<EOF
@@ -13,16 +13,16 @@ RUN <<EOF
   dpkgArch="$(dpkg --print-architecture)"
   case "${dpkgArch##*-}" in
   amd64)
-    TERRAFORM_URL='https://releases.hashicorp.com/terraform/1.2.7/terraform_1.2.7_linux_amd64.zip'
-    TERRAFORM_SHA256='dfd7c44a5b6832d62860a01095a15b53616fb3ea4441ab89542f9364e3fca718'
+    TERRAFORM_URL='https://releases.hashicorp.com/terraform/1.4.2/terraform_1.4.2_linux_amd64.zip'
+    TERRAFORM_SHA256='9f3ca33d04f5335472829d1df7785115b60176d610ae6f1583343b0a2221a931'
     ;;
   arm64)
-    TERRAFORM_URL='https://releases.hashicorp.com/terraform/1.2.7/terraform_1.2.7_linux_arm64.zip'
-    TERRAFORM_SHA256='80d064008d57ba5dc97e189215c87275bf39ca14b1234430eae2f114394ea229'
+    TERRAFORM_URL='https://releases.hashicorp.com/terraform/1.4.2/terraform_1.4.2_linux_arm64.zip'
+    TERRAFORM_SHA256='39c182670c4e63e918e0a16080b1cc47bb16e158d7da96333d682d6a9cb8eb91'
     ;;
   armhf)
-    TERRAFORM_URL='https://releases.hashicorp.com/terraform/1.2.7/terraform_1.2.7_linux_arm.zip'
-    TERRAFORM_SHA256='c2557f3f878330a66a02de3c08ae8d0824b658c66fcb36b1eb07939bf2bc0468'
+    TERRAFORM_URL='https://releases.hashicorp.com/terraform/1.4.2/terraform_1.4.2_linux_arm.zip'
+    TERRAFORM_SHA256='dbb1e7179279bd739ff889b994738f25a80a8eac5ae255b50bdf5f86b9eda28b'
     ;;
   *)
     echo "unsupported architecture"
@@ -34,7 +34,7 @@ RUN <<EOF
   unzip /tmp/terraform.zip -d /tmp/terraform/
 EOF
 
-FROM $CONTAINER_REGISTRY/ubuntu:focal-20220801
+FROM $CONTAINER_REGISTRY/ubuntu:jammy-20230308
 
 RUN <<EOF
   apt-get update
