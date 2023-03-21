@@ -61,6 +61,8 @@ jobs:
             op: 'op/**'
             paperspace-cli: 'paperspace-cli/**'
             postgres/15/focal: 'postgres/15/focal/**'
+            prometheus/alertmanager: 'prometheus/alertmanager/**'
+            prometheus/blackbox_exporter: 'prometheus/blackbox_exporter/**'
             prometheus/node_exporter: 'prometheus/node_exporter/**'
             prometheus/prometheus: 'prometheus/prometheus/**'
             pulumi/pulumi-base: 'pulumi/pulumi-base/**'

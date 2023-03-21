@@ -1,11 +1,5 @@
 ARG CONTAINER_REGISTRY=docker.io
-FROM $CONTAINER_REGISTRY/ubuntu:20.04 as build
-
-# metadata
-LABEL \
-    org.opencontainers.image.source="https://github.com/polymathrobotics/oci" \
-    org.opencontainers.image.licenses="Apache-2.0" \
-    org.opencontainers.image.description="Prometheus Alermanager."
+FROM $CONTAINER_REGISTRY/ubuntu:jammy-20230308 as build
 
 SHELL ["/bin/bash", "-o", "pipefail", "-c"]
 RUN apt-get update \
@@ -16,16 +10,16 @@ RUN apt-get update \
   && dpkgArch="$(dpkg --print-architecture)" \
   && case "${dpkgArch##*-}" in \
     amd64) \
-      ALERTMANAGER_URL='https://github.com/prometheus/alertmanager/releases/download/v0.24.0/alertmanager-0.24.0.linux-amd64.tar.gz' \
-      ALERTMANAGER_SHA256='6fa982232ae7be5524f5b3cd4e90b7c6a75086368200c917644eaa3e806555dc' \
+      ALERTMANAGER_URL='https://github.com/prometheus/alertmanager/releases/download/v0.25.0/alertmanager-0.25.0.linux-amd64.tar.gz' \
+      ALERTMANAGER_SHA256='206cf787c01921574ca171220bb9b48b043c3ad6e744017030fed586eb48e04b' \
       ;; \
     arm64) \
-      ALERTMANAGER_URL='https://github.com/prometheus/alertmanager/releases/download/v0.24.0/alertmanager-0.24.0.linux-arm64.tar.gz' \
-      ALERTMANAGER_SHA256='f54dd97f20b5d06517cbe83bae6333325fc26bc6595ede433f165aefb562d421' \
+      ALERTMANAGER_URL='https://github.com/prometheus/alertmanager/releases/download/v0.25.0/alertmanager-0.25.0.linux-arm64.tar.gz' \
+      ALERTMANAGER_SHA256='20db5e4e12bcce8e2e419cc4c2bc35062ddbc14d2aacb77e4d5684c0eab7f0fe' \
       ;; \
     armhf) \
-      ALERTMANAGER_URL='https://github.com/prometheus/alertmanager/releases/download/v0.24.0/alertmanager-0.24.0.linux-armv7.tar.gz' \
-      ALERTMANAGER_SHA256='0a8f12b92974392a4760b22afa05c1b85fd121c457124f555d1ab3c92ad94222' \
+      ALERTMANAGER_URL='https://github.com/prometheus/alertmanager/releases/download/v0.25.0/alertmanager-0.25.0.linux-armv7.tar.gz' \
+      ALERTMANAGER_SHA256='3cfd839d4463a7679d32800258b11471498ebc49483273d588818c0432a80af1' \
       ;; \
     *) echo "unsupported architecture"; exit 1 ;; \
     esac \
@@ -33,7 +27,12 @@ RUN apt-get update \
   && echo "${ALERTMANAGER_SHA256} /tmp/alertmanager.tar.gz" | sha256sum -c - \
   && tar xvf /tmp/alertmanager.tar.gz --strip-components 1 -C /tmp/alertmanager
 
-FROM $CONTAINER_REGISTRY/ubuntu:20.04
+FROM $CONTAINER_REGISTRY/ubuntu:jammy-20230308
+
+LABEL \
+    org.opencontainers.image.source="https://github.com/polymathrobotics/oci" \
+    org.opencontainers.image.licenses="Apache-2.0" \
+    org.opencontainers.image.description="Prometheus Alermanager."
 
 WORKDIR /alertmanager
 
