@@ -6,7 +6,7 @@ https://github.com/prometheus/node_exporter/releases
 The image is based on
 https://github.com/prometheus/node_exporter/blob/master/Dockerfile
 
-Image source: https://github.com/polymathrobotics/oci/tree/main/pulumi
+Image source: https://github.com/polymathrobotics/oci/tree/main/prometheus/node_exporter
 
 Using node_exporter
 -------------------
