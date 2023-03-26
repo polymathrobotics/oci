@@ -1,4 +1,0 @@
-[container_image]
-name="buildpack-deps"
-tags=["focal", "20.04"]
-readme="buildpack-deps/README.md"

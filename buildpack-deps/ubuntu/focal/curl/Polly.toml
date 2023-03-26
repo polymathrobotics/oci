@@ -1,4 +1,0 @@
-[container_image]
-name = "buildpack-deps"
-tags = ["focal-curl", "20.04-curl"]
-readme = "buildpack-deps/README.md"
