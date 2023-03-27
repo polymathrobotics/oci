@@ -28,12 +28,13 @@ EOF
 
 USER $USERNAME
 WORKDIR $HOME
-ENV PAPERSPACE_INSTALL="/home/paperspace/.paperspace"
-ENV PATH="$PAPERPERSPACE_INSTALL/bin:$PATH"
 
 SHELL ["/bin/bash", "-o", "pipefail", "-c"]
 RUN <<EOF
   curl -fsSL https://paperspace.com/install.sh | sh
 EOF
 
-ENTRYPOINT ["pspace"]
+WORKDIR $HOME
+ENV PAPERSPACE_INSTALL="/home/paperspace/.paperspace"
+ENV PATH="$PAPERPERSPACE_INSTALL/bin:$PATH"
+ENTRYPOINT ["/home/paperspace/.paperspace/pspace"]
