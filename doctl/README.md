@@ -32,8 +32,8 @@ Set up three environment variables:
 Listing public images
 ```
 % docker run --rm \
->   --env=DIGITALOCEAN_ACCESS_TOKEN \
->   polymathrobotics/doctl compute image list-distribution --public
+    --env=DIGITALOCEAN_ACCESS_TOKEN \
+    docker.io/polymathrobotics/doctl compute image list-distribution --public
 ID           Name                  Type        Distribution    Slug                   Public    Min Disk
 106433672    7 x64                 snapshot    CentOS          centos-7-x64           true      9
 106434191    8 Stream x64          snapshot    CentOS          centos-stream-8-x64    true      10
@@ -57,8 +57,8 @@ ID           Name                  Type        Distribution    Slug             
 Listing regions
 ```
 % docker run --rm --interactive --tty \
->   --env=DIGITALOCEAN_ACCESS_TOKEN \
->   polymathrobotics/doctl compute region list
+    --env=DIGITALOCEAN_ACCESS_TOKEN \
+    docker.io/polymathrobotics/doctl compute region list
 Slug    Name               Available
 nyc1    New York 1         true
 sfo1    San Francisco 1    false
@@ -79,8 +79,8 @@ syd1    Sydney 1           true
 Listing image sizes/pricing
 ```
 % docker run --rm \
->   --env=DIGITALOCEAN_ACCESS_TOKEN \
->   polymathrobotics/doctl compute size list
+    --env=DIGITALOCEAN_ACCESS_TOKEN \
+    docker.io/polymathrobotics/doctl compute size list
 Slug                  Memory    VCPUs    Disk    Price Monthly    Price Hourly
 s-1vcpu-512mb-10gb    512       1        10      4.00             0.005950
 s-1vcpu-1gb           1024      1        25      6.00             0.008930
