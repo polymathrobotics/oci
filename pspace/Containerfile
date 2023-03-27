@@ -1,0 +1,30 @@
+# syntax=docker/dockerfile:1
+ARG CONTAINER_REGISTRY=docker.io
+FROM $CONTAINER_REGISTRY/ubuntu:jammy-20230308
+
+LABEL \
+    org.opencontainers.image.source="https://github.com/polymathrobotics/oci" \
+    org.opencontainers.image.licenses="Apache-2.0" \
+    org.opencontainers.image.description="Paperspace command-line interface."
+
+RUN <<EOF
+  apt-get update
+  DEBIAN_FRONTEND=noninteractive apt-get install -y --no-install-recommends \
+    ca-certificates \
+    curl \
+    unzip
+EOF
+
+ARG USERNAME=paperspace
+ARG USER_UID=1000
+ARG USER_GID=$USER_UID
+ENV HOME /home/$USERNAME
+
+RUN <<EOF
+  curl -fsSL https://paperspace.com/install.sh | sh
+EOF
+
+ENV PAPERSPACE_INSTALL="/home/paperspace/.paperspace"
+ENV PATH="$PAPERPERSPACE_INSTALL/bin:$PATH"
+
+ENTRYPOINT ["pspace"]
