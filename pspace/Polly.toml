@@ -1,2 +1,4 @@
 [container_image]
+tags = ["1.4.4", "latest"]
+# The CLI uses Denon which currently doesn't have an arm64 linux build
 platforms = ["linux/amd64"]
