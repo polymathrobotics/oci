@@ -13,8 +13,8 @@ RUN <<EOF
   dpkgArch="$(dpkg --print-architecture)"
   case "${dpkgArch##*-}" in \
     amd64) \
-      CINC_WORKSTATION_URL='http://downloads.cinc.sh/files/stable/cinc-workstation/23.2.1028/ubuntu/22.04/cinc-workstation_23.2.1028-1_amd64.deb' \
-      CINC_WORKSTATION_SHA256='07838c3b7f582828b8fe583da89b3fa8b480a1f3f30bf3ca4ed63b7db252e478' \
+      CINC_WORKSTATION_URL='http://downloads.cinc.sh/files/stable/cinc-workstation/23.3.1030/ubuntu/22.04/cinc-workstation_23.3.1030-1_amd64.deb' \
+      CINC_WORKSTATION_SHA256='b95c83df184cdc7af3ded5ce2a493308a2e0d8a3b7a23903012886bd2a754ea3' \
       ;; \
     *) echo "unsupported architecture"; exit 1 ;; \
   esac
