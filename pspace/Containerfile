@@ -37,4 +37,4 @@ EOF
 WORKDIR $HOME
 ENV PAPERSPACE_INSTALL="/home/paperspace/.paperspace"
 ENV PATH="$PAPERPERSPACE_INSTALL/bin:$PATH"
-ENTRYPOINT ["/home/paperspace/.paperspace/pspace"]
+ENTRYPOINT ["/home/paperspace/.paperspace/bin/pspace"]
