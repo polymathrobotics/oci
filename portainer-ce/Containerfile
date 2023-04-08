@@ -35,7 +35,7 @@ FROM $CONTAINER_REGISTRY/ubuntu:jammy-20230308
 LABEL \
     org.opencontainers.image.source="https://github.com/polymathrobotics/oci" \
     org.opencontainers.image.licenses="Zlib" \
-    org.opencontainers.image.description="Docker container management made simple, with the world’s most popular GUI-based container management platform." \
+    org.opencontainers.image.description="Portainer Community Edition GUI-based container management platform." \
     org.opencontainers.image.vendor="Portainer.io"
 
 COPY --from=build /tmp/portainer/docker /
