@@ -61,6 +61,7 @@ jobs:
             node/18/jammy: 'node/18/jammy/**'
             op: 'op/**'
             paperspace-cli: 'paperspace-cli/**'
+            portainer-ce: 'portainer-ce/**'
             postgres/15/focal: 'postgres/15/focal/**'
             prometheus/alertmanager: 'prometheus/alertmanager/**'
             prometheus/blackbox_exporter: 'prometheus/blackbox_exporter/**'
