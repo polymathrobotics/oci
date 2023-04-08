@@ -13,7 +13,7 @@ Then, download and install the Portainer Server container:
 
 ```
 docker run \
-  -d
+  -d \
   -p 8000:8000 \
   -p 9443:9443 \
   --name portainer \

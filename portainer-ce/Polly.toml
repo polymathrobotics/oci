@@ -1,2 +1,3 @@
 [container_image]
+name = "portainer-ce"
 tags = [ "2.17.1", "latest" ]
