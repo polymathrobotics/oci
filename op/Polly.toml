@@ -1,2 +1,2 @@
 [container_image]
-tags = ["2.12.0","2", "latest"]
+tags = ["2.17.0-beta.01","2", "latest"]

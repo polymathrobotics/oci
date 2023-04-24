@@ -1,8 +1,8 @@
 # syntax=docker/dockerfile:1
 ARG CONTAINER_REGISTRY=docker.io
-FROM $CONTAINER_REGISTRY/ubuntu:focal-20221130 AS build
+FROM $CONTAINER_REGISTRY/ubuntu:jammy-20230308 AS build
 
-ARG OP_CLI_VERSION=2.12.0
+ARG OP_CLI_VERSION=2.17.0-beta.01
 
 RUN <<EOF
   apt-get update
@@ -34,7 +34,7 @@ RUN <<EOF
   op --version
 EOF
 
-FROM $CONTAINER_REGISTRY/ubuntu:focal-20221130
+FROM $CONTAINER_REGISTRY/ubuntu:jammy-20230308
 
 LABEL \
     org.opencontainers.image.source="https://github.com/polymathrobotics/oci" \
@@ -60,4 +60,4 @@ COPY --from=build /usr/local/bin/op /usr/local/bin/op
 USER opuser
 WORKDIR /home/opuser
 
-CMD ["/bin/bash"]
+ENTRYPOINT ["/usr/local/bin/op"]

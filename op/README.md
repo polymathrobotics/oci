@@ -4,8 +4,18 @@ The 1Password command-line tool.
 
 This image repackages the 1Password CLI releases from https://1password.com/downloads/command-line/
 
-Configuration cache prevents using this image as a command alias
-================================================================
+## Getting started with the command-line
+
+Obtain a service account token or connect server token:
+
+```
+$ docker container run -it --rm \
+    --env OP_SERVICE_ACCOUNT_TOKEN \
+    docker.io/polymathprobotics/op
+```
+
+Configuration cache prevents using this image as a command alias without a service account
+==========================================================================================
 When the `op` command line tool runs, it persists tokens and other state
 files to `$HOME/.op`.
 
