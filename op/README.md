@@ -11,7 +11,7 @@ Obtain a service account token or connect server token:
 ```
 $ docker container run -it --rm \
     --env OP_SERVICE_ACCOUNT_TOKEN \
-    docker.io/polymathprobotics/op
+    docker.io/polymathrobotics/op
 ```
 
 Configuration cache prevents using this image as a command alias without a service account
