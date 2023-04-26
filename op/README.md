@@ -12,6 +12,7 @@ of the `op` command to tool to parse the machine-readable output, like `jq`. So,
 extra linefeeds being inserted into the output:
 
 ```
+$ export OP_SERVICE_ACCOUNT_TOKEN=<service-account-token>
 $ docker container run --rm \
     --env OP_SERVICE_ACCOUNT_TOKEN \
     docker.io/polymathrobotics/op whoami
