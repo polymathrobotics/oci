@@ -26,19 +26,6 @@ $ docker container run --rm \
     docker.io/polymathrobotics/op whoami --format=json --no-color
 ```
 
-If you have the service account token stored as an entry in a vault and you have
-the 1Password CLI installed on your host, you can inject the environment
-variable directly into docker with `op run` without exposing the secret:
-```
-# Save the item references to an .env file
-#   echo OP_SERVICE_ACCOUNT_TOKEN='<service_account_token_reference>' > .env
-# Example:
-#   export OP_SERVICE_ACCOUNT_TOKEN='op://app-prod/db/service-account-token' > .env
-$ op run --env-file='./.env' -- docker container run --rm \
-    --env OP_SERVICE_ACCOUNT_TOKEN \
-    docker.io/polymathrobotics/op whoami
-```
-
 ## Global CLI options
 
 ```
