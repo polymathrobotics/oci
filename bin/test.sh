@@ -3,7 +3,7 @@
 set -eu
 set -o pipefail
 
-CINC_AUDITOR_CONTAINER_IMAGE=polymathrobotics/cinc-auditor:5.14.0
+CINC_AUDITOR_CONTAINER_IMAGE=docker.io/polymathrobotics/cinc-auditor:5.21.29
 
 BIN_DIR="$(dirname -- "$(readlink -f "${BASH_SOURCE[0]}")")"
 DEFAULT_TAG="$("${BIN_DIR}/list-tags.sh" | head -n 1)"
@@ -62,6 +62,9 @@ start_image_under_test() {
 }
 
 run_cinc_auditor() {
+  echo "==> cinc-auditor version"
+  docker container run -t --rm \
+    "${CINC_AUDITOR_CONTAINER_IMAGE}" version
   echo "==> running cinc-auditor against ${TEST_CONTAINER_IMAGE}"
   echo "==> with command: '${ENTRYPOINT_COMMAND}'"
   docker container run -t --rm \
