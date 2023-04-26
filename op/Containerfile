@@ -2,6 +2,7 @@
 ARG CONTAINER_REGISTRY=docker.io
 FROM $CONTAINER_REGISTRY/ubuntu:jammy-20230308 AS build
 
+# For now, use the beta stream to get any updates while service accounts are in beta
 ARG OP_CLI_VERSION=2.17.0-beta.01
 
 RUN <<EOF
