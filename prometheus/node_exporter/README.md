@@ -8,6 +8,8 @@ https://github.com/prometheus/node_exporter/blob/master/Dockerfile
 
 Image source: https://github.com/polymathrobotics/oci/tree/main/prometheus/node_exporter
 
+For more information on using node_exporter, refer to https://prometheus.io/docs/guides/node-exporter/
+
 Using node_exporter
 -------------------
 The `node_exporter` listens on HTTP port 9100 by default. See the `--help`
