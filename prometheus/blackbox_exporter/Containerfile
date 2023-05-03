@@ -1,11 +1,5 @@
 ARG CONTAINER_REGISTRY=docker.io
-FROM $CONTAINER_REGISTRY/ubuntu:jammy-20230308 as build
-
-# metadata
-LABEL \
-    org.opencontainers.image.source="https://github.com/polymathrobotics/oci" \
-    org.opencontainers.image.licenses="Apache-2.0" \
-    org.opencontainers.image.description="Blackbox exporter for probing remote machine metrics, in a container image."
+FROM $CONTAINER_REGISTRY/ubuntu:jammy-20230425 as build
 
 SHELL ["/bin/bash", "-o", "pipefail", "-c"]
 RUN apt-get update \
@@ -33,12 +27,13 @@ RUN apt-get update \
   && echo "${BLACKBOX_EXPORTER_SHA256} /tmp/blackbox_exporter.tar.gz" | sha256sum -c - \
   && tar xvf /tmp/blackbox_exporter.tar.gz -C /tmp/blackbox_exporter --strip-components 1
 
-FROM $CONTAINER_REGISTRY/ubuntu:jammy-20230308
+FROM $CONTAINER_REGISTRY/ubuntu:jammy-20230425
 
+# metadata
 LABEL \
     org.opencontainers.image.source="https://github.com/polymathrobotics/oci" \
     org.opencontainers.image.licenses="Apache-2.0" \
-    org.opencontainers.image.description="Blackbox exporter for probing remote machine metrics, in a container image."
+    org.opencontainers.image.description="Blackbox exporter for probing remote machine metrics."
 
 RUN apt-get update \
   && DEBIAN_FRONTEND=noninteractive apt-get install -y --no-install-recommends \
