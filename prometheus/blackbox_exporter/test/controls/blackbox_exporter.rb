@@ -4,7 +4,7 @@ end
 
 describe command('blackbox_exporter --version') do
   its('exit_status') { should eq 0 }
-  its('stderr') { should match(/blackbox_exporter, version/) }
+  its('stdout') { should match(/blackbox_exporter, version/) }
 end
 
 describe file('/etc/blackbox_exporter/config.yml') do
