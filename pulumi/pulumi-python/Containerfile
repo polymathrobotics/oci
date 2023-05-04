@@ -1,8 +1,8 @@
 # syntax=docker/dockerfile:1
 ARG CONTAINER_REGISTRY=docker.io
-FROM $CONTAINER_REGISTRY/ubuntu:jammy-20230308 as build
+FROM $CONTAINER_REGISTRY/ubuntu:jammy-20230425 as build
 
-ARG PULUMI_VERSION=3.65.1
+ARG PULUMI_VERSION=3.66.0
 SHELL ["/bin/bash", "-o", "pipefail", "-c"]
 RUN <<EOF
   apt-get update
