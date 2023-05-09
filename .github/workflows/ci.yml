@@ -147,7 +147,7 @@ jobs:
           platforms: ${{ env.platforms }}
           tags: ${{ env.tags }}
         env:
-          BUILDKIT_PROGRESS=plain
+          BUILDKIT_PROGRESS: plain
 
       - name: Set the image name
         if: github.event_name == 'push'
