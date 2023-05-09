@@ -1,0 +1,22 @@
+*** Probes ***
+
++ FPing
+
+binary = /usr/bin/fping
+step = 60
+pings = 10
+
++ FPing6
+
+binary = /usr/bin/fping6
+step = 60
+pings = 10
+
++ DNS
+
+binary = /usr/bin/dig
+forks = 5
+offset = 50%
+step = 60
+timeout = 15
+pings = 5

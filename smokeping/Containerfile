@@ -1,0 +1,128 @@
+# syntax=docker/dockerfile:1
+ARG CONTAINER_REGISTRY=docker.io
+# FROM $CONTAINER_REGISTRY/ubuntu:jammy-20230425 as build
+
+# RUN <<EOF
+#   apt-get update
+#   DEBIAN_FRONTEND=noninteractive apt-get install -y --no-install-recommends \
+#     ca-certificates \
+#     curl
+# EOF
+
+FROM $CONTAINER_REGISTRY/ubuntu:jammy-20230425
+ARG S6_OVERLAY_VERSION=3.1.5.0
+# ARG TARGETPLATFORM # Defined by BuildKit https://docs.docker.com/engine/reference/builder/
+# ARG S6_OVERLAY_ARCH="x86_64"
+
+LABEL \
+    org.opencontainers.image.source="https://github.com/polymathrobotics/oci" \
+    org.opencontainers.image.licenses="GPL-2.0" \
+    org.opencontainers.image.description="Smokeping latency logging, graphing and alerting system."
+
+RUN <<EOF
+  apt-get update
+  DEBIAN_FRONTEND=noninteractive apt-get install --no-install-recommends -y \
+    bc \
+    ca-certificates \
+    dnsutils \
+    curl \
+    inetutils-traceroute \
+    iproute2 \
+    iputils-ping \
+    librrds-perl \
+    net-tools \
+    openssh-client \
+    rrdtool \
+    smokeping \
+    tcptraceroute \
+    xz-utils
+  rm -rf /var/lib/apt/lists/*
+EOF
+
+# ADD https://github.com/just-containers/s6-overlay/releases/download/v${S6_OVERLAY_VERSION}/s6-overlay-noarch.tar.xz /tmp
+# RUN tar -C / -Jxpf /tmp/s6-overlay-noarch.tar.xz
+ARG TARGETPLATFORM
+ARG TARGETARCH
+
+RUN <<EOF
+  curl \
+    --silent \
+    --show-error \
+    --output-dir /tmp \
+    --location \
+    --remote-name \
+    https://github.com/just-containers/s6-overlay/releases/download/v${S6_OVERLAY_VERSION}/s6-overlay-noarch.tar.xz
+  tar --directory / --xz --extract --file /tmp/s6-overlay-noarch.tar.xz
+  
+  case ${TARGETARCH} in \
+    "amd64") S6_OVERLAY_ARCH=x86_64 ;; \
+    "arm64") S6_OVERLAY_ARCH=aarch64 ;; \
+    "arm/v7") S6_OVERLAY_ARCH=armhf ;; \
+  esac
+  curl \
+    --silent \
+    --show-error \
+    --output-dir /tmp \
+    --location \
+    --remote-name \
+    https://github.com/just-containers/s6-overlay/releases/download/v${S6_OVERLAY_VERSION}/s6-overlay-${S6_OVERLAY_ARCH}.tar.xz
+  tar --directory / --xz --extract --file /tmp/s6-overlay-${S6_OVERLAY_ARCH}.tar.xz
+  rm -rf /var/lib/apt/lists/*
+EOF
+
+COPY etc/ /etc
+
+ENTRYPOINT ["/init"]
+
+# docker run -it --rm -p 8087:80 docker.io/polymathrobotics/smokeping /bin/bash
+# mkdir -p /var/run/smokeping
+# chown smokeping:root /var/run/smokeping
+# apachectl -D FOREGROUND &
+# smokeping --nodaemon &
+#
+# https://atetux.com/how-to-build-and-install-latest-smokeping-on-ubuntu-20-04
+# https://unixcop.com/easy-installation-of-smokeping-monitoring-tool-in-ubuntu-20-04-lts/
+# https://github.com/facebook/chef-cookbooks/blob/main/cookbooks/fb_smokeping/recipes/default.rb
+# https://bugs.launchpad.net/ubuntu/+source/echoping/+bug/1981157
+# https://github.com/babyfenei/docker-smokeping
+
+# # apt-get install libpopt-dev
+# apt-get install libidn11
+# ./configure --build=aarch64-unknown-linux-gnu
+# ./configure --build=x86_64-unknown-linux-gnu
+
+# /lib/systemd/system/smokeping.service
+#
+# # cat smokeping.service
+# [Unit]
+# Description=Latency Logging and Graphing System
+# Documentation=man:smokeping(1) file:/usr/share/doc/smokeping/examples/systemd/slave_mode.conf
+# After=network.target
+# 
+# [Service]
+# # It would in theory be simpler to run smokeping with the --nodaemon option and
+# # Type=simple, but smokeping does not work properly when in "slave" mode with
+# # --nodaemon set.
+# Type=forking
+# RuntimeDirectory=smokeping
+# PIDFile=/run/smokeping/smokeping.pid
+# User=smokeping
+# Group=smokeping
+# StandardError=syslog
+# 
+# # If you need to run smokeping in slave/master mode, see the example unit
+# # override in /usr/share/doc/smokeping/examples/systemd/slave_mode.conf
+# ExecStart=/usr/sbin/smokeping --pid-dir=/run/smokeping
+# 
+# ExecReload=/bin/kill -HUP $MAINPID
+# 
+# [Install]
+# WantedBy=multi-user.target
+
+# https://nsrc.org/workshops/2020/ekiti-connect/netmgmt/en/smokeping/exercises-smokeping-part1.html
+# chmod u+s /usr/bin/fping
+# chmod a+s /usr/bin/traceroute
+# chmod a+s /usr/bin/tcptraceroute
+# https://www.xmodulo.com/how-to-install-tcpping-on-linux.html
+
+# https://github.com/jwigley/docker-smokeping-speedtest/blob/main/Dockerfile
