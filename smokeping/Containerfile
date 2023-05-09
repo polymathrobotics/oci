@@ -19,9 +19,10 @@ LABEL \
     org.opencontainers.image.licenses="GPL-2.0" \
     org.opencontainers.image.description="Smokeping latency logging, graphing and alerting system."
 
+# hadolint ignore=DL3015
 RUN <<EOF
   apt-get update
-  DEBIAN_FRONTEND=noninteractive apt-get install --no-install-recommends -y \
+  DEBIAN_FRONTEND=noninteractive apt-get install -y \
     bc \
     ca-certificates \
     dnsutils \
