@@ -78,6 +78,7 @@ jobs:
             rust/1.64.0/focal: 'rust/1.64.0/focal/*'
             rust/1.64.0/focal/slim: 'rust/1.64.0/focal/slim/**'
             shellcheck: 'shellcheck/**'
+            smokeping: 'smokeping/**'
 
   # Job to build and test each of the modified images
   build:
@@ -145,6 +146,8 @@ jobs:
           file: ${{ matrix.image }}/Containerfile
           platforms: ${{ env.platforms }}
           tags: ${{ env.tags }}
+        env:
+          BUILDKIT_PROGRESS=plain
 
       - name: Set the image name
         if: github.event_name == 'push'
