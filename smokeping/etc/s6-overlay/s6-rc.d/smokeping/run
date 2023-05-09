@@ -1,2 +1,3 @@
 #!/command/execlineb -P
-smokeping --nodaemon --debug
+# smokeping --nodaemon --debug
+smokeping --nodaemon

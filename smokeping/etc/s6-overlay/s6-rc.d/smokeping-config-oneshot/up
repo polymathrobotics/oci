@@ -1,7 +1,0 @@
-if { mkdir -p /var/run/smokeping }
-if { a2dissite 000-default }
-if { a2dissite default-ssl }
-if { chmod a+s /usr/bin/tcptraceroute }
-if { chmod a+s /usr/bin/traceroute }
-if { chmod a+s /usr/bin/fping }
-chown smokeping:root /var/run/smokeping
