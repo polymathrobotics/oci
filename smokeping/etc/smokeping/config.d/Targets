@@ -4,7 +4,7 @@ probe = FPing
 
 menu = Top
 title = Network Latency Grapher
-remark = Welcome to the SmokePing website of xxx Company. \
+remark = Welcome to the SmokePing image produced by Polymath Robotics. \
          Here you will learn all about the latency of our network.
 
 + Local
@@ -25,66 +25,69 @@ host = localhost
 menu = Internet Sites
 title = Internet Sites
 
-++ Facebook
-menu = Facebook
-title = Facebook
-host = facebook.com
+++ Clearpath
+menu = Clearpath
+title = Clearpath Robotics
+host = clearpathrobotics.com
 
-++ Youtube
-menu = YouTube
-title = YouTube
-host = youtube.com
+++ NVIDIA
+menu = NVIDIA
+title = NVIDIA
+host = developer.nvidia.com
 
-++ JupiterBroadcasting
-menu = JupiterBroadcasting
-title = JupiterBroadcasting
-host = jupiterbroadcasting.com
+++ Luxonis
+menu = Luxonis
+title = Luxonis
+host = luxonis.com
 
-++ GoogleSearch
-menu = Google
-title = google.com
-host = google.com
+++ OpenRobotics
+menu = Open Robotics
+title = Open Robotics
+host = openrobotics.org
+
+++ Ouster
+menu = Ouster
+title = Ouster
+host = ouster.com
+
+++ ROS
+menu = ROS
+title = ROS
+host = ros.org
 
 + USA
 
 menu = North America
 title = North American Connectivity
 
+++ UMD
+menu = UMD
+title = University of Maryland
+host = mirror.umd.edu
+
 ++ MIT
 
 menu = MIT
-title = Massachusetts Institute of Technology Webserver
-host = web.mit.edu
-
-++ IU
-
-menu = IU
-title = Indiana University
-host = www.indiana.edu
-
-++ UCB
-
-menu = U. C. Berkeley
-title = U. C. Berkeley Webserver
-host = www.berkeley.edu
-
-++ UCSD
-
-menu = U. C. San Diego
-title = U. C. San Diego Webserver
-host = ucsd.edu
-
-++ UMN
-
-menu =  University of Minnesota
-title = University of Minnesota
-host = twin-cities.umn.edu
+title = Massachusetts Institute of Technology
+host = mirrors.mit.edu
 
 ++ OSUOSL
 
 menu = Oregon State University Open Source Lab
 title = Oregon State University Open Source Lab
-host = osuosl.org
+host = packages.ros.org
+
+++ Stanford
+
+menu = Stanford
+title = Stanford Computer Science and Electrical Engineering
+host = mirror.stanford.edu
+
+++ Waterloo
+
+menu = University of Waterloo
+title = University of Waterloo Open Source Software Mirror
+host = mirror.csclub.uwaterloo.ca
 
 + DNS
 menu = DNS
