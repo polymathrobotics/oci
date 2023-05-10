@@ -3,6 +3,9 @@ ARG CONTAINER_REGISTRY=docker.io
 
 FROM $CONTAINER_REGISTRY/ubuntu:jammy-20230425
 ARG S6_OVERLAY_VERSION=3.1.5.0
+ENV S6_KEEP_ENV 1 # Don't reset the environment on /init so we get TZ
+
+ENV TZ=Etc/UTC
 
 LABEL \
     org.opencontainers.image.source="https://github.com/polymathrobotics/oci" \
@@ -20,6 +23,7 @@ RUN <<EOF
     iputils-ping \
     openssh-client \
     smokeping \
+    tzdata \
     xz-utils
   rm -rf /var/lib/apt/lists/*
 EOF
@@ -74,5 +78,6 @@ RUN <<EOF
 EOF
 
 COPY etc/ /etc
+EXPOSE 80
 
 ENTRYPOINT ["/init"]
