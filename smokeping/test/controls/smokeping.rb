@@ -6,7 +6,11 @@ describe command('fping --version') do
   its('stdout') { should match(/fping: Version/) }
 end
 
-# EchoPing
+describe command('echoping') do
+  it { should exist }
+  its('exit_status') { should eq 1 }
+  its('stderr') { should match(/Usage: echoping/) }
+end
 
 describe command('curl --version') do
   its('exit_status') { should eq 0 }

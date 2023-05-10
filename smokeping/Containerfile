@@ -42,9 +42,25 @@ RUN <<EOF
     https://github.com/just-containers/s6-overlay/releases/download/v${S6_OVERLAY_VERSION}/s6-overlay-noarch.tar.xz
   tar --directory / --xz --extract --file /tmp/s6-overlay-noarch.tar.xz
   case ${TARGETARCH} in \
-    "amd64") S6_OVERLAY_ARCH=x86_64 ;; \
-    "arm64") S6_OVERLAY_ARCH=aarch64 ;; \
-    "arm/v7") S6_OVERLAY_ARCH=armhf ;; \
+    "amd64") \
+      mkdir -p /tmp/echoping
+      curl --output-dir /tmp/echoping -LO http://archive.ubuntu.com/ubuntu/pool/main/libi/libidn/libidn11_1.33-2.2ubuntu2_amd64.deb
+      curl --output-dir /tmp/echoping -LO http://archive.ubuntu.com/ubuntu/pool/main/p/popt/libpopt0_1.16-14_amd64.deb
+      curl --output-dir /tmp/echoping -LO http://archive.ubuntu.com/ubuntu/pool/universe/e/echoping/echoping_6.0.2-10ubuntu1_amd64.deb
+      dpkg -i /tmp/echoping/libidn11_1.33-2.2ubuntu2_amd64.deb
+      dpkg -i /tmp/echoping/libpopt0_1.16-14_amd64.deb
+      dpkg -i /tmp/echoping/echoping_6.0.2-10ubuntu1_amd64.deb
+      S6_OVERLAY_ARCH=x86_64 ;; \
+    "arm64") \
+      mkdir -p /tmp/echoping
+      curl --output-dir /tmp/echoping -LO http://ports.ubuntu.com/pool/main/libi/libidn/libidn11_1.33-2.2ubuntu2_arm64.deb
+      curl --output-dir /tmp/echoping -LO http://ports.ubuntu.com/pool/main/p/popt/libpopt0_1.16-14_arm64.deb
+      curl --output-dir /tmp/echoping -LO http://ports.ubuntu.com/pool/universe/e/echoping/echoping_6.0.2-10ubuntu1_arm64.deb
+      dpkg -i /tmp/echoping/libidn11_1.33-2.2ubuntu2_arm64.deb
+      dpkg -i /tmp/echoping/libpopt0_1.16-14_arm64.deb
+      dpkg -i /tmp/echoping/echoping_6.0.2-10ubuntu1_arm64.deb
+      S6_OVERLAY_ARCH=aarch64 ;; \
+    *) echo "unsupported architecture"; exit 1 ;; \
   esac
   curl \
     --silent \
