@@ -51,6 +51,7 @@ The images are pubished to https://hub.docker.com/u/polymathrobotics
 | [rust](https://hub.docker.com/r/polymathrobotics/rust) |  Rust is a systems programming language sponsored by Mozilla Research. | [rust](https://github.com/polymathrobotics/oci/tree/main/rust) |
 | [ruby](https://hub.docker.com/r/polymathrobotics/ruby) | Ruby is a dynamic, reflective, object-oriented, general-purpose, open-source programming language | [ruby](https://github.com/polymathrobotics/oci/tree/main/ruby) |
 | [shellcheck](https://hub.docker.com/r/polymathrobotics/shellcheck) | Static analysis tool for shell scripts | [shellcheck](https://github.com/polymathrobotics/oci/tree/main/shellcheck) |
+| [smokeping](https://hub.docker.com/r/polymathrobotics/smokeping) | Smokeping network latency grapher | [smokeping](https://github.com/polymathrobotics/oci/tree/main/smokeping) |
 
 # Why are you re-publishing some official images?
 
