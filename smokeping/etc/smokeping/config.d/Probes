@@ -12,6 +12,22 @@ binary = /usr/bin/fping6
 step = 60
 pings = 10
 
++ EchoPingHttp
+
+binary = /usr/bin/echoping
+forks = 5
+offset = 50%
+step = 120
+pings = 4
+
++ EchoPingHttps
+
+binary = /usr/bin/echoping
+forks = 5
+offset = 50%
+step = 120
+pings = 4
+
 + DNS
 
 binary = /usr/bin/dig
