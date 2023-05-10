@@ -12,7 +12,7 @@ Everything required runs in this image. Browse to http://localhost:8087 to
 view latency data:
 
 ```
-docker run -it --rm \
+docker run \
   -d \
   --name=smokeping \
   -e TZ=Etc/UTC \
