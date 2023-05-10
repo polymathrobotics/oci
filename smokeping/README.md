@@ -17,6 +17,7 @@ docker run -it --rm \
   --name=smokeping \
   -e TZ=Etc/UTC \
   -p 8087:80 \
+  --restart unless-stopped \
   docker.io/polymathrobotics/smokeping
 ```
 
