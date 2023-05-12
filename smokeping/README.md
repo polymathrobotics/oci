@@ -21,6 +21,18 @@ docker run \
   docker.io/polymathrobotics/smokeping
 ```
 
+If you're using podman, you may need to add `--cap-add=NET_RAW` to give
+the necessary permissions for raw network access:
+
+```
+podman run \
+  -d \
+  --cap-add=NET_RAW \
+  --name=smokeping \
+  -p 8088:80 \
+  docker.io/polymathrobotics/smokeping
+```
+
 ## Probes
 This cookbook configures five standard probes, IPv4 ICMP ping
 (FPing), IPv6 ICMP ping (FPing6), HTTP GET (EchoPingHttp), HTTPS GET
@@ -30,7 +42,7 @@ By default the probe is ICMP ping (FPing).  This can be overridden at a
 group level or individual host level.
 
 Probes can also be added/removed by setting the appropriate attribute values
-under `node['fb_smokeping']['probes']`
+under `Probes`
 
 ## How to read graphs
 There's a few dimensions of data packed into Smokeping charts which make
