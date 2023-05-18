@@ -1,5 +1,5 @@
 [container_image]
 name = "cinc"
-tags = ["15.17.4"]
+tags = ["16.18.30"]
 platforms = ["linux/amd64", "linux/arm64/v8"]
 readme = "cinc/cinc/README.md"
