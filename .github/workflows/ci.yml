@@ -113,7 +113,7 @@ jobs:
           echo "tags=$($(git rev-parse --show-toplevel)/bin/list-tags.sh -c)" >> $GITHUB_ENV
 
       - name: Build locally for testing
-        uses: docker/build-push-action@v3
+        uses: docker/build-push-action@v4
         with:
           load: true
           context: ${{ matrix.image }}
@@ -145,7 +145,7 @@ jobs:
 
       - name: Build and push
         if: github.event_name == 'push'
-        uses: docker/build-push-action@v3
+        uses: docker/build-push-action@v4
         with:
           push: true
           context: ${{ matrix.image }}
