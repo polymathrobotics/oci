@@ -1,46 +1,27 @@
 # syntax=docker/dockerfile:1
 ARG CONTAINER_REGISTRY=docker.io
-FROM $CONTAINER_REGISTRY/ubuntu:jammy-20230308 as builder
+FROM $CONTAINER_REGISTRY/busybox:1.36.0
 
-WORKDIR /tmp
-SHELL ["/bin/bash", "-o", "pipefail", "-c"]
+ARG TARGETARCH
+
+# We're using busybox with /bin/sh so DL4006 does not apply
+# hadolint ignore=DL4006
 RUN <<EOF
-  apt-get update
-  apt-get install -y --no-install-recommends \
-    ca-certificates \
-    curl
-  dpkgArch="$(dpkg --print-architecture)"
-  case "${dpkgArch##*-}" in \
-    amd64) \
-      CINC_URL='http://downloads.cinc.sh/files/stable/cinc/18.1.0/ubuntu/22.04/cinc_18.1.0-1_amd64.deb' \
-      CINC_SHA256='af8a54c875661bcc5a3ac640912b80ed033b90eeb4ccbe7d3ed6f520491c7587' \
+  case "$TARGETARCH" in
+    x86_64) \
+      CINC_URL=http://ftp-osl.osuosl.org/pub/cinc/files/stable/cinc/17.10.0/el/7/cinc-17.10.0-1.el7.x86_64.rpm
+      CINC_SHA256=d06c0b51385c2daf08ebf69593b8acb8301655280e42fbcd232638cca5073c09
       ;; \
     arm64) \
-      CINC_URL='http://downloads.cinc.sh/files/stable/cinc/18.1.0/ubuntu/22.04/cinc_18.1.0-1_arm64.deb' \
-      CINC_SHA256='f66be4d18f5bf23511dc57b676a73ba3f820651ce9f1b26b1ad00fd931d760f9' \
+      CINC_URL=http://ftp-osl.osuosl.org/pub/cinc/files/stable/cinc/17.10.0/el/7/cinc-17.10.0-1.el7.aarch64.rpm
+      CINC_SHA256=2e1a2f7565f12dae9de3f1fbc2465845892cbee22ed999386458bda8bbb750a5
       ;; \
-    *) echo "unsupported architecture"; exit 1 ;; \
+     *) echo "unsupported architecture"; exit 1 ;; \
   esac
-  curl -fsSL -o cinc.deb ${CINC_URL}
+  wget -q -O /tmp/cinc-client.rpm ${CINC_URL}
   echo "${CINC_SHA256} cinc.deb" | sha256sum -c -
+  rpm2cpio /tmp/cinc-client.rpm | cpio -idmv
+  rm -f /tmp/cinc-client.rpm
 EOF
 
-FROM $CONTAINER_REGISTRY/ubuntu:jammy-20230308
-
-LABEL \
-    org.opencontainers.image.source="https://github.com/boxcutter/oci" \
-    org.opencontainers.image.licenses="Apache-2.0" \
-    org.opencontainers.image.description="Cinc Client is an automation platform built from Chef Infra"
-
-
-COPY --from=builder /tmp/cinc.deb /tmp/cinc.deb
-
-RUN <<EOF
-  apt-get update \
-  DEBIAN_FRONTEND=noninteractive apt-get install -y --no-install-recommends \
-    ca-certificates
-  dpkg -i /tmp/cinc.deb
-  rm -rf /var/lib/apt/lists/*
-EOF
-    
-VOLUME ["/opt/cinc"]
+VOLUME [ "/opt/cinc" ]

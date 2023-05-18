@@ -120,7 +120,13 @@ jobs:
           file: ${{ matrix.image }}/Containerfile
           tags: ${{ env.tags }}
 
+      - name: Run tests on the cinc/cinc image with cinc-auditor
+        if: maxtrix.image == 'cinc/cinc'
+        run: |
+          $(git rev-parse --show-toplevel)/bin/test.sh "$( $(git rev-parse --show-toplevel)/bin/list-tags.sh | head -n 1 )" "/bin/sh"
+
       - name: Run tests on the image with cinc-auditor
+        if: maxtrix.image != 'cinc/cinc'
         run: |
           $(git rev-parse --show-toplevel)/bin/test.sh
 
