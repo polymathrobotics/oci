@@ -2,6 +2,12 @@
 ARG CONTAINER_REGISTRY=docker.io
 FROM $CONTAINER_REGISTRY/busybox:1.36.0
 
+LABEL \
+    org.opencontainers.image.source="https://github.com/boxcutter/oci" \
+    org.opencontainers.image.licenses="Apache-2.0" \
+    org.opencontainers.image.description="Cinc Client is an automation platform built from Chef Infra"
+
+# This argument is automatically populated by BuildKit
 ARG TARGETARCH
 
 # We're using busybox with /bin/sh so DL4006 does not apply
