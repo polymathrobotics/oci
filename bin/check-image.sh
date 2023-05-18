@@ -22,7 +22,7 @@ check_if_image_local() {
 
   if docker image inspect "${image_name}" >/dev/null 2>&1; then
     not_found "$image_name"
-    exit 0
+    exit 1
   fi
 }
 
@@ -42,7 +42,6 @@ If you need to bootstrap the image, go to the Containerfile directory and run:
     --push \
     .
 EOF
-  exit 1
 }
 
 while getopts h opt; do
