@@ -1,4 +1,4 @@
 [container_image]
 name = "cinc"
 tags = ["17.10.0"]
-platforms = ["linux/amd64", "linux/arm64/v8"]
+platforms = [ "linux/amd64", "linux/arm64/v8" ]
