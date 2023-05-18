@@ -15,12 +15,12 @@ ARG TARGETARCH
 RUN <<EOF
   case "$TARGETARCH" in \
     amd64) \
-      CINC_URL=http://ftp-osl.osuosl.org/pub/cinc/files/stable/cinc/16.18.30/el/7/cinc-16.18.30-1.el7.x86_64.rpm \
-      CINC_SHA256=ef9f50d37aa16950f44a75107c211b6b2c7e4a4646185cbdb800b67ff180c8f3 \
+      CINC_URL=http://ftp-osl.osuosl.org/pub/cinc/files/stable/cinc/17.10.0/el/7/cinc-17.10.0-1.el7.x86_64.rpm \
+      CINC_SHA256=d06c0b51385c2daf08ebf69593b8acb8301655280e42fbcd232638cca5073c09 \
       ;; \
     arm64) \
-      CINC_URL=http://ftp-osl.osuosl.org/pub/cinc/files/stable/cinc/16.18.30/el/7/cinc-16.18.30-1.el7.aarch64.rpm \
-      CINC_SHA256=1f96cdeaabe8bf7ed469ab88b05fe987e6b896ff310aa9489300bc1d2e7792ee \
+      CINC_URL=http://ftp-osl.osuosl.org/pub/cinc/files/stable/cinc/17.10.0/el/7/cinc-17.10.0-1.el7.aarch64.rpm \
+      CINC_SHA256=2e1a2f7565f12dae9de3f1fbc2465845892cbee22ed999386458bda8bbb750a5 \
       ;; \
      *) echo "unsupported architecture"; exit 1 ;; \
   esac
