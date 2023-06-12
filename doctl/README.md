@@ -177,7 +177,7 @@ docker run --rm \
   --env=DIGITALOCEAN_ACCESS_TOKEN \
   --env=DIGITALOCEAN_SSH_KEY_IDS \
   --env=DIGITALOCEAN_REGION \
-  polymathrobotics/doctl compute droplet create ubuntu22-04 \
+  docker.io/polymathrobotics/doctl compute droplet create ubuntu22-04 \
     --ssh-keys $DIGITALOCEAN_SSH_KEY_IDS \
     --size s-1vcpu-1gb \
     --image ubuntu-22-04-x64 \
@@ -191,21 +191,21 @@ SSH into a running instance
 docker run --rm --interactive --tty \
   --env=DIGITALOCEAN_ACCESS_TOKEN \
   -v $HOME/.ssh/id_ed25519:/root/.ssh/id_ed25519 \
-  polymathrobotics/doctl compute ssh <DROPLET_ID>
+  docker.io/polymathrobotics/doctl compute ssh <DROPLET_ID>
 ```
 
 Listing current droplets
 ```
 docker run --rm  \
   --env=DIGITALOCEAN_ACCESS_TOKEN \
-  polymathrobotics/doctl compute droplet list
+  docker.io/polymathrobotics/doctl compute droplet list
 ```
 
 Deleting a Droplet
 ```
 docker run --rm  \
   --env=DIGITALOCEAN_ACCESS_TOKEN \
-  polymathrobotics/doctl compute droplet delete --force <DROPLET_ID>
+  docker.io/polymathrobotics/doctl compute droplet delete --force <DROPLET_ID>
 ```
 
 ## CLI
@@ -213,7 +213,7 @@ docker run --rm  \
 ```
 % docker run --rm \
    --env=DIGITALOCEAN_ACCESS_TOKEN \
-   polymathrobotics/doctl
+   docker.io/polymathrobotics/doctl
 doctl is a command line interface (CLI) for the DigitalOcean API.
 
 Usage:
