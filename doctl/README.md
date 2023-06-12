@@ -186,19 +186,33 @@ docker run --rm \
     --enable-monitoring
 ```
 
-SSH into a running instance
-```
-docker run --rm --interactive --tty \
-  --env=DIGITALOCEAN_ACCESS_TOKEN \
-  -v $HOME/.ssh/id_ed25519:/root/.ssh/id_ed25519 \
-  docker.io/polymathrobotics/doctl compute ssh <DROPLET_ID>
-```
-
 Listing current droplets
 ```
 docker run --rm  \
   --env=DIGITALOCEAN_ACCESS_TOKEN \
   docker.io/polymathrobotics/doctl compute droplet list
+```
+
+SSH into a running instance
+```
+# Mount ssh key directly
+docker run --rm --interactive --tty \
+  --env=DIGITALOCEAN_ACCESS_TOKEN \
+  -v $HOME/.ssh/id_ed25519:/root/.ssh/id_ed25519 \
+  docker.io/polymathrobotics/doctl compute ssh <DROPLET_ID>
+
+# Use keys from ssh-agent
+# /run/host-services/ssh-auth.sock is a special magic mounting path
+# for macOS that forwards $SSH_AUTH_SOCK to the Linux VM. Also
+# works on Linux.
+# https://github.com/docker/for-mac/issues/410
+# 
+# add ssh key with `ssh-add` and verify with `ssh-add -l`
+docker run --rm --interactive --tty \
+  --env=DIGITALOCEAN_ACCESS_TOKEN \
+  --env=SSH_AUTH_SOCK="/run/host-services/ssh-auth.sock" \
+  --mount type=bind,source=/run/host-services/ssh-auth.sock,target=/run/host-services/ssh-auth.sock,readonly \
+  docker.io/polymathrobotics/doctl compute ssh <DROPLET_ID> 
 ```
 
 Deleting a Droplet
