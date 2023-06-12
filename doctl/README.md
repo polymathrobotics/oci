@@ -56,7 +56,7 @@ ID           Name                  Type        Distribution    Slug             
 
 Listing regions
 ```
-% docker run --rm --interactive --tty \
+% docker run --rm \
     --env=DIGITALOCEAN_ACCESS_TOKEN \
     docker.io/polymathrobotics/doctl compute region list
 Slug    Name               Available
@@ -173,14 +173,14 @@ This command sometimes require user input, so it is recommend to pass the
 `--interactive` and `--tty` flags as well.
 
 ```
-docker run --rm --interactive --tty \
+docker run --rm \
   --env=DIGITALOCEAN_ACCESS_TOKEN \
   --env=DIGITALOCEAN_SSH_KEY_IDS \
   --env=DIGITALOCEAN_REGION \
-  polymathrobotics/doctl compute droplet create ubuntu20-04 \
+  polymathrobotics/doctl compute droplet create ubuntu22-04 \
     --ssh-keys $DIGITALOCEAN_SSH_KEY_IDS \
     --size s-1vcpu-1gb \
-    --image ubuntu-20-04-x64 \
+    --image ubuntu-22-04-x64 \
     --region $DIGITALOCEAN_REGION \
     --enable-ipv6 \
     --enable-monitoring
@@ -203,10 +203,11 @@ docker run --rm  \
 
 Deleting a Droplet
 ```
-docker run --rm --interactive --tty \
+docker run --rm  \
   --env=DIGITALOCEAN_ACCESS_TOKEN \
   polymathrobotics/doctl compute droplet delete --force <DROPLET_ID>
 ```
+
 ## CLI
 
 ```
@@ -249,5 +250,5 @@ Flags:
       --trace                 Show a log of network activity while performing a command
   -v, --verbose               Enable verbose output
 
-  Use "doctl [command] --help" for more information about a command.```
-111
+  Use "doctl [command] --help" for more information about a command.
+```
