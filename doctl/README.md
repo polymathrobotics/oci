@@ -213,6 +213,14 @@ docker run --rm --interactive --tty \
   --env=SSH_AUTH_SOCK="/run/host-services/ssh-auth.sock" \
   --mount type=bind,source=/run/host-services/ssh-auth.sock,target=/run/host-services/ssh-auth.sock,readonly \
   docker.io/polymathrobotics/doctl compute ssh <DROPLET_ID> 
+
+
+# Add --ssh-agent-forwarding parameter to be equivalent to `ssh -A`
+docker run --rm --interactive --tty \
+  --env=DIGITALOCEAN_ACCESS_TOKEN \
+  --env=SSH_AUTH_SOCK="/run/host-services/ssh-auth.sock" \
+  --mount type=bind,source=/run/host-services/ssh-auth.sock,target=/run/host-services/ssh-auth.sock,readonly \
+  docker.io/polymathrobotics/doctl compute ssh --ssh-agent-forwarding <DROPLET_ID> 
 ```
 
 Deleting a Droplet
