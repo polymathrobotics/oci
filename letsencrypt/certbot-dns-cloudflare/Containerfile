@@ -1,18 +1,28 @@
 ARG CONTAINER_REGISTRY=docker.io
-FROM $CONTAINER_REGISTRY/boxcutter/python:3.11-jammy as build
+FROM $CONTAINER_REGISTRY/ubuntu:jammy-20230624
 
-ARG CERTBOT_VERSION=2.3.0
+LABEL \
+    org.opencontainers.image.source="https://github.com/polymathrobotics/oci" \
+    org.opencontainers.image.licenses="Apache-2.0" \
+    org.opencontainers.image.description="Certbot tool for using Let's Encrypt certificates."
+
+ARG CERTBOT_VERSION=2.6.0
 
 SHELL ["/bin/bash", "-o", "pipefail", "-c"]
-# RUN curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | bash -s -- -y
+RUN <<EOF
+  apt-get update -y
+  apt-get install -y --no-install-recommends \
+    python3 \
+    python3-venv \
+    libaugeas0
+  apt-get autoremove -y
+  rm -rf /var/lib/apt/lists/*
+EOF
 
 RUN python3 -m venv /opt/certbot/ \
+  && /opt/certbot/bin/pip install --upgrade pip \
   && /opt/certbot/bin/pip install certbot==$CERTBOT_VERSION \
   && /opt/certbot/bin/pip install certbot-dns-cloudflare==$CERTBOT_VERSION
-
-FROM $CONTAINER_REGISTRY/boxcutter/python:3.11-jammy
-
-COPY --from=build /opt/certbot /opt/certbot
 
 RUN ln -s /opt/certbot/bin/certbot /usr/local/bin/certbot
 
