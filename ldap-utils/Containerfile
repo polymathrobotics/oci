@@ -1,10 +1,10 @@
 ARG CONTAINER_REGISTRY=docker.io
-FROM $CONTAINER_REGISTRY/ubuntu:20.04
+FROM $CONTAINER_REGISTRY/ubuntu:jammy-20230624
 
-# metadata
 LABEL \
     org.opencontainers.image.source="https://github.com/polymathrobotics/oci" \
-    org.opencontainers.image.licenses="Apache-2.0"
+    org.opencontainers.image.licenses="Apache-2.0" \
+    org.opencontainers.image.description="LDAP utilities."
 
 # Create user and set ownership and permissions as required
 RUN useradd -m ldap

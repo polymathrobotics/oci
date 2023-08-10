@@ -54,6 +54,7 @@ jobs:
             glab: 'glab/**'
             grafana/grafana-oss: 'grafana/grafana-oss/**'
             hashicorp/terraform: 'hashicorp/terraform/**'
+            ldap-utils: 'ldap-utils/**'
             letsencrypt/certbot: 'letsencrypt/certbot/**'
             letsencrypt/certbot-dns-cloudflare: 'letsencrypt/certbot-dns-cloudflare/**'
             markdownlint: 'markdownlint/**'
