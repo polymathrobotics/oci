@@ -1,4 +1,4 @@
-# Base on certbot/certbot
+# Based on certbot/certbot
 # https://github.com/certbot/certbot/blob/master/tools/docker/core/Dockerfile
 
 Used for utility functions. Likely you'll want to use one of the 

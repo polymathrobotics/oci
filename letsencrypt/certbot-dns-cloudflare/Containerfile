@@ -4,7 +4,7 @@ FROM $CONTAINER_REGISTRY/ubuntu:jammy-20230624
 LABEL \
     org.opencontainers.image.source="https://github.com/polymathrobotics/oci" \
     org.opencontainers.image.licenses="Apache-2.0" \
-    org.opencontainers.image.description="Certbot tool for using Let's Encrypt certificates."
+    org.opencontainers.image.description="Certbot tool for obtaining TLS/SSL certificates from Let's Encrypt."
 
 ARG CERTBOT_VERSION=2.6.0
 
