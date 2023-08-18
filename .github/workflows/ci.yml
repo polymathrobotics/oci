@@ -57,6 +57,7 @@ jobs:
             ldap-utils: 'ldap-utils/**'
             letsencrypt/certbot: 'letsencrypt/certbot/**'
             letsencrypt/certbot-dns-cloudflare: 'letsencrypt/certbot-dns-cloudflare/**'
+            letsencrypt/lego: 'letsencrypt/lego/**'
             markdownlint: 'markdownlint/**'
             meshcmd: 'meshcmd/**'
             node/18/jammy: 'node/18/jammy/**'

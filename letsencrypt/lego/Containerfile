@@ -1,0 +1,47 @@
+ARG CONTAINER_REGISTRY=docker.io
+FROM $CONTAINER_REGISTRY/ubuntu:jammy-20230804 as builder
+
+WORKDIR /tmp
+
+SHELL ["/bin/bash", "-o", "pipefail", "-c"]
+RUN <<EOF
+  apt-get update
+  apt-get install -y --no-install-recommends \
+    ca-certificates \
+    curl
+  dpkgArch="$(dpkg --print-architecture)"
+  case "${dpkgArch##*-}" in \
+    amd64) \
+      LEGO_URL=https://github.com/go-acme/lego/releases/download/v4.13.3/lego_v4.13.3_linux_amd64.tar.gz \
+      LEGO_SHA256=d321fc3ee7f33337d8e2c64c6e807a2526c1f1310a40aad3641b06ee60526d95 \
+      ;; \
+    arm64) \
+      LEGO_URL=https://github.com/go-acme/lego/releases/download/v4.13.3/lego_v4.13.3_linux_arm64.tar.gz \
+      LEGO_SHA256=787d11f03046285e1e800e8ac19382c05f28d6933236c52fafe025f7cadd9a0b \
+      ;; \
+    armhf) \
+      LEGO_URL=https://github.com/go-acme/lego/releases/download/v4.13.3/lego_v4.13.3_linux_armv7.tar.gz \
+      LEGO_SHA256=4ad6255765052a949f4fc68e24aa34c9ec4f720e4b0f49e968ef682eb5263e70 \
+      ;; \
+    esac
+    curl -fsSL -o lego.tar.gz ${LEGO_URL}
+    echo "${LEGO_SHA256} lego.tar.gz" | sha256sum -c -
+    mkdir -p lego
+    tar --extract \
+        --file lego.tar.gz \
+        --directory /tmp/lego
+EOF
+
+FROM $CONTAINER_REGISTRY/ubuntu:jammy-20230804
+
+LABEL \
+    org.opencontainers.image.source="https://github.com/polymathrobotics/oci" \
+    org.opencontainers.image.licenses="Apache-2.0" \
+    org.opencontainers.image.description="Let's Encrypt/ACME client and library written in Go."
+
+WORKDIR /opt
+COPY --from=builder /tmp/lego/ /opt/lego
+
+RUN ln -s /opt/lego/lego /usr/local/bin/lego
+
+ENTRYPOINT ["lego"]
