@@ -23,6 +23,9 @@ jobs:
           # If it's not configured, the repository default branch is used.
           base: ${{ github.ref }}
           filters: |
+            acme/certbot: 'acme/certbot/**'
+            acme/certbot-dns-cloudflare: 'acme/certbot-dns-cloudflare/**'
+            acme/lego: 'acme/lego/**'
             aws-cli: 'aws-cli/**'
             black: 'black/**'
             bootstrap/cinc-auditor: 'bootstrap/cinc-auditor/**'
@@ -55,9 +58,6 @@ jobs:
             grafana/grafana-oss: 'grafana/grafana-oss/**'
             hashicorp/terraform: 'hashicorp/terraform/**'
             ldap-utils: 'ldap-utils/**'
-            letsencrypt/certbot: 'letsencrypt/certbot/**'
-            letsencrypt/certbot-dns-cloudflare: 'letsencrypt/certbot-dns-cloudflare/**'
-            letsencrypt/lego: 'letsencrypt/lego/**'
             markdownlint: 'markdownlint/**'
             meshcmd: 'meshcmd/**'
             node/18/jammy: 'node/18/jammy/**'
