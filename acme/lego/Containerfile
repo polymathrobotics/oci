@@ -39,6 +39,14 @@ LABEL \
     org.opencontainers.image.licenses="Apache-2.0" \
     org.opencontainers.image.description="Let's Encrypt/ACME client and library written in Go."
 
+RUN <<EOF
+  apt-get update -y
+  apt-get install -y --no-install-recommends \
+    ca-certificates
+  apt-get autoremove -y
+  rm -rf /var/lib/apt/lists/*
+EOF
+
 WORKDIR /opt
 COPY --from=builder /tmp/lego/ /opt/lego
 

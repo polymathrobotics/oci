@@ -2,4 +2,4 @@
 name = "certbot"
 tags = ["2.6.0", "latest"]
 platforms = ["linux/arm64", "linux/amd64"]
-readme = "letsencrypt/certbot/README.md"
+readme = "acme/certbot/README.md"
