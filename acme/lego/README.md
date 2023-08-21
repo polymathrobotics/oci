@@ -1,5 +1,18 @@
-# Based on certbot/certbot
-# https://github.com/certbot/certbot/blob/master/tools/docker/core/Dockerfile
+# lego
+
+Let's Encrypt/ACME client and library written in Go.
+
+## Staging Environment
+
+If you'd like to test against the Let's Encrypt staging environment before
+using the production environment, use the `--server` parameter. You can
+get the ACME URL for the staging environment in the docs:
+https://letsencrypt.org/docs/staging-environment/
+
+The current URL is:
+`https://acme-staging-v02.api.letsencrypt.org/directory`
+
+## Cloudflare DNS Provider
 
 Go to the [Cloudflare dashboard](https://dash.cloudflare.com/?to=/:account/profile/api-tokens) and obtain an API Token restricted to the domain and operations
 needed. Do not use the Global API Key! Certbot requires `Zone::DNS::Edit`
@@ -7,48 +20,55 @@ permissions only for the zones for which you need certificates. It is also
 recommended to always set an end date on the token no longer than 90 days
 from when it is issued.
 
-Save the credentials in an ini file, such as `~/.secrets/certbot/cloudflare.ini` with `chmod 0600` permissions:
-```
-# ~/.secrets/certbot/cloudflare.ini
-# Secret the secrets file with:
-#    sudo chmod 0700 $HOME/.secrets
-#    sudo chmod 0400 $HOME/.secrets/cloudflare.ini
-# Cloudflare API token used by Certbot
-dns_cloudflare_api_token = 0123456789abcdef0123456789abcdef0123456
-```
+Set the environment variable `CF_DNS_API_TOKEN` with the value of the token.
 
-The path to this file is provided to certbot via the `--dns-cloudflare-credentials` command-line argument. Certbot records the path to this file for use during renewal, but does not store the file's contents.
+Or you can create a file whose contents are use the token and use the `CF_DNS_API_TOKEN_FILE`
+environment variable to provide the file location.
 
-For more information, refer to the plugin docs at https://certbot-dns-cloudflare.readthedocs.io/en/stable/#credentials
+For more information, refer to the plugin docs at https://go-acme.github.io/lego/dns/cloudflare/
 
 ## Examples
 
 Acquire a test certificate from a staging server for example.com:
 ```
-docker run --rm --interactive --tty \
-  --mount type=bind,source=$HOME/.secrets/certbot/cloudflare.ini,target=/root/.secrets/certbot/cloudflare.ini,readonly \
-  polymathrobotics/certbot-dns-cloudflare certonly \
-    --test-cert \
-    --dns-cloudflare \
-    --dns-cloudflare-credentials /root/.secrets/certbot/cloudflare.ini \
+export CF_DNS_API_TOKEN=<your_cloudflare_api_token>
+docker run --rm \
+  --env CF_DNS_API_TOKEN \
+  docker.io/polymathrobotics/lego \
+    --accept-tos \
+    --dns cloudflare \
+    --server https://acme-staging-v02.api.letsencrypt.org/directory \
     --email=letsencrypt@polymathrobotics.com \
-    --agree-tos \
-    --no-eff-email \
-    -d testy.polymathrobotics.dev
+    --domains testy.polymathrobotics.dev \
+    run
 ```
-
 
 To acquire a certificate for example.com:
 ```
-docker run --rm --interactive --tty \
-  --mount type=bind,source=$(pwd)/etc/letsencrypt,target=/etc/letsencrypt \
-  --mount type=bind,source=$(pwd)/var/lib/letsencrypt,target=/var/lib/letsencrypt \
-  --mount type=bind,source=$HOME/.secrets/certbot/cloudflare.ini,target=/root/.secrets/certbot/cloudflare.ini,readonly \
-  polymathrobotics/certbot-dns-cloudflare certonly \
-    --dns-cloudflare \
-    --dns-cloudflare-credentials /root/.secrets/certbot/cloudflare.ini \
+export CF_DNS_API_TOKEN=<your_cloudflare_api_token>
+docker run --rm \
+  --env CF_DNS_API_TOKEN \
+  --mount type=bind,source=$(pwd)/etc/lego,target=/etc/lego \
+  docker.io/polymathrobotics/lego \
+    --accept-tos \
+    --dns cloudflare \
     --email=letsencrypt@polymathrobotics.com \
-    --agree-tos \
-    --no-eff-email \
-    -d example.com
+    --domains testy.polymathrobotics.dev \
+    --path=/etc/lego \
+    run
+```
+
+To renew a certificate for example.com:
+```
+export CF_DNS_API_TOKEN=<your_cloudflare_api_token>
+docker run --rm \
+  --env CF_DNS_API_TOKEN \
+  --mount type=bind,source=$(pwd)/etc/lego,target=/etc/lego \
+  docker.io/polymathrobotics/lego \
+    --accept-tos \
+    --dns cloudflare \
+    --email=letsencrypt@polymathrobotics.com \
+    --domains testy.polymathrobotics.dev \
+    --path=/etc/lego \
+    renew
 ```
