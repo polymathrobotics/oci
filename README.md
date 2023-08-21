@@ -34,6 +34,7 @@ The images are pubished to https://hub.docker.com/u/polymathrobotics
 | [glab](https://hub.docker.com/r/polymathrobotics/glab) | The GitLab CLI tool | [glab](https://github.com/polymathrobotics/oci/tree/main/glab) |
 | [grafana/grafana-oss](https://hub.docker.com/r/polymathrobotics/grafana-oss) | Grafana - the open observability platform | [grafana/grafana-oss](https://github.com/polymathrobotics/oci/tree/main/grafana-oss) |
 | [hadolint](https://hub.docker.com/r/polymathrobotics/hadolint) | Containerfile/Dockerfile linter | [bootstrap/hadolint](https://github.com/polymathrobotics/oci/tree/main/bootstrap/hadolint) |
+| [lego](https://hub.docker.com/r/polymathrobotics/lego) | Let's Encrypt/ACME client and library written in Go. | [acme/lego](https://github.com/polymathrobotics/oci/tree/main/acme/lego) |
 | [markdownlint](https://hub.docker.com/r/polymathrobotics/markdownlint) | A tool to check markdown files and flag style issues | [markdownlint](https://github.com/polymathrobotics/oci/tree/main/markdownlint) |
 | [meshcmd](https://hub.docker.com/r/polymathrobotics/meshcmd) | Command line tool used to perform many tasks related to computer management of Intel Active Management Technology (AMT) devices | [meshcmd](https://github.com/polymathrobotics/oci/tree/main/meshcmd) |
 | [op](https://hub.docker.com/r/polymathrobotics/op) | 1Password command-line interface 2 | [op](https://github.com/polymathrobotics/oci/tree/main/op) |
