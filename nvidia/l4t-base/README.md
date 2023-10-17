@@ -4,8 +4,8 @@ Linux for Tegra (L4T) base image. Tegra is a system on a chip (SoC) series
 developed by NVIDIA.
 
 Based on:
-https://catalog.ngc.nvidia.com/orgs/nvidia/containers/l4t-base
-https://gitlab.com/nvidia/container-images/l4t-base
+- https://catalog.ngc.nvidia.com/orgs/nvidia/containers/l4t-base
+- https://gitlab.com/nvidia/container-images/l4t-base
 
 ## What is L4T?
 
@@ -55,7 +55,7 @@ and [TensorRT](https://catalog.ngc.nvidia.com/orgs/nvidia/containers/l4t-tensorr
 
 Ensure these prerequisites are available on your system:
 
-    1. [NVIDIA Container Runtime on Jetson](https://github.com/nvidia/nvidia-docker/wiki#platform-support) Note that NVIDIA Container Runtime is available for install as part of [Nvidia JetPack](https://developer.nvidia.com/embedded/jetpack) in version 4.3 or newer
+1. [NVIDIA Container Runtime on Jetson](https://github.com/nvidia/nvidia-docker/wiki#platform-support) Note that NVIDIA Container Runtime is available for install as part of [Nvidia JetPack](https://developer.nvidia.com/embedded/jetpack) in version 4.3 or newer
 
 ### Pull the container
 
@@ -63,21 +63,21 @@ Before running the l4t-base container, use Docker pull to ensure an up-to-date i
 
 Procedure
 
-    1. In the Pull column, click the icon to copy the Docker pull command for the l4t-base container.
+1. In the Pull column, click the icon to copy the Docker pull command for the l4t-base container.
 
-    1. Open a command prompt and paste the pull command. Docker will initiate a pull of the container from the NGC registry. Ensure the pull completes successfully before proceeding to the next step.
+1. Open a command prompt and paste the pull command. Docker will initiate a pull of the container from the NGC registry. Ensure the pull completes successfully before proceeding to the next step.
 
 ### Run the container
 
 To run the container:
 
-    1. Allow external applications to connect to the host's X display:
+1. Allow external applications to connect to the host's X display:
 
        ```
        xhost *
        ```
 
-    1. Run the docker container using the docker command
+1. Run the docker container using the docker command
 
        ```
        sudo docker run -it --rm \
@@ -92,7 +92,7 @@ To run the container:
 
 By default a limited set of device nodes and associated functionality is
 exposed within the l4t-base containers using the [mount plugin](https://github.com/NVIDIA/nvidia-docker/wiki/NVIDIA-Container-Runtime-on-Jetson#mount-plugins)
-capability. THe list is documented [here](https://github.com/NVIDIA/nvidia-docker/wiki/NVIDIA-Container-Runtime-on-Jetson#supported-devices).
+capability. The list is documented [here](https://github.com/NVIDIA/nvidia-docker/wiki/NVIDIA-Container-Runtime-on-Jetson#supported-devices).
 
 User can expose additional devices using the [--device](https://docs.docker.com/engine/reference/commandline/run/#add-host-device-to-container---device)
 command option provided by docker. Directories and files can be bind mounted
