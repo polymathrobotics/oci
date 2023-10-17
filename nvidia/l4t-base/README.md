@@ -73,20 +73,16 @@ To run the container:
 
 1. Allow external applications to connect to the host's X display:
 
-       ```
        xhost *
-       ```
 
 1. Run the docker container using the docker command
 
-       ```
        sudo docker run -it --rm \
            --net=host \
            --runtime nvidia \
            -e DISPLAY=$DISPLAY \
            -v /tmp/.X11-unix/:/tmp/.X11-unix \
            docker.io/polymathrobotics/nvidia-l4t-base:r35.4.1
-       ```
 
 ### Exposing additional GPU features
 
