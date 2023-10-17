@@ -116,6 +116,11 @@ jobs:
         run: |
           echo "tags=$($(git rev-parse --show-toplevel)/bin/list-tags.sh -c)" >> $GITHUB_ENV
 
+      - name: Set the test platform
+        id: test-platform
+        run: |
+          echo "test-platforms=$($(git rev-parse --show-toplevel)/bin/list-platforms.sh -c | cut -d'.' -f1)" >> $GITHUB_ENV
+
       - name: Build locally for testing
         uses: docker/build-push-action@v4
         with:
@@ -123,6 +128,7 @@ jobs:
           context: ${{ matrix.image }}
           file: ${{ matrix.image }}/Containerfile
           tags: ${{ env.tags }}
+          platforms: $${{ env.test-platform }}
 
       - name: Run tests on the cinc/cinc image with cinc-auditor
         if: matrix.image == 'cinc/cinc'
