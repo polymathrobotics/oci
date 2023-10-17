@@ -119,7 +119,7 @@ jobs:
       - name: Set the test platform
         id: test-platform
         run: |
-          echo "test-platform=$($(git rev-parse --show-toplevel)/bin/list-platforms.sh -c | cut -d'.' -f1)" >> $GITHUB_ENV
+          echo "test-platform=$($(git rev-parse --show-toplevel)/bin/list-platforms.sh | cut -d'.' -f1)" >> $GITHUB_ENV
 
       - name: Build locally for testing
         uses: docker/build-push-action@v4
