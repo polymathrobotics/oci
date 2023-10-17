@@ -128,7 +128,7 @@ jobs:
           context: ${{ matrix.image }}
           file: ${{ matrix.image }}/Containerfile
           tags: ${{ env.tags }}
-          platforms: $${{ env.test-platform }}
+          platforms: ${{ env.test-platform }}
 
       - name: Run tests on the cinc/cinc image with cinc-auditor
         if: matrix.image == 'cinc/cinc'
