@@ -1,5 +1,5 @@
 [container_image]
 name = "nvidia-l4t-base"
 tags = ["35.4.1"]
-platforms=["linux/arm64"]
-readme = "l4t-base/README.md"
+platforms = ["linux/arm64"]
+readme = "nvidia/l4t-base/README.md"
