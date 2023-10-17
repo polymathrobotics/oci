@@ -1,4 +1,12 @@
+# FROM nvcr.io/nvidia/l4t-base:35.4.1
 FROM docker.io/polymathrobotics/nvidia-l4t-base:35.4.1
+
+ARG RELEASE=r35.4
+
+# COPY jetson-ota-public.key /etc/jetson-ota-public.key
+RUN apt-key adv --fetch-keys http://l4t-repo.nvidia.com/jetson-ota-internal.key
+RUN echo "deb http://l4t-repo.nvidia.com/common ${RELEASE} main" >> \
+etc/apt/sources.list
 
 #
 # Install any utils needed for execution
@@ -39,6 +47,7 @@ RUN apt-get update && apt-get install -y --no-install-recommends \
 # Install nvidia-vpi-dev for VPI developer packages
 # Use nvidia-vpi if need VPI runtime only
 #
+RUN mkdir -p /lib/firmware/
 RUN apt-get update && apt-get install -y --no-install-recommends \
     nvidia-vpi-dev \
     && rm -rf /var/lib/apt/lists/* \
@@ -64,6 +73,7 @@ RUN apt-get update && apt-get download nvidia-l4t-jetson-multimedia-api \
 
 #Update libraries
 RUN ldconfig 
+RUN sed -i '$d' /etc/apt/sources.list
 
 #
 # Setup environment variables
