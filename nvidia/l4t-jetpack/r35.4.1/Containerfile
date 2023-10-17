@@ -1,9 +1,7 @@
-# FROM nvcr.io/nvidia/l4t-base:35.4.1
 FROM docker.io/polymathrobotics/nvidia-l4t-base:35.4.1
 
 ARG RELEASE=r35.4
 
-# COPY jetson-ota-public.key /etc/jetson-ota-public.key
 RUN apt-key adv --fetch-keys http://l4t-repo.nvidia.com/jetson-ota-internal.key
 RUN echo "deb http://l4t-repo.nvidia.com/common ${RELEASE} main" >> \
 etc/apt/sources.list
