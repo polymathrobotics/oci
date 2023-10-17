@@ -80,8 +80,8 @@ To run the container:
        sudo docker run -it --rm \
            --net=host \
            --runtime nvidia \
-           -e DISPLAY=$DISPLAY \
-           -v /tmp/.X11-unix/:/tmp/.X11-unix \
+           --env DISPLAY=$DISPLAY \
+           --mount type=bind,source=/tmp/.X11-unix/,target=/tmp/.X11-unix \
            docker.io/polymathrobotics/nvidia-l4t-base:r35.4.1
 
 ### Exposing additional GPU features
