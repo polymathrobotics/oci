@@ -42,7 +42,15 @@ LABEL \
 
 COPY --from=build --chmod=755 /download/jf /usr/local/bin/jf
 
+ARG JFROG_USER=jfrog
+ARG JFROG_GROUP=jfrog
+ARG JFROG_UID=1000
+ARG JFROG_GID=1000
+ARG JFROG_HOME=/home/jfrog
+
 RUN <<EOF
+  groupadd -r $JFROG_GROUP --gid=$JFROG_GID
+  useradd -g $JFROG_GID --create-home --home-dir=$JFROG_HOME --shell=/bin/bash $JFROG_USER
   apt-get update
   apt-get install -y --no-install-recommends \
     ca-certificates \
@@ -52,3 +60,8 @@ RUN <<EOF
   rm /var/log/dpkg.log
   rm -rf /var/lib/apt/lists/*
 EOF
+
+USER $JFROG_USER
+WORKDIR $JFROG_HOME
+
+ENTRYPOINT ["/usr/local/bin/jf"]
