@@ -38,7 +38,7 @@ FROM $CONTAINER_REGISTRY/ubuntu:jammy-20231004
 LABEL \
     org.opencontainers.image.source="https://github.com/polymathrobotics/oci" \
     org.opencontainers.image.licenses="Apache-2.0" \
-    org.opencontainers.image.description="JFrog CLI is a compact and smart client that provides a simple interface that automates access to JFrog products simplifying your automation scripts and making them more readable and easier to maintain. JFrog CLI works with JFrog Artifactory, Xray, Distribution and Pipelines (through their respective REST APIs)."
+    org.opencontainers.image.description="JFrog CLI provides a simple interface that automates access to JFrog products."
 
 COPY --from=build --chmod=755 /download/jf /usr/local/bin/jf
 
