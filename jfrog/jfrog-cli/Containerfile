@@ -1,0 +1,56 @@
+# syntax=docker/dockerfile:1
+ARG CONTAINER_REGISTRY=docker.io
+FROM $CONTAINER_REGISTRY/ubuntu:jammy-20231004 as build
+
+ARG JFROG_CLI_VERSION=2.50.2
+
+WORKDIR /download
+
+SHELL ["/bin/bash", "-o", "pipefail", "-c"]
+RUN --mount=type=cache,target=/var/cache/apt <<EOF
+  rm -f /etc/apt/apt.conf.d/docker-clean
+  apt-get update
+  apt-get install -y --no-install-recommends \
+    ca-certificates \
+    curl
+
+  arch="$(arch)"
+  echo "arch=${arch}"
+  case "${arch##*-}" in \
+    x86_64) \
+      JFROG_CLI_URL=https://releases.jfrog.io/artifactory/jfrog-cli/v2-jf/${JFROG_CLI_VERSION}/jfrog-cli-linux-amd64/jf \
+      JFROG_CLI_SHA256=e033c79dbdd60538df1b0b5fb139c8bc5698fbdf86024b2a41620c31eedab1d2 \
+      ;; \
+    aarch64) \
+      JFROG_CLI_URL=https://releases.jfrog.io/artifactory/jfrog-cli/v2-jf/${JFROG_CLI_VERSION}/jfrog-cli-linux-arm64/jf \
+      JFROG_CLI_SHA256=d64c92e74cad6fa7fa5deb70a1c511bd37005cf8d2fa1ded6605d4c7cd19041c \
+      ;; \
+    armv7l) \
+      JFROG_CLI_URL=https://releases.jfrog.io/artifactory/jfrog-cli/v2-jf/${JFROG_CLI_VERSION}/jfrog-cli-linux-arm/jf \
+      JFROG_CLI_SHA256=a3bf926edb350dc52a20391496816212147720f9a15edae9c773b2e0fc64a249 \
+      ;; \
+  esac
+  curl -fsSL -o jf ${JFROG_CLI_URL}
+  echo "${JFROG_CLI_SHA256} jf" | sha256sum -c -
+EOF
+
+FROM $CONTAINER_REGISTRY/ubuntu:jammy-20231004
+
+LABEL \
+    org.opencontainers.image.source="https://github.com/polymathrobotics/oci" \
+    org.opencontainers.image.licenses="Apache-2.0" \
+    org.opencontainers.image.description="JFrog CLI is a compact and smart client that provides a simple interface that automates access to JFrog products simplifying your automation scripts and making them more readable and easier to maintain. JFrog CLI works with JFrog Artifactory, Xray, Distribution and Pipelines (through their respective REST APIs)."
+
+COPY --from=build --chmod=755 /download/jf /usr/local/bin/jf
+
+RUN --mount=type=cache,target=/var/cache/apt <<EOF
+  rm -f /etc/apt/apt.conf.d/docker-clean
+  apt-get update
+  apt-get install -y --no-install-recommends \
+    ca-certificates \
+    curl \
+    jq
+
+  rm /var/log/dpkg.log
+  rm -rf /var/lib/apt/lists/*
+EOF
