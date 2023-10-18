@@ -7,8 +7,7 @@ ARG JFROG_CLI_VERSION=2.50.2
 WORKDIR /download
 
 SHELL ["/bin/bash", "-o", "pipefail", "-c"]
-RUN --mount=type=cache,target=/var/cache/apt <<EOF
-  rm -f /etc/apt/apt.conf.d/docker-clean
+RUN <<EOF
   apt-get update
   apt-get install -y --no-install-recommends \
     ca-certificates \
@@ -43,8 +42,7 @@ LABEL \
 
 COPY --from=build --chmod=755 /download/jf /usr/local/bin/jf
 
-RUN --mount=type=cache,target=/var/cache/apt <<EOF
-  rm -f /etc/apt/apt.conf.d/docker-clean
+RUN <<EOF
   apt-get update
   apt-get install -y --no-install-recommends \
     ca-certificates \
