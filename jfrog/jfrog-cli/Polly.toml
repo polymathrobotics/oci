@@ -1,3 +1,4 @@
 [container_image]
 tags = ["2.50.2", "latest"]
 platforms = ["linux/amd64", "linux/arm64/v8", "linux/arm/v7"]
+readme = "jfrog/jfrog-cli/README.md"
