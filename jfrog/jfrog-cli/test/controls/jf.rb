@@ -11,10 +11,10 @@ describe user('jfrog') do
   it { should exist }
   its('uid') { should eq 1000 }
   its('gid') { should eq 1000 }
-  its('home') { should eq '/bin/bash' }
+  its('home') { should eq '/home/jfrog' }
 end
 
 describe directory('/home/jfrog') do
-  its('owner') { should eq 1000 }
-  its('group') { should eq 1000 }
+  its('owner') { should eq 'jfrog' }
+  its('group') { should eq 'jfrog' }
 end
