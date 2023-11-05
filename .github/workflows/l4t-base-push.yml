@@ -18,9 +18,9 @@ jobs:
       uses: docker/setup-buildx-action@v3
 
     - name: Set the tags
-        id: tags
-        run: |
-          echo "tags=$($(git rev-parse --show-toplevel)/bin/list-tags-github-env.sh)" >> $GITHUB_ENV
+      id: tags
+      run: |
+        echo "tags=$($(git rev-parse --show-toplevel)/bin/list-tags-github-env.sh)" >> $GITHUB_ENV
 
     - name: Build locally for testing
       uses: docker/build-push-action@v5
