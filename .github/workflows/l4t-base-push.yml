@@ -3,29 +3,30 @@ on:
   push:
     branches: [ main ]
     paths:
-    - 'nvidia/l4t-base/r35.4.1/**'
+      - 'nvidia/l4t-base/r35.4.1/**'
   workflow_dispatch:
+
 jobs:
   build:
     runs-on: [self-hosted, linux, ARM64]
-  steps:
-    - uses: actions/checkout@v4
+    steps:
+      - uses: actions/checkout@v4
 
-    - name: Install QEMU static binaries
-      uses: docker/setup-qemu-actions@v3
+      - name: Install QEMU static binaries
+        uses: docker/setup-qemu-actions@v3
 
-    - name: Set up Docker Buildx
-      uses: docker/setup-buildx-action@v3
+      - name: Set up Docker Buildx
+        uses: docker/setup-buildx-action@v3
 
-    - name: Set the tags
-      id: tags
-      run: |
-        echo "tags=$($(git rev-parse --show-toplevel)/bin/list-tags-github-env.sh)" >> $GITHUB_ENV
+      - name: Set the tags
+        id: tags
+        run: |
+          echo "tags=$($(git rev-parse --show-toplevel)/bin/list-tags-github-env.sh)" >> $GITHUB_ENV
 
-    - name: Build locally for testing
-      uses: docker/build-push-action@v5
-      with:
-        load: true
-        context: nvidia/l4t-base/r35.4.1
-        file: nvidia/l4t-base/r35.4.1/Containerfile
-        tags: ${{ env.tags }}
+      - name: Build locally for testing
+        uses: docker/build-push-action@v5
+        with:
+          load: true
+          context: nvidia/l4t-base/r35.4.1
+          file: nvidia/l4t-base/r35.4.1/Containerfile
+          tags: ${{ env.tags }}
