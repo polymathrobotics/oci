@@ -9,6 +9,9 @@ on:
 jobs:
   build:
     runs-on: [self-hosted, linux, ARM64]
+    defaults:
+      run:
+        working-directory: 'nvidia/l4t-base/r35.4.1'
     steps:
       - uses: actions/checkout@v4
 
