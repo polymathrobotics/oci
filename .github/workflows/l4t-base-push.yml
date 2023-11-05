@@ -25,6 +25,11 @@ jobs:
       - name: Set up Docker Buildx
         uses: docker/setup-buildx-action@v3
 
+      - name: Set the tags
+        id: tags
+        run: |
+          echo "tags=$($(git rev-parse --show-toplevel)/bin/list-tags.sh -c)" >> $GITHUB_ENV
+
       - name: Set the test platform
         id: test-platform
         run: |
