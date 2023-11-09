@@ -1,7 +1,7 @@
 # syntax=docker/dockerfile:1
 # Currently there are only amd64 packages, so we install via python for now
 ARG CONTAINER_REGISTRY=docker.io
-FROM $CONTAINER_REGISTRY/ubuntu:jammy-20230425 as builder
+FROM $CONTAINER_REGISTRY/ubuntu:jammy-20231004 as builder
 
 WORKDIR /tmp
 
@@ -14,16 +14,16 @@ RUN <<EOF
   dpkgArch="$(dpkg --print-architecture)"
   case "${dpkgArch##*-}" in \
     amd64) \
-      GLAB_URL=https://gitlab.com/gitlab-org/cli/-/releases/v1.32.0/downloads/glab_1.32.0_Linux_x86_64.deb \
-      GLAB_SHA256=6bcc11bdf747b24ba8fb8ad8632937f51ad6f40708fcda2ef9f7f695ecf8d791 \
+      GLAB_URL=https://gitlab.com/gitlab-org/cli/-/releases/v1.35.0/downloads/glab_1.35.0_Linux_x86_64.deb \
+      GLAB_SHA256=52380af6077cff5d2d142efafdab2c3789e32299e2061f0373b2a252d01dabf5 \
       ;; \
     arm64) \
-      GLAB_URL=https://gitlab.com/gitlab-org/cli/-/releases/v1.32.0/downloads/glab_1.32.0_Linux_arm64.deb \
-      GLAB_SHA256=177eb7ce3e79c4071c23788c35957964b91114f41c3401b99333291f503a9d1b \
+      GLAB_URL=https://gitlab.com/gitlab-org/cli/-/releases/v1.35.0/downloads/glab_1.35.0_Linux_arm64.deb \
+      GLAB_SHA256=2bbf189d335fc9c7d4ec9c2a0834a9503593b523a29d73dae0bc0988d68cb359 \
       ;; \
     armhf) \
-      GLAB_URL=https://gitlab.com/gitlab-org/cli/-/releases/v1.32.0/downloads/glab_1.32.0_Linux_arm.deb \
-      GLAB_SHA256=b113f80c8cb85514ecf76db9ac35b23e2be032d0afd7a5b5a427d4c684954435 \
+      GLAB_URL=https://gitlab.com/gitlab-org/cli/-/releases/v1.35.0/downloads/glab_1.35.0_Linux_arm.deb \
+      GLAB_SHA256=a574c6c197decd29c815bfbfe9c6a1da3b6c2f5cc7fee36d4554dbbae7b607de \
       ;;
     *) echo "unsupported architecture"; exit 1 ;; \
   esac 
@@ -60,7 +60,7 @@ ARG USER_UID=1000
 ARG USER_GID=$USER_UID
 ENV HOME /home/$USERNAME
 
-FROM $CONTAINER_REGISTRY/ubuntu:jammy-20230425
+FROM $CONTAINER_REGISTRY/ubuntu:jammy-20231004
 
 LABEL \
     org.opencontainers.image.source="https://github.com/polymathrobotics/oci" \
