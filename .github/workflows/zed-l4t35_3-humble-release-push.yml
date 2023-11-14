@@ -36,13 +36,9 @@ jobs:
           echo "test-platform=$($(git rev-parse --show-toplevel)/bin/list-platforms.sh | cut -d',' -f1)" >> $GITHUB_ENV
 
       - name: Build locally for testing
-        uses: docker/build-push-action@v5
+        uses: docker/bake-action@v4
         with:
-          load: true
-          context: stereolabs/zed/l4t35_3-humble-release
-          file: stereolabs/zed/l4t35_3-humble-release/Containerfile
-          tags: ${{ env.tags }}
-          platforms: ${{ env.test-platform }}
+          targets: ["local"]
 
       - name: Run tests on the image with cinc-auditor
         run: |
@@ -60,13 +56,9 @@ jobs:
           password: ${{ secrets.CONTAINER_REGISTRY_PASSWORD }}
 
       - name: Build and push
-        uses: docker/build-push-action@v5
+        uses: docker/bake-action@v4
         with:
           push: true
-          context: stereolabs/zed/l4t35_3-humble-release
-          file: stereolabs/zed/l4t35_3-humble-release/Containerfile
-          platforms: ${{ env.platforms }}
-          tags: ${{ env.tags }}
         env:
           BUILDKIT_PROGRESS: plain
 
