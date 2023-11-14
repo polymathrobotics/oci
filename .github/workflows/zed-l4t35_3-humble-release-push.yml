@@ -39,6 +39,7 @@ jobs:
         uses: docker/bake-action@v4
         with:
           targets: local
+          workdir: 'stereolabs/zed/l4t35_3-humble-release'
 
       - name: Run tests on the image with cinc-auditor
         run: |
@@ -59,6 +60,7 @@ jobs:
         uses: docker/bake-action@v4
         with:
           push: true
+          workdir: 'stereolabs/zed/l4t35_3-humble-release'
         env:
           BUILDKIT_PROGRESS: plain
 
