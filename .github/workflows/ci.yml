@@ -76,6 +76,7 @@ jobs:
             pulumi/pulumi-python: 'pulumi/pulumi-python/**'
             python/3.8/focal: 'python/3.8/focal/**'
             python/3.8/jammy: 'python/3.8/jammy/**'
+            python/3.9/jammy: 'python/3.9/jammy/**'
             ruby/3.1/jammy: 'ruby/3.1/jammy/**'
             ruby/3.1/slim-jammy: 'ruby/3.1/slim-jammy/**'
             rust/1.64.0/focal: 'rust/1.64.0/focal/*'

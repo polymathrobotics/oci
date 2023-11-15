@@ -1,0 +1,4 @@
+[container_image]
+name = "python"
+tags = ["3.9.18-jammy", "3.9-jammy"]
+readme = 'python/README.md'
