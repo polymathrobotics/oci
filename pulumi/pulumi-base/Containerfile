@@ -2,7 +2,7 @@
 ARG CONTAINER_REGISTRY=docker.io
 FROM $CONTAINER_REGISTRY/ubuntu:jammy-20231004 as build
 
-ARG PULUMI_VERSION=3.89.0
+ARG PULUMI_VERSION=3.93.0
 RUN <<EOF
   apt-get update
   apt-get install -y --no-install-recommends \
