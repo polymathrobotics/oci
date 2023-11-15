@@ -1,4 +1,4 @@
 [container_image]
-tags = [ "3.93.0", "latest" ]
+tags = [ "3.94.0", "latest" ]
 platforms = ["linux/arm64/v8", "linux/amd64"]
 readme = "pulumi/README.md"
