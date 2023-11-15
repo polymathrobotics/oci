@@ -86,4 +86,4 @@ jobs:
           password: ${{ secrets.CONTAINER_DESCRIPTION_PASSWORD }}
           short-description: ${{ env.image_description }}
           repository: polymathrobotics/${{ env.image_name }}
-          readme-filepath: ${{ env.image_readme }} 
+          readme-filepath: stereolabs/zed/l4t35_3-humble-release/README.md
