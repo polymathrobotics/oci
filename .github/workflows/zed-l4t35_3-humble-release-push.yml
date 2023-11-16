@@ -85,5 +85,5 @@ jobs:
           username: ${{ secrets.CONTAINER_REGISTRY_USERNAME }}
           password: ${{ secrets.CONTAINER_DESCRIPTION_PASSWORD }}
           short-description: ${{ env.image_description }}
-          repository: polymathrobotics/${{ env.image_name }}
+          repository: polymathrobotics/zed:l4t35_3-humble-release
           readme-filepath: stereolabs/zed/l4t35_3-humble-release/README.md
