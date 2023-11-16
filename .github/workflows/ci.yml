@@ -175,7 +175,8 @@ jobs:
         if: github.event_name == 'push'
         id: image_description
         run: |
-          echo "image_description=$($(git rev-parse --show-toplevel)/bin/image-description.sh)" >> $GITHUB_ENV
+          # echo "image_description=$($(git rev-parse --show-toplevel)/bin/image-description.sh)" >> $GITHUB_ENV
+          echo "image_description=$(echo $DOCKER_METADATA_OUTPUT_JSON | jq .\"org.opencontainers.image.description\")" >> $GITHUB_ENV
 
       - name: Set the image readme
         if: github.event_name == 'push'
