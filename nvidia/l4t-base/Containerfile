@@ -1,4 +1,13 @@
-FROM docker.io/arm64v8/ubuntu:20.04
+FROM docker.io/polymathrobotics/hadolint:2.12.0 as hadolint
+
+FROM docker.io/arm64v8/ubuntu:20.04 as lint
+COPY hadolint.yaml /config/
+COPY Containerfile /
+COPY --from=hadolint /bin/hadolint /bin/
+RUN echo "==> Linting Containerfile..." && \
+    /bin/hadolint --config /config/hadolint.yaml Containerfile
+
+FROM docker.io/arm64v8/ubuntu:20.04 as nvidia-l4t-base
 
 ARG RELEASE=r35.4
 ARG DEBIAN_FRONTEND=noninteractive

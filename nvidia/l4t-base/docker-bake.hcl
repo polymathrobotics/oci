@@ -6,12 +6,18 @@ variable "IMAGE_NAME" {
   default = "nvidia-l4t-base"
 }
 
+target "lint" {
+  dockerfile = "Containerfile"
+  target = "lint"
+}
+
 # Special target: https://github.com/docker/metadata-action#bake-definition
 target "docker-metadata-action" { }
 
 target "nvidia-l4t-base" {
   inherits = ["docker-metadata-action"]
   name = "${IMAGE_NAME}-${item.name}"
+  target = "nvidia-l4t-base"
   args = {
     RELEASE = item.release
   }
