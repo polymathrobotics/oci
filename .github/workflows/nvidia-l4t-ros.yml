@@ -1,21 +1,21 @@
-name: nvidia-l4t-jetpack
+name: nvidia-l4t-ros
 
 on:
   push:
     branches: [ main ]
     paths:
-      - 'nvidia/l4t-jetpack/**'
+      - 'nvidia/l4t-ros/**'
   pull_request:
     branches: [ main ]
     paths:
-      - 'nvidia/l4t-jetpack/**'
+      - 'nvidia/l4t-ros/**'
   workflow_dispatch:
 jobs:
   build:
     runs-on: ubuntu-latest
     defaults:
       run:
-        working-directory: nvidia/l4t-jetpack
+        working-directory: nvidia/l4t-ros
     steps:
       - uses: actions/checkout@v4
 
@@ -35,14 +35,14 @@ jobs:
       - name: Build and push
         uses: docker/bake-action@v4
         with:
-          workdir: nvidia/l4t-jetpack
+          workdir: nvidia/l4t-ros
           push: ${{ github.event_name != 'pull_request' }}
 
       - name: Get the image description
         if: github.event_name != 'pull_request'
         id: image_description
         run: |
-          echo "image_description=$(docker buildx bake --print 2> /dev/null | jq -r '.target.nvidia-l4t-jetpack-35-3-1.labels."org.opencontainers.image.description"')" >> $GITHUB_ENV
+          echo "image_description=$(docker buildx bake --print 2> /dev/null | jq -r '.target.nvidia-l4t-ros-35-3-1.labels."org.opencontainers.image.description"')" >> $GITHUB_ENV
         
       - name: Update Docker Hub Description
         if: github.event_name != 'pull_request'
@@ -50,6 +50,6 @@ jobs:
         with:
           username: ${{ secrets.CONTAINER_REGISTRY_USERNAME }}
           password: ${{ secrets.CONTAINER_DESCRIPTION_PASSWORD }}
-          repository: polymathrobotics/nvidia-l4t-jetpack
+          repository: polymathrobotics/nvidia-l4t-ros
           short-description: ${{ env.image_description }}
-          readme-filepath: nvidia/l4t-jetpack/README.md
+          readme-filepath: nvidia/l4t-ros/README.md
