@@ -12,7 +12,7 @@ on:
   workflow_dispatch:
 jobs:
   build:
-    runs-on: ubuntu-latest
+    runs-on: [self-hosted, linux, ARM64]
     defaults:
       run:
         working-directory: nvidia/l4t-jetpack
