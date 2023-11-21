@@ -1,5 +1,0 @@
-[container_image]
-name = "nvidia-l4t-jetpack"
-tags = ["r35.4.1"]
-platforms = [ "linux/arm64/v8" ]
-readme = "nvidia/l4t-jetpack/README.md"
