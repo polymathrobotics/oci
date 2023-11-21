@@ -6,22 +6,15 @@ variable "IMAGE_NAME" {
   default = "nvidia-l4t-base"
 }
 
-target "lint" {
-  dockerfile = "Containerfile"
-  target = "lint"
-}
-
-# Special target: https://github.com/docker/metadata-action#bake-definition
-target "docker-metadata-action" { }
-
-target "nvidia-l4t-base" {
-  inherits = ["docker-metadata-action"]
-  name = "${IMAGE_NAME}-${item.name}"
+target "default" {
+  name = "${IMAGE_NAME}-${replace(item.version, ".", "-")}"
   target = "nvidia-l4t-base"
   args = {
     RELEASE = item.release
   }
-  tags = item.tags
+  tags = [
+    "${CONTAINER_REGISTRY}/${IMAGE_NAME}:${item.version}"
+  ]
   dockerfile = "Containerfile"
   platforms = ["linux/arm64/v8"]
   labels = {
@@ -32,8 +25,8 @@ target "nvidia-l4t-base" {
   }
   matrix = {
     item = [
-      { name = "r35_3", release = "r35.3", tags = ["${CONTAINER_REGISTRY}/${IMAGE_NAME}:35.3.1"] },
-      { name = "r35_4", release = "r35.4", tags = ["${CONTAINER_REGISTRY}/${IMAGE_NAME}:35.4.1"] },
+      { version = "35.3.1", release = "r35.3" },
+      { version = "35.4.1", release = "r35.4" },
     ]
   }
 }
