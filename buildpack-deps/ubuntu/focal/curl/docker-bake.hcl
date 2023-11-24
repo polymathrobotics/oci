@@ -3,7 +3,7 @@ variable "IMAGE_NAME" {
 }
 
 variable "CONTAINER_REGISTRY" {
-  default = "docker.io/boxcutter"
+  default = "docker.io/polymathrobotics"
 }
 
 # There's no darwin-based Docker, so if we're running on macOS, change the platform to linux
