@@ -13,7 +13,7 @@ jobs:
       # Expose matched filters as job 'images' output variable
       images: ${{ steps.filter.outputs.changes }}
     steps:
-      - uses: actions/checkout@v3
+      - uses: actions/checkout@v4
       - uses: dorny/paths-filter@v2
         id: filter
         with:
@@ -23,66 +23,7 @@ jobs:
           # If it's not configured, the repository default branch is used.
           base: ${{ github.ref }}
           filters: |
-            acme/certbot: 'acme/certbot/**'
-            acme/certbot-dns-cloudflare: 'acme/certbot-dns-cloudflare/**'
-            acme/lego: 'acme/lego/**'
             aws-cli: 'aws-cli/**'
-            black: 'black/**'
-            bootstrap/cinc-auditor: 'bootstrap/cinc-auditor/**'
-            bootstrap/dasel: 'bootstrap/dasel/**'
-            bootstrap/hadolint: 'bootstrap/hadolint/**'
-            buildpack-deps/ubuntu/jammy/curl: 'buildpack-deps/ubuntu/jammy/curl/**'
-            buildpack-deps/ubuntu/jammy/scm: 'buildpack-deps/ubuntu/jammy/scm/**'
-            buildpack-deps/ubuntu/jammy: 'buildpack-deps/ubuntu/jammy/*'
-            cinc/cinc: 'cinc/cinc/**'
-            cinc/cinc-workstation: 'cinc/cinc-workstation/**'
-            doctl: 'doctl/**'
-            dokken/almalinux-8: 'dokken/almalinux-8/**'
-            dokken/almalinux-9: 'dokken/almalinux-9/**'
-            dokken/amazonlinux-2: 'dokken/amazonlinux-2/**'
-            dokken/amazonlinux-2022: 'dokken/amazonlinux-2022/**'
-            dokken/centos-stream-8: 'dokken/centos-stream-8/**'
-            dokken/centos-stream-9: 'dokken/centos-stream-9/**'
-            dokken/debian-11: 'dokken/debian-11/**'
-            dokken/debian-12: 'dokken/debian-12/**'
-            dokken/opensuse-leap-15.3: 'dokken/opensuse-leap-15.3/**'
-            dokken/opensuse-leap-15.4: 'dokken/opensuse-leap-15.4/**'
-            dokken/oraclelinux-8: 'dokken/oraclelinux-8/**'
-            dokken/oraclelinux-9: 'dokken/oraclelinux-9/**'
-            dokken/rockylinux-8: 'dokken/rockylinux-8/**'
-            dokken/rockylinux-9: 'dokken/rockylinux-9/**'
-            dokken/ubuntu-20.04: 'dokken/ubuntu-20.04/**'
-            dokken/ubuntu-22.04: 'dokken/ubuntu-22.04/**'
-            flake8: 'flake8/**'
-            glab: 'glab/**'
-            grafana/grafana-oss: 'grafana/grafana-oss/**'
-            hashicorp/terraform: 'hashicorp/terraform/**'
-            jfrog/jfrog-cli: 'jfrog/jfrog-cli/**'
-            ldap-utils: 'ldap-utils/**'
-            markdownlint: 'markdownlint/**'
-            meshcmd: 'meshcmd/**'
-            node/18/jammy: 'node/18/jammy/**'
-            op: 'op/**'
-            paperspace-cli: 'paperspace-cli/**'
-            portainer-ce: 'portainer-ce/**'
-            postgres/15/focal: 'postgres/15/focal/**'
-            prometheus/alertmanager: 'prometheus/alertmanager/**'
-            prometheus/blackbox_exporter: 'prometheus/blackbox_exporter/**'
-            prometheus/collectd_exporter: 'prometheus/collectd_exporter/**'
-            prometheus/node_exporter: 'prometheus/node_exporter/**'
-            prometheus/prometheus: 'prometheus/prometheus/**'
-            pspace: 'pspace/**'
-            pulumi/pulumi-base: 'pulumi/pulumi-base/**'
-            pulumi/pulumi-python: 'pulumi/pulumi-python/**'
-            python/3.8/focal: 'python/3.8/focal/**'
-            python/3.8/jammy: 'python/3.8/jammy/**'
-            python/3.9/jammy: 'python/3.9/jammy/**'
-            ruby/3.1/jammy: 'ruby/3.1/jammy/**'
-            ruby/3.1/slim-jammy: 'ruby/3.1/slim-jammy/**'
-            rust/1.64.0/focal: 'rust/1.64.0/focal/*'
-            rust/1.64.0/focal/slim: 'rust/1.64.0/focal/slim/**'
-            shellcheck: 'shellcheck/**'
-            smokeping: 'smokeping/**'
 
   # Job to build and test each of the modified images
   build:
@@ -94,102 +35,9 @@ jobs:
         image: ${{ fromJSON(needs.changes.outputs.images) }}
     if: ${{ needs.changes.outputs.images != '[]' && needs.changes.outputs.images != '' }}
     runs-on: ubuntu-latest
-    defaults:
-      run:
-        working-directory: ${{ matrix.image }}
     steps:
-      - uses: actions/checkout@v3
-
-      - name: Check the Containerfile with hadolint
-        run: |
-          $(git rev-parse --show-toplevel)/bin/lint.sh
-      
-      - name: Install QEMU static binaries
-        uses: docker/setup-qemu-action@v2
-      
-      - name: Set up Docker Buildx
-        id: buildx
-        uses: docker/setup-buildx-action@v2
-      
-      - name: Set the tags
-        id: tags
-        run: |
-          echo "tags=$($(git rev-parse --show-toplevel)/bin/list-tags.sh -c)" >> $GITHUB_ENV
-
-      - name: Set the test platform
-        id: test-platform
-        run: |
-          echo "test-platform=$($(git rev-parse --show-toplevel)/bin/list-platforms.sh | cut -d',' -f1)" >> $GITHUB_ENV
-
-      - name: Build locally for testing
-        uses: docker/build-push-action@v4
+      - uses: polymathrobotics/container-build-publish-action@main
         with:
-          load: true
-          context: ${{ matrix.image }}
-          file: ${{ matrix.image }}/Containerfile
-          tags: ${{ env.tags }}
-          platforms: ${{ env.test-platform }}
-
-      - name: Run tests on the cinc/cinc image with cinc-auditor
-        if: matrix.image == 'cinc/cinc'
-        run: |
-          $(git rev-parse --show-toplevel)/bin/test.sh "$( $(git rev-parse --show-toplevel)/bin/list-tags.sh | head -n 1 )" "/bin/sh"
-
-      - name: Run tests on the image with cinc-auditor
-        if: matrix.image != 'cinc/cinc'
-        run: |
-          $(git rev-parse --show-toplevel)/bin/test.sh
-
-      - name: Set the platforms
-        if: github.event_name == 'push'
-        id: platforms
-        run: |
-          echo "platforms=$($(git rev-parse --show-toplevel)/bin/list-platforms.sh -c)" >> $GITHUB_ENV
-
-      - name: Login to DockerHub
-        if: github.event_name == 'push'
-        uses: docker/login-action@v2
-        with:
-          username: ${{ secrets.CONTAINER_REGISTRY_USERNAME }}
-          password: ${{ secrets.CONTAINER_REGISTRY_PASSWORD }}
-
-      - name: Build and push
-        if: github.event_name == 'push'
-        uses: docker/build-push-action@v4
-        with:
-          push: true
-          context: ${{ matrix.image }}
-          file: ${{ matrix.image }}/Containerfile
-          platforms: ${{ env.platforms }}
-          tags: ${{ env.tags }}
-        env:
-          BUILDKIT_PROGRESS: plain
-
-      - name: Set the image name
-        if: github.event_name == 'push'
-        id: image_name
-        run: |
-          echo "image_name=$($(git rev-parse --show-toplevel)/bin/image-name.sh)" >> $GITHUB_ENV
-
-      - name: Set the image description
-        if: github.event_name == 'push'
-        id: image_description
-        run: |
-          # echo "image_description=$($(git rev-parse --show-toplevel)/bin/image-description.sh)" >> $GITHUB_ENV
-          echo "image_description=$(echo $DOCKER_METADATA_OUTPUT_JSON | jq .\"org.opencontainers.image.description\")" >> $GITHUB_ENV
-
-      - name: Set the image readme
-        if: github.event_name == 'push'
-        id: image_readme
-        run: |
-          echo "image_readme=$($(git rev-parse --show-toplevel)/bin/image-readme.sh)" >> $GITHUB_ENV
-
-      - name: Update Docker Hub Description
-        if: github.event_name == 'push'
-        uses: peter-evans/dockerhub-description@v3
-        with:
-          username: ${{ secrets.CONTAINER_REGISTRY_USERNAME }}
-          password: ${{ secrets.CONTAINER_DESCRIPTION_PASSWORD }}
-          short-description: ${{ env.image_description }}
-          repository: polymathrobotics/${{ env.image_name }}
-          readme-filepath: ${{ env.image_readme }}
+          workdir: ${{ matrix.image }}
+          dockerhub-username: ${{ secrets.CONTAINER_REGISTRY_USERNAME }}
+          dockerhub-password: ${{ secrets.CONTAINER_DESCRIPTION_PASSWORD }}
