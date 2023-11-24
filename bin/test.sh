@@ -3,12 +3,20 @@
 set -eu
 set -o pipefail
 
-CINC_AUDITOR_CONTAINER_IMAGE=docker.io/polymathrobotics/cinc-auditor:5.21.29
+CINC_AUDITOR_CONTAINER_IMAGE=docker.io/polymathrobotics/cinc-auditor:6.6.0
 
 BIN_DIR="$(dirname -- "$(readlink -f "${BASH_SOURCE[0]}")")"
-DEFAULT_TAG="$("${BIN_DIR}/list-tags.sh" | head -n 1)"
+# DEFAULT_TAG="$("${BIN_DIR}/list-tags.sh" | head -n 1)"
 CONTAINERFILE_DIR=$(pwd)
 CINC_PROFILE_DIR="${CONTAINERFILE_DIR}/test"
+
+json_data="$(docker buildx bake local --print 2>/dev/null)"
+# Check if .group.local.targets.default exists, and if it does, extract its value
+if echo "$json_data" | jq -e '.group.local.targets' > /dev/null; then
+  DEFAULT_TAG=$(echo "$json_data" | jq -r '.target."local-default".tags | first')
+else
+  DEFAULT_TAG=$(echo "$json_data" | jq -r '.target.local.tags | first')
+fi
 
 usage() {
   cat <<EOF
