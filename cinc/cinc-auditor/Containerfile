@@ -1,0 +1,66 @@
+# syntax=docker/dockerfile:1
+ARG CONTAINER_REGISTRY=docker.io
+FROM $CONTAINER_REGISTRY/ubuntu:jammy-20231004 as base
+
+ARG DEBIAN_FRONTEND=noninteractive
+
+SHELL ["/bin/bash", "-o", "pipefail", "-c"]
+RUN <<EOF
+  apt-get update
+  apt-get install -y --no-install-recommends \
+    ca-certificates \
+    curl
+  dpkgArch="$(dpkg --print-architecture)"
+  case "${dpkgArch##*-}" in \
+    amd64) \
+      CINC_AUDITOR_URL='http://downloads.cinc.sh/files/stable/cinc-auditor/6.6.0/ubuntu/22.04/cinc-auditor_6.6.0-1_amd64.deb'
+      CINC_AUDITOR_SHA256='f92ad5ba73bb3095521b455dcb99cd002c04e2e8a19e1b2344439c6d1fc41901'
+      ;; \
+    arm64) \
+      CINC_AUDITOR_URL='http://downloads.cinc.sh/files/stable/cinc-auditor/6.6.0/ubuntu/22.04/cinc-auditor_6.6.0-1_arm64.deb'
+      CINC_AUDITOR_SHA256='5b916b629315d5a3324313bb521e6fabacfd36e45a1d065ccb89e494dbf98512'
+      ;; \
+    *) echo "unsupported architecture"; exit 1 ;; \
+    esac
+  curl -fsSL -o /tmp/cinc-auditor.deb "${CINC_AUDITOR_URL}"
+  echo "${CINC_AUDITOR_SHA256} /tmp/cinc-auditor.deb" | sha256sum -c -
+  rm -rf /var/lib/apt/lists/*
+EOF
+
+FROM base
+
+ENV PATH=/opt/cinc-auditor/bin:/opt/cinc-auditor/embedded/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin
+
+# Run the entire container with the default locale to be en_US.UTF-8
+RUN <<EOF
+  apt-get update 
+  apt-get install -y --no-install-recommends locales
+  locale-gen en_US.UTF-8
+  update-locale LANG=en_US.UTF-8
+  # The official Ubuntu images automatically run `apt-get clean`, so explicit
+  # invocation is not required
+  rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/*
+EOF
+
+ENV LANG=en_US.UTF-8 \
+    LANGUAGE=en_US:en \
+    LC_ALL=en_US.UTF-8
+
+WORKDIR /share
+
+COPY --from=base /tmp/cinc-auditor.deb  /tmp/cinc-auditor.deb
+
+RUN <<EOF
+  apt-get update 
+  apt-get install -y --no-install-recommends /tmp/cinc-auditor.deb 
+  rm -rf /tmp/cinc-auditor.deb
+  # Install any packages that make life easier for an InSpec installation
+  apt-get install -y --no-install-recommends git
+  # The official Ubuntu images automatically run `apt-get clean`, so explicit
+  # invocation is not required
+  rm -rf /var/lib/apt/lists/*
+EOF
+
+ENTRYPOINT ["cinc-auditor"]
+CMD ["help"]
+VOLUME ["/share"]
