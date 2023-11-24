@@ -5,7 +5,7 @@ set -o pipefail
 
 HADOLINT_CONTAINER_IMAGE=docker.io/polymathrobotics/hadolint:2.10.0
 
-BIN_DIR="$(dirname -- "$(readlink -f "${BASH_SOURCE[0]}")")"
+# BIN_DIR="$(dirname -- "$(readlink -f "${BASH_SOURCE[0]}")")"
 
 # "${BIN_DIR}/check-image.sh" "${HADOLINT_CONTAINER_IMAGE}"
 
