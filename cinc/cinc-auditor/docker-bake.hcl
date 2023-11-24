@@ -1,5 +1,5 @@
 variable "IMAGE_NAME" {
-  default = "cinc-auditor"
+  default =  "cinc-auditor"
 }
 
 variable "VERSION" {

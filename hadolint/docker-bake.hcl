@@ -1,5 +1,5 @@
 variable "IMAGE_NAME" {
-  default = "hadolint"
+  default =  "hadolint"
 }
 
 variable "VERSION" {
