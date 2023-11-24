@@ -23,6 +23,9 @@ jobs:
           # If it's not configured, the repository default branch is used.
           base: ${{ github.ref }}
           filters: |
+            acme/certbot: 'acme/certbot/**'
+            acme/certbot-dns-cloudflare: 'acme/certbot-dns-cloudflare/**'
+            acme/lego: 'acme/lego/**'
             aws-cli: 'aws-cli/**'
 
   # Job to build and test each of the modified images
