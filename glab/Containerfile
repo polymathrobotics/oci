@@ -1,7 +1,9 @@
 # syntax=docker/dockerfile:1
 # Currently there are only amd64 packages, so we install via python for now
 ARG CONTAINER_REGISTRY=docker.io
-FROM $CONTAINER_REGISTRY/ubuntu:jammy-20231004 as builder
+FROM $CONTAINER_REGISTRY/ubuntu:jammy-20231004 as base
+
+FROM base as download
 
 WORKDIR /tmp
 
@@ -60,15 +62,10 @@ ARG USER_UID=1000
 ARG USER_GID=$USER_UID
 ENV HOME /home/$USERNAME
 
-FROM $CONTAINER_REGISTRY/ubuntu:jammy-20231004
+FROM base
 
-LABEL \
-    org.opencontainers.image.source="https://github.com/polymathrobotics/oci" \
-    org.opencontainers.image.licenses="Apache-2.0" \
-    org.opencontainers.image.description="The GitLab CLI tool."
-
-COPY --from=builder /tmp/glab.deb /tmp/glab.deb
-COPY --from=builder /usr/local/bin/docker /usr/local/bin/docker
+COPY --from=download /tmp/glab.deb /tmp/glab.deb
+COPY --from=download /usr/local/bin/docker /usr/local/bin/docker
 COPY entrypoint.sh /entrypoint.sh
 
 RUN <<EOF
