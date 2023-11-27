@@ -7,7 +7,7 @@ variable "VERSION" {
 }
 
 variable "CONTAINER_REGISTRY" {
-  default = "docker.io/boxcutter"
+  default = "docker.io/polymathrobotics"
 }
 
 # There's no darwin-based Docker, so if we're running on macOS, change the platform to linux
@@ -25,7 +25,7 @@ target "_common" {
     "${CONTAINER_REGISTRY}/${IMAGE_NAME}:latest"
   ]
   labels = {
-    "org.opencontainers.image.source" = "https://github.com/boxcutter/oci"
+    "org.opencontainers.image.source" = "https://github.com/polymathrobotics/oci"
     "org.opencontainers.image.licenses" = "Apache-2.0"
     "org.opencontainers.image.description" = "Black is the uncompromising Python code formatter."
     "org.opencontainers.image.title" = "${IMAGE_NAME}"
