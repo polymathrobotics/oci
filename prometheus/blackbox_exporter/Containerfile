@@ -44,7 +44,7 @@ RUN apt-get update \
   && rm -rf /var/lib/apt/lists/*
 
 COPY --chmod=755 --from=download /tmp/blackbox_exporter/blackbox_exporter /usr/local/bin/blackbox_exporter
-COPY --from=build /tmp/blackbox_exporter/blackbox.yml /etc/blackbox_exporter/config.yml
+COPY --from=download /tmp/blackbox_exporter/blackbox.yml /etc/blackbox_exporter/config.yml
 
 EXPOSE 9115
 USER nobody
