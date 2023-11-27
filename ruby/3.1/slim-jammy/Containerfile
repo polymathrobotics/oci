@@ -1,11 +1,6 @@
 # syntax=docker/dockerfile:1
 ARG CONTAINER_REGISTRY=docker.io
-FROM $CONTAINER_REGISTRY/ubuntu:jammy-20220815
-
-LABEL \
-    org.opencontainers.image.source="https://github.com/boxcutter/oci" \
-    org.opencontainers.image.licenses="Apache-2.0" \
-    org.opencontainers.image.description="Ruby is a dynamic, reflective, object-oriented, general-purpose, open-source programming language."
+FROM $CONTAINER_REGISTRY/ubuntu:jammy-20231004
 
 RUN set -eux; \
 	apt-get update; \
