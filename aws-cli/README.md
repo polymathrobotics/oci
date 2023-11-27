@@ -34,5 +34,5 @@ command:
 ```
 docker run -it --rm \
   --mount type=bind,source="$HOME/.aws",target=/root/.aws,readonly \
-  docker.io/boxcutter/aws-cli s3 ls --profile default
+  docker.io/polymathrobotics/aws-cli s3 ls --profile default
 ```
