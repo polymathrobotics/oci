@@ -1,5 +1,6 @@
 ARG CONTAINER_REGISTRY=docker.io
-FROM $CONTAINER_REGISTRY/ubuntu:jammy-20231004 as builder
+FROM $CONTAINER_REGISTRY/ubuntu:jammy-20231004 as base
+FROM base as download
 
 WORKDIR /tmp
 
@@ -39,7 +40,7 @@ RUN <<EOF
         --directory /tmp/lego
 EOF
 
-FROM builder
+FROM base
 
 RUN <<EOF
   apt-get update -y
@@ -50,7 +51,7 @@ RUN <<EOF
 EOF
 
 WORKDIR /opt
-COPY --from=builder /tmp/lego/ /opt/lego
+COPY --from=download /tmp/lego/ /opt/lego
 
 RUN ln -s /opt/lego/lego /usr/local/bin/lego
 
