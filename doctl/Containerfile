@@ -1,6 +1,13 @@
 # syntax=docker/dockerfile:1
 ARG CONTAINER_REGISTRY=docker.io
-FROM $CONTAINER_REGISTRY/ubuntu:jammy-20230522 as build
+FROM $CONTAINER_REGISTRY/ubuntu:jammy-20231004 as base
+
+FROM base as download
+
+ARG DOCTL_URL_AMD64="https://github.com/digitalocean/doctl/releases/download/v1.96.1/doctl-1.96.1-linux-amd64.tar.gz"
+ARG DOCTL_SHA256_AMD64="f19200546b643c292923a4746930d0a42d249d514eaaf29532537e6d1539a1ef"
+ARG DOCTL_URL_ARM64="https://github.com/digitalocean/doctl/releases/download/v1.96.1/doctl-1.96.1-linux-arm64.tar.gz"
+ARG DOCTL_SHA256_ARM64="8087c734f145af1404068eef1c41f4d2a154080a063f88d296d0b0a84c72ce8b"
 
 SHELL ["/bin/bash", "-o", "pipefail", "-c"]
 RUN <<EOF
@@ -11,12 +18,12 @@ RUN <<EOF
   dpkgArch="$(dpkg --print-architecture)"
   case "${dpkgArch##*-}" in \
     amd64) \
-      DOCTL_URL='https://github.com/digitalocean/doctl/releases/download/v1.96.1/doctl-1.96.1-linux-amd64.tar.gz' \
-      DOCTL_SHA256='f19200546b643c292923a4746930d0a42d249d514eaaf29532537e6d1539a1ef' \
+      DOCTL_URL="$DOCTL_URL_AMD64" \
+      DOCTL_SHA256="$DOCTL_SHA256_AMD64" \
       ;; \
     arm64) \
-      DOCTL_URL='https://github.com/digitalocean/doctl/releases/download/v1.96.1/doctl-1.96.1-linux-arm64.tar.gz'
-      DOCTL_SHA256='8087c734f145af1404068eef1c41f4d2a154080a063f88d296d0b0a84c72ce8b' \
+      DOCTL_URL="$DOCTL_URL_ARM64" \
+      DOCTL_SHA256="$DOCTL_SHA256_ARM64" \
       ;; \
     *) echo "unsupported architecture"; exit 1 ;; \
   esac
@@ -26,12 +33,7 @@ RUN <<EOF
   tar xvf /tmp/doctl.tar.gz -C /tmp/doctl
 EOF
 
-FROM $CONTAINER_REGISTRY/ubuntu:jammy-20230522
-
-LABEL \
-    org.opencontainers.image.source="https://github.com/polymathrobotics/oci" \
-    org.opencontainers.image.licenses="Apache-2.0" \
-    org.opencontainers.image.description="Digital Ocean command-line interface."
+FROM base
 
 RUN <<EOF
   apt-get update -y
@@ -45,6 +47,6 @@ RUN <<EOF
 EOF
 
 WORKDIR /app
-COPY --from=build /tmp/doctl/doctl /usr/local/bin/doctl
+COPY --from=download /tmp/doctl/doctl /usr/local/bin/doctl
 
 ENTRYPOINT ["/usr/local/bin/doctl"]
