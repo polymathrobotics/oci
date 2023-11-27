@@ -1,11 +1,6 @@
 ARG CONTAINER_REGISTRY=docker.io
 FROM $CONTAINER_REGISTRY/debian:11
 
-LABEL \
-    org.opencontainers.image.source="https://github.com/polymathrobotics/oci" \
-    org.opencontainers.image.licenses="Apache-2.0" \
-    org.opencontainers.image.description="Debian 11 image for use with kitchen-dokken"
-
 ENV DEBIAN_FRONTEND noninteractive
 # hadolint ignore=DL3004
 RUN /usr/bin/apt-get update && \

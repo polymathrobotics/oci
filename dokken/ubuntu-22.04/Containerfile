@@ -1,11 +1,6 @@
 ARG CONTAINER_REGISTRY=docker.io
 FROM $CONTAINER_REGISTRY/ubuntu:22.04
 
-LABEL \
-    org.opencontainers.image.source="https://github.com/polymathrobotics/oci" \
-    org.opencontainers.image.licenses="Apache-2.0" \
-    org.opencontainers.image.description="Ubuntu 22.04 image for use with kitchen-dokken"
-
 RUN apt-get update \
   && DEBIAN_FRONTEND=noninteractive apt-get -y --no-install-recommends install \
     apt-transport-https \
