@@ -52,6 +52,7 @@ jobs:
             dokken/rockylinux-9: 'dokken/rockylinux-9/**'
             dokken/ubuntu-20.04: 'dokken/ubuntu-20.04/**'
             dokken/ubuntu-22.04: 'dokken/ubuntu-22.04/**'
+            markdownlint: 'markdownlint/**'
             node/18/jammy: 'node/18/jammy/**'
             prometheus/alertmanager: 'prometheus/alertmanager/**'
             prometheus/blackbox_exporter: 'prometheus/blackbox_exporter/**'
