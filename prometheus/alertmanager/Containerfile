@@ -19,20 +19,20 @@ RUN apt-get update \
   && dpkgArch="$(dpkg --print-architecture)" \
   && case "${dpkgArch##*-}" in \
     amd64) \
-      ALERTMANAGER_URL_AMD64="$ALERTMANAGER_URL_AMD64" \
-      ALERTMANAGER_SHA256_AMD64="$ALERTMANAGER_SHA256_AMD64" \
+      ALERTMANAGER_URL="$ALERTMANAGER_URL_AMD64" \
+      ALERTMANAGER_SHA256="$ALERTMANAGER_SHA256_AMD64" \
       ;; \
     arm64) \
-      ALERTMANAGER_URL_ARM64="$ALERTMANAGER_URL_ARM64" \
-      ALERTMANAGER_SHA256_ARM64="$ALERTMANAGER_SHA256_ARM64" \
+      ALERTMANAGER_URL="$ALERTMANAGER_URL_ARM64" \
+      ALERTMANAGER_SHA256="$ALERTMANAGER_SHA256_ARM64" \
       ;; \
     armhf) \
-      ALERTMANAGER_URL_ARMHF="$ALERTMANAGER_URL_ARMHF" \
-      ALERTMANAGER_SHA256_ARMHF="$ALERTMANAGER_SHA256_ARMHF" \
+      ALERTMANAGER_URL="$ALERTMANAGER_URL_ARMHF" \
+      ALERTMANAGER_SHA256="$ALERTMANAGER_SHA256_ARMHF" \
       ;; \
     *) echo "unsupported architecture"; exit 1 ;; \
     esac \
-  && curl -fsSL -o /tmp/alertmanager.tar.gz ${ALERTMANAGER_URL} \
+  && curl -fsSL -o /tmp/alertmanager.tar.gz "${ALERTMANAGER_URL}" \
   && echo "${ALERTMANAGER_SHA256} /tmp/alertmanager.tar.gz" | sha256sum -c - \
   && tar xvf /tmp/alertmanager.tar.gz --strip-components 1 -C /tmp/alertmanager
 
