@@ -1,6 +1,10 @@
 # syntax=docker/dockerfile:1
 ARG CONTAINER_REGISTRY=docker.io
-FROM $CONTAINER_REGISTRY/ubuntu:jammy-20230308 as builder
+FROM $CONTAINER_REGISTRY/ubuntu:jammy-20231004 as base
+FROM base as download
+
+ARG CINC_WORKSTATION_URL_AMD64="http://downloads.cinc.sh/files/stable/cinc-workstation/23.3.1030/ubuntu/22.04/cinc-workstation_23.3.1030-1_amd64.deb"
+ARG CINC_WORKSTATION_SHA256_AMD64="b95c83df184cdc7af3ded5ce2a493308a2e0d8a3b7a23903012886bd2a754ea3"
 
 WORKDIR /tmp
 
@@ -13,8 +17,8 @@ RUN <<EOF
   dpkgArch="$(dpkg --print-architecture)"
   case "${dpkgArch##*-}" in \
     amd64) \
-      CINC_WORKSTATION_URL='http://downloads.cinc.sh/files/stable/cinc-workstation/23.3.1030/ubuntu/22.04/cinc-workstation_23.3.1030-1_amd64.deb' \
-      CINC_WORKSTATION_SHA256='b95c83df184cdc7af3ded5ce2a493308a2e0d8a3b7a23903012886bd2a754ea3' \
+      CINC_WORKSTATION_URL="$CINC_WORKSTATION_URL_AMD64" \
+      CINC_WORKSTATION_SHA256="$CINC_WORKSTATION_SHA256_AMD64" \
       ;; \
     *) echo "unsupported architecture"; exit 1 ;; \
   esac
@@ -22,12 +26,7 @@ RUN <<EOF
   echo "${CINC_WORKSTATION_SHA256} cinc-workstation.deb" | sha256sum -c -
 EOF
 
-FROM $CONTAINER_REGISTRY/ubuntu:jammy-20230308
-
-LABEL \
-  org.opencontainers.image.source="https://github.com/polymathrobotics/oci" \
-  org.opencontainers.image.licenses="Apache-2.0" \
-  org.opencontainers.image.description="Cinc Workstation"
+FROM base
 
 # From cinc shell-init bash
 ENV PATH="/opt/cinc-workstation/bin:/home/taylor/.chef/gem/ruby/3.1.0/bin:/opt/cinc-workstation/embedded/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/usr/games:/usr/local/games:/snap/bin:/opt/cinc-workstation/gitbin" \
@@ -49,7 +48,7 @@ ENV LANG=en_US.UTF-8 \
     LANGUAGE=en_US:en \
     LC_ALL=en_US.UTF-8
 
-COPY --from=builder /tmp/cinc-workstation.deb /tmp/cinc-workstation.deb
+COPY --from=download /tmp/cinc-workstation.deb /tmp/cinc-workstation.deb
 
 WORKDIR /cinc
 
