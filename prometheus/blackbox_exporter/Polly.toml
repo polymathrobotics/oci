@@ -1,3 +1,0 @@
-[container_image]
-tags = [ "0.23.0", "latest" ]
-readme='prometheus/blackbox_exporter/README.md'

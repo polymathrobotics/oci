@@ -1,3 +1,0 @@
-[container_image]
-tags = [ "0.25.0", "latest" ]
-readme = 'prometheus/alertmanager/README.md'

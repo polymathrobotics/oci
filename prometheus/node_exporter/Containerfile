@@ -1,5 +1,14 @@
 ARG CONTAINER_REGISTRY=docker.io
-FROM $CONTAINER_REGISTRY/ubuntu:jammy-20230425 as build
+FROM $CONTAINER_REGISTRY/ubuntu:jammy-20231004 AS base
+
+ARG NODE_EXPORTER_URL_AMD64="https://github.com/prometheus/node_exporter/releases/download/v1.5.0/node_exporter-1.5.0.linux-amd64.tar.gz"
+ARG NODE_EXPORTER_SHA256_AMD64="af999fd31ab54ed3a34b9f0b10c28e9acee9ef5ac5a5d5edfdde85437db7acbb"
+ARG NODE_EXPORTER_URL_ARM64="https://github.com/prometheus/node_exporter/releases/download/v1.5.0/node_exporter-1.5.0.linux-arm64.tar.gz"
+ARG NODE_EXPORTER_SHA256_ARM64="e031a539af9a619c06774788b54c23fccc2a852d41437315725a086ccdb0ed16"
+ARG NODE_EXPORTER_URL_ARMHF="https://github.com/prometheus/node_exporter/releases/download/v1.5.0/node_exporter-1.5.0.linux-armv7.tar.gz"
+ARG NODE_EXPORTER_SHA256_ARMHF="27d8853a3f2d131f97f3817761bd0714582482c97cafa2f27689fc7e9f30d9cc"
+
+FROM base as download
 
 SHELL ["/bin/bash", "-o", "pipefail", "-c"]
 RUN apt-get update \
@@ -10,16 +19,16 @@ RUN apt-get update \
   && dpkgArch="$(dpkg --print-architecture)" \
   && case "${dpkgArch##*-}" in \
     amd64) \
-      NODE_EXPORTER_URL='https://github.com/prometheus/node_exporter/releases/download/v1.5.0/node_exporter-1.5.0.linux-amd64.tar.gz' \
-      NODE_EXPORTER_SHA256='af999fd31ab54ed3a34b9f0b10c28e9acee9ef5ac5a5d5edfdde85437db7acbb' \
+      NODE_EXPORTER_URL="${NODE_EXPORTER_URL_AMD64}" \
+      NODE_EXPORTER_SHA256="${NODE_EXPORTER_SHA256_AMD64}" \
       ;; \
     arm64) \
-      NODE_EXPORTER_URL='https://github.com/prometheus/node_exporter/releases/download/v1.5.0/node_exporter-1.5.0.linux-arm64.tar.gz' \
-      NODE_EXPORTER_SHA256='e031a539af9a619c06774788b54c23fccc2a852d41437315725a086ccdb0ed16' \
+      NODE_EXPORTER_URL="${NODE_EXPORTER_URL_ARM64}" \
+      NODE_EXPORTER_SHA256="${NODE_EXPORTER_SHA256_ARM64}" \
       ;; \
     armhf) \
-      NODE_EXPORTER_URL='https://github.com/prometheus/node_exporter/releases/download/v1.5.0/node_exporter-1.5.0.linux-armv7.tar.gz' \
-      NODE_EXPORTER_SHA256='27d8853a3f2d131f97f3817761bd0714582482c97cafa2f27689fc7e9f30d9cc' \
+      NODE_EXPORTER_URL="${NODE_EXPORTER_URL_ARMHF}" \
+      NODE_EXPORTER_SHA256="${NODE_EXPORTER_SHA256_ARMHF}" \
       ;; \
     *) echo "unsupported architecture"; exit 1 ;; \
     esac \
@@ -27,20 +36,14 @@ RUN apt-get update \
   && echo "${NODE_EXPORTER_SHA256} /tmp/node_exporter.tar.gz" | sha256sum -c - \
   && tar xvf /tmp/node_exporter.tar.gz -C /tmp/node_exporter --strip-components 1
 
-FROM $CONTAINER_REGISTRY/ubuntu:jammy-20230425
-
-# metadata
-LABEL \
-    org.opencontainers.image.source="https://github.com/polymathrobotics/oci" \
-    org.opencontainers.image.licenses="Apache-2.0" \
-    org.opencontainers.image.description="Prometheus node exporter for machine metrics."
+FROM base
 
 RUN apt-get update \
   && DEBIAN_FRONTEND=noninteractive apt-get install -y --no-install-recommends \
     ca-certificates \
   && rm -rf /var/lib/apt/lists/*
 
-COPY --chmod=755 --from=build /tmp/node_exporter/node_exporter /usr/local/bin/node_exporter
+COPY --chmod=755 --from=download /tmp/node_exporter/node_exporter /usr/local/bin/node_exporter
 
 EXPOSE 9100
 USER nobody
