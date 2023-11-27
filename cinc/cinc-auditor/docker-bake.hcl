@@ -26,6 +26,12 @@ target "_common" {
 
 target "_common" {
   dockerfile = "Containerfile"
+  args = {
+    CINC_AUDITOR_URL_AMD64 = "http://downloads.cinc.sh/files/stable/cinc-auditor/6.6.0/ubuntu/22.04/cinc-auditor_6.6.0-1_amd64.deb"
+    CINC_AUDITOR_SHA256_AMD64 = "f92ad5ba73bb3095521b455dcb99cd002c04e2e8a19e1b2344439c6d1fc41901"
+    CINC_AUDITOR_URL_ARM64 = "http://downloads.cinc.sh/files/stable/cinc-auditor/6.6.0/ubuntu/22.04/cinc-auditor_6.6.0-1_arm64.deb"
+    CINC_AUDITOR_SHA256_ARM64 = "5b916b629315d5a3324313bb521e6fabacfd36e45a1d065ccb89e494dbf98512"
+  }
   tags = [
     "${CONTAINER_REGISTRY}/${IMAGE_NAME}:${VERSION}",
     "${CONTAINER_REGISTRY}/${IMAGE_NAME}:latest"
