@@ -1,0 +1,26 @@
+# cinc-auditor has its own workflow because it requires a special tag to work
+# with Test Kitchen and so it has a unique test harness, specified via the
+# "test-image" and "test-entrypoint" parameters.
+name: cinc
+
+on:
+  push:
+    branches: [ main ]
+    paths:
+      - 'cinc/cinc/**'
+  pull_request:
+    branches: [ main ]
+    paths:
+      - 'cinc/cinc/**'
+  workflow_dispatch:
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: polymathrobotics/container-build-publish-action@main
+        with:
+          workdir: cinc/cinc
+          dockerhub-username: ${{ secrets.CONTAINER_REGISTRY_USERNAME }}
+          dockerhub-password: ${{ secrets.CONTAINER_DESCRIPTION_PASSWORD }}
+          test-image: "docker.io/polymathrobotics/cinc:current"
+          test-entrypoint: "/bin/sh"
