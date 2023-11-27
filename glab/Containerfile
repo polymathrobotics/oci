@@ -3,6 +3,16 @@
 ARG CONTAINER_REGISTRY=docker.io
 FROM $CONTAINER_REGISTRY/ubuntu:jammy-20231004 as base
 
+ARG GLAB_URL_AMD64="https://gitlab.com/gitlab-org/cli/-/releases/v1.35.0/downloads/glab_1.35.0_Linux_x86_64.deb"
+ARG GLAB_SHA256_AMD64="52380af6077cff5d2d142efafdab2c3789e32299e2061f0373b2a252d01dabf5"
+ARG GLAB_URL_ARM64="https://gitlab.com/gitlab-org/cli/-/releases/v1.35.0/downloads/glab_1.35.0_Linux_arm64.deb"
+ARG GLAB_SHA256_ARM64="2bbf189d335fc9c7d4ec9c2a0834a9503593b523a29d73dae0bc0988d68cb359"
+ARG GLAB_URL_ARMHF="https://gitlab.com/gitlab-org/cli/-/releases/v1.35.0/downloads/glab_1.35.0_Linux_arm.deb"
+ARG GLAB_SHA256_ARMHF="a574c6c197decd29c815bfbfe9c6a1da3b6c2f5cc7fee36d4554dbbae7b607de"
+ARG DOCKER_URL_AMD64="https://download.docker.com/linux/static/stable/x86_64/docker-24.0.5.tgz"
+ARG DOCKER_URL_ARM64="https://download.docker.com/linux/static/stable/aarch64/docker-24.0.5.tgz"
+ARG DOCKER_URL_ARMHF="https://download.docker.com/linux/static/stable/armhf/docker-24.0.5.tgz"
+
 FROM base as download
 
 WORKDIR /tmp
@@ -16,16 +26,16 @@ RUN <<EOF
   dpkgArch="$(dpkg --print-architecture)"
   case "${dpkgArch##*-}" in \
     amd64) \
-      GLAB_URL=https://gitlab.com/gitlab-org/cli/-/releases/v1.35.0/downloads/glab_1.35.0_Linux_x86_64.deb \
-      GLAB_SHA256=52380af6077cff5d2d142efafdab2c3789e32299e2061f0373b2a252d01dabf5 \
+      GLAB_URL="${GLAB_URL_AMD64}" \
+      GLAB_SHA256="${GLAB_SHA256_AMD64}" \
       ;; \
     arm64) \
-      GLAB_URL=https://gitlab.com/gitlab-org/cli/-/releases/v1.35.0/downloads/glab_1.35.0_Linux_arm64.deb \
-      GLAB_SHA256=2bbf189d335fc9c7d4ec9c2a0834a9503593b523a29d73dae0bc0988d68cb359 \
+      GLAB_URL="${GLAB_URL_ARM64}" \
+      GLAB_SHA256="${GLAB_SHA256_ARM64}" \
       ;; \
     armhf) \
-      GLAB_URL=https://gitlab.com/gitlab-org/cli/-/releases/v1.35.0/downloads/glab_1.35.0_Linux_arm.deb \
-      GLAB_SHA256=a574c6c197decd29c815bfbfe9c6a1da3b6c2f5cc7fee36d4554dbbae7b607de \
+      GLAB_URL="${GLAB_URL_ARMHF}" \
+      GLAB_SHA256="${GLAB_SHA256_ARMHF}" \
       ;;
     *) echo "unsupported architecture"; exit 1 ;; \
   esac 
@@ -37,13 +47,13 @@ RUN <<EOF
   dpkgArch="$(dpkg --print-architecture)"
   case "${dpkgArch##*-}" in \
     amd64) \
-      DOCKER_URL='https://download.docker.com/linux/static/stable/x86_64/docker-24.0.5.tgz' \
+      DOCKER_URL="$DOCKER_URL_AMD64" \
       ;; \
     arm64) \
-      DOCKER_URL='https://download.docker.com/linux/static/stable/aarch64/docker-24.0.5.tgz' \
+      DOCKER_URL="$DOCKER_URL_ARM64" \
       ;;
     armhf) \
-      DOCKER_URL='https://download.docker.com/linux/static/stable/armhf/docker-24.0.5.tgz' \
+      DOCKER_URL="$DOCKER_URL_ARMHF" \
       ;;
     *) echo "unsupported architecture"; exit 1 ;; \
   esac
