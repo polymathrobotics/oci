@@ -1,17 +1,12 @@
 # syntax=docker/dockerfile:1
 ARG CONTAINER_REGISTRY=docker.io
+FROM $CONTAINER_REGISTRY/ubuntu:jammy-20231004
 
-FROM $CONTAINER_REGISTRY/ubuntu:jammy-20230425
 ARG S6_OVERLAY_VERSION=3.1.5.0
 # Don't reset the environment on /init so we get TZ
 ENV S6_KEEP_ENV 1
 
 ENV TZ=Etc/UTC
-
-LABEL \
-    org.opencontainers.image.source="https://github.com/polymathrobotics/oci" \
-    org.opencontainers.image.licenses="GPL-2.0" \
-    org.opencontainers.image.description="Smokeping latency logging, graphing and alerting system."
   
 # hadolint ignore=DL3015
 RUN <<EOF
