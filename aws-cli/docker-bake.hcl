@@ -16,10 +16,10 @@ variable "LOCAL_PLATFORM" {
 }
 
 target "_common" {
+  dockerfile = "Containerfile"
   args = {
     AWS_CLI_VERSION = "${VERSION}"
   }
-  dockerfile = "Containerfile"
   tags = [
     "${CONTAINER_REGISTRY}/${IMAGE_NAME}:${VERSION}",
     "${CONTAINER_REGISTRY}/${IMAGE_NAME}:latest"
