@@ -34,7 +34,7 @@ target "_common" {
     "org.opencontainers.image.licenses" = "Apache-2.0"
     "org.opencontainers.image.description" = "A server that accepts collectd stats via HTTP POST and exports them via HTTP for Prometheus consumption."
     "org.opencontainers.image.title" = "${IMAGE_NAME}"
-    "dev.polymathrobotics.image.readme-filepath" = "prometheus/collect_exporter/README.md"
+    "dev.polymathrobotics.image.readme-filepath" = "prometheus/collectd_exporter/README.md"
   }
 }
 
