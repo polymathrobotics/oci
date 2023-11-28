@@ -1,3 +1,0 @@
-[container_image]
-name = "gh"
-tags = ["2.13.0", "latest"]

@@ -1,22 +1,67 @@
 # syntax=docker/dockerfile:1
-# Currently there are only amd64 packages, so we install via python for now
+# GitHub doesn't offer older versions of the cli in their package repo, so use releases from GitHub
 ARG CONTAINER_REGISTRY=docker.io
-FROM $CONTAINER_REGISTRY/ubuntu:focal-20220531
+FROM $CONTAINER_REGISTRY/ubuntu:jammy-20231004 as base
+
+ARG GITHUB_CLI_URL_AMD64="https://github.com/cli/cli/releases/download/v2.13.0/gh_2.13.0_linux_amd64.deb"
+ARG GITHUB_CLI_SHA256_AMD64="b4d69e1d00cca2f35f3d12c4f3116f469f6fc2ef3449d8924a253c0f41cb7a94"
+ARG GITHUB_CLI_URL_ARM64="https://github.com/cli/cli/releases/download/v2.13.0/gh_2.13.0_linux_arm64.deb"
+ARG GITHUB_CLI_SHA256_ARM64="a34082dd15c7a3c594be2a64701b14cf10fd7dd2ee60498fbea0ee83a7df5a9e"
+ARG GITHUB_CLI_URL_ARMHF="https://github.com/cli/cli/releases/download/v2.13.0/gh_2.13.0_linux_armv6.deb"
+ARG GITHUB_CLI_SHA256_ARMHF="17ca4a818ce177460d5158d0d92a0b6ece6019d33844e06561ff51a1abdefcc"
+
+FROM base as download
+
+SHELL ["/bin/bash", "-o", "pipefail", "-c"]
+RUN <<EOF
+  apt-get update
+  DEBIAN_FRONTEND=noninteractive apt-get install -y --no-install-recommends \
+    ca-certificates \
+    curl
+  dpkgArch="$(dpkg --print-architecture)"
+  case "${dpkgArch##*-}" in \
+    amd64) \
+      GITHUB_CLI_URL="$GITHUB_CLI_URL_AMD64" \
+      GITHUB_CLI_SHA256="$GITHUB_CLI_SHA256_AMD64" \
+      ;; \
+    arm64) \
+      GITHUB_CLI_URL="$GITHUB_CLI_URL_ARM64" \
+      GITHUB_CLI_SHA256="$GITHUB_CLI_SHA256_ARM64" \
+      ;; \
+    armhf) \
+      GITHUB_CLI_URL="$GITHUB_CLI_URL_ARMHF" \
+      GITHUB_CLI_SHA256="$GITHUB_CLI_SHA256_ARMHF" \
+      ;; \
+    *) echo "unsupported architecture"; exit 1 ;; \
+  esac
+  curl -fsSL -o /tmp/gh.deb "${GITHUB_CLI_URL}"
+  echo "${GITHUB_CLI_SHA256} /tmp/gh.deb" | sha256sum -c -
+EOF
+
+ARG USERNAME=gh
+ARG USER_UID=1000
+ARG USER_GID=$USER_UID
+ENV HOME /home/$USERNAME
+
+FROM base
+
+COPY --from=download /tmp/gh.deb /tmp/gh.deb
 
 RUN <<EOF
   apt-get update
   apt-get install -y --no-install-recommends \
     ca-certificates \
-    curl
-  curl -fsSL https://cli.github.com/packages/githubcli-archive-keyring.gpg | dd of=/usr/share/keyrings/githubcli-archive-keyring.gpg
-  chmod go+r /usr/share/keyrings/githubcli-archive-keyring.gpg
-  echo "deb [arch=$(dpkg --print-architecture) signed-by=/usr/share/keyrings/githubcli-archive-keyring.gpg] https://cli.github.com/packages stable main" | tee /etc/apt/sources.list.d/github-cli.list > /dev/null
-  apt-get update
-  apt-get install -y gh
+    curl \
+    git \
+    jq \
+    openssh-client
+  dpkg -i /tmp/gh.deb
+  rm -rf /var/lib/apt/lists/*
 EOF
 
 VOLUME ["/share"]
 WORKDIR /share
 
+USER $USERNAME
 ENTRYPOINT ["gh"]
 CMD ["--help"]
