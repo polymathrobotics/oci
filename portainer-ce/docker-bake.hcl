@@ -3,7 +3,7 @@ variable "IMAGE_NAME" {
 }
 
 variable "VERSION" {
-  default = "2.17.1"
+  default = "2.19.3"
 }
 
 variable "CONTAINER_REGISTRY" {
@@ -19,12 +19,12 @@ target "_common" {
   dockerfile = "Containerfile"
   args = {
     PORTAINER_VERSION = "${VERSION}"
-    PORTAINER_URL_AMD64 = "https://github.com/portainer/portainer/releases/download/2.17.1/portainer-2.17.1-linux-amd64.tar.gz"
-    PORTAINER_SHA256_AMD64 = "ec1a1a7e53481b1e4b19f45249fd7398f390d52646ac740d90f254a3b6a5a096"
-    PORTAINER_URL_ARM64 = "https://github.com/portainer/portainer/releases/download/2.17.1/portainer-2.17.1-linux-arm64.tar.gz"
-    PORTAINER_SHA256_ARM64 = "aaa3841d6e590c5b6820bbe3f2f36f32530e7ce7ef0dd91ee1ce73001c51e2f1"
-    PORTAINER_URL_ARMHF = "https://github.com/portainer/portainer/releases/download/2.17.1/portainer-2.17.1-linux-arm.tar.gz"
-    PORTAINER_SHA256_ARMHF = "aaa3841d6e590c5b6820bbe3f2f36f32530e7ce7ef0dd91ee1ce73001c51e2f1"
+    PORTAINER_URL_AMD64 = "https://github.com/portainer/portainer/releases/download/2.19.3/portainer-2.19.3-linux-amd64.tar.gz"
+    PORTAINER_SHA256_AMD64 = "e75428a96a1cfeff6cec86ab941124b2d62a2dccf4e70924e3f4b65a0b19d119"
+    PORTAINER_URL_ARM64 = "https://github.com/portainer/portainer/releases/download/2.19.3/portainer-2.19.3-linux-arm64.tar.gz"
+    PORTAINER_SHA256_ARM64 = "fc679e61d45844aa03118fd0bb244f10fd5ba894e3956b837b67562e6a5dd2e4"
+    PORTAINER_URL_ARMHF = "https://github.com/portainer/portainer/releases/download/2.19.3/portainer-2.19.3-linux-arm.tar.gz"
+    PORTAINER_SHA256_ARMHF = "41b6c457117fd6d83279c31896877368858b6d5c0743a7a8898baa277269d51f"
   }
   tags = [
     "${CONTAINER_REGISTRY}/${IMAGE_NAME}:${VERSION}",
