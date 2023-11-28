@@ -53,6 +53,7 @@ jobs:
             dokken/ubuntu-20.04: 'dokken/ubuntu-20.04/**'
             dokken/ubuntu-22.04: 'dokken/ubuntu-22.04/**'
             flake8: 'flake8/**'
+            github-cli: 'github-cli/**'
             glab: 'glab/**'
             markdownlint: 'markdownlint/**'
             node/18/jammy: 'node/18/jammy/**'
