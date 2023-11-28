@@ -58,6 +58,7 @@ jobs:
             markdownlint: 'markdownlint/**'
             meshcmd: 'meshcmd/**'
             node/18/jammy: 'node/18/jammy/**'
+            paperspace-cli: 'paperspace-cli/**'
             prometheus/alertmanager: 'prometheus/alertmanager/**'
             prometheus/blackbox_exporter: 'prometheus/blackbox_exporter/**'
             prometheus/collectd_exporter: 'prometheus/collectd_exporter/**'
