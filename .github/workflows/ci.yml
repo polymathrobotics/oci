@@ -59,6 +59,7 @@ jobs:
             meshcmd: 'meshcmd/**'
             node/18/jammy: 'node/18/jammy/**'
             paperspace-cli: 'paperspace-cli/**'
+            portainer-ce: 'portainer-ce/**'
             prometheus/alertmanager: 'prometheus/alertmanager/**'
             prometheus/blackbox_exporter: 'prometheus/blackbox_exporter/**'
             prometheus/collectd_exporter: 'prometheus/collectd_exporter/**'

@@ -1,6 +1,15 @@
 # syntax=docker/dockerfile:1
 ARG CONTAINER_REGISTRY=docker.io
-FROM $CONTAINER_REGISTRY/ubuntu:jammy-20230308 as build
+FROM $CONTAINER_REGISTRY/ubuntu:jammy-20231004 as base
+
+FROM base as download
+
+ARG PORTAINER_URL_AMD64="https://github.com/portainer/portainer/releases/download/2.17.1/portainer-2.17.1-linux-amd64.tar.gz"
+ARG PORTAINER_SHA256_AMD64="ec1a1a7e53481b1e4b19f45249fd7398f390d52646ac740d90f254a3b6a5a096"
+ARG PORTAINER_URL_ARM64="https://github.com/portainer/portainer/releases/download/2.17.1/portainer-2.17.1-linux-arm64.tar.gz"
+ARG PORTAINER_SHA256_ARM64="aaa3841d6e590c5b6820bbe3f2f36f32530e7ce7ef0dd91ee1ce73001c51e2f1"
+ARG PORTAINER_URL_ARMHF="https://github.com/portainer/portainer/releases/download/2.17.1/portainer-2.17.1-linux-arm.tar.gz"
+ARG PORTAINER_SHA256_ARMHF="aaa3841d6e590c5b6820bbe3f2f36f32530e7ce7ef0dd91ee1ce73001c51e2f1"
 
 SHELL ["/bin/bash", "-o", "pipefail", "-c"]
 RUN <<EOF
@@ -11,16 +20,16 @@ RUN <<EOF
   dpkgArch="$(dpkg --print-architecture)"
   case "${dpkgArch##*-}" in \
     amd64) \
-      PORTAINER_URL='https://github.com/portainer/portainer/releases/download/2.17.1/portainer-2.17.1-linux-amd64.tar.gz' \
-      PORTAINER_SHA256='ec1a1a7e53481b1e4b19f45249fd7398f390d52646ac740d90f254a3b6a5a096' \
+      PORTAINER_URL="${PORTAINER_URL_AMD64}" \
+      PORTAINER_SHA256="${PORTAINER_SHA256_AMD64}" \
       ;; \
     arm64) \
-      PORTAINER_URL='https://github.com/portainer/portainer/releases/download/2.17.1/portainer-2.17.1-linux-arm64.tar.gz' \
-      PORTAINER_SHA256='aaa3841d6e590c5b6820bbe3f2f36f32530e7ce7ef0dd91ee1ce73001c51e2f1' \
+      PORTAINER_URL="${PORTAINER_URL_ARM64}" \
+      PORTAINER_SHA256="${PORTAINER_SHA256_ARM64}" \
       ;; \
     armhf) \
-      PORTAINER_URL='https://github.com/portainer/portainer/releases/download/2.17.1/portainer-2.17.1-linux-arm.tar.gz' \
-      PORTAINER_SHA256='aaa3841d6e590c5b6820bbe3f2f36f32530e7ce7ef0dd91ee1ce73001c51e2f1' \
+      PORTAINER_URL="${PORTAINER_URL_ARMHF}" \
+      PORTAINER_SHA256="${PORTAINER_SHA256_ARMHF}" \
       ;; \
     *) echo "unsupported architecture"; exit 1 ;; \
   esac
@@ -30,20 +39,15 @@ RUN <<EOF
   tar xvf /tmp/portainer.tar.gz -C /tmp
 EOF
 
-FROM $CONTAINER_REGISTRY/ubuntu:jammy-20230308
+FROM base
 
-LABEL \
-    org.opencontainers.image.source="https://github.com/polymathrobotics/oci" \
-    org.opencontainers.image.licenses="Zlib" \
-    org.opencontainers.image.description="Portainer Community Edition GUI-based container management platform."
-
-COPY --from=build /tmp/portainer/docker /
-COPY --from=build /tmp/portainer/docker-compose /
-COPY --from=build /tmp/portainer/helm /
-COPY --from=build /tmp/portainer/kubectl /
-COPY --from=build /tmp/portainer/mustache-templates /mustache-templates/
-COPY --from=build /tmp/portainer/portainer /
-COPY --from=build /tmp/portainer/public /public/
+COPY --from=download /tmp/portainer/docker /
+COPY --from=download /tmp/portainer/docker-compose /
+COPY --from=download /tmp/portainer/helm /
+COPY --from=download /tmp/portainer/kubectl /
+COPY --from=download /tmp/portainer/mustache-templates /mustache-templates/
+COPY --from=download /tmp/portainer/portainer /
+COPY --from=download /tmp/portainer/public /public/
 
 RUN <<EOF
   apt-get update -y
