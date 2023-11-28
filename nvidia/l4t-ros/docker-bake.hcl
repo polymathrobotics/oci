@@ -26,7 +26,7 @@ target "default" {
   }
   matrix = {
     base_image = ["r35.3.1", "r35.4.1"]
-    ros_version = ["humble", "iron"]
+    ros_version = ["humble"]
     ros_package = ["ros_base", "ros_core", "desktop"]
   }
 }
