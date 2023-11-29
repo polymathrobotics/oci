@@ -55,6 +55,8 @@ jobs:
             flake8: 'flake8/**'
             github-cli: 'github-cli/**'
             glab: 'glab/**'
+            jfrog/jfrog-cli: 'jfrog/jfrog-cli/**'
+            ldap-utils: 'ldap-utils/**'
             markdownlint: 'markdownlint/**'
             meshcmd: 'meshcmd/**'
             node/18/jammy: 'node/18/jammy/**'
