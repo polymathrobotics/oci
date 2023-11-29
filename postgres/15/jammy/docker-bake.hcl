@@ -30,6 +30,7 @@ target "_common" {
     "org.opencontainers.image.licenses" = "Apache-2.0"
     "org.opencontainers.image.description" = "The PostgreSQL object-relational database system provides reliability and data integrity."
     "org.opencontainers.image.title" = "${IMAGE_NAME}"
+    "dev.polymathrobotics.image.readme-filepath" = "postgres/README.md"
   }
 }
 
