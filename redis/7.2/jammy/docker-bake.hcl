@@ -30,6 +30,7 @@ target "_common" {
     "org.opencontainers.image.licenses" = "Apache-2.0"
     "org.opencontainers.image.description" = "Redis is an open source key-value store that functions as a data structure server."
     "org.opencontainers.image.title" = "${IMAGE_NAME}"
+    "dev.polymathrobotics.image.readme-filepath" = "redis/README.md"
   }
 }
 
