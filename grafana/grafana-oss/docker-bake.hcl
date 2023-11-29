@@ -3,7 +3,7 @@ variable "IMAGE_NAME" {
 }
 
 variable "VERSION" {
-  default = "9.5.1"
+  default = "10.2.2"
 }
 
 variable "CONTAINER_REGISTRY" {
@@ -18,12 +18,10 @@ variable "LOCAL_PLATFORM" {
 target "_common" {
   dockerfile = "Containerfile"
   args = {
-    GRAFANA_URL_AMD64 = "https://dl.grafana.com/oss/release/grafana-9.5.1.linux-amd64.tar.gz"
-    GRAFANA_SHA256_AMD64 = "d9b7505cdd4299c1835c36547ffe2e62d3b0ec7600dca2c644a0519572c9c387"
-    GRAFANA_URL_ARM64 = "https://dl.grafana.com/oss/release/grafana-9.5.1.linux-arm64.tar.gz"
-    GRAFANA_SHA256_ARM64 = "ed6c692be378e2d9a1a730169867ea4f3da83d814f123a1a340579644032c93e"
-    GRAFANA_URL_ARMHF = "https://dl.grafana.com/oss/release/grafana-9.5.1.linux-armv7.tar.gz"
-    GRAFANA_SHA256_ARMHF = "29dfd878e78b5810d3bfd2399e5b0a159e38220f9283c44c202299b8e59ab099"
+    GRAFANA_URL_AMD64 = "https://dl.grafana.com/oss/release/grafana-10.2.2.linux-amd64.tar.gz"
+    GRAFANA_SHA256_AMD64 = "32dd2c8b94f1917190a79be6543dfb7e5dd6297bae21c24db624dc1180aba19f"
+    GRAFANA_URL_ARM64 = "https://dl.grafana.com/oss/release/grafana-10.2.2.linux-arm64.tar.gz"
+    GRAFANA_SHA256_ARM64 = "96770f3f9bdfc662e0dbe57fbbb09206817935bca0e38755f942e0f65259e8c7"
   }
   tags = [
     "${CONTAINER_REGISTRY}/${IMAGE_NAME}:${VERSION}",
@@ -31,7 +29,7 @@ target "_common" {
   ]
   labels = {
     "org.opencontainers.image.source" = "https://github.com/polymathrobotics/oci"
-    "org.opencontainers.image.licenses" = "Apache-2.0"
+    "org.opencontainers.image.licenses" = "AGPLv3"
     "org.opencontainers.image.description" = "Grafana - the open observability platform."
     "org.opencontainers.image.title" = "${IMAGE_NAME}"
   }
