@@ -1,5 +1,14 @@
 ARG CONTAINER_REGISTRY=docker.io
-FROM $CONTAINER_REGISTRY/ubuntu:jammy-20230425 as build
+FROM $CONTAINER_REGISTRY/ubuntu:jammy-20231004 as base
+
+FROM base as download
+
+ARG GRAFANA_URL_AMD64="https://dl.grafana.com/oss/release/grafana-9.5.1.linux-amd64.tar.gz"
+ARG GRAFANA_SHA256_AMD64="d9b7505cdd4299c1835c36547ffe2e62d3b0ec7600dca2c644a0519572c9c387"
+ARG GRAFANA_URL_ARM64="https://dl.grafana.com/oss/release/grafana-9.5.1.linux-arm64.tar.gz"
+ARG GRAFANA_SHA256_ARM64="ed6c692be378e2d9a1a730169867ea4f3da83d814f123a1a340579644032c93e"
+ARG GRAFANA_URL_ARMHF="https://dl.grafana.com/oss/release/grafana-9.5.1.linux-armv7.tar.gz"
+ARG GRAFANA_SHA256_ARMHF="29dfd878e78b5810d3bfd2399e5b0a159e38220f9283c44c202299b8e59ab099"
 
 SHELL ["/bin/bash", "-o", "pipefail", "-c"]
 RUN apt-get update \
@@ -10,16 +19,16 @@ RUN apt-get update \
   && dpkgArch="$(dpkg --print-architecture)" \
   && case "${dpkgArch##*-}" in \
     amd64) \
-      GRAFANA_URL='https://dl.grafana.com/oss/release/grafana-9.5.1.linux-amd64.tar.gz' \
-      GRAFANA_SHA256='d9b7505cdd4299c1835c36547ffe2e62d3b0ec7600dca2c644a0519572c9c387' \
+      GRAFANA_URL="${GRAFANA_URL_AMD64}" \
+      GRAFANA_SHA256="${GRAFANA_SHA256_AMD64}" \
       ;; \
     arm64) \
-      GRAFANA_URL='https://dl.grafana.com/oss/release/grafana-9.5.1.linux-arm64.tar.gz' \
-      GRAFANA_SHA256='ed6c692be378e2d9a1a730169867ea4f3da83d814f123a1a340579644032c93e' \
+      GRAFANA_URL="${GRAFANA_URL_ARM64}" \
+      GRAFANA_SHA256="${GRAFANA_SHA256_ARM64}" \
       ;; \
     armhf) \
-      GRAFANA_URL='https://dl.grafana.com/oss/release/grafana-9.5.1.linux-armv7.tar.gz' \
-      GRAFANA_SHA256='29dfd878e78b5810d3bfd2399e5b0a159e38220f9283c44c202299b8e59ab099' \
+      GRAFANA_URL="${GRAFANA_URL_ARMHF}" \
+      GRAFANA_SHA256="${GRAFANA_SHA256_ARMHF}" \
       ;; \
     *) echo "unsupported architecture"; exit 1 ;; \
     esac \
@@ -27,12 +36,7 @@ RUN apt-get update \
   && echo "${GRAFANA_SHA256} /tmp/grafana.tar.gz" | sha256sum -c - \
   && tar xvf /tmp/grafana.tar.gz -C /tmp/grafana --strip-components 1
 
-FROM $CONTAINER_REGISTRY/ubuntu:jammy-20230425
-
-LABEL \
-    org.opencontainers.image.source="https://github.com/polymathrobotics/oci" \
-    org.opencontainers.image.licenses="Apache-2.0" \
-    org.opencontainers.image.description="Grafana - the open observability platform."
+FROM base
 
 ARG GF_UID="472"
 ARG GF_GID="0"
@@ -55,7 +59,7 @@ RUN apt-get update \
   && apt-get autoremove -y \
   && rm -rf /var/lib/apt/lists/*
 
-COPY --from=build /tmp/grafana "$GF_PATHS_HOME"
+COPY --from=download /tmp/grafana "$GF_PATHS_HOME"
 
 # Group names won't have spaces in them
 # hadolint ignore=SC2046

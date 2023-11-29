@@ -1,3 +1,0 @@
-[container_image]
-tags = [ "9.5.1", "latest" ]
-readme = "grafana/grafana-oss/README.md"
