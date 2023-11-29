@@ -60,6 +60,7 @@ jobs:
             markdownlint: 'markdownlint/**'
             meshcmd: 'meshcmd/**'
             node/18/jammy: 'node/18/jammy/**'
+            op: 'op/**'
             paperspace-cli: 'paperspace-cli/**'
             portainer-ce: 'portainer-ce/**'
             postgres/15/jammy: 'postgres/15/jammy/**'

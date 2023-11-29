@@ -1,6 +1,8 @@
 # syntax=docker/dockerfile:1
 ARG CONTAINER_REGISTRY=docker.io
-FROM $CONTAINER_REGISTRY/ubuntu:jammy-20230308 AS build
+FROM $CONTAINER_REGISTRY/ubuntu:jammy-20231004 AS base
+
+FROM base as download
 
 # For now, use the beta stream to get any updates while service accounts are in beta
 ARG OP_CLI_VERSION=2.17.0-beta.01
@@ -35,12 +37,7 @@ RUN <<EOF
   op --version
 EOF
 
-FROM $CONTAINER_REGISTRY/ubuntu:jammy-20230308
-
-LABEL \
-    org.opencontainers.image.source="https://github.com/polymathrobotics/oci" \
-    org.opencontainers.image.licenses="Apache-2.0" \
-    org.opencontainers.image.description="1Password command-line interface."
+FROM base
 
 RUN <<EOF
   groupadd -g 999 opuser
@@ -56,7 +53,7 @@ RUN <<EOF
   rm -rf /var/lib/apt/lists/*
 EOF
 
-COPY --from=build /usr/local/bin/op /usr/local/bin/op
+COPY --from=download /usr/local/bin/op /usr/local/bin/op
 
 USER opuser
 WORKDIR /home/opuser
