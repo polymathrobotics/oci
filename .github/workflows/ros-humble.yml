@@ -24,12 +24,6 @@ jobs:
 
       - name: Set up Docker Buildx
         uses: docker/setup-buildx-action@v3
-        with:
-          driver: docker-container
-          endpoint: default
-          append: |
-            - node: hq0-builder-tegra
-              platforms: linux/arm64
 
       - name: Login to DockerHub
         if: github.event_name != 'pull_request'
