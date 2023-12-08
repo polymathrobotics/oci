@@ -28,7 +28,7 @@ jobs:
           driver: docker-container
           endpoint: default
           append: |
-            - endpoint: hq0-builder-tegra
+            - node: hq0-builder-tegra
               platforms: linux/arm64
 
       - name: Login to DockerHub
