@@ -60,6 +60,7 @@ The images are pubished to https://hub.docker.com/u/polymathrobotics
 | [ruby](https://hub.docker.com/r/polymathrobotics/ruby) | Ruby is a dynamic, reflective, object-oriented, general-purpose, open-source programming language | [ruby](https://github.com/polymathrobotics/oci/tree/main/ruby) |
 | [shellcheck](https://hub.docker.com/r/polymathrobotics/shellcheck) | Static analysis tool for shell scripts | [shellcheck](https://github.com/polymathrobotics/oci/tree/main/shellcheck) |
 | [smokeping](https://hub.docker.com/r/polymathrobotics/smokeping) | Smokeping network latency grapher | [smokeping](https://github.com/polymathrobotics/oci/tree/main/smokeping) |
+| [terraform](https://hub.docker.com/r/polymathrobotics/terraform) | Terraform enables you to safely and predictably create, change, and improve infrastructure. | [terraform](https://github.com/polymathrobotics/oci/tree/main/hashicorp/terraform) |
 
 # Why are you re-publishing some official images?
 

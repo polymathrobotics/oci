@@ -1,6 +1,8 @@
 # syntax=docker/dockerfile:1
 ARG CONTAINER_REGISTRY=docker.io
-FROM $CONTAINER_REGISTRY/ubuntu:jammy-20230624 as build
+FROM $CONTAINER_REGISTRY/ubuntu:jammy-20231128 as base
+
+FROM base as download
 
 SHELL ["/bin/bash", "-o", "pipefail", "-c"]
 RUN <<EOF
@@ -34,7 +36,7 @@ RUN <<EOF
   unzip /tmp/terraform.zip -d /tmp/terraform/
 EOF
 
-FROM $CONTAINER_REGISTRY/ubuntu:jammy-20230624
+FROM base
 
 RUN <<EOF
   apt-get update
@@ -48,7 +50,7 @@ RUN <<EOF
   rm -rf /var/lib/apt/lists/*
 EOF
 
-COPY --from=build /tmp/terraform/terraform /opt/hashicorp/terraform/bin/terraform
+COPY --from=download /tmp/terraform/terraform /opt/hashicorp/terraform/bin/terraform
 
 WORKDIR /terraform
 ENV PATH "/opt/hashicorp/terraform/bin:${PATH}"
