@@ -33,6 +33,7 @@ The images are pubished to https://hub.docker.com/u/polymathrobotics
 | [dokken-ubuntu-20.04](https://hub.docker.com/r/polymathrobotics/dokken-ubuntu-20.04) | Ubuntu 20.04 image for use with kitchen-dokken | [dokken-ubuntu-20.04](https://github.com/polymathrobotics/oci/tree/main/dokken/ubuntu-20.04) |
 | [dokken-ubuntu-22.04](https://hub.docker.com/r/polymathrobotics/dokken-ubuntu-22.04) | Ubuntu 22.04 image for use with kitchen-dokken | [dokken-ubuntu-22.04](https://github.com/polymathrobotics/oci/tree/main/dokken/ubuntu-22.04) |
 | [flake8](https://hub.docker.com/r/polymathrobotics/flake8) | flake8 is a python tool that glues together pycodestyle, pyflakes, mccabe, and third-party plugins to check the style and quality of some python code | [flake8](https://github.com/polymathrobotics/oci/tree/main/flake8) |
+| [gh](https://hub.docker.com/r/polymathrobotics/gh) | The GitHub CLI tool | [gh](https://github.com/polymathrobotics/oci/tree/main/github-cli) |
 | [glab](https://hub.docker.com/r/polymathrobotics/glab) | The GitLab CLI tool | [glab](https://github.com/polymathrobotics/oci/tree/main/glab) |
 | [grafana/grafana-oss](https://hub.docker.com/r/polymathrobotics/grafana-oss) | Grafana - the open observability platform | [grafana/grafana-oss](https://github.com/polymathrobotics/oci/tree/main/grafana-oss) |
 | [hadolint](https://hub.docker.com/r/polymathrobotics/hadolint) | Containerfile/Dockerfile linter | [bootstrap/hadolint](https://github.com/polymathrobotics/oci/tree/main/bootstrap/hadolint) |
