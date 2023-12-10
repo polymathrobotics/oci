@@ -1,4 +1,0 @@
-[container_image]
-name = "clang-format"
-tags = ["14.0.4", "latest"]
-platforms=["linux/arm64","linux/amd64"]
