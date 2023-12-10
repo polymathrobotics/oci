@@ -9,6 +9,8 @@ The images are pubished to https://hub.docker.com/u/polymathrobotics
 | --- | --- | --- |
 | [black](https://hub.docker.com/r/polymathrobotics/black) | The uncompromising Python code formatter | [black](https://github.com/polymathrobotics/oci/tree/main/black) |
 | [buildpack-deps](https://hub.docker.com/r/polymathrobotics/buildpack-deps) | A collection of common build dependencies used for installing various modules, e.g., gems | [buildpack-deps](https://github.com/polymathrobotics/oci/tree/main/buildpack-deps) |
+| [certbot](https://hub.docker.com/r/polymathrobotics/certbot) | Certbot tool for obtaining TLS/SSL certificates from Let's Encrypt. | [acme/certbot](https://github.com/polymathrobotics/oci/tree/main/acme/certbot) |
+| [certbot-dns-cloudflare](https://hub.docker.com/r/polymathrobotics/certbot-dns-cloudflare) | Certbot tool for obtaining TLS/SSL certificates from Let's Encrypt with the Cloudflare plugin for DNS. | [acme/certbot-dns-cloudflare](https://github.com/polymathrobotics/oci/tree/main/acme/certbot-dns-cloudflare) |
 | [cinc](https://hub.docker.com/r/polymathrobotics/cinc) | Cinc Client is an automation platform built from Chef Infra | [cinc/cinc](https://github.com/polymathrobotics/oci/tree/main/cinc/cinc) |
 | [cinc-auditor](https://hub.docker.com/r/polymathrobotics/cinc-auditor) | Framework compatible with Chef InSpec for testing infrastructure | [bootstrap/cinc-auditor](https://github.com/polymathrobotics/oci/tree/main/bootstrap/cinc-auditor) |
 | [cinc-workstation](https://hub.docker.com/r/polymathrobotics/cinc-workstation) | Cinc Workstation, built from Chef Workstation | [cinc/cinc-workstation](https://github.com/polymathrobotics/oci/tree/main/cinc/cinc-workstation) |
