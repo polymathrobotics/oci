@@ -1,0 +1,39 @@
+name: stereolabs-zed-4.X-l4t
+
+on:
+  push:
+    branches: [ main ]
+    paths:
+      - 'stereolabs/zed/4.X/tools-devel/**'
+  pull_request:
+    branches: [ main ]
+    paths:
+      - 'stereolabs/zed/4.X/tools-devel/**'
+  workflow_dispatch:
+jobs:
+  build:
+    runs-on: [self-hosted, linux, ARM64]
+    defaults:
+      run:
+        working-directory: stereolabs/zed/4.X/l4t/tools-devel
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Install QEMU static binaries
+        uses: docker/setup-qemu-action@v3
+
+      - name: Set up Docker Buildx
+        uses: docker/setup-buildx-action@v3
+
+      - name: Login to DockerHub
+        if: github.event_name != 'pull_request'
+        uses: docker/login-action@v3
+        with:
+          username: ${{ secrets.CONTAINER_REGISTRY_USERNAME }}
+          password: ${{ secrets.CONTAINER_REGISTRY_PASSWORD }}
+
+      - name: Build and push
+        uses: docker/bake-action@v4
+        with:
+          workdir: stereolabs/zed/4.X/l4t/tools-devel
+          push: ${{ github.event_name != 'pull_request' }}
