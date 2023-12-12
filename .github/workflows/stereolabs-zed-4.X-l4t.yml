@@ -4,11 +4,11 @@ on:
   push:
     branches: [ main ]
     paths:
-      - 'stereolabs/zed/4.X/tools-devel/**'
+      - 'stereolabs/zed/4.X/l4t/tools-devel/**'
   pull_request:
     branches: [ main ]
     paths:
-      - 'stereolabs/zed/4.X/tools-devel/**'
+      - 'stereolabs/zed/4.X/l4t/tools-devel/**'
   workflow_dispatch:
 jobs:
   build:
