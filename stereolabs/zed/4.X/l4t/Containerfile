@@ -136,3 +136,115 @@ EOF
 RUN ln -sf /usr/lib/aarch64-linux-gnu/tegra/libv4l2.so.0 /usr/lib/aarch64-linux-gnu/libv4l2.so
 
 WORKDIR /usr/local/zed
+
+
+FROM base AS py-devel
+
+ARG L4T_MAJOR_VERSION
+ARG L4T_MINOR_VERSION
+ARG L4T_PATCH_VERSION
+ARG ZED_SDK_MAJOR
+ARG ZED_SDK_MINOR
+
+#This environment variable is needed to use the streaming features on Jetson inside a container
+ENV LOGNAME root
+ENV DEBIAN_FRONTEND noninteractive
+
+COPY --from=download /tmp/zed/ZED_SDK_Linux.run /ZED_SDK_Linux.run
+
+RUN <<EOF
+  apt-get update -y
+  apt-get install -y --no-install-recommends \
+    lsb-release \
+    wget \
+    less \
+    zstd \
+    udev \
+    sudo \
+    apt-transport-https
+  echo "# R${L4T_MAJOR_VERSION} (release), REVISION: ${L4T_MINOR_VERSION}.${L4T_PATCH_VERSION}" > /etc/nv_tegra_release
+  ./ZED_SDK_Linux.run silent skip_tools skip_drivers
+  rm -f ZED_SDK_Linux.run
+  rm -rf /usr/local/zed/resources/*
+  rm -rf /var/lib/apt/lists/*
+EOF
+
+# ZED Python API
+RUN <<EOF
+  apt-get update -y
+  apt-get install -y --no-install-recommends \
+    python3 \
+    python3-pip \
+    python3-dev \
+    python3-setuptools \
+    build-essential
+  wget download.stereolabs.com/zedsdk/pyzed -O /usr/local/zed/get_python_api.py
+  python3 /usr/local/zed/get_python_api.py
+  python3 -m pip install cython wheel
+  python3 -m pip install numpy pyopengl *.whl
+  apt-get remove --purge build-essential -y
+  apt-get autoremove -y
+  rm *.whl
+  rm -rf /var/lib/apt/lists/*
+EOF
+
+#This symbolic link is needed to use the streaming features on Jetson inside a container
+RUN ln -sf /usr/lib/aarch64-linux-gnu/tegra/libv4l2.so.0 /usr/lib/aarch64-linux-gnu/libv4l2.so
+
+WORKDIR /usr/local/zed
+
+
+FROM base AS py-runtime
+
+ARG L4T_MAJOR_VERSION
+ARG L4T_MINOR_VERSION
+ARG L4T_PATCH_VERSION
+ARG ZED_SDK_MAJOR
+ARG ZED_SDK_MINOR
+
+#This environment variable is needed to use the streaming features on Jetson inside a container
+ENV LOGNAME root
+ENV DEBIAN_FRONTEND noninteractive
+
+COPY --from=download /tmp/zed/ZED_SDK_Linux.run /ZED_SDK_Linux.run
+
+RUN <<EOF
+  apt-get update -y
+  apt-get install -y --no-install-recommends \
+    lsb-release \
+    wget \
+    less \
+    zstd \
+    udev \
+    sudo \
+    apt-transport-https
+  echo "# R${L4T_MAJOR_VERSION} (release), REVISION: ${L4T_MINOR_VERSION}.${L4T_PATCH_VERSION}" > /etc/nv_tegra_release
+  ./ZED_SDK_Linux.run silent runtime_only skip_drivers
+  rm -f ZED_SDK_Linux.run
+  rm -rf /usr/local/zed/resources/*
+  rm -rf /var/lib/apt/lists/*
+EOF
+
+# ZED Python API
+RUN <<EOF
+  apt-get update -y
+  apt-get install -y --no-install-recommends \
+    python3 \
+    python3-pip \
+    python3-dev \
+    python3-setuptools \
+    build-essential
+  wget download.stereolabs.com/zedsdk/pyzed -O /usr/local/zed/get_python_api.py
+  python3 /usr/local/zed/get_python_api.py
+  python3 -m pip install cython wheel
+  python3 -m pip install numpy *.whl
+  apt-get remove --purge build-essential python3-dev -y
+  apt-get autoremove -y
+  rm *.whl
+  rm -rf /var/lib/apt/lists/*
+EOF
+
+#This symbolic link is needed to use the streaming features on Jetson inside a container
+RUN ln -sf /usr/lib/aarch64-linux-gnu/tegra/libv4l2.so.0 /usr/lib/aarch64-linux-gnu/libv4l2.so
+
+WORKDIR /usr/local/zed

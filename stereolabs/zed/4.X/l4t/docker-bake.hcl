@@ -10,7 +10,7 @@ target "default" {
   dockerfile = "Containerfile"
   name = "default-4-0-${tgt}-l4t-r${item.l4t_major_version}-${item.l4t_minor_version}"
   matrix = {
-    tgt = ["devel", "tools-devel", "runtime"]
+    tgt = ["devel", "tools-devel", "runtime", "py-devel", "py-runtime"]
     item = [
       {
         # tag = "4.0-${tgt}-l4t-r35.3"
