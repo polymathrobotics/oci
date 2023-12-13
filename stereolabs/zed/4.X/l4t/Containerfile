@@ -23,7 +23,7 @@ RUN <<EOF
     ca-certificates \
     curl
   mkdir -p /tmp/zed
-  curl -fsSL -o /tmp/zed/ZED_SDK_Linux.run https://download.stereolabs.com/zedsdk/${ZED_SDK_MAJOR}.${ZED_SDK_MINOR}/l4t${L4T_MAJOR_VERSION}.${L4T_MINOR_VERSION}/jetsons
+  curl -fsSL -o /tmp/zed/ZED_SDK_Linux.run "https://download.stereolabs.com/zedsdk/${ZED_SDK_MAJOR}.${ZED_SDK_MINOR}/l4t${L4T_MAJOR_VERSION}.${L4T_MINOR_VERSION}/jetsons"
   chmod +x /tmp/zed/ZED_SDK_Linux.run
 EOF
 
@@ -170,6 +170,7 @@ RUN <<EOF
 EOF
 
 # ZED Python API
+# hadolint ignore=DL3013
 RUN <<EOF
   apt-get update -y
   apt-get install -y --no-install-recommends \
@@ -178,13 +179,13 @@ RUN <<EOF
     python3-dev \
     python3-setuptools \
     build-essential
-  wget download.stereolabs.com/zedsdk/pyzed -O /usr/local/zed/get_python_api.py
+  wget --progress=dot:giga download.stereolabs.com/zedsdk/pyzed -O /usr/local/zed/get_python_api.py
   python3 /usr/local/zed/get_python_api.py
-  python3 -m pip install cython wheel
-  python3 -m pip install numpy pyopengl *.whl
+  python3 -m pip install --no-cache-dir cython wheel
+  python3 -m pip install --no-cache-dir numpy pyopengl -- *.whl
   apt-get remove --purge build-essential -y
   apt-get autoremove -y
-  rm *.whl
+  rm -- *.whl
   rm -rf /var/lib/apt/lists/*
 EOF
 
@@ -226,6 +227,7 @@ RUN <<EOF
 EOF
 
 # ZED Python API
+# hadolint ignore=DL3013
 RUN <<EOF
   apt-get update -y
   apt-get install -y --no-install-recommends \
@@ -234,13 +236,13 @@ RUN <<EOF
     python3-dev \
     python3-setuptools \
     build-essential
-  wget download.stereolabs.com/zedsdk/pyzed -O /usr/local/zed/get_python_api.py
+  wget --progress=dot:giga download.stereolabs.com/zedsdk/pyzed -O /usr/local/zed/get_python_api.py
   python3 /usr/local/zed/get_python_api.py
-  python3 -m pip install cython wheel
-  python3 -m pip install numpy *.whl
+  python3 -m pip install --no-cache-dir cython wheel
+  python3 -m pip install --no-cache-dir numpy -- *.whl
   apt-get remove --purge build-essential python3-dev -y
   apt-get autoremove -y
-  rm *.whl
+  rm -- *.whl
   rm -rf /var/lib/apt/lists/*
 EOF
 
