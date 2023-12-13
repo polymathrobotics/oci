@@ -4,18 +4,18 @@ on:
   push:
     branches: [ main ]
     paths:
-      - 'stereolabs/zed/4.X/l4t/tools-devel/**'
+      - 'stereolabs/zed/4.X/l4t/**'
   pull_request:
     branches: [ main ]
     paths:
-      - 'stereolabs/zed/4.X/l4t/tools-devel/**'
+      - 'stereolabs/zed/4.X/l4t/**'
   workflow_dispatch:
 jobs:
   build:
     runs-on: [self-hosted, linux, ARM64]
     defaults:
       run:
-        working-directory: stereolabs/zed/4.X/l4t/tools-devel
+        working-directory: stereolabs/zed/4.X/l4t
     steps:
       - uses: actions/checkout@v4
 
@@ -35,5 +35,5 @@ jobs:
       - name: Build and push
         uses: docker/bake-action@v4
         with:
-          workdir: stereolabs/zed/4.X/l4t/tools-devel
+          workdir: stereolabs/zed/4.X/l4t
           push: ${{ github.event_name != 'pull_request' }}

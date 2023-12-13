@@ -8,24 +8,26 @@ variable "CONTAINER_REGISTRY" {
 
 target "default" {
   dockerfile = "Containerfile"
-  name = "default-${replace(item.tgt, ".", "-")}"
+  name = "default-4-0-${tgt}-l4t-r${item.l4t_major_version}-${item.l4t_minor_version}"
   matrix = {
+    tgt = ["tools-devel", "runtime"]
     item = [
       {
-        tgt = "4.0-tools-devel-l4t-r35.3"
+        # tag = "4.0-${tgt}-l4t-r35.3"
         l4t_major_version = "35"
         l4t_minor_version = "3"
         l4t_patch_version = "1"
       },
       {
      
-        tgt = "4.0-tools-devel-l4t-r35.4"
+        # tag = "4.0-${tgt}-l4t-r35.4"
         l4t_major_version = "35"
         l4t_minor_version = "4"
         l4t_patch_version = "1"
       }
     ]
   }
+  target = tgt
   args = {
     L4T_MAJOR_VERSION = "${item.l4t_major_version}"
     L4T_MINOR_VERSION = "${item.l4t_minor_version}"
@@ -34,6 +36,6 @@ target "default" {
     ZED_SDK_MINOR = "0"
   }
   tags = [
-    "${CONTAINER_REGISTRY}/${IMAGE_NAME}:${item.tgt}"
+    "${CONTAINER_REGISTRY}/${IMAGE_NAME}:4.0-${tgt}-l4t-r${item.l4t_major_version}.${item.l4t_minor_version}"
   ]
 }
