@@ -1,5 +1,5 @@
 variable "IMAGE_NAME" {
-  default  = "stereolabs-zed"
+  default  = "stereolabs-zedbot"
 }
 
 variable "CONTAINER_REGISTRY" {
