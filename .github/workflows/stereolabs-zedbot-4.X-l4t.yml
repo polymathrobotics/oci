@@ -1,21 +1,21 @@
-name: stereolabs-zed-4.X-l4t
+name: stereolabs-zedbot-4.X-l4t
 
 on:
   push:
     branches: [ main ]
     paths:
-      - 'stereolabs/zed/4.X/l4t/**'
+      - 'stereolabs/zedbot/4.X/l4t/**'
   pull_request:
     branches: [ main ]
     paths:
-      - 'stereolabs/zed/4.X/l4t/**'
+      - 'stereolabs/zedbot/4.X/l4t/**'
   workflow_dispatch:
 jobs:
   build:
     runs-on: [self-hosted, linux, ARM64]
     defaults:
       run:
-        working-directory: stereolabs/zed/4.X/l4t
+        working-directory: stereolabs/zedbot/4.X/l4t
     steps:
       - uses: actions/checkout@v4
 
@@ -32,7 +32,7 @@ jobs:
       - name: Build locally for testing
         uses: docker/bake-action@v4
         with:
-          workdir: stereolabs/zed/4.X/l4t
+          workdir: stereolabs/zedbot/4.X/l4t
           load: true
 
       - name: Run tests
@@ -52,5 +52,5 @@ jobs:
       - name: Build and push
         uses: docker/bake-action@v4
         with:
-          workdir: stereolabs/zed/4.X/l4t
+          workdir: stereolabs/zedbot/4.X/l4t
           push: ${{ github.event_name != 'pull_request' }}
