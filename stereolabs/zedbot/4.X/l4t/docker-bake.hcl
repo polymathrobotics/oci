@@ -25,7 +25,7 @@ target "default" {
     ros_package = ["ros-base", "desktop"]
   }
   args = {
-    BASE_IMAGE = "${CONTAINER_REGISTRY}/ros:humble-${ros_package}-${item.l4t_major_version}.${item.l4t_minor_version}.${item.l4t_patch_version}"
+    BASE_IMAGE = "${CONTAINER_REGISTRY}/nvidia-l4t-ros:humble-${ros_package}-${item.l4t_major_version}.${item.l4t_minor_version}.${item.l4t_patch_version}"
     L4T_MAJOR = "${item.l4t_major_version}"
     L4T_MINOR = "${item.l4t_minor_version}"
     ZED_SDK_MAJOR = "4"
