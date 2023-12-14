@@ -39,7 +39,7 @@ jobs:
         run: |
           tags=$(docker buildx bake --print | jq -r '.target[] | .tags[0]')
           for tag in $tags; do
-            eacho "$tag"
+            echo "$tag"
           done
 
       - name: Login to DockerHub
