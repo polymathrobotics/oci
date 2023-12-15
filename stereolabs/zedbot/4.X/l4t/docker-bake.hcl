@@ -22,7 +22,7 @@ target "default" {
         l4t_patch_version = "1"
       }
     ]
-    ros_package = ["ros-base", "desktop"]
+    ros_package = ["ros_base", "desktop"]
   }
   args = {
     BASE_IMAGE = "${CONTAINER_REGISTRY}/nvidia-l4t-ros:humble-${ros_package}-r${item.l4t_major_version}.${item.l4t_minor_version}.${item.l4t_patch_version}"
