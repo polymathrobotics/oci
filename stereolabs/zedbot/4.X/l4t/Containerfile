@@ -1,6 +1,7 @@
 # syntax=docker/dockerfile:1
 ARG CONTAINER_REGISTRY=docker.io
 ARG BASE_IMAGE
+# hadolint ignore=DL3006
 FROM ${BASE_IMAGE}
 
 ARG L4T_MAJOR
