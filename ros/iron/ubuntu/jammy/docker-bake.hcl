@@ -11,6 +11,10 @@ variable "LOCAL_PLATFORM" {
   default = regex_replace("${BAKE_LOCAL_PLATFORM}", "^(darwin)", "linux")
 }
 
+variable "ROS_PACKAGE" {
+  default = ["ros-core", "ros-base", "perception", "simulation", "desktop", "desktop-full"]
+}
+
 target "_common" {
   dockerfile = "Containerfile"
   labels = {
@@ -22,10 +26,10 @@ target "_common" {
 }
 
 target "local" {
-  name = "local-${ros_package}"
   inherits = ["_common"]
+  name = "local-${ros_package}"
   matrix = {
-    ros_package = ["ros-core", "ros-base", "perception", "simulation", "desktop", "desktop-full"]
+    ros_package = ROS_PACKAGE
   }
   target = ros_package
   tags = [
@@ -35,8 +39,8 @@ target "local" {
 }
 
 target "default" {
-  name = "default-${ros_package}"
   inherits = ["_common"]
+  name = "default-${ros_package}"
   matrix = {
     ros_package = ["ros-core", "ros-base", "perception", "simulation", "desktop", "desktop-full"]
   }

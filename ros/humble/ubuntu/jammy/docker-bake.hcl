@@ -28,6 +28,7 @@ target "_common" {
 target "local" {
   inherits = ["_common"]
   name = "local-${ros_package}"
+  target = ros_package
   matrix = {
     ros_package = ROS_PACKAGE
   }
@@ -40,6 +41,7 @@ target "local" {
 target "default" {
   inherits = ["_common"]
   name = "default-${ros_package}"
+  target = ros_package
   matrix = {
     ros_package = ROS_PACKAGE
   }
