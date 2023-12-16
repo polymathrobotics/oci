@@ -1,10 +1,10 @@
 # syntax=docker/dockerfile:1
 ARG CONTAINER_REGISTRY=docker.io
-FROM $CONTAINER_REGISTRY/ubuntu:jammy-20231004 as base
+FROM $CONTAINER_REGISTRY/ubuntu:jammy-20231211.1 as base
 
 FROM base as download
 
-ARG PULUMI_VERSION=3.89.0
+ARG PULUMI_VERSION
 RUN <<EOF
   apt-get update
   apt-get install -y --no-install-recommends \
