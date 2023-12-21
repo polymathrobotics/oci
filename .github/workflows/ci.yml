@@ -55,6 +55,8 @@ jobs:
             flake8: 'flake8/**'
             github-cli: 'github-cli/**'
             glab: 'glab/**'
+            golang/1.20/jammy: 'golang/1.20/jammy/**'
+            golang/1.21/jammy: 'golang/1.21/jammy/**'
             hashicorp/terraform: 'hashicorp/terraform/**'
             jfrog/jfrog-cli: 'jfrog/jfrog-cli/**'
             ldap-utils: 'ldap-utils/**'
