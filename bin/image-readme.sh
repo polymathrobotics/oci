@@ -1,21 +1,12 @@
 #!/bin/bash
 
-set -eu
+set -eu -o pipefail
 
-DASEL_CONTAINER_IMAGE=polymathrobotics/dasel:1.26.1
-
-CONTAINERFILE_DIR=$(pwd)
-README_FILEPATH=${PWD##*/}/README.md
-
-if [[ -f "${CONTAINERFILE_DIR}/Polly.toml" ]]; then
-  _name=$(docker container run --rm \
-    --mount type=bind,source="$(pwd)",target=/share,readonly \
-    ${DASEL_CONTAINER_IMAGE} \
-      -f Polly.toml --null "container_image.readme")
-
-  if [ "${_name}" != "null" ]; then
-    README_FILEPATH=${_name}
-  fi
+json_data="$(docker buildx bake --print 2>/dev/null)"
+first_build_target=$(echo "$json_data" | jq -r '.target | to_entries[0].value')
+if echo "$first_build_target" | jq -e '.labels."dev.polymathrobotics.image.readme-filepath"' > /dev/null; then
+  readme_filepath=$(echo "$first_build_target" | jq -r '.labels."dev.polymathrobotics.image.readme-filepath"')
+  echo "$readme_filepath"
+else
+  echo "$(git rev-parse --show-prefix)README.md"
 fi
-# Without a config file, the image name is assumed to be the directory name
-echo "${README_FILEPATH}"

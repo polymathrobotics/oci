@@ -78,7 +78,7 @@ run_cinc_auditor() {
   docker container run -t --rm \
     -v "${CINC_PROFILE_DIR}:/share" \
     -v /var/run/docker.sock:/var/run/docker.sock \
-    "${CINC_AUDITOR_CONTAINER_IMAGE}" exec . --no-create-lockfile -t "docker://${CONTAINER_ID}"
+    "${CINC_AUDITOR_CONTAINER_IMAGE}" exec . --no-create-lockfile --input test_container_image=${TEST_CONTAINER_IMAGE} -t "docker://${CONTAINER_ID}"
 }
 
 cleanup_image_under_test() {
@@ -94,7 +94,6 @@ cleanup_image_under_test() {
 
 trap cleanup_image_under_test EXIT
 
-"${BIN_DIR}/check-image.sh" "${CINC_AUDITOR_CONTAINER_IMAGE}"
 args "$@"
 check_profile
 start_image_under_test

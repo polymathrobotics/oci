@@ -1,9 +1,7 @@
 #!/bin/bash
 
-set -eu
-set -o pipefail
+set -eu -o pipefail
 
-BIN_DIR="$(dirname -- "$(readlink -f "${BASH_SOURCE[0]}")")"
-FULL_IMAGE_NAME="$("${BIN_DIR}/full-image-name.sh")"
-
-docker image inspect "${FULL_IMAGE_NAME}" | jq -r '.[] | .Config.Labels."org.opencontainers.image.description"'
+json_data="$(docker buildx bake --print 2>/dev/null)"
+first_build_target=$(echo "$json_data" | jq -r '.target | to_entries[0].value')
+echo "$first_build_target" | jq -r '.labels."org.opencontainers.image.description"'
