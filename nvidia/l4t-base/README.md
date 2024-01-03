@@ -73,7 +73,7 @@ To run the container:
 
 1. Allow external applications to connect to the host's X display:
 
-       xhost *
+       xhost SI:localuser:root
 
 1. Run the docker container using the docker command
 
