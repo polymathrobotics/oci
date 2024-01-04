@@ -42,7 +42,7 @@ target "default" {
   inherits = ["_common"]
   name = "default-${ros_package}"
   matrix = {
-    ros_package = ["ros-core", "ros-base", "perception", "simulation", "desktop", "desktop-full"]
+    ros_package = ROS_PACKAGE
   }
   target = ros_package
   tags = [
