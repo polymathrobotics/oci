@@ -19,11 +19,11 @@ matrix_test() {
   # Wait for all processes to finish and capture their exit codes
   for pid in "${pids[@]}"; do
     wait "$pid"
-    # shellcheck disable=SC2145
     exit_codes+=($?)
   done
 
   # Print the collated exit codes
+  # shellcheck disable=SC2145
   echo "Exit Codes: ${exit_codes[@]}"
 
   # Calculate the overall exit code (e.g., 0 if all succeeded, non-zero if any failed)
