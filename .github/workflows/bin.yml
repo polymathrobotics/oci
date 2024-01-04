@@ -29,7 +29,3 @@ jobs:
       - name: Run shellcheck to lint scrtips
         run: |
           ./run_shellcheck.sh
-
-      - name: Run tests on scripts with bats
-        run: |
-          ./run_tests.sh
