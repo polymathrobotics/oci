@@ -39,6 +39,7 @@ target "_common" {
 }
 
 target "local" {
+  inherits = ["_common"]
   name = "local-humble-${ros_package}-l4t${item.l4t_major_version}-${item.l4t_minor_version}-zed-4-0"
   matrix = {
     item = L4T_VERSION
@@ -57,6 +58,7 @@ target "local" {
 }
 
 target "default" {
+  inherits = ["_common"]
   name = "default-humble-${ros_package}-l4t${item.l4t_major_version}-${item.l4t_minor_version}-zed-4-0"
   matrix = {
     item = L4T_VERSION
