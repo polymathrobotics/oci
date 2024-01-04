@@ -1,4 +1,4 @@
-# l4t-base
+#  l4t-base
 
 Linux for Tegra (L4T) base image. Tegra is a system on a chip (SoC) series
 developed by NVIDIA.
