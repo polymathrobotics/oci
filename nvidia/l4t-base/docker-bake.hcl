@@ -6,6 +6,13 @@ variable "IMAGE_NAME" {
   default = "nvidia-l4t-base"
 }
 
+variable "L4T_RELEASE" {
+  default = [
+    { version = "35.3.1", release = "r35.3" },
+    { version = "35.4.1", release = "r35.4" },
+  ]
+}
+
 target "_common" {
   dockerfile = "Containerfile"
   platforms = ["linux/arm64/v8"]
@@ -29,10 +36,7 @@ target "local" {
     "${CONTAINER_REGISTRY}/${IMAGE_NAME}:${item.version}"
   ]
   matrix = {
-    item = [
-      { version = "35.3.1", release = "r35.3" },
-      { version = "35.4.1", release = "r35.4" },
-    ]
+    item = L4T_RELEASE
   }
 }
 
@@ -47,9 +51,6 @@ target "default" {
     "${CONTAINER_REGISTRY}/${IMAGE_NAME}:${item.version}"
   ]
   matrix = {
-    item = [
-      { version = "35.3.1", release = "r35.3" },
-      { version = "35.4.1", release = "r35.4" },
-    ]
+    item = L4T_RELEASE
   }
 }
