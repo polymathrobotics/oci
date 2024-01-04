@@ -63,8 +63,6 @@ jobs:
             markdownlint: 'markdownlint/**'
             meshcmd: 'meshcmd/**'
             node/18/jammy: 'node/18/jammy/**'
-            nvidia/l4t-base: 'nvidia/l4t-base/**'
-            nvidia/l4t-jetpack: 'nvidia/l4t-jetpack/**'
             op: 'op/**'
             paperspace-cli: 'paperspace-cli/**'
             portainer-ce: 'portainer-ce/**'
