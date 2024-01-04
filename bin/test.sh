@@ -5,7 +5,6 @@ set -o pipefail
 
 CINC_AUDITOR_CONTAINER_IMAGE=docker.io/polymathrobotics/cinc-auditor:6.6.0
 
-BIN_DIR="$(dirname -- "$(readlink -f "${BASH_SOURCE[0]}")")"
 # DEFAULT_TAG="$("${BIN_DIR}/list-tags.sh" | head -n 1)"
 CONTAINERFILE_DIR=$(pwd)
 CINC_PROFILE_DIR="${CONTAINERFILE_DIR}/test"
@@ -78,7 +77,7 @@ run_cinc_auditor() {
   docker container run -t --rm \
     -v "${CINC_PROFILE_DIR}:/share" \
     -v /var/run/docker.sock:/var/run/docker.sock \
-    "${CINC_AUDITOR_CONTAINER_IMAGE}" exec . --no-distinct-exit --no-create-lockfile --input test_container_image=${TEST_CONTAINER_IMAGE} -t "docker://${CONTAINER_ID}"
+    "${CINC_AUDITOR_CONTAINER_IMAGE}" exec . --no-distinct-exit --no-create-lockfile --input test_container_image="${TEST_CONTAINER_IMAGE}" -t "docker://${CONTAINER_ID}"
 }
 
 cleanup_image_under_test() {

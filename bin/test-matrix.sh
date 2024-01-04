@@ -18,7 +18,8 @@ matrix_test() {
 
   # Wait for all processes to finish and capture their exit codes
   for pid in "${pids[@]}"; do
-    wait $pid
+    wait "$pid"
+    # shellcheck disable=SC2145
     exit_codes+=($?)
   done
 
@@ -35,7 +36,7 @@ matrix_test() {
   done
 
   # Exit with the overall exit code
-  exit $overall_exit_code
+  exit "$overall_exit_code"
 }
 
 matrix_build=$(docker buildx bake --print 2>/dev/null | jq 'has("group")')
