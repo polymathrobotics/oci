@@ -25,6 +25,7 @@ jobs:
           filters: |
             nvidia/l4t-base: 'nvidia/l4t-base/**'
             nvidia/l4t-jetpack: 'nvidia/l4t-jetpack/**'
+            nvidia/l4t-ros: 'nvidia/l4t-ros/**'
             stereolabs/zed/4.X/l4t: 'stereolabs/zed/4.X/l4t/**'
             stereolabs/zedbot/4.X/l4t: 'stereolabs/zedbot/4.X/l4t/**'
 
