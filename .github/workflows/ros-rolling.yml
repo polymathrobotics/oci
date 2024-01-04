@@ -20,6 +20,6 @@ jobs:
     steps:
       - uses: polymathrobotics/container-build-publish-action@main
         with:
-          workdir: ${{ matrix.image }}
+          workdir: ros/rolling/ubuntu/jammy
           dockerhub-username: ${{ secrets.CONTAINER_REGISTRY_USERNAME }}
           dockerhub-password: ${{ secrets.CONTAINER_DESCRIPTION_PASSWORD }}
