@@ -85,6 +85,7 @@ jobs:
             redis/7.2/jammy: 'redis/7.2/jammy/**'
             ros/humble/ubuntu/jammy: 'ros/humble/ubuntu/jammy/**'
             ros/iron/ubuntu/jammy: 'ros/iron/ubuntu/jammy/**'
+            ros/noetic/ubuntu/jammy: 'ros/noetic/ubuntu/jammy/**'
             ros/rolling/ubuntu/jammy: 'ros/rolling/ubuntu/jammy/**'
             ruby/3.1/jammy: 'ruby/3.1/jammy/**'
             ruby/3.1/slim-jammy: 'ruby/3.1/slim-jammy/**'
