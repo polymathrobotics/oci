@@ -14,6 +14,7 @@ target "_common" {
     "org.opencontainers.image.description" = "Linux for Tegra (L4T) base image for the NVIDIA Jetson embedded computing platform."
     "org.opencontainers.image.licenses" = "Apache-2.0"
     "org.opencontainers.image.source" = "https://github.com/polymathrobotics/oci"
+    "org.opencontainers.image.title" = "${IMAGE_NAME}"
   }
 }
 
