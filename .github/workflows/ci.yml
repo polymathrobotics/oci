@@ -85,6 +85,7 @@ jobs:
             python/3.9/jammy: 'python/3.9/jammy/**'
             python/3.9/slim-jammy: 'python/3.9/slim-jammy/**'
             redis/7.2/jammy: 'redis/7.2/jammy/**'
+            ros/humble/ubuntu/jammy: 'ros/humble/ubuntu/jammy/**'
             ruby/3.1/jammy: 'ruby/3.1/jammy/**'
             ruby/3.1/slim-jammy: 'ruby/3.1/slim-jammy/**'
             ruby/3.2/jammy: 'ruby/3.2/jammy/**'
