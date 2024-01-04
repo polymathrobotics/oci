@@ -1,0 +1,24 @@
+name: ros-rolling
+
+on:
+  push:
+    branches: [ main ]
+    paths:
+      - 'ros/rolling/ubuntu/jammy/**'
+  pull_request:
+    branches: [ main ]
+    paths:
+      - 'ros/rolling/ubuntu/jammy/**'
+  workflow_dispatch:
+jobs:
+  build:
+    runs-on: [self-hosted, linux, X64]
+    defaults:
+      run:
+        working-directory: ros/rolling/ubuntu/jammy
+    steps:
+      - uses: polymathrobotics/container-build-publish-action@main
+        with:
+          workdir: ${{ matrix.image }}
+          dockerhub-username: ${{ secrets.CONTAINER_REGISTRY_USERNAME }}
+          dockerhub-password: ${{ secrets.CONTAINER_DESCRIPTION_PASSWORD }}
