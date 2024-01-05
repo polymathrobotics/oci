@@ -39,6 +39,7 @@ jobs:
         image: ${{ fromJSON(needs.changes.outputs.images) }}
     if: ${{ needs.changes.outputs.images != '[]' && needs.changes.outputs.images != '' }}
     runs-on: [self-hosted, linux, ARM64]
+    timeout-minutes: 1440
     steps:
       - uses: polymathrobotics/container-build-publish-action@main
         with:
