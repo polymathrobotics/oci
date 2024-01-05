@@ -45,6 +45,7 @@ The images are pubished to https://hub.docker.com/u/polymathrobotics
 | [rust](https://hub.docker.com/r/polymathrobotics/rust) |  Rust is a systems programming language sponsored by Mozilla Research. | [rust](https://github.com/polymathrobotics/oci/tree/main/rust) |
 | [ruby](https://hub.docker.com/r/polymathrobotics/ruby) | Ruby is a dynamic, reflective, object-oriented, general-purpose, open-source programming language | [ruby](https://github.com/polymathrobotics/oci/tree/main/ruby) |
 | [shellcheck](https://hub.docker.com/r/polymathrobotics/shellcheck) | Static analysis tool for shell scripts | [shellcheck](https://github.com/polymathrobotics/oci/tree/main/shellcheck) |
+| [stereolabs-zed](https://hub.docker.com/r/polymathrobotics/stereolabs-zed)<br>[stereolabs-zedbot](https://hub.docker.com/r/polymathrobotics/stereolabs-zedbot) | StereoLabs ZED SDK | [stereolabs-zed](https://github.com/polymathrobotics/oci/tree/main/stereolabs/zed)<br>[stereolabs-zedbot](https://github.com/polymathrobotics/oci/tree/main/stereolabs/zedbot) |
 | [smokeping](https://hub.docker.com/r/polymathrobotics/smokeping) | Smokeping network latency grapher | [smokeping](https://github.com/polymathrobotics/oci/tree/main/smokeping) |
 | [terraform](https://hub.docker.com/r/polymathrobotics/terraform) | Terraform enables you to safely and predictably create, change, and improve infrastructure. | [terraform](https://github.com/polymathrobotics/oci/tree/main/hashicorp/terraform) |
 
