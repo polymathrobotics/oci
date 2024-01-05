@@ -18,7 +18,7 @@ The images are pubished to https://hub.docker.com/u/polymathrobotics
 | [gh](https://hub.docker.com/r/polymathrobotics/gh) | The GitHub CLI tool | [github-cli](https://github.com/polymathrobotics/oci/tree/main/github-cli) |
 | [glab](https://hub.docker.com/r/polymathrobotics/glab) | The GitLab CLI tool | [glab](https://github.com/polymathrobotics/oci/tree/main/glab) |
 | [golang](https://hub.docker.com/r/polymathrobotics/golang) | Go (golang) is a general purpose, higher-level, imperative programming language. | [golang](https://github.com/polymathrobotics/oci/tree/main/golang) |
-| [grafana-oss](https://hub.docker.com/r/polymathrobotics/grafana-oss) | Grafana - the open observability platform | [grafana/grafana-oss](https://github.com/polymathrobotics/oci/tree/main/grafana-oss) |
+| [grafana-oss](https://hub.docker.com/r/polymathrobotics/grafana-oss) | Grafana - the open observability platform | [grafana/grafana-oss](https://github.com/polymathrobotics/oci/tree/main/grafana/grafana-oss) |
 | [hadolint](https://hub.docker.com/r/polymathrobotics/hadolint) | Containerfile/Dockerfile linter | [hadolint](https://github.com/polymathrobotics/oci/tree/main/hadolint) |
 | [jfrog-cli](https://hub.docker.com/r/polymathrobotics/jfrog-cli) | JFrog CLI provides a simple interface that automates access to JFrog products. | [jfrog-cli](https://github.com/polymathrobotics/oci/tree/main/jfrog/jfrog-cli) |
 | [ldap-utils](https://hub.docker.com/r/polymathrobotics/ldap-utils) | OpenLDAP client utilities. | [ldap-utils](https://github.com/polymathrobotics/oci/tree/main/ldap-utils) |
