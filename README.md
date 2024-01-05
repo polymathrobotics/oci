@@ -139,7 +139,7 @@ $(git rev-parse --show-toplevel)/bin/lint.sh
 docker buildx create --use
 docker buildx bake local --local
 # Run tests on the image with cinc-auditor
-$(git rev-parse --show-toplevel)/bin/test.sh
+$(git rev-parse --show-toplevel)/bin/test-matrix.sh
 # (Optional) build and push the image to the container repository on dockerhub - ideally this should be done via a GitHub Actions workflow and not locally
 docker buildx bake default --push
 ```
