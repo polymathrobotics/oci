@@ -5,17 +5,14 @@ set -o pipefail
 
 CINC_AUDITOR_CONTAINER_IMAGE=docker.io/polymathrobotics/cinc-auditor:6.6.0
 
-# DEFAULT_TAG="$("${BIN_DIR}/list-tags.sh" | head -n 1)"
 CONTAINERFILE_DIR=$(pwd)
 CINC_PROFILE_DIR="${CONTAINERFILE_DIR}/test"
 
+# Assume we're building one image in this case. Even if we have multiple
+# tags, there shouldn't be any difference between them. So just grab the
+# first tag in the list, as it is as good as any other.
 json_data="$(docker buildx bake local --print 2>/dev/null)"
-# Check if .group.local.targets.default exists, and if it does, extract its value
-if echo "$json_data" | jq -e '.group.local.targets' > /dev/null; then
-  DEFAULT_TAG=$(echo "$json_data" | jq -r '.target."local-default".tags | first')
-else
-  DEFAULT_TAG=$(echo "$json_data" | jq -r '.target.local.tags | first')
-fi
+DEFAULT_TAG=$(echo "$json_data" | jq -r '.target[] | .tags[0]' | head -n 1)
 
 usage() {
   cat <<EOF
@@ -75,9 +72,9 @@ run_cinc_auditor() {
   echo "==> running cinc-auditor against ${TEST_CONTAINER_IMAGE}"
   echo "==> with command: '${ENTRYPOINT_COMMAND}'"
   docker container run -t --rm \
-    -v "${CINC_PROFILE_DIR}:/share" \
-    -v /var/run/docker.sock:/var/run/docker.sock \
-    "${CINC_AUDITOR_CONTAINER_IMAGE}" exec . --no-distinct-exit --no-create-lockfile --input test_container_image="${TEST_CONTAINER_IMAGE}" -t "docker://${CONTAINER_ID}"
+    --mount type=bind,source="${CINC_PROFILE_DIR}",target=/share \
+    --mount type=bind,source=/var/run/docker.sock,target=/var/run/docker.sock \
+    "${CINC_AUDITOR_CONTAINER_IMAGE}" exec . --no-create-lockfile --input test_container_image="${TEST_CONTAINER_IMAGE}" -t "docker://${CONTAINER_ID}"
 }
 
 cleanup_image_under_test() {
