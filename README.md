@@ -141,5 +141,5 @@ docker buildx bake local --local
 # Run tests on the image with cinc-auditor
 $(git rev-parse --show-toplevel)/bin/test.sh
 # (Optional) build and push the image to the container repository on dockerhub - ideally this should be done via a GitHub Actions workflow and not locally
-docker build bake default
+docker buildx bake default --push
 ```
