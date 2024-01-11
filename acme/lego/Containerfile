@@ -1,16 +1,16 @@
 # syntax=docker/dockerfile:1
 ARG CONTAINER_REGISTRY=docker.io
-FROM $CONTAINER_REGISTRY/ubuntu:jammy-20231004 as base
+FROM $CONTAINER_REGISTRY/ubuntu:jammy-20231211.1 as base
 FROM base as download
 
 WORKDIR /tmp
 
-ARG LEGO_URL_AMD64="https://github.com/go-acme/lego/releases/download/v4.13.3/lego_v4.13.3_linux_amd64.tar.gz"
-ARG LEGO_SHA256_AMD64="d321fc3ee7f33337d8e2c64c6e807a2526c1f1310a40aad3641b06ee60526d95"
-ARG LEGO_URL_ARM64="https://github.com/go-acme/lego/releases/download/v4.13.3/lego_v4.13.3_linux_arm64.tar.gz"
-ARG LEGO_SHA256_ARM64="787d11f03046285e1e800e8ac19382c05f28d6933236c52fafe025f7cadd9a0b"
-ARG LEGO_URL_ARMHF="https://github.com/go-acme/lego/releases/download/v4.13.3/lego_v4.13.3_linux_armv7.tar.gz"
-ARG LEGO_SHA256_ARMHF="4ad6255765052a949f4fc68e24aa34c9ec4f720e4b0f49e968ef682eb5263e70"
+ARG LEGO_URL_AMD64
+ARG LEGO_SHA256_AMD64
+ARG LEGO_URL_ARM64
+ARG LEGO_SHA256_ARM64
+ARG LEGO_URL_ARMHF
+ARG LEGO_SHA256_ARMHF
 
 SHELL ["/bin/bash", "-o", "pipefail", "-c"]
 RUN <<EOF
