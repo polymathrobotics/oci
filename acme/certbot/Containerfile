@@ -1,8 +1,8 @@
 # syntax=docker/dockerfile:1
 ARG CONTAINER_REGISTRY=docker.io
-FROM $CONTAINER_REGISTRY/ubuntu:jammy-20231004
+FROM $CONTAINER_REGISTRY/ubuntu:jammy-20231211.1
 
-ARG CERTBOT_VERSION=2.6.0
+ARG CERTBOT_VERSION
 
 SHELL ["/bin/bash", "-o", "pipefail", "-c"]
 RUN <<EOF
