@@ -1,14 +1,14 @@
 # syntax=docker/dockerfile:1
 # GitHub doesn't offer older versions of the cli in their package repo, so use releases from GitHub
 ARG CONTAINER_REGISTRY=docker.io
-FROM $CONTAINER_REGISTRY/ubuntu:jammy-20231004 as base
+FROM $CONTAINER_REGISTRY/ubuntu:jammy-20231211.1 as base
 
-ARG GITHUB_CLI_URL_AMD64="https://github.com/cli/cli/releases/download/v2.13.0/gh_2.13.0_linux_amd64.deb"
-ARG GITHUB_CLI_SHA256_AMD64="b4d69e1d00cca2f35f3d12c4f3116f469f6fc2ef3449d8924a253c0f41cb7a94"
-ARG GITHUB_CLI_URL_ARM64="https://github.com/cli/cli/releases/download/v2.13.0/gh_2.13.0_linux_arm64.deb"
-ARG GITHUB_CLI_SHA256_ARM64="a34082dd15c7a3c594be2a64701b14cf10fd7dd2ee60498fbea0ee83a7df5a9e"
-ARG GITHUB_CLI_URL_ARMHF="https://github.com/cli/cli/releases/download/v2.13.0/gh_2.13.0_linux_armv6.deb"
-ARG GITHUB_CLI_SHA256_ARMHF="17ca4a818ce177460d5158d0d92a0b6ece6019d33844e06561ff51a1abdefcc"
+ARG GITHUB_CLI_URL_AMD64
+ARG GITHUB_CLI_SHA256_AMD64
+ARG GITHUB_CLI_URL_ARM64
+ARG GITHUB_CLI_SHA256_ARM64
+ARG GITHUB_CLI_URL_ARMHF
+ARG GITHUB_CLI_SHA256_ARMHF
 
 FROM base as download
 

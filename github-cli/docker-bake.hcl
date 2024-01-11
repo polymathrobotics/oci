@@ -3,7 +3,7 @@ variable "IMAGE_NAME" {
 }
 
 variable "VERSION" {
-  default = "2.39.2"
+  default = "2.42.0"
 }
 
 variable "CONTAINER_REGISTRY" {
@@ -18,12 +18,12 @@ variable "LOCAL_PLATFORM" {
 target "_common" {
   args = {
     GITHUB_CLI_VERSION = "${VERSION}"
-    GITHUB_CLI_URL_AMD64 = "https://github.com/cli/cli/releases/download/v2.39.2/gh_2.39.2_linux_amd64.deb"
-    GITHUB_CLI_SHA256_AMD64 = "44093ad78df1f33ff88cd09bbdad8ee2c5d9725d349ed006c78473a6cdc3f165"
-    GITHUB_CLI_URL_ARM64 = "https://github.com/cli/cli/releases/download/v2.39.2/gh_2.39.2_linux_arm64.deb"
-    GITHUB_CLI_SHA256_ARM64 = "563bd95277076ef6176b17b1e81c00fbf55bb2ef83d4b9b9b2f50b72e1aa28c8"
-    GITHUB_CLI_URL_ARMHF = "https://github.com/cli/cli/releases/download/v2.39.2/gh_2.39.2_linux_armv6.deb"
-    GITHUB_CLI_SHA256_ARMHF = "36402c214ffaea58cc9a1e8f5c59584d8909613209a968a4b06d68c4682d5914"
+    GITHUB_CLI_URL_AMD64 = "https://github.com/cli/cli/releases/download/v2.42.0/gh_2.42.0_linux_amd64.deb"
+    GITHUB_CLI_SHA256_AMD64 = "b51d0d771b1826445fc303a7ae15b4176bb7a138357134389a149ae0901fa2c0"
+    GITHUB_CLI_URL_ARM64 = "https://github.com/cli/cli/releases/download/v2.42.0/gh_2.42.0_linux_arm64.deb"
+    GITHUB_CLI_SHA256_ARM64 = "cfcbb63e2cef4ef5b1526bc5c16f84a247b57bf7f30d73131202923c747f2eec"
+    GITHUB_CLI_URL_ARMHF = "https://github.com/cli/cli/releases/download/v2.42.0/gh_2.42.0_linux_armv6.deb"
+    GITHUB_CLI_SHA256_ARMHF = "6503c7d3f1fe74154ae5a80c77297249439b6729a5fcf952610c8850d2ca9efd"
   }
   dockerfile = "Containerfile"
   tags = [
