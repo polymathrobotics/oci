@@ -1,11 +1,10 @@
 # syntax=docker/dockerfile:1
 ARG CONTAINER_REGISTRY=docker.io/polymathrobotics
-FROM $CONTAINER_REGISTRY/buildpack-deps:focal-curl
+FROM $CONTAINER_REGISTRY/buildpack-deps:noble-curl
 
 RUN set -eux; \
 	apt-get update; \
 	apt-get install -y --no-install-recommends \
-		bzr \
 		git \
 		mercurial \
 		openssh-client \

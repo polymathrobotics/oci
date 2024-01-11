@@ -1,6 +1,6 @@
 # syntax=docker/dockerfile:1
 ARG CONTAINER_REGISTRY=docker.io/polymathrobotics
-FROM $CONTAINER_REGISTRY/buildpack-deps:jammy-scm
+FROM $CONTAINER_REGISTRY/buildpack-deps:noble-scm
 
 RUN set -ex; \
 	apt-get update; \

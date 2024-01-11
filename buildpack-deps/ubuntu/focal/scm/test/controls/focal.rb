@@ -1,4 +1,4 @@
-describe command('curl') do
+describe command('git') do
   it { should exist }
 end
 
@@ -11,5 +11,5 @@ describe os[:name] do
 end
 
 describe os[:release] do
-  it { should eq '22.04' }
+  it { should eq '20.04' }
 end

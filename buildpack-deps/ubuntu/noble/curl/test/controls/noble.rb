@@ -11,5 +11,5 @@ describe os[:name] do
 end
 
 describe os[:release] do
-  it { should eq '22.04' }
+  it { should eq '24.04' }
 end
