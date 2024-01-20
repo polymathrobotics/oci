@@ -20,11 +20,6 @@ target "_common" {
     RUBY_VERSION = "${VERSION}"
     RUBY_DOWNLOAD_URL = "https://cache.ruby-lang.org/pub/ruby/3.3/ruby-3.3.0.tar.xz"
     RUBY_DOWNLOAD_SHA256 = "676b65a36e637e90f982b57b059189b3276b9045034dcd186a7e9078847b975b"
-    RUSTUP_URL_AMD64 = "https://static.rust-lang.org/rustup/archive/1.26.0/x86_64-unknown-linux-gnu/rustup-init"
-    RUSTUP_SHA256_AMD64 = "0b2f6c8f85a3d02fde2efc0ced4657869d73fccfce59defb4e8d29233116e6db"
-    RUSTUP_URL_ARM64 = "https://static.rust-lang.org/rustup/archive/1.26.0/aarch64-unknown-linux-gnu/rustup-init"
-    RUSTUP_SHA256_ARM64 = "673e336c81c65e6b16dcdede33f4cc9ed0f08bde1dbe7a935f113605292dc800"
-    RUSTUP_INIT_DEFAULT_TOOLCHAIN = "1.74.1"
   }
   dockerfile = "Containerfile"
   tags = [
