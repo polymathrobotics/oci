@@ -1,6 +1,6 @@
 # syntax=docker/dockerfile:1
 ARG CONTAINER_REGISTRY=docker.io
-FROM $CONTAINER_REGISTRY/ubuntu:jammy-20231211.1
+FROM $CONTAINER_REGISTRY/ubuntu:jammy-20240111
 
 RUN set -eux; \
 	apt-get update; \
@@ -25,9 +25,14 @@ RUN set -eux; \
 	} >> /usr/local/etc/gemrc
 
 ENV LANG C.UTF-8
-ENV RUBY_MAJOR 3.2
+
+# https://www.ruby-lang.org/en/news/2024/01/18/ruby-3-2-3-released/
 ARG RUBY_VERSION
+ENV RUBY_VERSION=$RUBY_VERSION
+ARG RUBY_DOWNLOAD_URL
+ENV RUBY_DOWNLOAD_URL=$RUBY_DOWNLOAD_URL
 ARG RUBY_DOWNLOAD_SHA256
+ENV RUBY_DOWNLOAD_SHA256=$RUBY_DOWNLOAD_SHA256
 
 # some of ruby's build scripts are written in ruby
 #   we purge system ruby later to make sure our final image uses what we just built
@@ -78,7 +83,7 @@ RUN set -eux; \
 		cargo --version; \
 	fi; \
 	\
-	wget -O ruby.tar.xz "https://cache.ruby-lang.org/pub/ruby/${RUBY_MAJOR%-rc}/ruby-$RUBY_VERSION.tar.xz"; \
+	wget -O ruby.tar.xz "$RUBY_DOWNLOAD_URL"; \
 	echo "$RUBY_DOWNLOAD_SHA256 *ruby.tar.xz" | sha256sum --check --strict; \
 	\
 	mkdir -p /usr/src/ruby; \
