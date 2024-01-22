@@ -3,7 +3,7 @@ variable "IMAGE_NAME" {
 }
 
 variable "VERSION" {
-  default = "0.5.0"
+  default = "0.6.0"
 }
 
 variable "CONTAINER_REGISTRY" {
@@ -18,12 +18,12 @@ variable "LOCAL_PLATFORM" {
 target "_common" {
   dockerfile = "Containerfile"
   args = {
-    COLLECTD_EXPORTER_URL_AMD64 = "https://github.com/prometheus/collectd_exporter/releases/download/v0.5.0/collectd_exporter-0.5.0.linux-amd64.tar.gz"
-    COLLECTD_EXPORTER_SHA256_AMD64 = "5b906b1ea49c119024350c10b4b8491857a20336a0ffd778a3f10d7536a6d123"
-    COLLECTD_EXPORTER_URL_ARM64 = "https://github.com/prometheus/collectd_exporter/releases/download/v0.5.0/collectd_exporter-0.5.0.linux-arm64.tar.gz"
-    COLLECTD_EXPORTER_SHA256_ARM64 = "eef28573acb3410137640e80787784027858831bfd8502c5c43df4ca6dc34d45"
-    COLLECTD_EXPORTER_URL_ARMHF = "https://github.com/prometheus/collectd_exporter/releases/download/v0.5.0/collectd_exporter-0.5.0.linux-armv7.tar.gz"
-    COLLECTD_EXPORTER_SHA256_ARMHF = "53cea60cd356f76ac3b67a9f0246ffe4a0c43ea5cca2f0d88f944e32a6494cfd"
+    COLLECTD_EXPORTER_URL_AMD64 = "https://github.com/prometheus/collectd_exporter/releases/download/v0.6.0/collectd_exporter-0.6.0.linux-amd64.tar.gz"
+    COLLECTD_EXPORTER_SHA256_AMD64 = "5e8345299e8d9df682d8032678095d20b1fa4178505389c52e03ed98c83f7ec8"
+    COLLECTD_EXPORTER_URL_ARM64 = "https://github.com/prometheus/collectd_exporter/releases/download/v0.6.0/collectd_exporter-0.6.0.linux-arm64.tar.gz"
+    COLLECTD_EXPORTER_SHA256_ARM64 = "b0a8ee92474c49511bf833c4fdcbe8f477f85cebd812936c415f292894bdf694"
+    COLLECTD_EXPORTER_URL_ARMHF = "https://github.com/prometheus/collectd_exporter/releases/download/v0.6.0/collectd_exporter-0.6.0.linux-armv7.tar.gz"
+    COLLECTD_EXPORTER_SHA256_ARMHF = "8d1f169b3ff603cb44a8b0e15ebf0d6c40ad1970eb8a4cc48e690760241a9b24"
   }
   tags = [
     "${CONTAINER_REGISTRY}/${IMAGE_NAME}:${VERSION}",

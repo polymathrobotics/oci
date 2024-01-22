@@ -1,3 +1,0 @@
-[container_image]
-tags = [ "0.5.0", "latest" ]
-readme='prometheus/collectd_exporter/README.md'
