@@ -3,7 +3,7 @@ variable "IMAGE_NAME" {
 }
 
 variable "VERSION" {
-  default = "0.25.0"
+  default = "0.26.0"
 }
 
 variable "CONTAINER_REGISTRY" {
@@ -18,12 +18,12 @@ variable "LOCAL_PLATFORM" {
 target "_common" {
   dockerfile = "Containerfile"
   args = {
-    ALERTMANAGER_URL_AMD64 = "https://github.com/prometheus/alertmanager/releases/download/v0.25.0/alertmanager-0.25.0.linux-amd64.tar.gz"
-    ALERTMANAGER_SHA256_AMD64 = "206cf787c01921574ca171220bb9b48b043c3ad6e744017030fed586eb48e04b"
-    ALERTMANAGER_URL_ARM64 = "https://github.com/prometheus/alertmanager/releases/download/v0.25.0/alertmanager-0.25.0.linux-arm64.tar.gz"
-    ALERTMANAGER_SHA256_ARM64 = "20db5e4e12bcce8e2e419cc4c2bc35062ddbc14d2aacb77e4d5684c0eab7f0fe"
-    ALERTMANAGER_URL_ARMHF = "https://github.com/prometheus/alertmanager/releases/download/v0.25.0/alertmanager-0.25.0.linux-armv7.tar.gz"
-    ALERTMANAGER_SHA256_ARMHF = "3cfd839d4463a7679d32800258b11471498ebc49483273d588818c0432a80af1"
+    ALERTMANAGER_URL_AMD64 = "https://github.com/prometheus/alertmanager/releases/download/v0.26.0/alertmanager-0.26.0.linux-amd64.tar.gz"
+    ALERTMANAGER_SHA256_AMD64 = "abd73e2ee6bf67d3888699660abbecba7b076bf1f9459a3a8999d493b149ffa6"
+    ALERTMANAGER_URL_ARM64 = https://github.com/prometheus/alertmanager/releases/download/v0.26.0/alertmanager-0.26.0.linux-arm64.tar.gz"
+    ALERTMANAGER_SHA256_ARM64 = "f65969661821570929ad34cf64e034fe72c8e014855d244321c67a0c3ce3fc08"
+    ALERTMANAGER_URL_ARMHF = "https://github.com/prometheus/alertmanager/releases/download/v0.26.0/alertmanager-0.26.0.linux-armv7.tar.gz"
+    ALERTMANAGER_SHA256_ARMHF = "1a88a94c1f6cce900f49daba6142a5900afc92619ce98864663338d74bcf1685"
   }
   tags = [
     "${CONTAINER_REGISTRY}/${IMAGE_NAME}:${VERSION}",

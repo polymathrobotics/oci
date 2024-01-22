@@ -1,12 +1,12 @@
 ARG CONTAINER_REGISTRY=docker.io
-FROM $CONTAINER_REGISTRY/ubuntu:jammy-20231004 AS base
+FROM $CONTAINER_REGISTRY/ubuntu:jammy-20240111 AS base
 
-ARG ALERTMANAGER_URL_AMD64="https://github.com/prometheus/alertmanager/releases/download/v0.25.0/alertmanager-0.25.0.linux-amd64.tar.gz"
-ARG ALERTMANAGER_SHA256_AMD64="206cf787c01921574ca171220bb9b48b043c3ad6e744017030fed586eb48e04b"
-ARG ALERTMANAGER_URL_ARM64="https://github.com/prometheus/alertmanager/releases/download/v0.25.0/alertmanager-0.25.0.linux-arm64.tar.gz"
-ARG ALERTMANAGER_SHA256_ARM64="20db5e4e12bcce8e2e419cc4c2bc35062ddbc14d2aacb77e4d5684c0eab7f0fe"
-ARG ALERTMANAGER_URL_ARMHF="https://github.com/prometheus/alertmanager/releases/download/v0.25.0/alertmanager-0.25.0.linux-armv7.tar.gz"
-ARG ALERTMANAGER_SHA256_ARMHF="3cfd839d4463a7679d32800258b11471498ebc49483273d588818c0432a80af1"
+ARG ALERTMANAGER_URL_AMD64
+ARG ALERTMANAGER_SHA256_AMD64
+ARG ALERTMANAGER_URL_ARM64
+ARG ALERTMANAGER_SHA256_ARM64
+ARG ALERTMANAGER_URL_ARMHF
+ARG ALERTMANAGER_SHA256_ARMHF
 
 FROM base as download
 
