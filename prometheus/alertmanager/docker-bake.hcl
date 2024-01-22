@@ -20,7 +20,7 @@ target "_common" {
   args = {
     ALERTMANAGER_URL_AMD64 = "https://github.com/prometheus/alertmanager/releases/download/v0.26.0/alertmanager-0.26.0.linux-amd64.tar.gz"
     ALERTMANAGER_SHA256_AMD64 = "abd73e2ee6bf67d3888699660abbecba7b076bf1f9459a3a8999d493b149ffa6"
-    ALERTMANAGER_URL_ARM64 = https://github.com/prometheus/alertmanager/releases/download/v0.26.0/alertmanager-0.26.0.linux-arm64.tar.gz"
+    ALERTMANAGER_URL_ARM64 = "https://github.com/prometheus/alertmanager/releases/download/v0.26.0/alertmanager-0.26.0.linux-arm64.tar.gz"
     ALERTMANAGER_SHA256_ARM64 = "f65969661821570929ad34cf64e034fe72c8e014855d244321c67a0c3ce3fc08"
     ALERTMANAGER_URL_ARMHF = "https://github.com/prometheus/alertmanager/releases/download/v0.26.0/alertmanager-0.26.0.linux-armv7.tar.gz"
     ALERTMANAGER_SHA256_ARMHF = "1a88a94c1f6cce900f49daba6142a5900afc92619ce98864663338d74bcf1685"
