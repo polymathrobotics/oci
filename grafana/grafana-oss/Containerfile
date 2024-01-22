@@ -1,12 +1,12 @@
 ARG CONTAINER_REGISTRY=docker.io
-FROM $CONTAINER_REGISTRY/ubuntu:jammy-20231004 as base
+FROM $CONTAINER_REGISTRY/ubuntu:jammy-20240111 as base
 
 FROM base as download
 
-ARG GRAFANA_URL_AMD64="https://dl.grafana.com/oss/release/grafana-10.2.2.linux-amd64.tar.gz"
-ARG GRAFANA_SHA256_AMD64="32dd2c8b94f1917190a79be6543dfb7e5dd6297bae21c24db624dc1180aba19f"
-ARG GRAFANA_URL_ARM64="https://dl.grafana.com/oss/release/grafana-10.2.2.linux-arm64.tar.gz"
-ARG GRAFANA_SHA256_ARM64="96770f3f9bdfc662e0dbe57fbbb09206817935bca0e38755f942e0f65259e8c7"
+ARG GRAFANA_URL_AMD64
+ARG GRAFANA_SHA256_AMD64
+ARG GRAFANA_URL_ARM64
+ARG GRAFANA_SHA256_ARM64
 
 SHELL ["/bin/bash", "-o", "pipefail", "-c"]
 RUN apt-get update \
