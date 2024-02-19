@@ -1,0 +1,113 @@
+# syntax=docker/dockerfile:1
+ARG CONTAINER_REGISTRY=docker.io
+FROM $CONTAINER_REGISTRY/ubuntu:jammy-20240212 as base
+FROM base AS build
+
+RUN export DEBIAN_FRONTEND=noninteractive \
+    && apt-get update \
+    && apt-get install \
+      --yes --no-install-recommends \
+      build-essential \
+      ca-certificates \
+      curl \
+      libldap-dev \
+      libpq-dev \
+      libsasl2-dev \
+      libssl-dev \
+      libxml2-dev \
+      libxmlsec1 \
+      libxmlsec1-dev \
+      libxmlsec1-openssl \
+      libxslt-dev \
+      pkg-config \
+      python3-dev \
+      python3-pip \
+      python3-venv \
+    && python3 -m venv /opt/netbox/venv \
+    && /opt/netbox/venv/bin/python3 -m pip install --upgrade \
+      pip \
+      setuptools \
+      wheel
+
+ARG NETBOX_SOURCE_URL=https://github.com/netbox-community/netbox/archive/refs/tags/v3.7.2.tar.gz
+
+RUN <<EOF
+  curl -fsSL -o /tmp/netbox.tar.gz ${NETBOX_SOURCE_URL}
+  mkdir -p /tmp/netbox
+  tar xvf /tmp/netbox.tar.gz -C /tmp/netbox --strip-components=1
+EOF
+
+RUN cp /tmp/netbox/requirements.txt /requirements.txt
+COPY requirements-container.txt /
+
+RUN \
+    # We compile 'psycopg' in the build process
+    sed -i -e '/psycopg/d' /requirements.txt && \
+    # Gunicorn is not needed because we use Nginx Unit
+    sed -i -e '/gunicorn/d' /requirements.txt && \
+    # We need 'social-auth-core[all]' in the Docker image. But if we put it in our own requirements-container.txt
+    # we have potential version conflicts and the build will fail.
+    # That's why we just replace it in the original requirements.txt.
+    sed -i -e 's/social-auth-core\[openidconnect\]/social-auth-core\[all\]/g' /requirements.txt && \
+    /opt/netbox/venv/bin/pip install \
+      -r /requirements.txt \
+      -r /requirements-container.txt
+
+FROM build AS main
+
+RUN export DEBIAN_FRONTEND=noninteractive \
+    && apt-get update \
+    && apt-get install \
+      --yes --no-install-recommends \
+      bzip2 \
+      ca-certificates \
+      curl \
+      libldap-common \
+      libpq5 \
+      libxmlsec1-openssl \
+      openssh-client \
+      openssl \
+      python3 \
+      python3-distutils \
+      tini \
+    && curl --silent --output /usr/share/keyrings/nginx-keyring.gpg \
+      https://unit.nginx.org/keys/nginx-keyring.gpg \
+    && echo "deb [signed-by=/usr/share/keyrings/nginx-keyring.gpg] https://packages.nginx.org/unit/ubuntu/ jammy unit" \
+      > /etc/apt/sources.list.d/unit.list \
+    && apt-get update \
+    && apt-get install \
+      --yes --no-install-recommends \
+      unit=1.31.1-1~jammy \
+      unit-python3.10=1.31.1-1~jammy \
+    && rm -rf /var/lib/apt/lists/*
+
+COPY --from=build /opt/netbox/venv /opt/netbox/venv
+# RUN cp -r /tmp/netbox /opt/netbox
+COPY --from=build /tmp/netbox /opt/netbox
+# Copy the modified 'requirements*.txt' files, to have the files actually used during installation
+COPY --from=build /requirements.txt /requirements-container.txt /opt/netbox/
+
+COPY docker/configuration.docker.py /opt/netbox/netbox/netbox/configuration.py
+COPY docker/ldap_config.docker.py /opt/netbox/netbox/netbox/ldap_config.py
+COPY docker/docker-entrypoint.sh /opt/netbox/docker-entrypoint.sh
+COPY docker/housekeeping.sh /opt/netbox/housekeeping.sh
+COPY docker/launch-netbox.sh /opt/netbox/launch-netbox.sh
+COPY configuration/ /etc/netbox/config/
+COPY docker/nginx-unit.json /etc/unit/
+
+WORKDIR /opt/netbox/netbox
+
+# Must set permissions for '/opt/netbox/netbox/media' directory
+# to g+w so that pictures can be uploaded to netbox.
+RUN mkdir -p static /opt/unit/state/ /opt/unit/tmp/ \
+      && chown -R unit:root /opt/unit/ media reports scripts \
+      && chmod -R g+w /opt/unit/ media reports scripts \
+      && cd /opt/netbox/ && SECRET_KEY="dummyKeyWithMinimumLength-------------------------" /opt/netbox/venv/bin/python -m mkdocs build \
+          --config-file /opt/netbox/mkdocs.yml --site-dir /opt/netbox/netbox/project-static/docs/ \
+      && SECRET_KEY="dummyKeyWithMinimumLength-------------------------" /opt/netbox/venv/bin/python /opt/netbox/netbox/manage.py collectstatic --no-input
+
+ENV LANG=C.utf8 PATH=/opt/netbox/venv/bin:$PATH
+ENTRYPOINT [ "/usr/bin/tini", "--" ]
+
+CMD [ "/opt/netbox/docker-entrypoint.sh", "/opt/netbox/launch-netbox.sh" ]
+

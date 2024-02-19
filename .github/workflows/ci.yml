@@ -67,6 +67,7 @@ jobs:
             ldap-utils: 'ldap-utils/**'
             markdownlint: 'markdownlint/**'
             meshcmd: 'meshcmd/**'
+            netbox: 'netbox/**'
             node/18/jammy: 'node/18/jammy/**'
             op: 'op/**'
             paperspace-cli: 'paperspace-cli/**'
