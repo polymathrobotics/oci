@@ -72,6 +72,7 @@ jobs:
             paperspace-cli: 'paperspace-cli/**'
             portainer-ce: 'portainer-ce/**'
             postgres/15/jammy: 'postgres/15/jammy/**'
+            postgres/16/jammy: 'postgres/16/jammy/**'
             prometheus/alertmanager: 'prometheus/alertmanager/**'
             prometheus/blackbox_exporter: 'prometheus/blackbox_exporter/**'
             prometheus/collectd_exporter: 'prometheus/collectd_exporter/**'
