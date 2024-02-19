@@ -3,7 +3,7 @@ variable "IMAGE_NAME" {
 }
 
 variable "VERSION" {
-  default = "15.5"
+  default = "15.6"
 }
 
 variable "CONTAINER_REGISTRY" {
@@ -23,7 +23,6 @@ target "_common" {
   tags = [
     "${CONTAINER_REGISTRY}/${IMAGE_NAME}:${VERSION}-jammy",
     "${CONTAINER_REGISTRY}/${IMAGE_NAME}:${join(".", slice(split(".", "${VERSION}"), 0, 1))}-jammy",
-    "${CONTAINER_REGISTRY}/${IMAGE_NAME}:jammy",
   ]
   labels = {
     "org.opencontainers.image.source" = "https://github.com/polymathrobotics/oci"

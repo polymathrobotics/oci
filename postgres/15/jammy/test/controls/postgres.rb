@@ -4,5 +4,5 @@ end
 
 describe command('postgres --version') do
   its('exit_status') { should eq 0 }
-  its('stdout') { should match(/postgres \(PostgreSQL\)/) }
+  its('stdout') { should match(/postgres \(PostgreSQL\) 15/) }
 end
