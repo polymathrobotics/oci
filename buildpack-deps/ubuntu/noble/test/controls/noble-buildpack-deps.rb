@@ -21,7 +21,7 @@ control 'curl' do
   end
 
   describe command('sq') do
-    it { should_not exist }
+    it { should exist }
   end
 end
 
