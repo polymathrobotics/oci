@@ -3,7 +3,7 @@ variable "IMAGE_NAME" {
 }
 
 variable "CONTAINER_REGISTRY" {
-  default = "docker.io/boxcutter"
+  default = "docker.io/polymathrobotics"
 }
 
 # There's no darwin-based Docker, so if we're running on macOS, change the platform to linux
@@ -28,11 +28,11 @@ variable "BUILDTAGS" {
 target "_common" {
   dockerfile = "Containerfile"
   labels = {
-    "org.opencontainers.image.source" = "https://github.com/boxcutter/oci"
+    "org.opencontainers.image.source" = "https://github.com/polymathrobotics/oci"
     "org.opencontainers.image.licenses" = "Apache-2.0"
     "org.opencontainers.image.description" = "A collection of common build dependencies used for installing various modules."
     "org.opencontainers.image.title" = "${IMAGE_NAME}"
-    "dev.boxcutter.image.readme-filepath" = "buildpack-deps/README.md"
+    "dev.polymathrobotics.image.readme-filepath" = "buildpack-deps/README.md"
   }
 }
 

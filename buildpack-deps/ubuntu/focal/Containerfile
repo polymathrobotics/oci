@@ -11,7 +11,7 @@ RUN set -eux; \
 		gnupg \
 		netbase \
 		wget \
-#  https://bugs.debian.org/929417
+# https://bugs.debian.org/929417
 		tzdata \
 	; \
 	rm -rf /var/lib/apt/lists/*
