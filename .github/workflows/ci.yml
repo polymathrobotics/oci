@@ -31,6 +31,7 @@ jobs:
             aws-cli: 'aws-cli/**'
             black: 'black/**'
             buildpack-deps/ubuntu/focal: 'buildpack-deps/ubuntu/focal/**'
+            buildpack-deps/ubuntu/jammy: 'buildpack-deps/ubuntu/jammy/**'
             cinc/cinc-workstation: 'cinc/cinc-workstation/**'
             doctl: 'doctl/**'
             dokken/almalinux-8: 'dokken/almalinux-8/**'
