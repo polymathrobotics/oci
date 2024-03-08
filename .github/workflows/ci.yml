@@ -14,7 +14,9 @@ jobs:
       images: ${{ steps.filter.outputs.changes }}
     steps:
       - uses: actions/checkout@v4
-      - uses: dorny/paths-filter@v2
+
+      - name: name: Determine Paths to Build for Auto Trigger
+        uses: dorny/paths-filter@v3
         id: filter
         with:
           # Use context to get the branch where commits were pushed.
@@ -28,7 +30,7 @@ jobs:
             acme/lego: 'acme/lego/**'
             aws-cli: 'aws-cli/**'
             black: 'black/**'
-            buildpack-deps/ubuntu: 'buildpack-deps/ubuntu/**'
+            buildpack-deps/ubuntu/focal: 'buildpack-deps/ubuntu/focal/**'
             cinc/cinc-workstation: 'cinc/cinc-workstation/**'
             doctl: 'doctl/**'
             dokken/almalinux-8: 'dokken/almalinux-8/**'
