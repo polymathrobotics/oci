@@ -15,7 +15,7 @@ jobs:
     steps:
       - uses: actions/checkout@v4
 
-      - name: name: Determine Paths to Build for Auto Trigger
+      - name: Determine Paths to Build for Auto Trigger
         uses: dorny/paths-filter@v3
         id: filter
         with:
