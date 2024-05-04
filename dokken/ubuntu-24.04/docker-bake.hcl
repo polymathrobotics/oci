@@ -1,5 +1,5 @@
 variable "IMAGE_NAME" {
-  default = "dokken-ubuntu-22.04"
+  default = "dokken-ubuntu-24.04"
 }
 
 variable "CONTAINER_REGISTRY" {
@@ -19,7 +19,7 @@ target "_common" {
   labels = {
     "org.opencontainers.image.source" = "https://github.com/polymathrobotics/oci"
     "org.opencontainers.image.licenses" = "Apache-2.0"
-    "org.opencontainers.image.description" = "Ubuntu 22.04 image for use with kitchen-dokken"
+    "org.opencontainers.image.description" = "Ubuntu 24.04 image for use with kitchen-dokken"
     "org.opencontainers.image.title" = "${IMAGE_NAME}"
     "dev.polymathrobotics.image.readme-filepath" = "dokken/README.md"
   }
