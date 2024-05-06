@@ -3,7 +3,7 @@ variable "IMAGE_NAME" {
 }
 
 variable "VERSION" {
-  default = "23.2.1028"
+  default = "24.4.1064"
 }
 
 variable "CONTAINER_REGISTRY" {
@@ -18,8 +18,8 @@ variable "LOCAL_PLATFORM" {
 target "_common" {
   dockerfile = "Containerfile"
   args = {
-    CINC_WORKSTATION_URL_AMD64 = "http://downloads.cinc.sh/files/stable/cinc-workstation/23.3.1030/ubuntu/22.04/cinc-workstation_23.3.1030-1_amd64.deb"
-    CINC_WORKSTATION_SHA256_AMD64 = "b95c83df184cdc7af3ded5ce2a493308a2e0d8a3b7a23903012886bd2a754ea3"
+    CINC_WORKSTATION_URL_AMD64 = "https://downloads.cinc.sh/files/stable/cinc-workstation/24.4.1064/ubuntu/22.04/cinc-workstation_24.4.1064-1_amd64.deb"
+    CINC_WORKSTATION_SHA256_AMD64 = "4b5e78dcaa23115321e3b69586436ca8b680c9d989aafdbbab11b62d1f4f39cd"
   }
   tags = [
     "${CONTAINER_REGISTRY}/${IMAGE_NAME}:${VERSION}",
