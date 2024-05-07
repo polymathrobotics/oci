@@ -3,7 +3,7 @@ variable "IMAGE_NAME" {
 }
 
 variable "VERSION" {
-  default = "18.4.12"
+  default = "18.3.0"
 }
 
 variable "CONTAINER_REGISTRY" {
@@ -17,10 +17,10 @@ variable "LOCAL_PLATFORM" {
 
 target "_common" {
   args = {
-    CINC_URL_AMD64 = "https://downloads.cinc.sh/files/stable/cinc/18.4.12/el/7/cinc-18.4.12-1.el7.x86_64.rpm"
-    CINC_SHA256_AMD64 = "697ac775c15aa80ca9908ae404e98fb93b4f71545d1b01ddcc7364c9070ba8b2"
-    CINC_URL_ARM64 = "https://downloads.cinc.sh/files/stable/cinc/18.4.12/el/7/cinc-18.4.12-1.el7.aarch64.rpm"
-    CINC_SHA256_ARM64 = "dbce991933bc0fd0ddd70403fb103a86459db20de13dc3c4d001df83b86c5796"
+    CINC_URL_AMD64 = "https://downloads.cinc.sh/files/stable/cinc/18.3.0/el/7/cinc-18.3.0-1.el7.x86_64.rpm"
+    CINC_SHA256_AMD64 = "50f90e23354e0223baea35187a53fa457ca28050051daac980c513c7549cc586"
+    CINC_URL_ARM64 = "https://downloads.cinc.sh/files/stable/cinc/18.3.0/el/7/cinc-18.3.0-1.el7.aarch64.rpm"
+    CINC_SHA256_ARM64 = "32d286662ba3f0d4f7542713136b068ccd203704b8b04b787814ddc87ad86611"
   }
   dockerfile = "Containerfile"
   tags = [
