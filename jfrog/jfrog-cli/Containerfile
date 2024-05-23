@@ -1,16 +1,16 @@
 # syntax=docker/dockerfile:1
 ARG CONTAINER_REGISTRY=docker.io
-FROM $CONTAINER_REGISTRY/ubuntu:jammy-20231004 as base
+FROM $CONTAINER_REGISTRY/ubuntu:jammy-20240427 as base
 
 FROM base as download
 
-ARG JFROG_CLI_VERSION=2.50.2
-ARG JFROG_CLI_URL_AMD64="https://releases.jfrog.io/artifactory/jfrog-cli/v2-jf/2.50.2/jfrog-cli-linux-amd64/jf"
-ARG JFROG_CLI_SHA256_AMD64="e033c79dbdd60538df1b0b5fb139c8bc5698fbdf86024b2a41620c31eedab1d2"
-ARG JFROG_CLI_URL_ARM64="https://releases.jfrog.io/artifactory/jfrog-cli/v2-jf/2.50.2/jfrog-cli-linux-arm64/jf"
-ARG JFROG_CLI_SHA256_ARM64="d64c92e74cad6fa7fa5deb70a1c511bd37005cf8d2fa1ded6605d4c7cd19041c"
-ARG JFROG_CLI_URL_ARMHF="https://releases.jfrog.io/artifactory/jfrog-cli/v2-jf/2.50.2/jfrog-cli-linux-arm/jf"
-ARG JFROG_CLI_SHA256_ARMHF="a3bf926edb350dc52a20391496816212147720f9a15edae9c773b2e0fc64a249"
+ARG JFROG_CLI_VERSION
+ARG JFROG_CLI_URL_AMD64
+ARG JFROG_CLI_SHA256_AMD64
+ARG JFROG_CLI_URL_ARM64
+ARG JFROG_CLI_SHA256_ARM64
+ARG JFROG_CLI_URL_ARMHF
+ARG JFROG_CLI_SHA256_ARMHF
 
 WORKDIR /download
 
