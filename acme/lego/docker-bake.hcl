@@ -3,7 +3,7 @@ variable "IMAGE_NAME" {
 }
 
 variable "VERSION" {
-  default = "4.14.2"
+  default = "4.17.4"
 }
 
 variable "CONTAINER_REGISTRY" {
@@ -18,12 +18,12 @@ variable "LOCAL_PLATFORM" {
 target "_common" {
   dockerfile = "Containerfile"
   args = {
-    LEGO_URL_AMD64 = "https://github.com/go-acme/lego/releases/download/v4.14.2/lego_v4.14.2_linux_amd64.tar.gz"
-    LEGO_SHA256_AMD64 = "f5a978397802a2eb20771925ceb173dff88705b45fdbb2e68312269e205fa85d"
-    LEGO_URL_ARM64 = "https://github.com/go-acme/lego/releases/download/v4.14.2/lego_v4.14.2_linux_arm64.tar.gz"
-    LEGO_SHA256_ARM64 = "5050df1fb75085122cd253a3877e0d7ea07c4547964378a8f4753e1e2679cce6"
-    LEGO_URL_ARMHF = "https://github.com/go-acme/lego/releases/download/v4.14.2/lego_v4.14.2_linux_armv7.tar.gz"
-    LEGO_SHA256_ARMHF = "ddbef0a377e9dc37617584eda676ad195d126462673774a181f1374d7f9042a0"
+    LEGO_URL_AMD64 = "https://github.com/go-acme/lego/releases/download/v4.17.4/lego_v4.17.4_linux_amd64.tar.gz"
+    LEGO_SHA256_AMD64 = "f362d59ff5b6f92c599e3151dcf7b6ed853de05533be179b306ca40a7b67fb47"
+    LEGO_URL_ARM64 = "https://github.com/go-acme/lego/releases/download/v4.17.4/lego_v4.17.4_linux_arm64.tar.gz"
+    LEGO_SHA256_ARM64 = "b79c3a2bad15c2359524a3372361377e09c15d0efe6a51223cdccf036d3f6e98"
+    LEGO_URL_ARMHF = "https://github.com/go-acme/lego/releases/download/v4.17.4/lego_v4.17.4_linux_armv7.tar.gz"
+    LEGO_SHA256_ARMHF = "bb5a8a9cd4176c222656701e61b6420bed03294fc88f48a39dc541c229f0b961"
   }
   tags = [
     "${CONTAINER_REGISTRY}/${IMAGE_NAME}:${VERSION}",
