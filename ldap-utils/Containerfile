@@ -1,14 +1,20 @@
+# syntax=docker/dockerfile:1
 ARG CONTAINER_REGISTRY=docker.io
-FROM $CONTAINER_REGISTRY/ubuntu:jammy-20231004
+FROM $CONTAINER_REGISTRY/ubuntu:jammy-20240530
 
 # Create user and set ownership and permissions as required
-RUN useradd -m ldap
+# RUN useradd -m ldap
+RUN groupadd -r -g 999 ldap && useradd -r -g ldap -u 999 ldap
 
-RUN apt-get update -y \
-  && apt-get install -y --no-install-recommends \
+# https://serverfault.com/questions/1115147/openldap-certificates-untrusted-or-revoked
+RUN <<EOF
+  apt-get update -y
+  apt-get install -y --no-install-recommends \
     ca-certificates \
     ldap-utils \
-  && apt-get autoremove -y \
-  && rm -rf /var/lib/apt/lists/*
+    libldap-common \
+    gnutls-bin
+  rm -rf /var/lib/apt/lists/*
+EOF
 
 USER ldap
