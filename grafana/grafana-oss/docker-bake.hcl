@@ -3,7 +3,7 @@ variable "IMAGE_NAME" {
 }
 
 variable "VERSION" {
-  default = "10.2.3"
+  default = "10.4.6"
 }
 
 variable "CONTAINER_REGISTRY" {
@@ -19,10 +19,10 @@ target "_common" {
   dockerfile = "Containerfile"
   # https://grafana.com/grafana/download?edition=oss
   args = {
-    GRAFANA_URL_AMD64 = "https://dl.grafana.com/oss/release/grafana-10.2.3.linux-amd64.tar.gz"
-    GRAFANA_SHA256_AMD64 = "c686606a6975481f4f108de44c4df3465251e4ee2da20e7c6ee6b66e5bdcf2da"
-    GRAFANA_URL_ARM64 = "https://dl.grafana.com/oss/release/grafana-10.2.3.linux-arm64.tar.gz"
-    GRAFANA_SHA256_ARM64 = "7eb36c3dcfe11a72d2aed9784294785ab1894b0314ae595baaf1eb0c701db42a"
+    GRAFANA_URL_AMD64 = "https://dl.grafana.com/oss/release/grafana-10.4.6.linux-amd64.tar.gz"
+    GRAFANA_SHA256_AMD64 = "9c68d16eb1b817ed1cee769f6acb475baf14148fd385b3cf6e371f7a9f1464d3"
+    GRAFANA_URL_ARM64 = "https://dl.grafana.com/oss/release/grafana-10.4.6.linux-arm64.tar.gz"
+    GRAFANA_SHA256_ARM64 = "3ccdba6c9cd157d8028daf1858c7ca72a79e80f89b820ebbe191902badcbbced"
   }
   tags = [
     "${CONTAINER_REGISTRY}/${IMAGE_NAME}:${VERSION}",
