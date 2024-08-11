@@ -3,7 +3,7 @@ variable "IMAGE_NAME" {
 }
 
 variable "VERSION" {
-  default = "6.6.0"
+  default = "6.8.1"
 }
 
 variable "CONTAINER_REGISTRY" {
@@ -27,10 +27,10 @@ target "_common" {
 target "_common" {
   dockerfile = "Containerfile"
   args = {
-    CINC_AUDITOR_URL_AMD64 = "http://downloads.cinc.sh/files/stable/cinc-auditor/6.6.0/ubuntu/22.04/cinc-auditor_6.6.0-1_amd64.deb"
-    CINC_AUDITOR_SHA256_AMD64 = "f92ad5ba73bb3095521b455dcb99cd002c04e2e8a19e1b2344439c6d1fc41901"
-    CINC_AUDITOR_URL_ARM64 = "http://downloads.cinc.sh/files/stable/cinc-auditor/6.6.0/ubuntu/22.04/cinc-auditor_6.6.0-1_arm64.deb"
-    CINC_AUDITOR_SHA256_ARM64 = "5b916b629315d5a3324313bb521e6fabacfd36e45a1d065ccb89e494dbf98512"
+    CINC_AUDITOR_URL_AMD64 = "http://ftp.osuosl.org/pub/cinc/files/stable/cinc-auditor/6.8.1/ubuntu/22.04/cinc-auditor_6.8.1-1_amd64.deb"
+    CINC_AUDITOR_SHA256_AMD64 = "0d64f9d2a4cfc09d970606200a9bd2f56079c55df14d8019336945a3feb1e377"
+    CINC_AUDITOR_URL_ARM64 = "http://ftp.osuosl.org/pub/cinc/files/stable/cinc-auditor/6.8.1/ubuntu/22.04/cinc-auditor_6.8.1-1_arm64.deb"
+    CINC_AUDITOR_SHA256_ARM64 = "d5c2af04c9642cdedfb4448c3548af6fff385f9541e6a2f1fa49c998ab0d5244"
   }
   tags = [
     "${CONTAINER_REGISTRY}/${IMAGE_NAME}:${VERSION}",
