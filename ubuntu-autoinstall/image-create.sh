@@ -27,6 +27,8 @@ Ubuntu Autoinstall ISO generator
   -s    Source ISO path
   -d    Destination ISO path
   -a    Autoinstall config file
+  -g    Grub.cfg file
+  -l    Loopback.cfg file
 EOF
 }
 
@@ -44,6 +46,14 @@ args() {
 	;;
       (-a | --autoinstall)
         AUTOINSTALL_CONFIG_FILE="${2-}"
+        shift
+        ;;
+      (-g | --grub)
+        GRUB_CONFIG_FILE="${2-}"
+        shift
+        ;;
+      (-l | --loopback)
+        LOOPBACK_CONFIG_FILE="${2-}"
         shift
         ;;
     esac
@@ -87,15 +97,27 @@ extract_iso() {
 }
 
 configure_autoinstall() {
-  sed -i -e 's/---/ autoinstall  ---/g' "${ISO_FILESYSTEM_DIR}/boot/grub/grub.cfg"
-  sed -i -e 's/---/ autoinstall  ---/g' "${ISO_FILESYSTEM_DIR}/boot/grub/loopback.cfg"
+  if [ ! -f "${GRUB_CONFIG_FILE-}" ]; then
+    echo "grub.cfg not provided, modifying existing grub.cfg for autoinstall"
+    sed -i -e 's/---/ autoinstall  ---/g' "${ISO_FILESYSTEM_DIR}/boot/grub/grub.cfg"
+    sed -i -e 's,---, ds=nocloud\\\;s=/cdrom/nocloud/  ---,g' "${ISO_FILESYSTEM_DIR}/boot/grub/grub.cfg"
+  else
+    echo "copying custom grub.cfg ${GRUB_CONFIG_FILE}"
+    cp "${GRUB_CONFIG_FILE}" "${ISO_FILESYSTEM_DIR}/boot/grub/grub.cfg"
+  fi
+
+  if [ ! -f "${LOOPBACK_CONFIG_FILE-}" ]; then
+    echo "loopback.cfg not provided, modifying existing grub.cfg for autoinstall"
+    sed -i -e 's/---/ autoinstall  ---/g' "${ISO_FILESYSTEM_DIR}/boot/grub/loopback.cfg"
+    sed -i -e 's,---, ds=nocloud\\\;s=/cdrom/nocloud/  ---,g' "${ISO_FILESYSTEM_DIR}/boot/grub/loopback.cfg" 
+  else
+    echo "copying custom loopback.cfg ${LOOPBACK_CONFIG_FILE}"
+    cp "${LOOPBACK_CONFIG_FILE}" "${ISO_FILESYSTEM_DIR}/boot/grub/loopback.cfg"
+  fi
 
   mkdir -p "${ISO_FILESYSTEM_DIR}/nocloud"
   touch "${ISO_FILESYSTEM_DIR}/nocloud/meta-data"
   cp "${AUTOINSTALL_CONFIG_FILE}" "${ISO_FILESYSTEM_DIR}/nocloud/user-data"
-
-  sed -i -e 's,---, ds=nocloud\\\;s=/cdrom/nocloud/  ---,g' "${ISO_FILESYSTEM_DIR}/boot/grub/grub.cfg"
-  sed -i -e 's,---, ds=nocloud\\\;s=/cdrom/nocloud/  ---,g' "${ISO_FILESYSTEM_DIR}/boot/grub/loopback.cfg" 
 }
 
 reassemble_iso() {
