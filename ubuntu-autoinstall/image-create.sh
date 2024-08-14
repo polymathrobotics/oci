@@ -29,6 +29,7 @@ Ubuntu Autoinstall ISO generator
   -a    Autoinstall config file
   -g    Grub.cfg file
   -l    Loopback.cfg file
+  -m    meta-data config file
 EOF
 }
 
@@ -54,6 +55,10 @@ args() {
         ;;
       (-l | --loopback)
         LOOPBACK_CONFIG_FILE="${2-}"
+        shift
+        ;;
+      (-m | --metadata)
+        METADATA_CONFIG_FILE="${-2}"
         shift
         ;;
     esac
@@ -116,7 +121,11 @@ configure_autoinstall() {
   fi
 
   mkdir -p "${ISO_FILESYSTEM_DIR}/nocloud"
-  touch "${ISO_FILESYSTEM_DIR}/nocloud/meta-data"
+  if [ ! -f "${METADATA_CONFIG_FILE}" ]; then
+    touch "${ISO_FILESYSTEM_DIR}/nocloud/meta-data"
+  else
+    cp "${METADATA_CONFIG_FILE}" "${ISO_FILESYSTEM_DIR}/nocloud/meta-data"
+  fi 
   cp "${AUTOINSTALL_CONFIG_FILE}" "${ISO_FILESYSTEM_DIR}/nocloud/user-data"
 }
 
