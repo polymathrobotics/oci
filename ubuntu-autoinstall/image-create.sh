@@ -121,9 +121,11 @@ configure_autoinstall() {
   fi
 
   mkdir -p "${ISO_FILESYSTEM_DIR}/nocloud"
-  if [ ! -f "${METADATA_CONFIG_FILE}" ]; then
+  if [ ! -f "${METADATA_CONFIG_FILE-}" ]; then
+    echo "==> meta-data not provided, creating blank version"
     touch "${ISO_FILESYSTEM_DIR}/nocloud/meta-data"
   else
+    cp "==> copying custom meta-data ${METADATA_CONFIG_FILE}"
     cp "${METADATA_CONFIG_FILE}" "${ISO_FILESYSTEM_DIR}/nocloud/meta-data"
   fi 
   cp "${AUTOINSTALL_CONFIG_FILE}" "${ISO_FILESYSTEM_DIR}/nocloud/user-data"
