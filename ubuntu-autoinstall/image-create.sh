@@ -91,6 +91,7 @@ configure_autoinstall() {
   sed -i -e 's/---/ autoinstall  ---/g' "${ISO_FILESYSTEM_DIR}/boot/grub/loopback.cfg"
 
   mkdir -p "${ISO_FILESYSTEM_DIR}/nocloud"
+  touch "${ISO_FILESYSTEM_DIR}/nocloud/meta-data"
   cp "${AUTOINSTALL_CONFIG_FILE}" "${ISO_FILESYSTEM_DIR}/nocloud/user-data"
 
   sed -i -e 's,---, ds=nocloud\\\;s=/cdrom/nocloud/  ---,g' "${ISO_FILESYSTEM_DIR}/boot/grub/grub.cfg"
