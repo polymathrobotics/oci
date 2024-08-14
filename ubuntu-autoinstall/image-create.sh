@@ -58,7 +58,7 @@ args() {
         shift
         ;;
       (-m | --metadata)
-        METADATA_CONFIG_FILE="${-2}"
+        METADATA_CONFIG_FILE="${2-}"
         shift
         ;;
     esac
