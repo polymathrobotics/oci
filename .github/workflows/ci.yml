@@ -105,6 +105,7 @@ jobs:
             ruby/3.3/slim-jammy: 'ruby/3.3/slim-jammy/**'
             shellcheck: 'shellcheck/**'
             smokeping: 'smokeping/**'
+            ubuntu-autoinstall: 'ubuntu-autoinstall/**'
 
   # Job to build and test each of the modified images
   build:
