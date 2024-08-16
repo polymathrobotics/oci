@@ -42,6 +42,7 @@ The images are pubished to https://hub.docker.com/u/polymathrobotics
 | [stereolabs-zed](https://hub.docker.com/r/polymathrobotics/stereolabs-zed)<br>[stereolabs-zedbot](https://hub.docker.com/r/polymathrobotics/stereolabs-zedbot) | StereoLabs ZED SDK | [stereolabs-zed](https://github.com/polymathrobotics/oci/tree/main/stereolabs/zed)<br>[stereolabs-zedbot](https://github.com/polymathrobotics/oci/tree/main/stereolabs/zedbot) |
 | [smokeping](https://hub.docker.com/r/polymathrobotics/smokeping) | Smokeping network latency grapher | [smokeping](https://github.com/polymathrobotics/oci/tree/main/smokeping) |
 | [terraform](https://hub.docker.com/r/polymathrobotics/terraform) | Terraform enables you to safely and predictably create, change, and improve infrastructure. | [terraform](https://github.com/polymathrobotics/oci/tree/main/hashicorp/terraform) |
+| [ubuntu-autoinstall](https://hub.docker.com/r/polymathrobotics/ubuntu-autoinstall) | Generate Ubuntu autoinstall images/ISOs. | [ubuntu-autoinstall](https://github.com/polymathrobotics/oci/tree/main/ubuntu-autoinstall) |
 
 # Why are you re-publishing some official images?
 
