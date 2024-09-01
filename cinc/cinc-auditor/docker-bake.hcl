@@ -1,5 +1,5 @@
 variable "IMAGE_NAME" {
-  default = "cinc-auditor"
+  default = "polymathrobotics/cinc-auditor"
 }
 
 variable "VERSION" {
@@ -7,7 +7,7 @@ variable "VERSION" {
 }
 
 variable "CONTAINER_REGISTRY" {
-  default = "docker.io/polymathrobotics"
+  default = "docker.io"
 }
 
 # There's no darwin-based Docker, so if we're running on macOS, change the platform to linux
@@ -16,6 +16,9 @@ variable "LOCAL_PLATFORM" {
 }
 
 target "_common" {
+  args = {
+    CONTAINER_REGISTRY = "${CONTAINER_REGISTRY}"
+  }
   dockerfile = "Containerfile"
   tags = [
     # docker.io/polymathrobotics/cinc-auditor:x.x.x
