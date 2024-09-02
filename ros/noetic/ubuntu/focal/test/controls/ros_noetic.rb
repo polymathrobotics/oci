@@ -6,13 +6,17 @@ describe os_env('LANG') do
   its('content') { should eq 'C.UTF-8' }
 end
 
+describe file('/usr/share/keyrings/ros1-latest-archive-keyring.gpg') do
+  it { should exist }
+end
+
 describe file('/ros_entrypoint.sh') do
   it { should exist }
 end
 
-describe command("su --login --command \"source /opt/ros/$ROS_DISTRO/setup.bash && ros2 -h\"") do
+describe command("su --login --command \"source /opt/ros/$ROS_DISTRO/setup.bash && rosrun -h\"") do
   its('exit_status') { should cmp 0 }
-  its('stdout') { should match(/usage: ros2/) }
+  its('stdout') { should match(/Usage: rosrun/) }
 end
 
 describe file('/ros_entrypoint.sh') do
