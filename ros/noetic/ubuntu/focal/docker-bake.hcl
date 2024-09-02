@@ -1,5 +1,5 @@
 variable "IMAGE_NAME" {
-  default =  "polymathrobotics/ros"
+  default = "polymathrobotics/ros"
 }
 
 variable "CONTAINER_REGISTRY" {
