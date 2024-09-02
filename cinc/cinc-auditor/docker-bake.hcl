@@ -13,14 +13,6 @@ variable "LOCAL_PLATFORM" {
 
 target "_common" {
   dockerfile = "Containerfile"
-  tags = [
-    "${TAG_PREFIX}:${VERSION}",
-    "${TAG_PREFIX}:latest"
-  ]
-}
-
-target "_common" {
-  dockerfile = "Containerfile"
   args = {
     CINC_AUDITOR_URL_AMD64 = "http://ftp.osuosl.org/pub/cinc/files/stable/cinc-auditor/6.8.1/ubuntu/22.04/cinc-auditor_6.8.1-1_amd64.deb"
     CINC_AUDITOR_SHA256_AMD64 = "0d64f9d2a4cfc09d970606200a9bd2f56079c55df14d8019336945a3feb1e377"
