@@ -6,6 +6,10 @@ describe os_env('LANG') do
   its('content') { should eq 'C.UTF-8' }
 end
 
+describe file('/usr/share/keyrings/ros2-latest-archive-keyring.gpg') do
+  it { should exist }
+end
+
 describe file('/ros_entrypoint.sh') do
   it { should exist }
 end
