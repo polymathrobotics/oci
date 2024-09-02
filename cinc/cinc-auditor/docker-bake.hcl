@@ -1,13 +1,9 @@
-variable "IMAGE_NAME" {
-  default = "polymathrobotics/cinc-auditor"
+variable "TAG_PREFIX" {
+  default = "docker.io/polymathrobotics/cinc-auditor"
 }
 
 variable "VERSION" {
   default = "6.8.1"
-}
-
-variable "CONTAINER_REGISTRY" {
-  default = "docker.io"
 }
 
 # There's no darwin-based Docker, so if we're running on macOS, change the platform to linux
@@ -16,14 +12,10 @@ variable "LOCAL_PLATFORM" {
 }
 
 target "_common" {
-  args = {
-    CONTAINER_REGISTRY = "${CONTAINER_REGISTRY}"
-  }
   dockerfile = "Containerfile"
   tags = [
-    # docker.io/polymathrobotics/cinc-auditor:x.x.x
-    "${CONTAINER_REGISTRY}/${IMAGE_NAME}:${VERSION}",
-    "${CONTAINER_REGISTRY}/${IMAGE_NAME}:latest"
+    "${TAG_PREFIX}:${VERSION}",
+    "${TAG_PREFIX}:latest"
   ]
 }
 
@@ -36,8 +28,8 @@ target "_common" {
     CINC_AUDITOR_SHA256_ARM64 = "d5c2af04c9642cdedfb4448c3548af6fff385f9541e6a2f1fa49c998ab0d5244"
   }
   tags = [
-    "${CONTAINER_REGISTRY}/${IMAGE_NAME}:${VERSION}",
-    "${CONTAINER_REGISTRY}/${IMAGE_NAME}:latest"
+    "${TAG_PREFIX}:${VERSION}",
+    "${TAG_PREFIX}:latest"
   ]
 }
 
@@ -50,9 +42,10 @@ target "default" {
   inherits = ["_common"]
   platforms = ["linux/amd64", "linux/arm64/v8"]
   labels = {
-    "org.opencontainers.image.source" = "https://github.com/polymathrobotics/oci"
+    "org.opencontainers.image.source" = "https://github.com/polymathrobotics/oci/blob/main/cinc/cinc-auditor/Containerfile"
     "org.opencontainers.image.licenses" = "Apache-2.0"
     "org.opencontainers.image.description" = "Cinc Auditing and Testing Framework."
-    "org.opencontainers.image.title" = "${IMAGE_NAME}"
+    "org.opencontainers.image.title" = "${TAG_PREFIX}"
+    "org.opencontainers.image.created" = "${timestamp()}"
   }
 }
