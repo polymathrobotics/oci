@@ -1,13 +1,9 @@
-variable "IMAGE_NAME" {
-  default = "postgres"
+variable "TAG_PREFIX" {
+  default = "docker.io/polymathrobotics/postgres"
 }
 
 variable "VERSION" {
-  default = "16.2"
-}
-
-variable "CONTAINER_REGISTRY" {
-  default = "docker.io/polymathrobotics"
+  default = "16.4"
 }
 
 # There's no darwin-based Docker, so if we're running on macOS, change the platform to linux
@@ -18,15 +14,16 @@ variable "LOCAL_PLATFORM" {
 target "_common" {
   dockerfile = "Containerfile"
   tags = [
-    "${CONTAINER_REGISTRY}/${IMAGE_NAME}:${VERSION}-jammy",
-    "${CONTAINER_REGISTRY}/${IMAGE_NAME}:${join(".", slice(split(".", "${VERSION}"), 0, 1))}-jammy",
-    "${CONTAINER_REGISTRY}/${IMAGE_NAME}:jammy",
+    "${TAG_PREFIX}:${VERSION}-jammy",
+    "${TAG_PREFIX}:${join(".", slice(split(".", "${VERSION}"), 0, 1))}-jammy",
+    "${TAG_PREFIX}:jammy",
   ]
   labels = {
     "org.opencontainers.image.source" = "https://github.com/polymathrobotics/oci"
     "org.opencontainers.image.licenses" = "Apache-2.0"
     "org.opencontainers.image.description" = "The PostgreSQL object-relational database system provides reliability and data integrity."
-    "org.opencontainers.image.title" = "${IMAGE_NAME}"
+    "org.opencontainers.image.title" = "${TAG_PREFIX}"
+    "org.opencontainers.image.created" = "${timestamp()}"
     "dev.polymathrobotics.image.readme-filepath" = "postgres/README.md"
   }
 }
