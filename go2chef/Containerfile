@@ -1,7 +1,6 @@
 # syntax=docker/dockerfile:1
-ARG CONTAINER_REGISTRY=docker.io
-ARG CONTAINER_NAMESPACE=polymathrobotics
-FROM $CONTAINER_REGISTRY/$CONTAINER_NAMESPACE/golang:1.21-jammy as build
+ARG BUILD_IMAGE=docker.io/polymathrobotics/golang:1.23-jammy
+FROM ${BUILD_IMAGE} AS build
 
 WORKDIR /usr/src
 
@@ -23,5 +22,5 @@ RUN <<EOF
   esac
 EOF
 
-FROM $CONTAINER_REGISTRY/ubuntu:jammy-20231211.1
+FROM docker.io/ubuntu:jammy-20240808
 COPY --from=build --chmod=777 /usr/src/go2chef/build/linux/go2chef /usr/local/bin/go2chef
