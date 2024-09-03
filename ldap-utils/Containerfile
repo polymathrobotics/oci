@@ -1,6 +1,6 @@
 # syntax=docker/dockerfile:1
 ARG BASE_IMAGE=docker.io/ubuntu:jammy-20240808
-FROM $BASE_IMAGE AS bas
+FROM $BASE_IMAGE
 
 # Create user and set ownership and permissions as required
 # RUN useradd -m ldap
