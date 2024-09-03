@@ -1,5 +1,6 @@
-ARG CONTAINER_REGISTRY=docker.io
-FROM $CONTAINER_REGISTRY/polymathrobotics/python:3.9-jammy
+# syntax=docker/dockerfile:1
+ARG BASE_IMAGE=docker.io/polymathrobotics/python:3.9-jammy
+FROM $BASE_IMAGE
 
 ARG FLAKE8_VERSION
 WORKDIR /code
