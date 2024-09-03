@@ -1,6 +1,6 @@
 # syntax=docker/dockerfile:1
-ARG CONTAINER_REGISTRY=docker.io/polymathrobotics
-FROM $CONTAINER_REGISTRY/buildpack-deps:jammy
+ARG BASE_IMAGE=docker.io/polymathrobotics/buildpack-deps:jammy
+FROM $BASE_IMAGE
 
 # ensure local python is preferred over distribution python
 ENV PATH /usr/local/bin:$PATH
@@ -20,7 +20,7 @@ RUN set -eux; \
 	rm -rf /var/lib/apt/lists/*
 
 ENV GPG_KEY A035C8C19219BA821ECEA86B64E628F8D684696D
-ENV PYTHON_VERSION 3.10.13
+ENV PYTHON_VERSION 3.10.14
 
 SHELL ["/bin/bash", "-o", "pipefail", "-c"]
 # hadolint ignore=DL3003,SC2015
@@ -102,8 +102,8 @@ ENV PYTHON_PIP_VERSION 23.0.1
 # https://github.com/docker-library/python/issues/365
 ENV PYTHON_SETUPTOOLS_VERSION 65.5.1
 # https://github.com/pypa/get-pip
-ENV PYTHON_GET_PIP_URL https://github.com/pypa/get-pip/raw/dbf0c85f76fb6e1ab42aa672ffca6f0a675d9ee4/public/get-pip.py
-ENV PYTHON_GET_PIP_SHA256 dfe9fd5c28dc98b5ac17979a953ea550cec37ae1b47a5116007395bfacff2ab9
+ENV PYTHON_GET_PIP_URL https://github.com/pypa/get-pip/raw/def4aec84b261b939137dd1c69eff0aabb4a7bf4/public/get-pip.py
+ENV PYTHON_GET_PIP_SHA256 bc37786ec99618416cc0a0ca32833da447f4d91ab51d2c138dd15b7af21e8e9a
 
 RUN set -eux; \
 	\
@@ -118,6 +118,8 @@ RUN set -eux; \
 		--no-compile \
 		"pip==$PYTHON_PIP_VERSION" \
 		"setuptools==$PYTHON_SETUPTOOLS_VERSION" \
+		# get-pip.py installs wheel by default, adding in case get-pip defaults change
+		wheel \
 	; \
 	rm -f get-pip.py; \
 	\
