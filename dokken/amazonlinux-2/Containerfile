@@ -1,5 +1,6 @@
-ARG CONTAINER_REGISTRY=docker.io
-FROM $CONTAINER_REGISTRY/amazonlinux:2
+# syntax=docker/dockerfile:1
+ARG BASE_IMAGE=docker.io/amazonlinux:2
+FROM $BASE_IMAGE AS base
 
 # hadolint ignore=DL3033
 RUN yum -y install \
