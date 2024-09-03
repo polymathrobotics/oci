@@ -1,16 +1,14 @@
 # syntax=docker/dockerfile:1
-ARG CONTAINER_REGISTRY=docker.io
-FROM $CONTAINER_REGISTRY/ubuntu:jammy-20240427 as base
+ARG BASE_IMAGE=docker.io/ubuntu:jammy-20240808
+FROM $BASE_IMAGE AS base
 
-FROM base as download
+FROM base AS download
 
 ARG JFROG_CLI_VERSION
 ARG JFROG_CLI_URL_AMD64
 ARG JFROG_CLI_SHA256_AMD64
 ARG JFROG_CLI_URL_ARM64
 ARG JFROG_CLI_SHA256_ARM64
-ARG JFROG_CLI_URL_ARMHF
-ARG JFROG_CLI_SHA256_ARMHF
 
 WORKDIR /download
 
@@ -31,10 +29,6 @@ RUN <<EOF
     aarch64) \
       JFROG_CLI_URL="${JFROG_CLI_URL_ARM64}" \
       JFROG_CLI_SHA256="${JFROG_CLI_SHA256_ARM64}" \
-      ;; \
-    armv7l) \
-      JFROG_CLI_URL="${JFROG_CLI_URL_ARMHF}" \
-      JFROG_CLI_SHA256="${JFROG_CLI_SHA256_ARMHF}" \
       ;; \
   esac
   curl -fsSL -o jf ${JFROG_CLI_URL}
