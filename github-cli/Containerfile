@@ -1,7 +1,7 @@
 # syntax=docker/dockerfile:1
 # GitHub doesn't offer older versions of the cli in their package repo, so use releases from GitHub
-ARG CONTAINER_REGISTRY=docker.io
-FROM $CONTAINER_REGISTRY/ubuntu:jammy-20231211.1 as base
+ARG BASE_IMAGE=docker.io/ubuntu:jammy-20240808
+FROM $BASE_IMAGE AS base
 
 ARG GITHUB_CLI_URL_AMD64
 ARG GITHUB_CLI_SHA256_AMD64
@@ -10,7 +10,7 @@ ARG GITHUB_CLI_SHA256_ARM64
 ARG GITHUB_CLI_URL_ARMHF
 ARG GITHUB_CLI_SHA256_ARMHF
 
-FROM base as download
+FROM base AS download
 
 SHELL ["/bin/bash", "-o", "pipefail", "-c"]
 RUN <<EOF
@@ -28,26 +28,25 @@ RUN <<EOF
       GITHUB_CLI_URL="$GITHUB_CLI_URL_ARM64" \
       GITHUB_CLI_SHA256="$GITHUB_CLI_SHA256_ARM64" \
       ;; \
-    armhf) \
-      GITHUB_CLI_URL="$GITHUB_CLI_URL_ARMHF" \
-      GITHUB_CLI_SHA256="$GITHUB_CLI_SHA256_ARMHF" \
-      ;; \
     *) echo "unsupported architecture"; exit 1 ;; \
   esac
   curl -fsSL -o /tmp/gh.deb "${GITHUB_CLI_URL}"
   echo "${GITHUB_CLI_SHA256} /tmp/gh.deb" | sha256sum -c -
 EOF
 
+FROM base
+
 ARG USERNAME=gh
 ARG USER_UID=1000
 ARG USER_GID=$USER_UID
-ENV HOME /home/$USERNAME
-
-FROM base
+ENV HOME=/home/$USERNAME
 
 COPY --from=download /tmp/gh.deb /tmp/gh.deb
 
 RUN <<EOF
+  groupadd --gid "$USER_GID" "$USERNAME"
+  useradd --uid "$USER_UID" --gid "$USER_GID" -m "$USERNAME"
+  mkdir -p "/home/$USERNAME/.config"
   apt-get update
   apt-get install -y --no-install-recommends \
     ca-certificates \
