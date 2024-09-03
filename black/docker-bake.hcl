@@ -1,13 +1,9 @@
-variable "IMAGE_NAME" {
-  default = "black"
+variable "TAG_PREFIX" {
+  default = "docker.io/polymathrobotics/black"
 }
 
 variable "VERSION" {
-  default = "23.12.1"
-}
-
-variable "CONTAINER_REGISTRY" {
-  default = "docker.io/polymathrobotics"
+  default = "24.8.0"
 }
 
 # There's no darwin-based Docker, so if we're running on macOS, change the platform to linux
@@ -21,14 +17,15 @@ target "_common" {
     BLACK_VERSION = "${VERSION}"
   }
   tags = [
-    "${CONTAINER_REGISTRY}/${IMAGE_NAME}:${VERSION}",
-    "${CONTAINER_REGISTRY}/${IMAGE_NAME}:latest"
+    "${TAG_PREFIX}:${VERSION}",
+    "${TAG_PREFIX}:latest"
   ]
   labels = {
     "org.opencontainers.image.source" = "https://github.com/polymathrobotics/oci"
     "org.opencontainers.image.licenses" = "Apache-2.0"
     "org.opencontainers.image.description" = "Black is the uncompromising Python code formatter."
-    "org.opencontainers.image.title" = "${IMAGE_NAME}"
+    "org.opencontainers.image.title" = "${TAG_PREFIX}"
+    "org.opencontainers.image.created" = "${timestamp()}"
   }
 }
 
