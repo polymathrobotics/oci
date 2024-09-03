@@ -1,8 +1,13 @@
 # syntax=docker/dockerfile:1
-ARG CONTAINER_REGISTRY=docker.io
-FROM $CONTAINER_REGISTRY/ubuntu:jammy-20231128 as base
+ARG BASE_IMAGE=docker.io/ubuntu:jammy-20240808
+FROM $BASE_IMAGE AS base
 
-FROM base as download
+FROM base AS download
+
+ARG TERRAFORM_URL_AMD64
+ARG TERRAFORM_SHA256_AMD64
+ARG TERRAFORM_URL_ARM64
+ARG TERRAFORM_SHA256_ARM64
 
 SHELL ["/bin/bash", "-o", "pipefail", "-c"]
 RUN <<EOF
@@ -15,16 +20,12 @@ RUN <<EOF
   dpkgArch="$(dpkg --print-architecture)"
   case "${dpkgArch##*-}" in
   amd64)
-    TERRAFORM_URL='https://releases.hashicorp.com/terraform/1.5.3/terraform_1.5.3_linux_amd64.zip'
-    TERRAFORM_SHA256='5ce4e0fc73d42b79f26ebb8c8d192bdbcff75bdc44e3d66895a48945b6ff5d48'
+    TERRAFORM_URL="${TERRAFORM_URL_AMD64}"
+    TERRAFORM_SHA256="${TERRAFORM_SHA256_AMD64}"
     ;;
   arm64)
-    TERRAFORM_URL='https://releases.hashicorp.com/terraform/1.5.3/terraform_1.5.3_linux_arm64.zip'
-    TERRAFORM_SHA256='776c78281c1b517d1e2d9e78b2e60900b8ef9ecd51c4a5d2ffa68f66fea35dd2'
-    ;;
-  armhf)
-    TERRAFORM_URL='https://releases.hashicorp.com/terraform/1.5.3/terraform_1.5.3_linux_arm.zip'
-    TERRAFORM_SHA256='70191f5a5a5f3be0a602de48b85e38528651402846ea29e3d7f60a79a54e8391'
+    TERRAFORM_URL="${TERRAFORM_URL_ARM64}"
+    TERRAFORM_SHA256="${TERRAFORM_SHA256_ARM64}"
     ;;
   *)
     echo "unsupported architecture"
@@ -53,6 +54,6 @@ EOF
 COPY --from=download /tmp/terraform/terraform /opt/hashicorp/terraform/bin/terraform
 
 WORKDIR /terraform
-ENV PATH "/opt/hashicorp/terraform/bin:${PATH}"
+ENV PATH="/opt/hashicorp/terraform/bin:${PATH}"
 
 ENTRYPOINT ["/opt/hashicorp/terraform/bin/terraform"]
