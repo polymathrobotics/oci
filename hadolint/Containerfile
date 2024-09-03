@@ -19,7 +19,7 @@ RUN <<EOF
   case "${dpkgArch##*-}" in \
     amd64) \
       HADOLINT_URL="${HADOLINT_URL_AMD64}" \
-      HADOLINT_SHA256="${HADLINT_SHA256_AMD64}" \
+      HADOLINT_SHA256="${HADOLINT_SHA256_AMD64}" \
       ;; \
     arm64) \
       HADOLINT_URL="${HADOLINT_URL_ARM64}" \
