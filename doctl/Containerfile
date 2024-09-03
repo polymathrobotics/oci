@@ -4,10 +4,10 @@ FROM $BASE_IMAGE AS base
 
 FROM base AS download
 
-ARG DOCTL_URL_AMD64="https://github.com/digitalocean/doctl/releases/download/v1.111.0/doctl-1.111.0-linux-amd64.tar.gz"
-ARG DOCTL_SHA256_AMD64="85abc391224c192cd351c16cde2e7092607650089de3f3aa4f2571d7074bdee6"
-ARG DOCTL_URL_ARM64="https://github.com/digitalocean/doctl/releases/download/v1.111.0/doctl-1.111.0-linux-arm64.tar.gz"
-ARG DOCTL_SHA256_ARM64="311ba00493cf2547c33b9564fe394e05ea04a6176967bff776f6d46b36923bcf"
+ARG DOCTL_URL_AMD64
+ARG DOCTL_SHA256_AMD64
+ARG DOCTL_URL_ARM64
+ARG DOCTL_SHA256_ARM64
 
 SHELL ["/bin/bash", "-o", "pipefail", "-c"]
 RUN <<EOF
