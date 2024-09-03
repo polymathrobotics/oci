@@ -45,9 +45,6 @@ RUN <<EOF
     arm64) \
       DOCKER_URL="$DOCKER_URL_ARM64" \
       ;;
-    armhf) \
-      DOCKER_URL="$DOCKER_URL_ARMHF" \
-      ;;
     *) echo "unsupported architecture"; exit 1 ;; \
   esac
   curl -fsSL -o docker.tgz  ${DOCKER_URL}
@@ -65,7 +62,7 @@ FROM base
 ARG USERNAME=glab
 ARG USER_UID=1000
 ARG USER_GID=$USER_UID
-ENV HOME /home/$USERNAME
+ENV HOME=/home/$USERNAME
 
 COPY --from=download /tmp/glab.deb /tmp/glab.deb
 COPY --from=download /usr/local/bin/docker /usr/local/bin/docker
@@ -75,6 +72,7 @@ RUN <<EOF
   groupadd --gid "$USER_GID" "$USERNAME"
   useradd --uid "$USER_UID" --gid "$USER_GID" -m "$USERNAME"
   mkdir -p "/home/$USERNAME/.config"
+  chown -R "$USER_UID:$USER_GID" "/home/$USERNAME/.config"
   apt-get update
   apt-get install -y --no-install-recommends \
     ca-certificates \
