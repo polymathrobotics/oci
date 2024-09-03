@@ -1,13 +1,9 @@
-variable "IMAGE_NAME" {
-  default = "grafana-oss"
+variable "TAG_PREFIX" {
+  default = "docker.io/polymathrobotics/grafana-oss"
 }
 
 variable "VERSION" {
-  default = "11.1.3"
-}
-
-variable "CONTAINER_REGISTRY" {
-  default = "docker.io/polymathrobotics"
+  default = "11.2.0"
 }
 
 # There's no darwin-based Docker, so if we're running on macOS, change the platform to linux
@@ -19,20 +15,21 @@ target "_common" {
   dockerfile = "Containerfile"
   # https://grafana.com/grafana/download?edition=oss
   args = {
-    GRAFANA_URL_AMD64 = "https://dl.grafana.com/oss/release/grafana-11.1.3.linux-amd64.tar.gz"
-    GRAFANA_SHA256_AMD64 = "6cce7ca9554cd5bcfe33e7c9292536d21575dbdd1a0c0de195aaac12a0ed3c9d"
-    GRAFANA_URL_ARM64 = "https://dl.grafana.com/oss/release/grafana-11.1.3.linux-arm64.tar.gz"
-    GRAFANA_SHA256_ARM64 = "5a3e86d7f070969750b879ea9e984c6aa976cb01bf82de032686ae3b17acbbc4"
+    GRAFANA_URL_AMD64 = "https://dl.grafana.com/oss/release/grafana-11.2.0.linux-amd64.tar.gz"
+    GRAFANA_SHA256_AMD64 = "a7e717b78c11e37b147994fc04655da5f434280e1f01ceb84e8f38ca7fdef050"
+    GRAFANA_URL_ARM64 = "https://dl.grafana.com/oss/release/grafana-11.2.0.linux-arm64.tar.gz"
+    GRAFANA_SHA256_ARM64 = "a0bd569fd4b9130ad1e2507605c11d285de43758bb33cf22114f42bae0fe76ac"
   }
   tags = [
-    "${CONTAINER_REGISTRY}/${IMAGE_NAME}:${VERSION}",
-    "${CONTAINER_REGISTRY}/${IMAGE_NAME}:latest",
+    "${TAG_PREFIX}:${VERSION}",
+    "${TAG_PREFIX}:latest",
   ]
   labels = {
     "org.opencontainers.image.source" = "https://github.com/polymathrobotics/oci"
     "org.opencontainers.image.licenses" = "AGPLv3"
     "org.opencontainers.image.description" = "Grafana - the open observability platform."
-    "org.opencontainers.image.title" = "${IMAGE_NAME}"
+    "org.opencontainers.image.title" = "${TAG_PREFIX}"
+    "org.opencontainers.image.created" = "${timestamp()}"
   }
 }
 
