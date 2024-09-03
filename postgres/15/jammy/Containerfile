@@ -1,6 +1,6 @@
 # syntax=docker/dockerfile:1
-ARG CONTAINER_REGISTRY=docker.io
-FROM $CONTAINER_REGISTRY/ubuntu:jammy-20240530
+ARG BASE_IMAGE=docker.io/ubuntu:jammy-20240808
+FROM $BASE_IMAGE AS base
 
 ARG DEBIAN_FRONTEND=noninteractive
 
@@ -11,8 +11,7 @@ RUN set -eux; \
 	useradd -r -g postgres --uid=999 --home-dir=/var/lib/postgresql --shell=/bin/bash postgres; \
 # also create the postgres user's home directory with appropriate permissions
 # see https://github.com/docker-library/postgres/issues/274
-	mkdir -p /var/lib/postgresql; \
-	chown -R postgres:postgres /var/lib/postgresql
+	install --verbose --directory --owner postgres --group postgres --mode 1777 /var/lib/postgresql
 
 RUN set -ex; \
 	apt-get update; \
@@ -85,7 +84,7 @@ RUN set -ex; \
 ENV PG_MAJOR 15
 ENV PATH $PATH:/usr/lib/postgresql/$PG_MAJOR/bin
 
-ENV PG_VERSION 15.7-1.pgdg22.04+1
+ENV PG_VERSION 15.8-1.pgdg22.04+1
 
 # hadolint ignore=DL3003, SC2086
 RUN set -ex; \
@@ -177,11 +176,11 @@ RUN set -eux; \
 	sed -ri "s!^#?(listen_addresses)\s*=\s*\S+.*!\1 = '*'!" /usr/share/postgresql/postgresql.conf.sample; \
 	grep -F "listen_addresses = '*'" /usr/share/postgresql/postgresql.conf.sample
 
-RUN mkdir -p /var/run/postgresql && chown -R postgres:postgres /var/run/postgresql && chmod 3777 /var/run/postgresql
+RUN install --verbose --directory --owner postgres --group postgres --mode 3777 /var/run/postgresql
 
 ENV PGDATA /var/lib/postgresql/data
 # this 1777 will be replaced by 0700 at runtime (allows semi-arbitrary "--user" values)
-RUN mkdir -p "$PGDATA" && chown -R postgres:postgres "$PGDATA" && chmod 1777 "$PGDATA"
+RUN install --verbose --directory --owner postgres --group postgres --mode 1777 "$PGDATA"
 VOLUME /var/lib/postgresql/data
 
 COPY docker-entrypoint.sh docker-ensure-initdb.sh /usr/local/bin/
