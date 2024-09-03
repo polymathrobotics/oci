@@ -1,19 +1,16 @@
 # syntax=docker/dockerfile:1
 # Currently there are only amd64 packages, so we install via python for now
-ARG CONTAINER_REGISTRY=docker.io
-FROM $CONTAINER_REGISTRY/ubuntu:jammy-20240627.1 as base
+ARG BASE_IMAGE=docker.io/ubuntu:jammy-20240808
+FROM $BASE_IMAGE AS base
 
 ARG GLAB_URL_AMD64
 ARG GLAB_SHA256_AMD64
 ARG GLAB_URL_ARM64
 ARG GLAB_SHA256_ARM64
-ARG GLAB_URL_ARMHF
-ARG GLAB_SHA256_ARMHF
 ARG DOCKER_URL_AMD64
 ARG DOCKER_URL_ARM64
-ARG DOCKER_URL_ARMHF
 
-FROM base as download
+FROM base AS download
 
 WORKDIR /tmp
 
@@ -33,10 +30,6 @@ RUN <<EOF
       GLAB_URL="${GLAB_URL_ARM64}" \
       GLAB_SHA256="${GLAB_SHA256_ARM64}" \
       ;; \
-    armhf) \
-      GLAB_URL="${GLAB_URL_ARMHF}" \
-      GLAB_SHA256="${GLAB_SHA256_ARMHF}" \
-      ;;
     *) echo "unsupported architecture"; exit 1 ;; \
   esac 
   curl -fsSL -o glab.deb ${GLAB_URL}
@@ -67,12 +60,12 @@ RUN <<EOF
   docker --version 
 EOF
 
+FROM base
+
 ARG USERNAME=glab
 ARG USER_UID=1000
 ARG USER_GID=$USER_UID
 ENV HOME /home/$USERNAME
-
-FROM base
 
 COPY --from=download /tmp/glab.deb /tmp/glab.deb
 COPY --from=download /usr/local/bin/docker /usr/local/bin/docker
