@@ -1,13 +1,9 @@
-variable "IMAGE_NAME" {
-  default =  "alertmanager"
+variable "TAG_PREFIX" {
+  default = "docker.io/polymathrobotics/alertmanager"
 }
 
 variable "VERSION" {
   default = "0.27.0"
-}
-
-variable "CONTAINER_REGISTRY" {
-  default = "docker.io/polymathrobotics"
 }
 
 # There's no darwin-based Docker, so if we're running on macOS, change the platform to linux
@@ -26,14 +22,15 @@ target "_common" {
     ALERTMANAGER_SHA256_ARMHF = "76b1f4ea8ae769604b1c5ba2b5a24d4f3abe19f06837b69886a597c04b56cef9"
   }
   tags = [
-    "${CONTAINER_REGISTRY}/${IMAGE_NAME}:${VERSION}",
-    "${CONTAINER_REGISTRY}/${IMAGE_NAME}:latest"
+    "${TAG_PREFIX}:${VERSION}",
+    "${TAG_PREFIX}:latest"
   ]
   labels = {
     "org.opencontainers.image.source" = "https://github.com/polymathrobotics/oci"
     "org.opencontainers.image.licenses" = "Apache-2.0"
     "org.opencontainers.image.description" = "Prometheus Alermanager."
-    "org.opencontainers.image.title" = "${IMAGE_NAME}"
+    "org.opencontainers.image.title" = "${TAG_PREFIX}"
+    "org.opencontainers.image.created" = "${timestamp()}"
     "dev.polymathrobotics.image.readme-filepath" = "prometheus/alertmanager/README.md"
   }
 }
