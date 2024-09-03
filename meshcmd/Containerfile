@@ -1,8 +1,8 @@
 # syntax=docker/dockerfile:1
-ARG CONTAINER_REGISTRY=docker.io
-FROM $CONTAINER_REGISTRY/ubuntu:jammy-20231004 AS base
+ARG BASE_IMAGE=docker.io/ubuntu:jammy-20240808
+FROM $BASE_IMAGE AS base
 
-FROM base as download
+FROM base AS download
 
 RUN <<EOF
   apt-get update
@@ -32,7 +32,7 @@ WORKDIR /opt/meshcmd/bin
 
 COPY --from=download --chmod=755 /tmp/meshcmd /opt/meshcmd/bin
 
-ENV PATH "/opt/meshcmd/bin:${PATH}"
+ENV PATH="/opt/meshcmd/bin:${PATH}"
 EXPOSE 3000
 
 ENTRYPOINT ["meshcmd"]
