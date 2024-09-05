@@ -1,13 +1,9 @@
-variable "IMAGE_NAME" {
-  default = "redis"
+variable "TAG_PREFIX" {
+  default = "docker.io/polymathrobotics/redis"
 }
 
 variable "VERSION" {
-  default = "7.2.3"
-}
-
-variable "CONTAINER_REGISTRY" {
-  default = "docker.io/polymathrobotics"
+  default = "7.2.5"
 }
 
 # There's no darwin-based Docker, so if we're running on macOS, change the platform to linux
@@ -21,15 +17,16 @@ target "_common" {
     PORTAINER_VERSION = "${VERSION}"
   }
   tags = [
-    "${CONTAINER_REGISTRY}/${IMAGE_NAME}:${VERSION}-jammy",
-    "${CONTAINER_REGISTRY}/${IMAGE_NAME}:${join(".", slice(split(".", "${VERSION}"), 0, 2))}-jammy",
-    "${CONTAINER_REGISTRY}/${IMAGE_NAME}:${join(".", slice(split(".", "${VERSION}"), 0, 1))}-jammy",
+    "${TAG_PREFIX}:${VERSION}-jammy",
+    "${TAG_PREFIX}:${join(".", slice(split(".", "${VERSION}"), 0, 2))}-jammy",
+    "${TAG_PREFIX}:${join(".", slice(split(".", "${VERSION}"), 0, 1))}-jammy",
   ]
   labels = {
     "org.opencontainers.image.source" = "https://github.com/polymathrobotics/oci"
     "org.opencontainers.image.licenses" = "Apache-2.0"
     "org.opencontainers.image.description" = "Redis is an open source key-value store that functions as a data structure server."
-    "org.opencontainers.image.title" = "${IMAGE_NAME}"
+    "org.opencontainers.image.title" = "${TAG_PREFIX}"
+    "org.opencontainers.image.created" = "${timestamp()}"
     "dev.polymathrobotics.image.readme-filepath" = "redis/README.md"
   }
 }
