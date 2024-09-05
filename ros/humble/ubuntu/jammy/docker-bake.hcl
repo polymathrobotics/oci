@@ -1,5 +1,6 @@
 variable "TAG_PREFIX" {
-  default = "docker.io/polymathrobotics/ros"
+  # default = "docker.io/polymathrobotics/ros"
+  default = "docker.hq0-nexus01.sandbox.polymathrobotics.dev/polymathrobotics/ros"
 }
 
 # There's no darwin-based Docker, so if we're running on macOS, change the platform to linux
@@ -13,8 +14,11 @@ variable "ROS_PACKAGE" {
 
 target "_common" {
   args = {
-    ROS_PACKAGES_URI = "http://packages.ros.org/ros2/ubuntu"
-    RAW_GITHUBUSERCONTENT_BASE_URL = "https://raw.githubusercontent.com"
+    BASE_IMAGE = "docker.hq0-nexus01.sandbox.polymathrobotics.dev/ubuntu:jammy-20240808"
+    # ROS_PACKAGES_URI = "http://packages.ros.org/ros2/ubuntu"
+    ROS_PACKAGES_URI = "http://hq0-nexus01.sandbox.polymathrobotics.dev/repository/ros-apt-proxy"
+    # RAW_GITHUBUSERCONTENT_BASE_URL = "https://raw.githubusercontent.com"
+    RAW_GITHUBUSERCONTENT_BASE_URL = "https://hq0-nexus01.sandbox.polymathrobotics.dev/repository/githubusercontent-proxy"
   }
   dockerfile = "Containerfile"
   labels = {
@@ -51,4 +55,6 @@ target "default" {
     "${TAG_PREFIX}:humble-${ros_package}-jammy"
   ]
   platforms = ["linux/amd64", "linux/arm64/v8"]
+  cache-from = ["type=registry,ref=docker-cache.hq0-nexus01.sandbox.polymathrobotics.dev/polymathrobotics/ros:humble-${ros_package}-jammy"]
+  cache-to = ["type=registry,ref=docker-cache.hq0-nexus01.sandbox.polymathrobotics.dev/polymathrobotics/ros:humble-${ros_package}-jammy"]
 }
