@@ -1,11 +1,11 @@
 # syntax=docker/dockerfile:1
-ARG CONTAINER_REGISTRY=docker.io
-FROM $CONTAINER_REGISTRY/ubuntu:jammy-20231004 AS base
+ARG BASE_IMAGE=docker.io/ubuntu:jammy-20240808
+FROM $BASE_IMAGE AS base
 
-FROM base as download
+FROM base AS download
 
-# For now, use the beta stream to get any updates while service accounts are in beta
-ARG OP_CLI_VERSION=2.17.0-beta.01
+ARG OP_CLI_URL_AMD64
+ARG OP_CLI_URL_ARM64
 
 RUN <<EOF
   apt-get update
@@ -19,13 +19,10 @@ RUN <<EOF
   dpkgArch="$(dpkg --print-architecture)"
   case "${dpkgArch##*-}" in \
     amd64) \
-      OP_CLI_URL="https://cache.agilebits.com/dist/1P/op2/pkg/v${OP_CLI_VERSION}/op_linux_amd64_v${OP_CLI_VERSION}.zip"
+      OP_CLI_URL="${OP_CLI_URL_AMD64}"
       ;; \
     arm64) \
-      OP_CLI_URL="https://cache.agilebits.com/dist/1P/op2/pkg/v${OP_CLI_VERSION}/op_linux_arm64_v${OP_CLI_VERSION}.zip"
-      ;; \
-    armhf) \
-      OP_CLI_URL="https://cache.agilebits.com/dist/1P/op2/pkg/v${OP_CLI_VERSION}/op_linux_arm_v${OP_CLI_VERSION}.zip"
+      OP_CLI_URL="${OP_CLI_URL_ARM64}"
       ;; \
     *) echo "unsupported architecture"; exit 1 ;; \
   esac
