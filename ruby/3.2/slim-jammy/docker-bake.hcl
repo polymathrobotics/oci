@@ -1,13 +1,9 @@
-variable "IMAGE_NAME" {
-  default = "ruby"
+variable "TAG_PREFIX" {
+  default = "docker.io/polymathrobotics/ruby"
 }
 
 variable "VERSION" {
-  default = "3.2.3"
-}
-
-variable "CONTAINER_REGISTRY" {
-  default = "docker.io/polymathrobotics"
+  default = "3.2.5"
 }
 
 # There's no darwin-based Docker, so if we're running on macOS, change the platform to linux
@@ -16,23 +12,19 @@ variable "LOCAL_PLATFORM" {
 }
 
 target "_common" {
-  args = {
-    RUBY_VERSION = "${VERSION}"
-    RUBY_DOWNLOAD_URL = "https://cache.ruby-lang.org/pub/ruby/3.2/ruby-3.2.3.tar.xz"
-    RUBY_DOWNLOAD_SHA256 = "cfb231954b8c241043a538a4c682a1cca0b2016d835fee0b9e4a0be3ceba476b"
-  }
   dockerfile = "Containerfile"
   tags = [
-    "${CONTAINER_REGISTRY}/${IMAGE_NAME}:slim-jammy",
-    "${CONTAINER_REGISTRY}/${IMAGE_NAME}:3-slim-jammy",
-    "${CONTAINER_REGISTRY}/${IMAGE_NAME}:${VERSION}-slim-jammy",
-    "${CONTAINER_REGISTRY}/${IMAGE_NAME}:${join(".", slice(split(".", "${VERSION}"), 0, 2))}-slim-jammy",
+    "${TAG_PREFIX}:slim-jammy",
+    "${TAG_PREFIX}:3-slim-jammy",
+    "${TAG_PREFIX}:${VERSION}-slim-jammy",
+    "${TAG_PREFIX}:${join(".", slice(split(".", "${VERSION}"), 0, 2))}-slim-jammy",
   ]
   labels = {
     "org.opencontainers.image.source" = "https://github.com/polymathrobotics/oci"
     "org.opencontainers.image.licenses" = "Apache-2.0"
     "org.opencontainers.image.description" = "Ruby is a dynamic, reflective, object-oriented, general-purpose, open-source programming language."
-    "org.opencontainers.image.title" = "${IMAGE_NAME}"
+    "org.opencontainers.image.title" = "${TAG_PREFIX}"
+    "org.opencontainers.image.created" = "${timestamp()}"
     "dev.polymathrobotics.image.readme-filepath" = "ruby/README.md"
   }
 }
