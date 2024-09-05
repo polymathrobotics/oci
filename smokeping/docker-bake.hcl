@@ -1,9 +1,5 @@
-variable "IMAGE_NAME" {
-  default = "smokeping"
-}
-
-variable "CONTAINER_REGISTRY" {
-  default = "docker.io/polymathrobotics"
+variable "TAG_PREFIX" {
+  default = "docker.io/polymathrobotics/smokeping"
 }
 
 # There's no darwin-based Docker, so if we're running on macOS, change the platform to linux
@@ -14,13 +10,14 @@ variable "LOCAL_PLATFORM" {
 target "_common" {
   dockerfile = "Containerfile"
   tags = [
-    "${CONTAINER_REGISTRY}/${IMAGE_NAME}:latest",
+    "${TAG_PREFIX}:latest",
   ]
   labels = {
     "org.opencontainers.image.source" = "https://github.com/polymathrobotics/oci"
     "org.opencontainers.image.licenses" = "GPL-2.0"
     "org.opencontainers.image.description" = "Smokeping latency logging, graphing and alerting system."
-    "org.opencontainers.image.title" = "${IMAGE_NAME}"
+    "org.opencontainers.image.title" = "${TAG_PREFIX}"
+    "org.opencontainers.image.created" = "${timestamp()}"
   }
 }
 
