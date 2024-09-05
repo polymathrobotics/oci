@@ -1,5 +1,7 @@
 # syntax=docker/dockerfile:1
+# Arguments used in FROM need to be defined before the first build stage
 ARG BUILD_IMAGE=docker.io/polymathrobotics/golang:1.23-jammy
+ARG BASE_IMAGE=docker.io/ubuntu:jammy-20240808
 FROM ${BUILD_IMAGE} AS build
 
 WORKDIR /usr/src
@@ -22,5 +24,5 @@ RUN <<EOF
   esac
 EOF
 
-FROM docker.io/ubuntu:jammy-20240808
+FROM ${BASE_IMAGE}
 COPY --from=build --chmod=777 /usr/src/go2chef/build/linux/go2chef /usr/local/bin/go2chef
