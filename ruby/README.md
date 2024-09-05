@@ -34,7 +34,7 @@ docker run -it --rm \
 ### Create a `Containerfile` in your Ruby app project
 
 ```
-FROM docker.io/polymathrobotics/ruby:3.1-slimy-jammy
+FROM docker.io/polymathrobotics/ruby:3.1-slim-jammy
 
 # throw errors if Gemfile has been modified since Gemfile.lock
 RUN bundle config --global frozen 1

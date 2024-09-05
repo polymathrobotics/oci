@@ -1,6 +1,6 @@
 # syntax=docker/dockerfile:1
-ARG CONTAINER_REGISTRY=docker.io
-FROM $CONTAINER_REGISTRY/ubuntu:jammy-20240227
+ARG BASE_IMAGE=docker.io/ubuntu:jammy-20240808
+FROM $BASE_IMAGE
 
 RUN set -eux; \
 	apt-get update; \
@@ -26,13 +26,10 @@ RUN set -eux; \
 
 ENV LANG C.UTF-8
 
-# https://www.ruby-lang.org/en/news/2023/12/25/ruby-3-3-0-released/
-ARG RUBY_VERSION
-ENV RUBY_VERSION=$RUBY_VERSION
-ARG RUBY_DOWNLOAD_URL
-ENV RUBY_DOWNLOAD_URL=$RUBY_DOWNLOAD_URL
-ARG RUBY_DOWNLOAD_SHA256
-ENV RUBY_DOWNLOAD_SHA256=$RUBY_DOWNLOAD_SHA256
+# https://www.ruby-lang.org/en/news/2024/09/03/3-3-5-released/
+ENV RUBY_VERSION 3.3.5
+ENV RUBY_DOWNLOAD_URL https://cache.ruby-lang.org/pub/ruby/3.3/ruby-3.3.5.tar.xz
+ENV RUBY_DOWNLOAD_SHA256 51aec7ea89b46125a2c9adc6f36766b65023d47952b916b1aed300ddcc042359
 
 # some of ruby's build scripts are written in ruby
 #   we purge system ruby later to make sure our final image uses what we just built
@@ -100,15 +97,6 @@ RUN set -eux; \
 	mv file.c.new file.c; \
 	\
 	autoconf; \
-	# workaround crash on arm64
-	# https://bugs.ruby-lang.org/issues/20085
-	# https://github.com/ruby/ruby/pull/9385 <- https://github.com/ruby/ruby/pull/9371
-	wget -O 'arm64-fix.patch' 'https://github.com/ruby/ruby/commit/7f97e3540ce448b501bcbee15afac5f94bb22dd9.patch?full_index=1'; \
-	echo '86bc65415fd62cb2272a4df249f39fb79db15617ad05c540e05a22f02eae73b3 *arm64-fix.patch' | sha256sum --check --strict; \
-	patch -p1 -i arm64-fix.patch; \
-	rm arm64-fix.patch; \
-	\
-	autoconf; \
 	gnuArch="$(dpkg-architecture --query DEB_BUILD_GNU_TYPE)"; \
 	./configure \
 		--build="$gnuArch" \
@@ -147,7 +135,9 @@ ENV GEM_HOME /usr/local/bundle
 ENV BUNDLE_SILENCE_ROOT_WARNING=1 \
 	BUNDLE_APP_CONFIG="$GEM_HOME"
 ENV PATH $GEM_HOME/bin:$PATH
-# adjust permissions of a few directories for running "gem install" as an arbitrary user
-RUN mkdir -p "$GEM_HOME" && chmod 1777 "$GEM_HOME"
+RUN set -eux; \
+	mkdir "$GEM_HOME"; \
+# adjust permissions of GEM_HOME for running "gem install" as an arbitrary user
+	chmod 1777 "$GEM_HOME"
 
 CMD [ "irb" ]
