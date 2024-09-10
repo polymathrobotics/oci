@@ -81,6 +81,7 @@ jobs:
             prometheus/collectd_exporter: 'prometheus/collectd_exporter/**'
             prometheus/node_exporter: 'prometheus/node_exporter/**'
             prometheus/prometheus: 'prometheus/prometheus/**'
+            pspace: 'pspace/**'
             pulumi/pulumi-base: 'pulumi/pulumi-base/**'
             pulumi/pulumi-python: 'pulumi/pulumi-python/**'
             python/3.8/focal: 'python/3.8/focal/**'
