@@ -20,7 +20,10 @@ jobs:
           base: ${{ github.ref }}
           filters: |
             ros/humble/ubuntu/jammy: 'ros/humble/ubuntu/jammy/**'
+            ros/iron/ubuntu/jammy: 'ros/iron/ubuntu/jammy/**'
             ros/jazzy/ubuntu/noble: 'ros/jazzy/ubuntu/noble/**'
+            ros/noetic/ubuntu/focal: 'ros/noetic/ubuntu/focal/**'
+            ros/rolling/ubuntu/jammy: 'ros/rolling/ubuntu/jammy/**'
 
   build:
     needs: changes
