@@ -73,7 +73,6 @@ jobs:
             node/22/jammy-slim: 'node/22/jammy-slim/**'
             op: 'op/**'
             paperspace-cli: 'paperspace-cli/**'
-            polymath-ros/humble/ubuntu/jammy: 'polymath-ros/humble/ubuntu/jammy/**'
             portainer-ce: 'portainer-ce/**'
             postgres/15/jammy: 'postgres/15/jammy/**'
             postgres/16/jammy: 'postgres/16/jammy/**'

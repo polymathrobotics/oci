@@ -24,6 +24,7 @@ jobs:
             ros/jazzy/ubuntu/noble: 'ros/jazzy/ubuntu/noble/**'
             ros/noetic/ubuntu/focal: 'ros/noetic/ubuntu/focal/**'
             ros/rolling/ubuntu/jammy: 'ros/rolling/ubuntu/jammy/**'
+            polymath-ros/humble/ubuntu/jammy: 'polymath-ros/humble/ubuntu/jammy/**'
 
   build:
     needs: changes
