@@ -7,7 +7,6 @@ RUN <<EOF
   apt-get update
   apt-get install --no-install-recommends -y \
     python3-pip \
-    python3-rosinstall \
     openssh-client \
     iputils-ping \
     ros-jazzy-rmw-cyclonedds-cpp \
