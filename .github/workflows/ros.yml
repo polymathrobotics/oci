@@ -26,6 +26,7 @@ jobs:
             ros/rolling/ubuntu/jammy: 'ros/rolling/ubuntu/jammy/**'
             polymath-ros/humble/ubuntu/jammy: 'polymath-ros/humble/ubuntu/jammy/**'
             polymath-ros/iron/ubuntu/jammy: 'polymath-ros/iron/ubuntu/jammy/**'
+            polymath-ros/rolling/ubuntu/jammy: 'polymath-ros/rolling/ubuntu/jammy/**'
 
   build:
     needs: changes
