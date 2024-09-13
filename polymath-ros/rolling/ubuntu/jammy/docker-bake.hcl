@@ -13,7 +13,7 @@ variable "ROS_PACKAGE" {
 
 target "_common" {
   args = {
-    BASE_IMAGE = "docker.io/polymathrobotics/ros:rolling-ros-base-jammy"
+    BASE_IMAGE = "docker.io/polymathrobotics/ros:jazzy-ros-base-jammy"
   }
   dockerfile = "Containerfile"
   labels = {
@@ -33,10 +33,10 @@ target "local" {
     ros_package = ROS_PACKAGE
   }
   args = {
-    BASE_IMAGE = "docker.io/polymathrobotics/ros:rolling-${ros_package}-jammy"
+    BASE_IMAGE = "docker.io/polymathrobotics/ros:jazzy-${ros_package}-noble"
   }
   tags = [
-    "${TAG_PREFIX}:rolling-${ros_package}-jammy"
+    "${TAG_PREFIX}:jazzy-${ros_package}-noble"
   ]
   platforms = ["${LOCAL_PLATFORM}"]
 }
@@ -48,10 +48,10 @@ target "default" {
     ros_package = ROS_PACKAGE
   }
   args = {
-    BASE_IMAGE = "docker.io/polymathrobotics/ros:rolling-${ros_package}-jammy"
+    BASE_IMAGE = "docker.io/polymathrobotics/ros:jazzy-${ros_package}-noble"
   }
   tags = [
-    "${TAG_PREFIX}:rolling-${ros_package}-jammy"
+    "${TAG_PREFIX}:jazzy-${ros_package}-noble"
   ]
   platforms = ["linux/amd64", "linux/arm64/v8"]
 } 
