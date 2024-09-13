@@ -9,6 +9,7 @@ ARG PYTHON_GET_PIP_SHA256=bc37786ec99618416cc0a0ca32833da447f4d91ab51d2c138dd15b
 
 FROM base AS download
 
+SHELL ["/bin/bash", "-o", "pipefail", "-c"]
 RUN <<EOF
   apt-get update
   apt-get install --no-install-recommends -y \
