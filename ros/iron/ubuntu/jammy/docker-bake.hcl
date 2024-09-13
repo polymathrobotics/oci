@@ -21,7 +21,7 @@ target "_common" {
     "org.opencontainers.image.source" = "https://github.com/polymathrobotics/oci/blob/main/ros/iron/ubuntu/jammy/Containerfile"
     "org.opencontainers.image.licenses" = "Apache-2.0"
     "org.opencontainers.image.description" = "The Robot Operating System (ROS) is an open source project for building robot applications."
-    "org.opencontainers.image.title" = "ROS Iron Irwini"
+    "org.opencontainers.image.title" = "${TAG_PREFIX}"
     "org.opencontainers.image.created" = "${timestamp()}"
     "dev.polymathrobotics.image.readme-filepath" = "ros/README.md"
   }
