@@ -1,0 +1,23 @@
+# syntax=docker/dockerfile:1
+ARG BASE_IMAGE=docker.io/polymathrobotics/ros:jazzy-ros-base-noble
+# hadolint ignore=DL3006
+FROM ${BASE_IMAGE}
+
+RUN <<EOF
+  apt-get update
+  apt-get install --no-install-recommends -y \
+    python3-pip \
+    python3-rosinstall \
+    openssh-client \
+    iputils-ping \
+    ros-jazzy-rmw-cyclonedds-cpp \
+    nano \
+    ca-certificates \
+    curl \
+    wget
+  pip --version
+  rm -rf /var/lib/apt/lists/*
+EOF
+
+ENTRYPOINT ["/ros_entrypoint.sh"]
+CMD ["bash"]
