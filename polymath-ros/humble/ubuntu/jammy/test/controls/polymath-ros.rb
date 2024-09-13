@@ -1,5 +1,10 @@
 image_value = input('test_container_image')
 
+describe os do
+  its('name') { should eq 'ubuntu' }
+  its('release') { should eq '22.04' }
+end
+
 describe os_env('ROS_DISTRO') do
   its('content') { should include 'humble' }
 end
