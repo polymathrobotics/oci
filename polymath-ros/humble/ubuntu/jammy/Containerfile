@@ -14,32 +14,35 @@ RUN <<EOF
   apt-get install --no-install-recommends -y \
     ca-certificates \
     curl
-  curl -o /tmp/get-pip.py "$PYTHON_GET_PIP_URL"
-  echo "$PYTHON_GET_PIP_SHA256 *get-pip.py" | sha256sum -c -
+  curl -fsSL -o /tmp/get-pip.py "$PYTHON_GET_PIP_URL"
+  echo "$PYTHON_GET_PIP_SHA256 /tmp/get-pip.py" | sha256sum -c -
   rm -rf /var/lib/apt/lists/*
 EOF
+
+FROM base
 
 # if this is called "PIP_VERSION", pip explodes with "ValueError: invalid truth value '<VERSION>'"
 ARG PYTHON_PIP_VERSION=23.0.1
 # https://github.com/docker-library/python/issues/365
 ARG PYTHON_SETUPTOOLS_VERSION=65.5.1
 
-FROM base
-
-COPY --from=download /tmp/get-pip.py get-pip.py
+COPY --from=download /tmp/get-pip.py /get-pip.py
 
 RUN <<EOF
+  echo $PYTHON_PIP_VERSION
+  echo $PYTHON_SETUPTOOLS_VERSION
   apt-get update
   apt-get install --no-install-recommends -y \
     python3-rosinstall \
     openssh-client \
     iputils-ping \
+    ros-humble-rmw-cyclonedds-cpp \
     nano \
     ca-certificates \
     curl \
     wget
   export PYTHONDONTWRITEBYTECODE=1
-  python get-pip.py \
+  python3 get-pip.py \
     --disable-pip-version-check \
     --no-cache-dir \
     --no-compile \

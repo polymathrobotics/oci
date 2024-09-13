@@ -6,5 +6,9 @@ end
 
 describe command("pip show setuptools") do
   its('exit_status') { should cmp 0 }
-  its('stdout') { should match(/Version: 58.2.0/) }
+  its('stdout') { should match(/Version: 65/) }
+end
+
+describe command("pip show wheel") do
+  its('exit_status') { should cmp 0 }
 end

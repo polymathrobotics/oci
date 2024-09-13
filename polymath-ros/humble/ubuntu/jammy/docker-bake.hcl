@@ -1,5 +1,5 @@
 variable "TAG_PREFIX" {
-  default = "docker.io/polymathrobotics/polymath-ros-base"
+  default = "docker.io/polymathrobotics/polymath-ros"
 }
 
 # There's no darwin-based Docker, so if we're running on macOS, change the platform to linux
