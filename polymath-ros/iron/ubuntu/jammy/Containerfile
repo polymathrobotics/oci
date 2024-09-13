@@ -30,8 +30,6 @@ ARG PYTHON_SETUPTOOLS_VERSION=65.5.1
 COPY --from=download /tmp/get-pip.py /get-pip.py
 
 RUN <<EOF
-  echo $PYTHON_PIP_VERSION
-  echo $PYTHON_SETUPTOOLS_VERSION
   apt-get update
   apt-get install --no-install-recommends -y \
     python3-rosinstall \
