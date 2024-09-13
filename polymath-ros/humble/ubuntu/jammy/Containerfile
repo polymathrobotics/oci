@@ -1,0 +1,54 @@
+# syntax=docker/dockerfile:1
+ARG BASE_IMAGE=docker.io/polymathrobotics/ros:humble-ros-base-jammy
+# hadolint ignore=DL3006
+FROM ${BASE_IMAGE} AS base
+
+# https://github.com/pypa/get-pip
+ARG PYTHON_GET_PIP_URL=https://github.com/pypa/get-pip/raw/def4aec84b261b939137dd1c69eff0aabb4a7bf4/public/get-pip.py
+ARG PYTHON_GET_PIP_SHA256=bc37786ec99618416cc0a0ca32833da447f4d91ab51d2c138dd15b7af21e8e9a
+
+FROM base AS download
+
+RUN <<EOF
+  apt-get update
+  apt-get install --no-install-recommends -y \
+    ca-certificates \
+    curl
+  curl -o /tmp/get-pip.py "$PYTHON_GET_PIP_URL"
+  echo "$PYTHON_GET_PIP_SHA256 *get-pip.py" | sha256sum -c -
+  rm -rf /var/lib/apt/lists/*
+EOF
+
+# if this is called "PIP_VERSION", pip explodes with "ValueError: invalid truth value '<VERSION>'"
+ARG PYTHON_PIP_VERSION=23.0.1
+# https://github.com/docker-library/python/issues/365
+ARG PYTHON_SETUPTOOLS_VERSION=65.5.1
+
+FROM base
+
+COPY --from=download /tmp/get-pip.py get-pip.py
+
+RUN <<EOF
+  apt-get update
+  apt-get install --no-install-recommends -y \
+    python3-rosinstall \
+    openssh-client \
+    iputils-ping \
+    nano \
+    ca-certificates \
+    curl \
+    wget
+  export PYTHONDONTWRITEBYTECODE=1
+  python get-pip.py \
+    --disable-pip-version-check \
+    --no-cache-dir \
+    --no-compile \
+    "pip==$PYTHON_PIP_VERSION" \
+    "setuptools==$PYTHON_SETUPTOOLS_VERSION" \
+    wheel
+  rm -f get-pip.py
+  pip --version
+  rm -rf /var/lib/apt/lists/*
+EOF
+
+CMD ["/bin/bash"]
