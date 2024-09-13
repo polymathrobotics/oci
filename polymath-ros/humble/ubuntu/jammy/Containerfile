@@ -54,4 +54,5 @@ RUN <<EOF
   rm -rf /var/lib/apt/lists/*
 EOF
 
-CMD ["/bin/bash"]
+ENTRYPOINT ["/ros_entrypoint.sh"]
+CMD ["bash"]
