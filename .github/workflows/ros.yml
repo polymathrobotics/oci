@@ -62,9 +62,9 @@ jobs:
           workdir: ${{ matrix.image }}
           targets: local
           load: true
-          set: |
-            _common.args.ROS_PACKAGES_URI=http://crake-nexus.org.boxcutter.net/repository/ros-apt-proxy
-            _common.args.RAW_GITHUBUSERCONTENT_BASE_URL=https://crake-nexus.org.boxcutter.net/repository/githubusercontent-proxy
+          # set: |
+          #   _common.args.ROS_PACKAGES_URI=http://crake-nexus.org.boxcutter.net/repository/ros-apt-proxy
+          #   _common.args.RAW_GITHUBUSERCONTENT_BASE_URL=https://crake-nexus.org.boxcutter.net/repository/githubusercontent-proxy
 
       - name: Run tests on the image with cinc-auditor
         shell: bash
@@ -88,9 +88,9 @@ jobs:
         with:
           workdir: ${{ matrix.image }}
           push: ${{ github.event_name != 'pull_request' }}
-          set: |
-            _common.args.ROS_PACKAGES_URI=http://crake-nexus.org.boxcutter.net/repository/ros-apt-proxy
-            _common.args.RAW_GITHUBUSERCONTENT_BASE_URL=https://crake-nexus.org.boxcutter.net/repository/githubusercontent-proxy
+          # set: |
+          #   _common.args.ROS_PACKAGES_URI=http://crake-nexus.org.boxcutter.net/repository/ros-apt-proxy
+          #  _common.args.RAW_GITHUBUSERCONTENT_BASE_URL=https://crake-nexus.org.boxcutter.net/repository/githubusercontent-proxy
 
       - name: Get the image name
         if: ${{ github.event_name != 'pull_request' }}
