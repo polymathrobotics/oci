@@ -4,7 +4,7 @@ set -eu
 set -o pipefail
 set -x
 
-SOURCE_ISO="ubuntu-22.04.5-live-server-amd64.iso"
+SOURCE_ISO="ubuntu-22.04.4-live-server-amd64.iso"
 DESTINATION_ISO="ubuntu-autoinstall.iso"
 AUTOINSTALL_CONFIG_FILE="autoinstall.example"
 
