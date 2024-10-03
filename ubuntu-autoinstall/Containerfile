@@ -10,6 +10,7 @@ RUN <<EOF
 EOF
 
 COPY image-create.sh /app/
+COPY replace-grub.sh /app/
 
 VOLUME /data
 WORKDIR /data
