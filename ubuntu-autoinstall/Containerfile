@@ -1,5 +1,6 @@
 # syntax=docker/dockerfile:1
 ARG BASE_IMAGE=docker.io/ubuntu:jammy-20240808
+# hadolint ignore=DL3006
 FROM $BASE_IMAGE AS base
 
 RUN <<EOF
@@ -7,6 +8,11 @@ RUN <<EOF
   apt-get install -y --no-install-recommends \
     fdisk \
     xorriso
+  # For the isohdpfx.bin file required for the legancy Ubuntu 20.04 isolinux
+  # bootloader
+  apt-get install -y --no-install-recommends \
+    isolinux
+  rm -rf /var/lib/apt/lists/*
 EOF
 
 COPY image-create.sh /app/
