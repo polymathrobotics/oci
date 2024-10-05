@@ -145,7 +145,8 @@ reassemble_iso() {
       -eltorito-alt-boot \
       -e boot/grub/efi.img \
       -no-emul-boot \
-      -isohybrid-gpt-basdat -o "${DESTINATION_ISO}" "${ISO_FILESYSTEM_DIR}"
+      -isohybrid-gpt-basdat \
+      -o "${DESTINATION_ISO}" "${ISO_FILESYSTEM_DIR}"
   fi
 }
 
