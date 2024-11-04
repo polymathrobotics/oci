@@ -14,10 +14,10 @@ variable "LOCAL_PLATFORM" {
 target "_common" {
   args = {
     GLAB_VERSION = "${VERSION}"
-    GLAB_URL_AMD64 = "https://gitlab.com/gitlab-org/cli/-/releases/v1.47.0/downloads/glab_1.47.0_linux_amd64.deb"
-    GLAB_SHA256_AMD64 = "cbc09492b2b313b2457651f00ee62677ae11442279c4cc67377aeea66b260144"
-    GLAB_URL_ARM64 = "https://gitlab.com/gitlab-org/cli/-/releases/v1.47.0/downloads/glab_1.47.0_linux_arm64.deb"
-    GLAB_SHA256_ARM64 = "ab9de6ba9e4b8d8b6f9e3c11de138c1b9342e879ff07f9a502d49a7dae2244b9"
+    GLAB_URL_AMD64 = "https://gitlab.com/gitlab-org/cli/-/releases/v1.48.0/downloads/glab_1.48.0_linux_amd64.deb"
+    GLAB_SHA256_AMD64 = "ddc82c30aec8620f762f705d37d217cc9283c14eb8f93d6e80f2f24126b4a2ab"
+    GLAB_URL_ARM64 = "https://gitlab.com/gitlab-org/cli/-/releases/v1.48.0/downloads/glab_1.48.0_linux_arm64.deb"
+    GLAB_SHA256_ARM64 = "b1293cd1cef8ca13b4a28c86dcf750cbc362b5fdfaf453c7a1e7273d2707f20b"
     DOCKER_URL_AMD64 = "https://download.docker.com/linux/static/stable/x86_64/docker-27.3.1.tgz"
     DOCKER_URL_ARM64 = "https://download.docker.com/linux/static/stable/aarch64/docker-27.3.1.tgz"
   }
