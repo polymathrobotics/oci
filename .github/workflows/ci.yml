@@ -33,6 +33,7 @@ jobs:
             buildpack-deps/ubuntu/focal: 'buildpack-deps/ubuntu/focal/**'
             buildpack-deps/ubuntu/jammy: 'buildpack-deps/ubuntu/jammy/**'
             buildpack-deps/ubuntu/noble: 'buildpack-deps/ubuntu/noble/**'
+            cinc/cinc-auditor: 'cinc/cinc-auditor/**
             couchdb: 'couchdb/**'
             doctl: 'doctl/**'
             dokken/almalinux-8: 'dokken/almalinux-8/**'
