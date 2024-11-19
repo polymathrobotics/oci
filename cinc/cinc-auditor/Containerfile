@@ -1,5 +1,6 @@
 # syntax=docker/dockerfile:1
-ARG BASE_IMAGE=docker.io/ubuntu:jammy-20240911.1
+# Must use noble instead of jammy for GLIBC_2.38 dependency
+ARG BASE_IMAGE=docker.io/ubuntu:noble-20241015
 FROM $BASE_IMAGE AS base
 
 FROM base AS download
