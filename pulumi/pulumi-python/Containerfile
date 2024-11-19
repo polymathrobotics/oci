@@ -2,6 +2,7 @@
 # Arguments used in FROM need to be defined before the first build stage
 ARG BUILD_IMAGE=docker.io/ubuntu:jammy-20240911.1
 ARG BASE_IMAGE=docker.io/polymathrobotics/python:3.9-jammy
+# hadolint ignore=DL3006
 FROM $BUILD_IMAGE AS build
 
 ARG PULUMI_VERSION
@@ -38,6 +39,7 @@ RUN curl -fsSL https://get.pulumi.com/ | bash -s -- --version $PULUMI_VERSION
 
 # The runtime container
 # This is our base container, so let's copy all the runtimes to .pulumi/bin
+# hadolint ignore=DL3006
 FROM $BASE_IMAGE
 
 ENV PATH=/opt/cinc-auditor/bin:/opt/cinc-auditor/embedded/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin
