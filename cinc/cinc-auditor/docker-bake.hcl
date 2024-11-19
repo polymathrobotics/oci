@@ -39,5 +39,6 @@ target "default" {
     "org.opencontainers.image.description" = "Cinc Auditing and Testing Framework."
     "org.opencontainers.image.title" = "${TAG_PREFIX}"
     "org.opencontainers.image.created" = "${timestamp()}"
+    "dev.polymathrobotics.test.container-build-publish-action.run-test-stage" = "false"
   }
 }
