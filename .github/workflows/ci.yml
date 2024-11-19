@@ -64,6 +64,7 @@ jobs:
             golang/1.22/jammy: 'golang/1.22/jammy/**'
             golang/1.23/jammy: 'golang/1.23/jammy/**'
             grafana/grafana-oss: 'grafana/grafana-oss/**'
+            hadolint: 'hadolint/**'
             hashicorp/terraform: 'hashicorp/terraform/**'
             jfrog/jfrog-cli: 'jfrog/jfrog-cli/**'
             ldap-utils: 'ldap-utils/**'
