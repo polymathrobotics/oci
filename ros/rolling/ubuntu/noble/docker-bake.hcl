@@ -8,7 +8,7 @@ variable "LOCAL_PLATFORM" {
 }
 
 variable "ROS_PACKAGE" {
-  default = ["ros-core", "ros-base", "perception", "simulation", "desktop", "desktop-full"]
+  default = ["ros-core", "ros-base", "perception", "desktop"]
 }
 
 target "_common" {
@@ -19,7 +19,7 @@ target "_common" {
   }
   dockerfile = "Containerfile"
   labels = {
-    "org.opencontainers.image.source" = "https://github.com/polymathrobotics/oci/blob/main/ros/humble/ubuntu/jammy/Containerfile"
+    "org.opencontainers.image.source" = "https://github.com/polymathrobotics/oci/blob/main/ros/jazzy/ubuntu/noble/Containerfile"
     "org.opencontainers.image.licenses" = "Apache-2.0"
     "org.opencontainers.image.description" = "The Robot Operating System (ROS) is an open source project for building robot applications."
     "org.opencontainers.image.title" = "${TAG_PREFIX}"
@@ -36,7 +36,7 @@ target "local" {
   }
   target = ros_package
   tags = [
-    "${TAG_PREFIX}:rolling-${ros_package}-jammy"
+    "${TAG_PREFIX}:rolling-${ros_package}-noble"
   ]
   platforms = ["${LOCAL_PLATFORM}"]
 }
@@ -49,7 +49,7 @@ target "default" {
   }
   target = ros_package
   tags = [
-    "${TAG_PREFIX}:rolling-${ros_package}-jammy"
+    "${TAG_PREFIX}:rolling-${ros_package}-noble"
   ]
   platforms = ["linux/amd64", "linux/arm64/v8"]
 }

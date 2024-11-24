@@ -28,10 +28,10 @@ describe file('/ros_entrypoint.sh') do
   its('content') { should match %r{source "/opt/ros/\$ROS_DISTRO/setup\.bash"} }
 end
 
-# docker.io/polymathrobotics/ros:rolling-ros-core-jammy
+# docker.io/polymathrobotics/ros:rolling-ros-core-noble
 control 'ros-core' do
   only_if('ros-core') do
-    input('test_container_image').include?('ros:rolling-ros-core-jammy')
+    input('test_container_image').include?('ros:rolling-ros-core-noble')
   end
 
   %w(
@@ -44,10 +44,10 @@ control 'ros-core' do
   end
 end
 
-# docker.io/polymathrobotics/ros:rolling-ros-base-jammy
+# docker.io/polymathrobotics/ros:rolling-ros-base-noble
 control 'ros-base' do
   only_if('ros-base') do
-    input('test_container_image').include?('ros:rolling-ros-base-jammy')
+    input('test_container_image').include?('ros:rolling-ros-base-noble')
   end
 
   describe command('colcon') do
@@ -55,10 +55,10 @@ control 'ros-base' do
   end
 end
 
-# docker.io/polymathrobotics/ros:rolling-perception-jammy
+# docker.io/polymathrobotics/ros:rolling-perception-noble
 control 'perception' do
   only_if('perception') do
-    input('test_container_image').include?('ros:rolling-perception-jammy')
+    input('test_container_image').include?('ros:rolling-perception-noble')
   end
 
   describe command('colcon') do
@@ -66,32 +66,10 @@ control 'perception' do
   end
 end
 
-# docker.io/polymathrobotics/ros:rolling-simulation-jammy
-control 'simulation' do
-  only_if('simulation') do
-    input('test_container_image').include?('ros:rolling-simulation-jammy')
-  end
-
-  describe command('colcon') do
-    it { should exist }
-  end
-end
-
-# docker.io/polymathrobotics/ros:rolling-desktop-jammy
+# docker.io/polymathrobotics/ros:rolling-desktop-noble
 control 'desktop' do
   only_if('desktop') do
-    input('test_container_image').include?('ros:rolling-desktop-jammy')
-  end
-
-  describe command('colcon') do
-    it { should exist }
-  end
-end
-
-# docker.io/polymathrobotics/ros:rolling-desktop-full-jammy
-control 'desktop-full' do
-  only_if('desktop-full') do
-    input('test_container_image').include?('ros:rolling-desktop-full-jammy')
+    input('test_container_image').include?('ros:rolling-desktop-noble')
   end
 
   describe command('colcon') do

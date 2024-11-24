@@ -1,5 +1,5 @@
 # syntax=docker/dockerfile:1
-ARG BASE_IMAGE=docker.io/ubuntu:jammy-20240911.1
+ARG BASE_IMAGE=docker.io/ubuntu:noble-20241015
 # hadolint ignore=DL3006
 FROM ${BASE_IMAGE} AS base
 
@@ -38,7 +38,7 @@ RUN apt-get update && apt-get install -q -y --no-install-recommends \
     && rm -rf /var/lib/apt/lists/*
 
 # setup sources.list
-RUN echo "deb [ signed-by=/usr/share/keyrings/ros2-latest-archive-keyring.gpg ] ${ROS_PACKAGES_URI} jammy main" > /etc/apt/sources.list.d/ros2-latest.list
+RUN echo "deb [ signed-by=/usr/share/keyrings/ros2-latest-archive-keyring.gpg ] ${ROS_PACKAGES_URI} noble main" > /etc/apt/sources.list.d/ros2-latest.list
 
 # setup environment
 ENV LANG=C.UTF-8
@@ -49,7 +49,7 @@ ENV ROS_DISTRO=rolling
 
 # install ros2 packages
 RUN apt-get update && apt-get install -y --no-install-recommends \
-    ros-rolling-ros-core=0.10.0-2* \
+    ros-rolling-ros-core=0.11.0-1* \
     && rm -rf /var/lib/apt/lists/*
 
 # setup entrypoint
@@ -86,33 +86,19 @@ RUN colcon mixin add default \
 
 # install ros2 packages
 RUN apt-get update && apt-get install -y --no-install-recommends \
-    ros-rolling-ros-base=0.10.0-2* \
+    ros-rolling-ros-core=0.11.0-1* \
     && rm -rf /var/lib/apt/lists/*
 
 FROM ros-base AS perception
 
 # install ros2 packages
 RUN apt-get update && apt-get install -y --no-install-recommends \
-    ros-rolling-perception=0.10.0-2* \
-    && rm -rf /var/lib/apt/lists/*
-
-FROM ros-base AS simulation
-
-# install ros2 packages
-RUN apt-get update && apt-get install -y --no-install-recommends \
-    ros-rolling-simulation=0.10.0-2* \
+    ros-rolling-ros-base=0.11.0-1* \
     && rm -rf /var/lib/apt/lists/*
 
 FROM ros-base AS desktop
 
 # install ros2 packages
 RUN apt-get update && apt-get install -y --no-install-recommends \
-    ros-rolling-desktop=0.10.0-2* \
-    && rm -rf /var/lib/apt/lists/*
-
-FROM desktop AS desktop-full
-
-# install ros2 packages
-RUN apt-get update && apt-get install -y --no-install-recommends \
-    ros-rolling-desktop-full=0.10.0-2* \
+    ros-rolling-desktop=0.11.0-1* \
     && rm -rf /var/lib/apt/lists/*
