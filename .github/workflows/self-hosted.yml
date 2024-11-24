@@ -47,8 +47,17 @@ jobs:
         shell: bash
         working-directory: ${{ matrix.image }}
         run: |
-          echo "build-type=$($(git rev-parse --show-toplevel)/bin/build-type.sh)" >> $GITHUB_ENV
           echo "run-lint-stage=$($(git rev-parse --show-toplevel)/bin/run-lint-stage.sh)" >> $GITHUB_ENV
           echo "run-test-stage=$($(git rev-parse --show-toplevel)/bin/run-test-stage.sh)" >> $GITHUB_ENV
           echo "test-entrypoint=$($(git rev-parse --show-toplevel)/bin/test-entrypoint.sh)" >> $GITHUB_ENV
           cat $GITHUB_ENV
+
+      - uses: polymathrobotics/container-build-publish-action@main
+        with:
+          workdir: ${{ matrix.image }}
+          build-type: 'local'
+          run-list-stage: ${{ env.run-lint-stage }}
+          run-test-stage: ${{ env.run-test-stage }}
+          test-entrypoint: ${{ env.test-entrypoint }}
+          dockerhub-username: ${{ secrets.CONTAINER_REGISTRY_USERNAME }}
+          dockerhub-password: ${{ secrets.CONTAINER_DESCRIPTION_PASSWORD }}
