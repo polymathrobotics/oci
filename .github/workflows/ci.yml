@@ -145,7 +145,7 @@ jobs:
       matrix:
         directory: ${{ fromJSON(github.event.inputs.list) }}
     if: ${{ github.event.inputs.list != '' && github.event.inputs.list != '[]' && github.event_name == 'workflow_dispatch' }}
-    runs-on: ubuntu-latest
+    runs-on: [self-hosted, multi-arch]
     steps:
       - name: Checkout code
         uses: actions/checkout@v4
@@ -162,7 +162,7 @@ jobs:
       - uses: polymathrobotics/container-build-publish-action@main
         with:
           workdir: ${{ matrix.directory }}
-          build-type: 'hosted'
+          build-type: 'local'
           run-lint-stage: ${{ env.run-lint-stage }}
           run-test-stage: ${{ env.run-test-stage }}
           test-entrypoint: ${{ env.test-entrypoint }}
