@@ -116,7 +116,7 @@ jobs:
         shell: bash
         working-directory: ${{ matrix.image }}
         run: |
-          echo "build_type=$($(git rev-parse --show-toplevel)/bin/build_type.sh)" >> $GITHUB_ENV
+          echo "build-type=$($(git rev-parse --show-toplevel)/bin/build-type.sh)" >> $GITHUB_ENV
           echo "::debug::This is a debug message"
 
       - name: Get run-lint-stage
