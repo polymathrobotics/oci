@@ -183,7 +183,6 @@ jobs:
         with:
           base: ${{ github.ref }}
           filters: |
-            # couchdb: 'couchdb/**'
             python/3.9/focal: 'python/3.9/focal/**'
             python/3.9/slim-focal: 'python/3.9/slim-focal/**'
             python/3.9/jammy: 'python/3.9/jammy/**'
@@ -192,6 +191,15 @@ jobs:
             python/3.10/slim-focal: 'python/3.10/slim-focal/**'
             python/3.10/jammy: 'python/3.10/jammy/**'
             python/3.10/slim-jammy: 'python/3.10/slim-jammy/**'
+            ros/humble/ubuntu/jammy: 'ros/humble/ubuntu/jammy/**'
+            ros/iron/ubuntu/jammy: 'ros/iron/ubuntu/jammy/**'
+            ros/jazzy/ubuntu/noble: 'ros/jazzy/ubuntu/noble/**'
+            ros/noetic/ubuntu/focal: 'ros/noetic/ubuntu/focal/**'
+            ros/rolling/ubuntu/jammy: 'ros/rolling/ubuntu/jammy/**'
+            polymath-ros/humble/ubuntu/jammy: 'polymath-ros/humble/ubuntu/jammy/**'
+            polymath-ros/iron/ubuntu/jammy: 'polymath-ros/iron/ubuntu/jammy/**'
+            polymath-ros/jazzy/ubuntu/noble: 'polymath-ros/jazzy/ubuntu/noble/**'
+            polymath-ros/rolling/ubuntu/jammy: 'polymath-ros/rolling/ubuntu/jammy/**'
 
   # Job to build and test each of the modified images
   self-hosted-build:
