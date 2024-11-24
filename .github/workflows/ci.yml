@@ -34,7 +34,6 @@ jobs:
             buildpack-deps/ubuntu/jammy: 'buildpack-deps/ubuntu/jammy/**'
             buildpack-deps/ubuntu/noble: 'buildpack-deps/ubuntu/noble/**'
             cinc/cinc-auditor: 'cinc/cinc-auditor/**'
-            couchdb: 'couchdb/**'
             doctl: 'doctl/**'
             dokken/almalinux-8: 'dokken/almalinux-8/**'
             dokken/almalinux-9: 'dokken/almalinux-9/**'
@@ -100,7 +99,7 @@ jobs:
             ubuntu-autoinstall: 'ubuntu-autoinstall/**'
 
   # Job to build and test each of the modified images
-  hosted-build:
+  build:
     needs: changes
     strategy:
       matrix:
@@ -109,8 +108,6 @@ jobs:
         image: ${{ fromJSON(needs.changes.outputs.images) }}
     if: ${{ needs.changes.outputs.images != '[]' && needs.changes.outputs.images != '' }}
     runs-on: ubuntu-latest
-    outputs:
-      local-builds: ${{ steps.local-build.outputs.filter }}
     steps:
       - name: Checkout code
         uses: actions/checkout@v4
@@ -124,20 +121,3 @@ jobs:
           echo "run-test-stage=$($(git rev-parse --show-toplevel)/bin/run-test-stage.sh)" >> $GITHUB_ENV
           echo "test-entrypoint=$($(git rev-parse --show-toplevel)/bin/test-entrypoint.sh)" >> $GITHUB_ENV
           cat $GITHUB_ENV
-
-      - name: Add to local build list
-        id: local-build
-        shell: bash
-        run: |
-          echo "filter=${{ matrix.image }}" >> $GITHUB_OUTPUT
-          cat $GITHUB_OUTPUT
-
-  local-build:
-    needs: hosted-build
-    # https://samanpavel.medium.com/github-actions-conditional-job-execution-e6aa363d2867
-    if: always() && ${{ needs.hosted-build.outputs.filter != '[]' && needs.host-build.outputs.filter != '' }}
-    runs-on: [self-hosted,multi-arch]
-    steps:
-      - run: |
-          echo "Building on self-hosted runner"
-          echo "filter = ${{ fromJSON(needs.hosted-build.outputs.filter) }}"

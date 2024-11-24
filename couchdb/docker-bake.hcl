@@ -1,5 +1,5 @@
 variable "TAG_PREFIX" {
-  default =  "docker.io/polymathrobotics/couchdb"
+  default = "docker.io/polymathrobotics/couchdb"
 }
 
 variable "VERSION" {
@@ -26,7 +26,6 @@ target "_common" {
     "org.opencontainers.image.title" = "${TAG_PREFIX}"
     "org.opencontainers.image.created" = "${timestamp()}"
     "dev.polymathrobotics.image.readme-filepath" = "couchdb/README.md"
-    "dev.polymathrobotics.container-build-publish-action.build-type" = "local"
   }
 }
 
