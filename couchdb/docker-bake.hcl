@@ -1,5 +1,5 @@
 variable "TAG_PREFIX" {
-  default =  "docker.io/polymathrobotics/couchdb"
+  default = "docker.io/polymathrobotics/couchdb"
 }
 
 variable "VERSION" {
