@@ -35,6 +35,7 @@ jobs:
             buildpack-deps/ubuntu/noble: 'buildpack-deps/ubuntu/noble/**'
             cinc/cinc-auditor: 'cinc/cinc-auditor/**'
             doctl: 'doctl/**'
+            couchdb: 'couchdb/**'
             dokken/almalinux-8: 'dokken/almalinux-8/**'
             dokken/almalinux-9: 'dokken/almalinux-9/**'
             dokken/amazonlinux-2: 'dokken/amazonlinux-2/**'
