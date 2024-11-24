@@ -110,8 +110,10 @@ jobs:
     if: ${{ needs.changes.outputs.images != '[]' && needs.changes.outputs.images != '' }}
     runs-on: ubuntu-latest
     steps:
-      - uses: polymathrobotics/container-build-publish-action@main
-        with:
-          workdir: ${{ matrix.image }}
-          dockerhub-username: ${{ secrets.CONTAINER_REGISTRY_USERNAME }}
-          dockerhub-password: ${{ secrets.CONTAINER_DESCRIPTION_PASSWORD }}
+      - name: Get run-lint-stage
+        shell: bash
+        working-directory: ${{ matrix.image }}
+        run: |
+          echo "needs.changes.outputs.images=${{ needs.changes.outputs.images }}"
+          pwd
+          ls
