@@ -1,5 +1,6 @@
 # syntax=docker/dockerfile:1
 ARG BASE_IMAGE=docker.io/ubuntu:jammy-20240911.1
+# hadolint ignore=DL3006
 FROM $BASE_IMAGE AS base
 
 # Add CouchDB user account to make sure the IDs are assigned consistently
@@ -27,9 +28,12 @@ RUN set -eux; \
 # http://docs.couchdb.org/en/latest/install/unix.html#installing-the-apache-couchdb-packages
 ENV GPG_COUCH_KEY=390EF70BB1EA12B2773962950EE62FB37A00258D
 # gpg: rsa8192 205-01-19 The Apache Software Foundation (Package repository signing key) <root@apache.org>
+# hadolint ignore=SC2015
 RUN set -eux; \
     apt-get update; \
-    apt-get install -y curl; \
+    apt-get install -y --no-install-recommends \
+      ca-certificates \
+      curl; \
     export GNUPGHOME="$(mktemp -d)"; \
     curl -fL -o keys.asc https://couchdb.apache.org/repo/keys.asc; \
     gpg --batch --import keys.asc; \
@@ -37,22 +41,25 @@ RUN set -eux; \
     command -v gpgconf && gpgconf --kill all || :; \
     rm -rf "$GNUPGHOME"; \
     apt-key list; \
-    apt purge -y --autoremove curl; \
+    apt-get purge -y --autoremove curl; \
     rm -rf /var/lib/apt/lists/*
 
 ENV COUCHDB_VERSION=3.4.2
 
+SHELL ["/bin/bash", "-o", "pipefail", "-c"]
+# hadolint ignore=SC1091
 RUN . /etc/os-release; \
     echo "deb [signed-by=/usr/share/keyrings/couchdb-archive-keyring.gpg] https://apache.jfrog.io/artifactory/couchdb-deb/ ${VERSION_CODENAME} main" | \
         tee /etc/apt/sources.list.d/couchdb.list >/dev/null
 
 # https://github.com/apache/couchdb-pkg/blob/master/debian/README.Debian
+SHELL ["/bin/bash", "-o", "pipefail", "-c"]
 RUN set -eux; \
     apt-get update; \
     \
     echo "couchdb couchdb/mode select none" | debconf-set-selections; \
 # we DO want recommends this time
-    DEBIAN_FRONTEND=noninteractive apt-get install -y --allow-downgrades --allow-remove-essential --allow-change-held-packages \
+    DEBIAN_FRONTEND=noninteractive apt-get install -y --allow-downgrades --allow-remove-essential --allow-change-held-packages --no-install-recommends \
             couchdb="$COUCHDB_VERSION"~jammy \
     ; \
 # Undo symlinks to /var/log and /var/lib
