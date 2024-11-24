@@ -26,7 +26,7 @@ target "_common" {
     "org.opencontainers.image.title" = "${TAG_PREFIX}"
     "org.opencontainers.image.created" = "${timestamp()}"
     "dev.polymathrobotics.image.readme-filepath" = "couchdb/README.md"
-    "dev.polymathrobotics.image.test-entrypoint" = "/bin/bash"
+    "dev.polymathrobotics.container-build-publish-action.build-type" = "local"
   }
 }
 

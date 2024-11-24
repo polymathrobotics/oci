@@ -123,12 +123,14 @@ jobs:
           echo "run-lint-stage=$($(git rev-parse --show-toplevel)/bin/run-lint-stage.sh)" >> $GITHUB_ENV
           echo "run-test-stage=$($(git rev-parse --show-toplevel)/bin/run-test-stage.sh)" >> $GITHUB_ENV
           echo "test-entrypoint=$($(git rev-parse --show-toplevel)/bin/test-entrypoint.sh)" >> $GITHUB_ENV
+          cat $GITHUB_ENV
 
       - name: Add to local build list
         id: local-build
         shell: bash
         run: |
           echo "filter=${{ matrix.image }}" >> $GITHUB_OUTPUT
+          cat $GITHUB_OUTPUT
 
   local-build:
     needs: hosted-build
