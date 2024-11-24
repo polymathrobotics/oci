@@ -174,12 +174,12 @@ jobs:
     if: ${{ github.event_name != 'workflow_dispatch' }}
     runs-on: [self-hosted, multi-arch]
     outputs:
-      images: ${{ steps.filter.outputs.changes }}
+      images: ${{ steps.self-hosted-filter.outputs.changes }}
     steps:
       - uses: actions/checkout@v4
 
       - uses: dorny/paths-filter@v3
-        id: filter
+        id: self-hosted-filter
         with:
           base: ${{ github.ref }}
           filters: |
@@ -208,8 +208,8 @@ jobs:
       matrix:
         # Parse JSON array containing names of all filters matching any of changed files
         # e.g. ['image1', 'image2'] if both image folders contains changes
-        image: ${{ fromJSON(needs.changes.outputs.images) }}
-    if: ${{ needs.changes.outputs.images != '[]' && needs.changes.outputs.images != '' && github.event_name != 'workflow_dispatch'}}
+        image: ${{ fromJSON(needs.self-hosted-changes.outputs.images) }}
+    if: ${{ needs.self-hosted-changes.outputs.images != '[]' && needs.self-hosted-changes.outputs.images != '' && github.event_name != 'workflow_dispatch'}}
     runs-on: [self-hosted, multi-arch]
     steps:
       - name: Checkout code
