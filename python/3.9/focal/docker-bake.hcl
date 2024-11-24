@@ -1,5 +1,5 @@
 variable "TAG_PREFIX" {
-  default = "docker.io/polymathrobotics/python"
+  default =  "docker.io/polymathrobotics/python"
 }
 
 variable "VERSION" {
