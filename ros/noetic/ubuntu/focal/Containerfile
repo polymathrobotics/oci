@@ -1,5 +1,5 @@
 # syntax=docker/dockerfile:1
-ARG BASE_IMAGE=docker.io/ubuntu:focal-20240530
+ARG BASE_IMAGE=docker.io/ubuntu:focal-20241011
 # hadolint ignore=DL3006
 FROM ${BASE_IMAGE} AS base
 
@@ -20,6 +20,7 @@ EOF
 FROM base AS ros-core
 
 ARG ROS_PACKAGES_URI
+ARG ROSDISTRO_PKGS_SYNC_DATE
 
 COPY --from=download /usr/share/keyrings/ros1-latest-archive-keyring.gpg /usr/share/keyrings/ros1-latest-archive-keyring.gpg
 
@@ -43,6 +44,7 @@ RUN echo "deb [ signed-by=/usr/share/keyrings/ros1-latest-archive-keyring.gpg ] 
 ENV LANG=C.UTF-8
 ENV LC_ALL=C.UTF-8
 
+ENV ROSDISTRO_PKGS_SYNC_DATE=$ROSDISTRO_PKGS_SYNC_DATE
 ENV ROS_DISTRO=noetic
 
 # install ros packages

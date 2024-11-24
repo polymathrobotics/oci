@@ -15,6 +15,7 @@ target "_common" {
   args = {
     ROS_PACKAGES_URI = "http://packages.ros.org/ros/ubuntu"
     RAW_GITHUBUSERCONTENT_BASE_URL = "https://raw.githubusercontent.com"
+    ROSDISTRO_PKGS_SYNC_DATE = "${formatdate("YYYY-MM-DD", timestamp())}"
   }
   dockerfile = "Containerfile"
   labels = {
