@@ -134,7 +134,8 @@ jobs:
 
   local-build:
     needs: hosted-build
-    if: ${{ needs.hosted-build.outputs.filter != '[]' && needs.host-build.outputs.filter != '' }}
+    # https://samanpavel.medium.com/github-actions-conditional-job-execution-e6aa363d2867
+    if: always() && ${{ needs.hosted-build.outputs.filter != '[]' && needs.host-build.outputs.filter != '' }}
     runs-on: [self-hosted,multi-arch]
     steps:
       - run: |
