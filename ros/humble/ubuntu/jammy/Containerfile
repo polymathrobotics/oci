@@ -20,6 +20,7 @@ EOF
 FROM base AS ros-core
 
 ARG ROS_PACKAGES_URI
+ARG ROSDISTRO_PKGS_SYNC_DATE
 
 COPY --from=download /usr/share/keyrings/ros2-latest-archive-keyring.gpg /usr/share/keyrings/ros2-latest-archive-keyring.gpg
 
@@ -43,6 +44,7 @@ RUN echo "deb [ signed-by=/usr/share/keyrings/ros2-latest-archive-keyring.gpg ] 
 ENV LANG=C.UTF-8
 ENV LC_ALL=C.UTF-8
 
+ENV ROSDISTRO_PKGS_SYNC_DATE=$ROSDISTRO_PKGS_SYNC_DATE
 ENV ROS_DISTRO=humble
 
 # install ros2 packages
