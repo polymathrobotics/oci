@@ -56,7 +56,7 @@ jobs:
         with:
           workdir: ${{ matrix.image }}
           build-type: 'local'
-          run-list-stage: ${{ env.run-lint-stage }}
+          run-lint-stage: ${{ env.run-lint-stage }}
           run-test-stage: ${{ env.run-test-stage }}
           test-entrypoint: ${{ env.test-entrypoint }}
           dockerhub-username: ${{ secrets.CONTAINER_REGISTRY_USERNAME }}
