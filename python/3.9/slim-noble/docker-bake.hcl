@@ -1,5 +1,5 @@
 variable "TAG_PREFIX" {
-  default =  "docker.io/polymathrobotics/python"
+  default = "docker.io/polymathrobotics/python"
 }
 
 variable "VERSION" {
@@ -14,8 +14,8 @@ variable "LOCAL_PLATFORM" {
 target "_common" {
   dockerfile = "Containerfile"
   tags = [
-    "${TAG_PREFIX}:${VERSION}-jammy",
-    "${TAG_PREFIX}:${join(".", slice(split(".", "${VERSION}"), 0, 2))}-jammy",
+    "${TAG_PREFIX}:${VERSION}-slim-noble",
+    "${TAG_PREFIX}:${join(".", slice(split(".", "${VERSION}"), 0, 2))}-slim-noble",
   ]
   labels = {
     "org.opencontainers.image.source" = "https://github.com/polymathrobotics/oci"
