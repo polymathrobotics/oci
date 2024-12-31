@@ -1,5 +1,5 @@
 # syntax=docker/dockerfile:1
-ARG BASE_IMAGE=docker.io/polymathrobotics/buildpack-deps:jammy
+ARG BASE_IMAGE=docker.io/polymathrobotics/buildpack-deps:noble
 FROM $BASE_IMAGE
 
 # skip installing gem documentation with `gem install`/`gem update`
@@ -86,6 +86,7 @@ RUN set -eux; \
 		| awk '/=>/ { so = $(NF-1); if (index(so, "/usr/local/") == 1 || so == "/usr/local/src/ruby/libruby.so.3.2") { next }; gsub("^/(usr/)?", "", so); if (so != "src/ruby/libruby.so.3.2") print so }' \
 		| sort -u \
 		| xargs -r dpkg-query --search \
+		| grep -v "diversion by" \
 		| cut -d: -f1 \
 		| sort -u \
 		| xargs -r apt-mark manual \
