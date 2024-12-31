@@ -2,20 +2,17 @@
 ARG BASE_IMAGE=docker.io/polymathrobotics/buildpack-deps:jammy
 FROM $BASE_IMAGE
 
-# skip installing gem documentation
+# skip installing gem documentation with `gem install`/`gem update`
 RUN set -eux; \
 	mkdir -p /usr/local/etc; \
-	{ \
-		echo 'install: --no-document'; \
-		echo 'update: --no-document'; \
-	} >> /usr/local/etc/gemrc
+	echo 'gem: --no-document' >> /usr/local/etc/gemrc
 
-ENV LANG C.UTF-8
+ENV LANG=C.UTF-8
 
 # https://www.ruby-lang.org/en/news/2024/05/29/ruby-3-1-6-released/
-ENV RUBY_VERSION 3.1.6
-ENV RUBY_DOWNLOAD_URL https://cache.ruby-lang.org/pub/ruby/3.1/ruby-3.1.6.tar.xz
-ENV RUBY_DOWNLOAD_SHA256 597bd1849f252d8a6863cb5d38014ac54152b508c36dca156f6356a9e63c6102
+ENV RUBY_VERSION=3.1.6
+ENV RUBY_DOWNLOAD_URL=https://cache.ruby-lang.org/pub/ruby/3.1/ruby-3.1.6.tar.xz
+ENV RUBY_DOWNLOAD_SHA256=597bd1849f252d8a6863cb5d38014ac54152b508c36dca156f6356a9e63c6102
 
 # some of ruby's build scripts are written in ruby
 #   we purge system ruby later to make sure our final image uses what we just built
@@ -63,10 +60,9 @@ RUN set -eux; \
 	apt-mark auto '.*' > /dev/null; \
 	apt-mark manual $savedAptMark > /dev/null; \
 	find /usr/local -type f -executable -not \( -name '*tkinter*' \) -exec ldd '{}' ';' \
-		| awk '/=>/ { print $(NF-1) }' \
+		| awk '/=>/ { so = $(NF-1); if (index(so, "/usr/local/") == 1 || so == "/usr/local/src/ruby/libruby.so.3.1") { next }; gsub("^/(usr/)?", "", so); if (so != "src/ruby/libruby.so.3.1") printf "*%s\n", so }' \
 		| sort -u \
-		| grep -vE '^/usr/local/lib/' \
-		| xargs -r sh -c "dpkg-query --search || true" \
+		| xargs -r dpkg-query --search \
 		| cut -d: -f1 \
 		| sort -u \
 		| xargs -r apt-mark manual \
