@@ -1,6 +1,9 @@
 # syntax=docker/dockerfile:1
 ARG BASE_IMAGE=docker.io/ubuntu:jammy-20250126
-FROM $BASE_IMAGE AS download
+# hadolint ignore=DL3006
+FROM $BASE_IMAGE AS base
+
+FROM base AS download
 
 ARG SHFMT_URL_AMD64
 ARG SHFMT_SHA256_AMD64
@@ -29,10 +32,11 @@ RUN <<EOF
   echo "${SHFMT_SHA256} /tmp/shfmt" | sha256sum -c -
 EOF
 
-FROM scratch
+FROM base
 
-COPY --from=download --chmod=777 /tmp/shfmt /usr/local/bin/shfmt
+COPY docker-entrypoint.sh /bin/docker-entrypoint.sh
+COPY --from=download --chmod=777 /tmp/shfmt /bin/shfmt
 
 WORKDIR /share
-ENTRYPOINT ["/usr/local/bin/shfmt"]
+ENTRYPOINT ["docker-entrypoint.sh"]
 CMD ["-h"]
