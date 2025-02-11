@@ -109,7 +109,7 @@ jobs:
             ruby/3.3/slim-jammy: 'ruby/3.3/slim-jammy/**'
             ruby/3.3/slim-noble: 'ruby/3.3/slim-noble/**'
             shellcheck: 'shellcheck/**'
-            shfmt: "shfmt/**'
+            shfmt: 'shfmt/**'
             smokeping: 'smokeping/**'
             ubuntu-autoinstall: 'ubuntu-autoinstall/**'
 
