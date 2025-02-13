@@ -1,9 +1,9 @@
 variable "TAG_PREFIX" {
-  default = "docker.io/polymathrobotics/python"
+  default =  "docker.io/polymathrobotics/python"
 }
 
 variable "VERSION" {
-  default = "3.10.14"
+  default = "3.10.16"
 }
 
 # There's no darwin-based Docker, so if we're running on macOS, change the platform to linux

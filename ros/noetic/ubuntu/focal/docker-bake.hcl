@@ -15,13 +15,14 @@ target "_common" {
   args = {
     ROS_PACKAGES_URI = "http://packages.ros.org/ros/ubuntu"
     RAW_GITHUBUSERCONTENT_BASE_URL = "https://raw.githubusercontent.com"
+    ROSDISTRO_PKGS_SYNC_DATE = "${formatdate("YYYY-MM-DD", timestamp())}"
   }
   dockerfile = "Containerfile"
   labels = {
     "org.opencontainers.image.source" = "https://github.com/polymathrobotics/oci/blob/main/ros/noetic/ubuntu/focal/Containerfile"
     "org.opencontainers.image.licenses" = "Apache-2.0"
     "org.opencontainers.image.description" = "The Robot Operating System (ROS) is an open source project for building robot applications."
-    "org.opencontainers.image.title" = "ROS Noetic Ninjemys"
+    "org.opencontainers.image.title" = "${TAG_PREFIX}"
     "org.opencontainers.image.created" = "${timestamp()}"
     "dev.polymathrobotics.image.readme-filepath" = "ros/README.md"
   }

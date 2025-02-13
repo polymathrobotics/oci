@@ -1,0 +1,42 @@
+# syntax=docker/dockerfile:1
+ARG BASE_IMAGE=docker.io/ubuntu:jammy-20250126
+# hadolint ignore=DL3006
+FROM $BASE_IMAGE AS base
+
+FROM base AS download
+
+ARG SHFMT_URL_AMD64
+ARG SHFMT_SHA256_AMD64
+ARG SHFMT_URL_ARM64
+ARG SHFMT_SHA256_ARM64
+
+SHELL ["/bin/bash", "-o", "pipefail", "-c"]
+RUN <<EOF
+  apt-get update
+  apt-get install -y --no-install-recommends \
+    ca-certificates \
+    curl
+  dpkgArch="$(dpkg --print-architecture)"
+  case "${dpkgArch##*-}" in \
+    amd64) \
+      SHFMT_URL="${SHFMT_URL_AMD64}" \
+      SHFMT_SHA256="${SHFMT_SHA256_AMD64}" \
+      ;; \
+    arm64) \
+      SHFMT_URL="${SHFMT_URL_ARM64}" \
+      SHFMT_SHA256="${SHFMT_SHA256_ARM64}" \
+      ;; \
+    *) echo "unsupported architecture"; exit 1 ;; \
+  esac
+  curl -fsSL -o /tmp/shfmt ${SHFMT_URL}
+  echo "${SHFMT_SHA256} /tmp/shfmt" | sha256sum -c -
+EOF
+
+FROM base
+
+COPY docker-entrypoint.sh /bin/docker-entrypoint.sh
+COPY --from=download --chmod=777 /tmp/shfmt /bin/shfmt
+
+WORKDIR /share
+ENTRYPOINT ["docker-entrypoint.sh"]
+CMD ["-h"]

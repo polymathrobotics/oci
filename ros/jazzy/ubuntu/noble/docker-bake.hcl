@@ -13,9 +13,9 @@ variable "ROS_PACKAGE" {
 
 target "_common" {
   args = {
-    # BASE_IMAGE = "docker.io/ubuntu:noble-20240801"
     ROS_PACKAGES_URI = "http://packages.ros.org/ros2/ubuntu"
     RAW_GITHUBUSERCONTENT_BASE_URL = "https://raw.githubusercontent.com"
+    ROSDISTRO_PKGS_SYNC_DATE = "${formatdate("YYYY-MM-DD", timestamp())}"
   }
   dockerfile = "Containerfile"
   labels = {

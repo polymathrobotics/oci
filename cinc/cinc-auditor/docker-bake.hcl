@@ -3,7 +3,7 @@ variable "TAG_PREFIX" {
 }
 
 variable "VERSION" {
-  default = "6.8.1"
+  default = "6.8.11"
 }
 
 # There's no darwin-based Docker, so if we're running on macOS, change the platform to linux
@@ -14,10 +14,10 @@ variable "LOCAL_PLATFORM" {
 target "_common" {
   dockerfile = "Containerfile"
   args = {
-    CINC_AUDITOR_URL_AMD64 = "http://ftp.osuosl.org/pub/cinc/files/stable/cinc-auditor/6.8.1/ubuntu/22.04/cinc-auditor_6.8.1-1_amd64.deb"
-    CINC_AUDITOR_SHA256_AMD64 = "0d64f9d2a4cfc09d970606200a9bd2f56079c55df14d8019336945a3feb1e377"
-    CINC_AUDITOR_URL_ARM64 = "http://ftp.osuosl.org/pub/cinc/files/stable/cinc-auditor/6.8.1/ubuntu/22.04/cinc-auditor_6.8.1-1_arm64.deb"
-    CINC_AUDITOR_SHA256_ARM64 = "d5c2af04c9642cdedfb4448c3548af6fff385f9541e6a2f1fa49c998ab0d5244"
+    CINC_AUDITOR_URL_AMD64 = "http://ftp.osuosl.org/pub/cinc/files/stable/cinc-auditor/6.8.11/ubuntu/24.04/cinc-auditor_6.8.11-1_amd64.deb"
+    CINC_AUDITOR_SHA256_AMD64 = "6bf61e0263b47693c4eb9326ed2d69f1b9fa94ab5d7b9623694a5df49b58b369"
+    CINC_AUDITOR_URL_ARM64 = "http://ftp.osuosl.org/pub/cinc/files/stable/cinc-auditor/6.8.11/ubuntu/24.04/cinc-auditor_6.8.11-1_arm64.deb"
+    CINC_AUDITOR_SHA256_ARM64 = "d37ad6a477fca0e760202e8152fd74143f3e6c02e5cbe61c56f5e3e47f826339"
   }
   tags = [
     "${TAG_PREFIX}:${VERSION}",
@@ -39,5 +39,6 @@ target "default" {
     "org.opencontainers.image.description" = "Cinc Auditing and Testing Framework."
     "org.opencontainers.image.title" = "${TAG_PREFIX}"
     "org.opencontainers.image.created" = "${timestamp()}"
+    "dev.polymathrobotics.container-build-publish-action.run-test-stage" = "false"
   }
 }

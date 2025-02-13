@@ -1,6 +1,7 @@
 # syntax=docker/dockerfile:1
 # Currently there are only amd64 packages, so we install via python for now
-ARG BASE_IMAGE=docker.io/ubuntu:jammy-20240808
+ARG BASE_IMAGE=docker.io/ubuntu:jammy-20240911.1
+# hadolint ignore=DL3006
 FROM $BASE_IMAGE AS base
 
 ARG GLAB_URL_AMD64
@@ -32,7 +33,7 @@ RUN <<EOF
       ;; \
     *) echo "unsupported architecture"; exit 1 ;; \
   esac 
-  curl -fsSL -o glab.deb ${GLAB_URL}
+  curl -fsSL -o glab.deb "${GLAB_URL}"
   echo "${GLAB_SHA256} glab.deb" | sha256sum -c -
 EOF
 
@@ -47,7 +48,7 @@ RUN <<EOF
       ;;
     *) echo "unsupported architecture"; exit 1 ;; \
   esac
-  curl -fsSL -o docker.tgz  ${DOCKER_URL}
+  curl -fsSL -o docker.tgz "${DOCKER_URL}"
   tar --extract \
 		--file docker.tgz \
 		--strip-components 1 \

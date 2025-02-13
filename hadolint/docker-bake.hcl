@@ -32,6 +32,8 @@ target "_common" {
     "org.opencontainers.image.description" = "Dockerfile linter, validate inline bash, written in Haskell." 
     "org.opencontainers.image.title" = "${TAG_PREFIX}"
     "org.opencontainers.image.created" = "${timestamp()}"
+    "dev.polymathrobotics.container-build-publish-action.run-test-stage" = "false"
+    "dev.polymathrobotics.container-build-publish-action.run-lint-stage" = "false"
   }
 }
 

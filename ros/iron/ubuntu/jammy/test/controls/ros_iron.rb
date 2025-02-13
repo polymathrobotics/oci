@@ -6,6 +6,10 @@ describe os_env('LANG') do
   its('content') { should eq 'C.UTF-8' }
 end
 
+describe os_env('ROSDISTRO_PKGS_SYNC_DATE') do
+  its('content') { should match /^\d{4}-\d{2}-\d{2}$/ }
+end
+
 describe file('/usr/share/keyrings/ros2-latest-archive-keyring.gpg') do
   it { should exist }
 end
