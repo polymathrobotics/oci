@@ -7,6 +7,7 @@ RUN <<EOF
   apt-get update
   apt-get install --no-install-recommends -y \
     python3-pip \
+    python3.12-venv \
     openssh-client \
     iputils-ping \
     ros-jazzy-rmw-cyclonedds-cpp \
@@ -17,6 +18,12 @@ RUN <<EOF
   pip --version
   rm -rf /var/lib/apt/lists/*
 EOF
+
+ENV VIRTUAL_ENV=/opt/venv
+RUN python3 -m venv ${VIRTUAL_ENV}
+ENV PATH="${VIRTUAL_ENV}/bin:${PATH}"
+
+RUN pip install setuptools
 
 ENTRYPOINT ["/ros_entrypoint.sh"]
 CMD ["bash"]
