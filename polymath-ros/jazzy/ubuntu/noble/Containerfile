@@ -11,6 +11,7 @@ RUN <<EOF
     openssh-client \
     iputils-ping \
     ros-jazzy-rmw-cyclonedds-cpp \
+    ros-dev-tools \
     nano \
     ca-certificates \
     curl \
