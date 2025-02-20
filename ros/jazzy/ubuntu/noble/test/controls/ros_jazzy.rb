@@ -17,11 +17,6 @@ describe file('/usr/share/keyrings/ros2-latest-archive-keyring.gpg') do
   it { should exist }
 end
 
-describe command("su --login --command \"source /opt/ros/$ROS_DISTRO/setup.bash && ros2 -h\"") do
-  its('exit_status') { should cmp 0 }
-  its('stdout') { should match(/usage: ros2/) }
-end
-
 # docker.io/polymathrobotics/ros:jazzy-ready-noble
 control 'ready' do
   only_if('ready') do
@@ -53,6 +48,11 @@ control 'ros-core' do
   describe file('/ros_entrypoint.sh') do
     it { should exist }
     its('content') { should match %r{source "/opt/ros/\$ROS_DISTRO/setup\.bash"} }
+  end
+
+  describe command("su --login --command \"source /opt/ros/$ROS_DISTRO/setup.bash && ros2 -h\"") do
+    its('exit_status') { should cmp 0 }
+    its('stdout') { should match(/usage: ros2/) }
   end
 
   %w(
