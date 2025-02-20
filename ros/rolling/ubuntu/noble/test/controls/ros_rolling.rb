@@ -14,24 +14,42 @@ describe file('/usr/share/keyrings/ros2-latest-archive-keyring.gpg') do
   it { should exist }
 end
 
-describe file('/ros_entrypoint.sh') do
-  it { should exist }
+# docker.io/polymathrobotics/ros:rolling-ready-noble
+control 'ready' do
+  only_if('ready') do
+    input('test_container_image').include?('ros:rolling-ready-noble')
+  end
+
+  describe command('colcon') do
+    it { should_not exist }
+  end
 end
 
-describe command("su --login --command \"source /opt/ros/$ROS_DISTRO/setup.bash && ros2 -h\"") do
-  its('exit_status') { should cmp 0 }
-  its('stdout') { should match(/usage: ros2/) }
-end
+# docker.io/polymathrobotics/ros:rolling-builder-noble
+control 'builder' do
+  only_if('builder') do
+    input('test_container_image').include?('ros:rolling-builder-noble')
+  end
 
-describe file('/ros_entrypoint.sh') do
-  it { should exist }
-  its('content') { should match %r{source "/opt/ros/\$ROS_DISTRO/setup\.bash"} }
+  describe command('colcon') do
+    it { should exist }
+  end
 end
 
 # docker.io/polymathrobotics/ros:rolling-ros-core-noble
 control 'ros-core' do
   only_if('ros-core') do
     input('test_container_image').include?('ros:rolling-ros-core-noble')
+  end
+
+  describe file('/ros_entrypoint.sh') do
+    it { should exist }
+    its('content') { should match %r{source "/opt/ros/\$ROS_DISTRO/setup\.bash"} }
+  end
+
+  describe command("su --login --command \"source /opt/ros/$ROS_DISTRO/setup.bash && ros2 -h\"") do
+    its('exit_status') { should cmp 0 }
+    its('stdout') { should match(/usage: ros2/) }
   end
 
   %w(
@@ -50,8 +68,13 @@ control 'ros-base' do
     input('test_container_image').include?('ros:rolling-ros-base-noble')
   end
 
-  describe command('colcon') do
-    it { should exist }
+  %w(
+    colcon
+    rosdep
+  ).each do |cmd|
+    describe command(cmd) do
+      it { should_not exist }
+    end
   end
 end
 
@@ -60,9 +83,12 @@ control 'perception' do
   only_if('perception') do
     input('test_container_image').include?('ros:rolling-perception-noble')
   end
+end
 
-  describe command('colcon') do
-    it { should exist }
+# docker.io/polymathrobotics/ros:rolling-perception-noble
+control 'simulation' do
+  only_if('perception') do
+    input('test_container_image').include?('ros:rolling-perception-noble')
   end
 end
 
@@ -70,9 +96,5 @@ end
 control 'desktop' do
   only_if('desktop') do
     input('test_container_image').include?('ros:rolling-desktop-noble')
-  end
-
-  describe command('colcon') do
-    it { should exist }
   end
 end
