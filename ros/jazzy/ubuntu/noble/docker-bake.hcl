@@ -8,7 +8,7 @@ variable "LOCAL_PLATFORM" {
 }
 
 variable "ROS_PACKAGE" {
-  default = ["ros-core", "ros-base", "perception", "simulation", "desktop", "desktop-full"]
+  default = ["ready", "builder", "ros-core", "ros-base", "perception", "simulation", "desktop", "desktop-full"]
 }
 
 target "_common" {
