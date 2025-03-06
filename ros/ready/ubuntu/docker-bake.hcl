@@ -56,15 +56,22 @@ target "local" {
   platforms = ["${LOCAL_PLATFORM}"]
 }
 
-# target "default" {
-#   inherits = ["_common"]
-#   name = "default-${ros_package}"
-#   target = ros_package
-#   matrix = {
-#     ros_package = ROS_PACKAGE
-#   }
-#   tags = [
-#     "${TAG_PREFIX}:jazzy-${ros_package}-noble"
-#   ]
-#   platforms = ["linux/amd64", "linux/arm64/v8"]
-# }
+target "default" {
+  inherits = ["_common"]
+  matrix = {
+    variant = VARIANT
+    distro = DISTRO
+  }
+  target = variant
+  name = "default-${distro.ros}-${variant}"
+  tags = [
+    "${TAG_PREFIX}:${distro.ros}-${variant}-ubuntu"
+  ]
+  args = {
+    ROS_DISTRO = distro.ros
+    ROS_DISTRO_VERSION = distro.ros_version
+    UBUNTU_DISTRO = distro.ubuntu
+    UBUNTU_DISTRO_VERSION = distro.ubuntu_version
+  }
+  platforms = ["linux/amd64", "linux/arm64/v8"]
+}
