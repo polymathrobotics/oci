@@ -57,6 +57,7 @@ ARG RAW_GITHUBUSERCONTENT_BASE_URL
 RUN apt-get update && apt-get install --no-install-recommends -y \
     ros-dev-tools \
     python3-pip \
+    ccache \
     && rm -rf /var/lib/apt/lists/*
 
 # setup colcon mixin and metadata
