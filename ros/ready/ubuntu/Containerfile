@@ -1,7 +1,5 @@
 # syntax=docker/dockerfile:1
-ARG UBUNTU_DISTRO=rolling
-ARG UBUNTU_DISTRO_VERSION=0.12.0-1
-ARG BASE_IMAGE=docker.io/ubuntu:${UBUNTU_DISTRO}-${UBUNTU_DISTRO_VERSION}
+ARG BASE_IMAGE=ubuntu:noble-20241015
 # hadolint ignore=DL3006
 FROM ${BASE_IMAGE} AS base
 
@@ -19,59 +17,62 @@ RUN <<EOF
     -o /usr/share/keyrings/ros2-latest-archive-keyring.gpg
 EOF
 
-FROM base AS ready
 
-ARG UBUNTU_DISTRO
-ARG ROS_PACKAGES_URI
-ARG ROSDISTRO_PKGS_SYNC_DATE
+FROM base AS ready
 
 COPY --from=download /usr/share/keyrings/ros2-latest-archive-keyring.gpg /usr/share/keyrings/ros2-latest-archive-keyring.gpg
 
 # setup timezone
-RUN echo 'Etc/UTC' > /etc/timezone && \
-    ln -s /usr/share/zoneinfo/Etc/UTC /etc/localtime && \
-    apt-get update && \
-    apt-get install -q -y --no-install-recommends tzdata && \
-    rm -rf /var/lib/apt/lists/*
+RUN echo 'Etc/UTC' > /etc/timezone \
+ && ln -s /usr/share/zoneinfo/Etc/UTC /etc/localtime \
+ && apt-get update \
+ && apt-get install -q -y --no-install-recommends tzdata \
+ && rm -rf /var/lib/apt/lists/*
 
 # install packages
-RUN apt-get update && apt-get install -q -y --no-install-recommends \
-    dirmngr \
-    gnupg2 \
-    && rm -rf /var/lib/apt/lists/*
+RUN apt-get update \
+ && apt-get install -q -y --no-install-recommends \
+      dirmngr \
+      gnupg2 \
+ && rm -rf /var/lib/apt/lists/*
 
 # setup sources.list
-RUN echo "deb [ signed-by=/usr/share/keyrings/ros2-latest-archive-keyring.gpg ] ${ROS_PACKAGES_URI} ${UBUNTU_DISTRO} main" > /etc/apt/sources.list.d/ros2-latest.list
+ARG ROS_PACKAGES_URI
+RUN . /etc/os-release; \
+    echo "deb [ signed-by=/usr/share/keyrings/ros2-latest-archive-keyring.gpg ] ${ROS_PACKAGES_URI} ${UBUNTU_CODENAME} main" \
+    > /etc/apt/sources.list.d/ros2-latest.list
 
 # setup environment
 ENV LANG=C.UTF-8
 ENV LC_ALL=C.UTF-8
 
+ARG ROSDISTRO_PKGS_SYNC_DATE
 ENV ROSDISTRO_PKGS_SYNC_DATE=$ROSDISTRO_PKGS_SYNC_DATE
+
+ARG ROS_DISTRO
+ENV ROS_DISTRO=${ROS_DISTRO}
 
 FROM ready AS builder
 
-ARG RAW_GITHUBUSERCONTENT_BASE_URL
-
 # install bootstrap tools
-RUN apt-get update && apt-get install --no-install-recommends -y \
-    ros-dev-tools \
-    python3-pip \
-    ccache \
-    && rm -rf /var/lib/apt/lists/*
-
-# setup colcon mixin and metadata
-ENV COLCON_HOME=/etc/colcon
-RUN colcon mixin add default \
-      "${RAW_GITHUBUSERCONTENT_BASE_URL}/colcon/colcon-mixin-repository/master/index.yaml" && \
-    colcon mixin update && \
-    colcon metadata add default \
-      "${RAW_GITHUBUSERCONTENT_BASE_URL}/colcon/colcon-metadata-repository/master/index.yaml" && \
-    colcon metadata update
+RUN apt-get update \
+ && apt-get install --no-install-recommends -y \
+      ros-dev-tools \
+      python3-pip \
+      ccache \
+ && rm -rf /var/lib/apt/lists/*
 
 # bootstrap rosdep
 # NOTE: this is the first step that actually differentiates on ROS distribution
-ARG ROS_DISTRO
-ENV ROS_DISTRO=${ROS_DISTRO}
 RUN rosdep init && rosdep update --rosdistro "${ROS_DISTRO}"
 COPY gather-rosdeps.sh /usr/local/bin/gather-rosdeps
+
+ENV CCACHE_DIR=/root/.ccache
+
+# setup colcon mixin and metadata
+ARG RAW_GITHUBUSERCONTENT_BASE_URL
+ENV COLCON_HOME=/etc/colcon
+RUN colcon mixin add default "${RAW_GITHUBUSERCONTENT_BASE_URL}/colcon/colcon-mixin-repository/master/index.yaml" \
+ && colcon mixin update \
+ && colcon metadata add default "${RAW_GITHUBUSERCONTENT_BASE_URL}/colcon/colcon-metadata-repository/master/index.yaml" \
+ && colcon metadata update

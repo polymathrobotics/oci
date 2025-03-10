@@ -9,9 +9,9 @@ variable "LOCAL_PLATFORM" {
 
 variable "DISTRO" {
   default = [
-    {ros = "humble",  ros_version = "0.10.0-1", ubuntu = "jammy", ubuntu_version = "20240911.1"},
-    {ros = "jazzy",   ros_version = "0.11.0-1", ubuntu = "noble", ubuntu_version = "20241015"},
-    {ros = "rolling", ros_version = "0.12.0-1", ubuntu = "noble", ubuntu_version = "20241015"},
+    {ros = "humble",  base_image = "ubuntu:jammy-20240911.1"},
+    {ros = "jazzy",   base_image = "ubuntu:noble-20241015"},
+    {ros = "rolling", base_image = "ubuntu:noble-20241015"},
   ]
 }
 
@@ -49,9 +49,7 @@ target "local" {
   ]
   args = {
     ROS_DISTRO = distro.ros
-    ROS_DISTRO_VERSION = distro.ros_version
-    UBUNTU_DISTRO = distro.ubuntu
-    UBUNTU_DISTRO_VERSION = distro.ubuntu_version
+    BASE_IMAGE = distro.base_image
   }
   platforms = ["${LOCAL_PLATFORM}"]
 }
@@ -69,9 +67,7 @@ target "default" {
   ]
   args = {
     ROS_DISTRO = distro.ros
-    ROS_DISTRO_VERSION = distro.ros_version
-    UBUNTU_DISTRO = distro.ubuntu
-    UBUNTU_DISTRO_VERSION = distro.ubuntu_version
+    BASE_IMAGE = distro.base_image
   }
   platforms = ["linux/amd64", "linux/arm64/v8"]
 }
