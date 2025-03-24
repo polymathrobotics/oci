@@ -1,10 +1,6 @@
 # syntax=docker/dockerfile:1
-ARG BASE_IMAGE=docker.io/ubuntu:jammy-20240911.1
+ARG BASE_IMAGE=docker.io/ubuntu:noble-20250127
 FROM $BASE_IMAGE
-
-# Create user and set ownership and permissions as required
-# RUN useradd -m ldap
-RUN groupadd -r -g 999 ldap && useradd -r -g ldap -u 999 ldap
 
 # https://serverfault.com/questions/1115147/openldap-certificates-untrusted-or-revoked
 RUN <<EOF
@@ -17,4 +13,4 @@ RUN <<EOF
   rm -rf /var/lib/apt/lists/*
 EOF
 
-USER ldap
+USER ubuntu
