@@ -1,6 +1,6 @@
 # syntax=docker/dockerfile:1
 # Must use noble instead of jammy for GLIBC_2.38 dependency
-ARG BASE_IMAGE=docker.io/ubuntu:noble-20241015
+ARG BASE_IMAGE=docker.io/ubuntu:noble-20250127
 # hadolint ignore=DL3006
 FROM $BASE_IMAGE AS base
 
