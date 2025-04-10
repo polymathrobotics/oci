@@ -80,7 +80,6 @@ jobs:
             node/20/jammy-slim: 'node/20/jammy-slim/**'
             node/22/jammy-slim: 'node/22/jammy-slim/**'
             op: 'op/**'
-            paperspace-cli: 'paperspace-cli/**'
             portainer-ce: 'portainer-ce/**'
             postgres/15/jammy: 'postgres/15/jammy/**'
             postgres/16/jammy: 'postgres/16/jammy/**'
