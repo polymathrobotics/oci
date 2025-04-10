@@ -1,6 +1,6 @@
 # syntax=docker/dockerfile:1
 # Currently there are only amd64 packages, so we install via python for now
-ARG BASE_IMAGE=docker.io/ubuntu:jammy-20240911.1
+ARG BASE_IMAGE=docker.io/ubuntu:jammy-20250404
 # hadolint ignore=DL3006
 FROM $BASE_IMAGE AS base
 
