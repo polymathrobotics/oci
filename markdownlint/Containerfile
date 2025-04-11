@@ -1,5 +1,5 @@
 # syntax=docker/dockerfile:1
-ARG BASE_IMAGE=docker.io/polymathrobotics/ruby:3.1-slim-jammy
+ARG BASE_IMAGE=docker.io/polymathrobotics/ruby:3.2-slim-noble
 FROM $BASE_IMAGE
 
 ARG MDL_VERSION
