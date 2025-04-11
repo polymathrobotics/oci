@@ -3,7 +3,7 @@ variable "TAG_PREFIX" {
 }
 
 variable "VERSION" {
-  default = "3.10.0"
+  default = "3.11.0"
 }
 
 # There's no darwin-based Docker, so if we're running on macOS, change the platform to linux
@@ -13,10 +13,10 @@ variable "LOCAL_PLATFORM" {
 
 target "_common" {
   args = {
-    SHFMT_URL_AMD64 = "https://github.com/mvdan/sh/releases/download/v3.10.0/shfmt_v3.10.0_linux_amd64"
-    SHFMT_SHA256_AMD64 = "1f57a384d59542f8fac5f503da1f3ea44242f46dff969569e80b524d64b71dbc"
-    SHFMT_URL_ARM64 = "https://github.com/mvdan/sh/releases/download/v3.10.0/shfmt_v3.10.0_linux_arm64"
-    SHFMT_SHA256_ARM64 = "9d23013d56640e228732fd2a04a9ede0ab46bc2d764bf22a4a35fb1b14d707a8"
+    SHFMT_URL_AMD64 = "https://github.com/mvdan/sh/releases/download/v3.11.0/shfmt_v3.11.0_linux_amd64"
+    SHFMT_SHA256_AMD64 = "1904ec6bac715c1d05cd7f6612eec8f67a625c3749cb327e5bfb4127d09035ff"
+    SHFMT_URL_ARM64 = "https://github.com/mvdan/sh/releases/download/v3.11.0/shfmt_v3.11.0_linux_arm64"
+    SHFMT_SHA256_ARM64 = "b3976121710fd4b12bf641b0a7fb2686da598fb0da9f148c641b61b54cfa3407"
   }
   dockerfile = "Containerfile"
   tags = [
