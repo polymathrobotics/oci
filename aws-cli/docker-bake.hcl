@@ -4,7 +4,7 @@ variable "TAG_PREFIX" {
 
 # https://raw.githubusercontent.com/aws/aws-cli/v2/CHANGELOG.rst
 variable "VERSION" {
-  default = "2.23.13"
+  default = "2.26.0"
 }
 
 # There's no darwin-based Docker, so if we're running on macOS, change the platform to linux
