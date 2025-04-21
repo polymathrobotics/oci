@@ -55,11 +55,14 @@ ENV ROS_DISTRO=${ROS_DISTRO}
 FROM ready AS builder
 
 # install bootstrap tools
+# Note https://github.com/ros-infrastructure/infra-variants/tree/latest/ros-dev-tools for ros-dev-tools contents
 RUN apt-get update \
  && apt-get install --no-install-recommends -y \
-      ros-dev-tools \
-      python3-pip \
       ccache \
+      git-lfs \
+      openssh-client \
+      python3-pip \
+      ros-dev-tools \
  && rm -rf /var/lib/apt/lists/*
 
 # bootstrap rosdep
