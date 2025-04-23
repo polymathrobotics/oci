@@ -35,6 +35,7 @@ jobs:
             acme/certbot: 'acme/certbot/**'
             acme/certbot-dns-cloudflare: 'acme/certbot-dns-cloudflare/**'
             acme/lego: 'acme/lego/**'
+            actionlint: 'actionlint/**'
             aws-cli: 'aws-cli/**'
             black: 'black/**'
             buildpack-deps/ubuntu/focal: 'buildpack-deps/ubuntu/focal/**'
