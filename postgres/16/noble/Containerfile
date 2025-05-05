@@ -1,5 +1,5 @@
 # syntax=docker/dockerfile:1
-ARG BASE_IMAGE=docker.io/ubuntu:jammy-20240808
+ARG BASE_IMAGE=docker.io/ubuntu:noble-20250404
 FROM $BASE_IMAGE AS base
 
 ARG DEBIAN_FRONTEND=noninteractive
@@ -26,7 +26,7 @@ RUN set -ex; \
 
 # grab gosu for easy step-down from root
 # https://github.com/tianon/gosu/releases
-ENV GOSU_VERSION 1.17
+ENV GOSU_VERSION=1.17
 SHELL ["/bin/bash", "-o", "pipefail", "-c"]
 # hadolint ignore=DL3047, SC2086
 RUN set -eux; \
@@ -55,7 +55,7 @@ RUN set -eux; \
 	echo 'en_US.UTF-8 UTF-8' >> /etc/locale.gen; \
 	locale-gen; \
 	locale -a | grep 'en_US.utf8'
-ENV LANG en_US.utf8
+ENV LANG=en_US.utf8
 
 RUN set -eux; \
 	apt-get update; \
@@ -81,10 +81,10 @@ RUN set -ex; \
 	gpgconf --kill all; \
 	rm -rf "$GNUPGHOME"
 
-ENV PG_MAJOR 16
-ENV PATH $PATH:/usr/lib/postgresql/$PG_MAJOR/bin
+ENV PG_MAJOR=16
+ENV PATH=$PATH:/usr/lib/postgresql/$PG_MAJOR/bin
 
-ENV PG_VERSION 16.4-1.pgdg22.04+1
+ENV PG_VERSION=16.8-1.pgdg24.04+1
 
 # hadolint ignore=DL3003, SC2086
 RUN set -ex; \
@@ -93,7 +93,7 @@ RUN set -ex; \
 	export PYTHONDONTWRITEBYTECODE=1; \
 	\
 	dpkgArch="$(dpkg --print-architecture)"; \
-	aptRepo="[ signed-by=/usr/local/share/keyrings/postgres.gpg.asc ] http://apt.postgresql.org/pub/repos/apt/ jammy-pgdg main $PG_MAJOR"; \
+	aptRepo="[ signed-by=/usr/local/share/keyrings/postgres.gpg.asc ] http://apt.postgresql.org/pub/repos/apt/ noble-pgdg main $PG_MAJOR"; \
 	case "$dpkgArch" in \
 		amd64 | arm64 | ppc64el | s390x) \
 # arches officialy built by upstream
@@ -178,7 +178,7 @@ RUN set -eux; \
 
 RUN install --verbose --directory --owner postgres --group postgres --mode 3777 /var/run/postgresql
 
-ENV PGDATA /var/lib/postgresql/data
+ENV PGDATA=/var/lib/postgresql/data
 # this 1777 will be replaced by 0700 at runtime (allows semi-arbitrary "--user" values)
 RUN install --verbose --directory --owner postgres --group postgres --mode 1777 "$PGDATA"
 VOLUME /var/lib/postgresql/data
