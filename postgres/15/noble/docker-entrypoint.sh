@@ -104,7 +104,7 @@ docker_init_database_dir() {
 # assumes database is not set up, ie: [ -z "$DATABASE_ALREADY_EXISTS" ]
 docker_verify_minimum_env() {
 	case "${PG_MAJOR:-}" in
-		12 | 13) # https://github.com/postgres/postgres/commit/67a472d71c98c3d2fa322a1b4013080b20720b98
+		13) # https://github.com/postgres/postgres/commit/67a472d71c98c3d2fa322a1b4013080b20720b98
 			# check password first so we can output the warning before postgres
 			# messes it up
 			if [ "${#POSTGRES_PASSWORD}" -ge 100 ]; then
@@ -252,7 +252,7 @@ pg_setup_hba_conf() {
 		printf '\n'
 		if [ 'trust' = "$POSTGRES_HOST_AUTH_METHOD" ]; then
 			printf '# warning trust is enabled for all connections\n'
-			printf '# see https://www.postgresql.org/docs/12/auth-trust.html\n'
+			printf '# see https://www.postgresql.org/docs/17/auth-trust.html\n'
 		fi
 		printf 'host all all all %s\n' "$POSTGRES_HOST_AUTH_METHOD"
 	} >> "$PGDATA/pg_hba.conf"
@@ -269,6 +269,9 @@ docker_temp_server_start() {
 	# does not listen on external TCP/IP and waits until start finishes
 	set -- "$@" -c listen_addresses='' -p "${PGPORT:-5432}"
 
+	# unset NOTIFY_SOCKET so the temporary server doesn't prematurely notify
+	# any process supervisor.
+	NOTIFY_SOCKET= \
 	PGUSER="${PGUSER:-$POSTGRES_USER}" \
 	pg_ctl -D "$PGDATA" \
 		-o "$(printf '%q ' "$@")" \

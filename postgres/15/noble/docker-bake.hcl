@@ -3,7 +3,7 @@ variable "TAG_PREFIX" {
 }
 
 variable "VERSION" {
-  default = "15.8"
+  default = "15.12"
 }
 
 # There's no darwin-based Docker, so if we're running on macOS, change the platform to linux
@@ -17,8 +17,8 @@ target "_common" {
     PORTAINER_VERSION = "${VERSION}"
   }
   tags = [
-    "${TAG_PREFIX}:${VERSION}-jammy",
-    "${TAG_PREFIX}:${join(".", slice(split(".", "${VERSION}"), 0, 1))}-jammy",
+    "${TAG_PREFIX}:${VERSION}-noble",
+    "${TAG_PREFIX}:${join(".", slice(split(".", "${VERSION}"), 0, 1))}-noble",
   ]
   labels = {
     "org.opencontainers.image.source" = "https://github.com/polymathrobotics/oci"

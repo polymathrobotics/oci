@@ -74,7 +74,7 @@ jobs:
             node/22/jammy-slim: 'node/22/jammy-slim/**'
             op: 'op/**'
             portainer-ce: 'portainer-ce/**'
-            postgres/15/jammy: 'postgres/15/jammy/**'
+            postgres/15/noble: 'postgres/15/noble/**'
             postgres/16/noble: 'postgres/16/noble/**'
             prometheus/alertmanager: 'prometheus/alertmanager/**'
             prometheus/blackbox_exporter: 'prometheus/blackbox_exporter/**'
