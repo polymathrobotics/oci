@@ -11,6 +11,7 @@ variable "DISTRO" {
   default = [
     {ros = "humble",  base_image = "ubuntu:jammy-20240911.1"},
     {ros = "jazzy",   base_image = "ubuntu:noble-20241015"},
+    {ros = "kilted",  base_image = "ubuntu:noble-20241015"},
     {ros = "rolling", base_image = "ubuntu:noble-20241015"},
   ]
 }

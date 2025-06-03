@@ -5,7 +5,7 @@ FROM ${BASE_IMAGE} AS base
 
 FROM base AS download
 
-ARG RAW_GITHUBUSERCONTENT_BASE_URL
+ARG RAW_GITHUBUSERCONTENT_BASE_URL="https://raw.githubusercontent.com"
 
 # download gpg key
 RUN <<EOF
