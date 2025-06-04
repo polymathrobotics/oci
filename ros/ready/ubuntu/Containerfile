@@ -15,12 +15,14 @@ RUN <<EOF
     curl
   curl -sSL "${RAW_GITHUBUSERCONTENT_BASE_URL}/ros/rosdistro/master/ros.key" \
     -o /usr/share/keyrings/ros2-latest-archive-keyring.gpg
+  curl -sSL https://packages.osrfoundation.org/gazebo.gpg -o /usr/share/keyrings/gazebo.gpg
 EOF
 
 
 FROM base AS ready
 
 COPY --from=download /usr/share/keyrings/ros2-latest-archive-keyring.gpg /usr/share/keyrings/ros2-latest-archive-keyring.gpg
+COPY --from=download /usr/share/keyrings/gazebo.gpg /usr/share/keyrings/gazebo.gpg
 
 # setup timezone
 RUN echo 'Etc/UTC' > /etc/timezone \
@@ -40,7 +42,9 @@ RUN apt-get update \
 ARG ROS_PACKAGES_URI
 RUN . /etc/os-release; \
     echo "deb [ signed-by=/usr/share/keyrings/ros2-latest-archive-keyring.gpg ] ${ROS_PACKAGES_URI} ${UBUNTU_CODENAME} main" \
-    > /etc/apt/sources.list.d/ros2-latest.list
+      > /etc/apt/sources.list.d/ros2-latest.list; \
+    echo "deb [arch=$(dpkg --print-architecture) signed-by=/usr/share/keyrings/gazebo.gpg] http://packages.osrfoundation.org/gazebo/ubuntu-stable ${UBUNTU_CODENAME} main" \
+      > /etc/apt/sources.list.d/gazebo-stable.list;
 
 # setup environment
 ENV LANG=C.UTF-8
@@ -55,11 +59,14 @@ ENV ROS_DISTRO=${ROS_DISTRO}
 FROM ready AS builder
 
 # install bootstrap tools
+# Note https://github.com/ros-infrastructure/infra-variants/tree/latest/ros-dev-tools for ros-dev-tools contents
 RUN apt-get update \
  && apt-get install --no-install-recommends -y \
-      ros-dev-tools \
-      python3-pip \
       ccache \
+      git-lfs \
+      openssh-client \
+      python3-pip \
+      ros-dev-tools \
  && rm -rf /var/lib/apt/lists/*
 
 # bootstrap rosdep

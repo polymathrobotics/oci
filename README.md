@@ -7,6 +7,7 @@ The images are pubished to https://hub.docker.com/u/polymathrobotics
 
 | Image | Description | Source Location |
 | --- | --- | --- |
+| [actionlint](https://hub.docker.com/r/polymathrobotics/actionlint) | Static checker for GitHub Actions workflows files. | [actionlint](https://github.com/polymathrobotics/oci/blob/main/actionlint) |
 | [aws-cli](https://hub.docker.com/r/polymathrobotics/aws-cli) | Command-line interface v2 for Amazon Web Services | [aws-cli](https://github.com/polymathrobotics/oci/blob/main/aws-cli) |
 | [black](https://hub.docker.com/r/polymathrobotics/black) | The uncompromising Python code formatter | [black](https://github.com/polymathrobotics/oci/tree/main/black) |
 | [buildpack-deps](https://hub.docker.com/r/polymathrobotics/buildpack-deps) | A collection of common build dependencies used for installing various modules, e.g., gems | [buildpack-deps](https://github.com/polymathrobotics/oci/tree/main/buildpack-deps) |

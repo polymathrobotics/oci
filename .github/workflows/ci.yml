@@ -35,6 +35,7 @@ jobs:
             acme/certbot: 'acme/certbot/**'
             acme/certbot-dns-cloudflare: 'acme/certbot-dns-cloudflare/**'
             acme/lego: 'acme/lego/**'
+            actionlint: 'actionlint/**'
             aws-cli: 'aws-cli/**'
             black: 'black/**'
             buildpack-deps/ubuntu/focal: 'buildpack-deps/ubuntu/focal/**'
@@ -43,22 +44,12 @@ jobs:
             cinc/cinc-auditor: 'cinc/cinc-auditor/**'
             doctl: 'doctl/**'
             couchdb: 'couchdb/**'
-            dokken/almalinux-8: 'dokken/almalinux-8/**'
-            dokken/almalinux-9: 'dokken/almalinux-9/**'
             dokken/amazonlinux-2: 'dokken/amazonlinux-2/**'
             dokken/amazonlinux-2023: 'dokken/amazonlinux-2023/**'
             dokken/centos-stream-9: 'dokken/centos-stream-9/**'
-            dokken/debian-11: 'dokken/debian-11/**'
-            dokken/debian-12: 'dokken/debian-12/**'
-            dokken/eurolinux-9: 'dokken/eurolinux-9/**'
-            dokken/opensuse-leap-15.3: 'dokken/opensuse-leap-15.3/**'
-            dokken/opensuse-leap-15.4: 'dokken/opensuse-leap-15.4/**'
-            dokken/opensuse-leap-15.5: 'dokken/opensuse-leap-15.5/**'
-            dokken/opensuse-leap-15.6: 'dokken/opensuse-leap-15.6/**'
+            dokken/centos-stream-10: 'dokken/centos-stream-10/**'
             dokken/oraclelinux-8: 'dokken/oraclelinux-8/**'
             dokken/oraclelinux-9: 'dokken/oraclelinux-9/**'
-            dokken/rockylinux-8: 'dokken/rockylinux-8/**'
-            dokken/rockylinux-9: 'dokken/rockylinux-9/**'
             dokken/ubuntu-20.04: 'dokken/ubuntu-20.04/**'
             dokken/ubuntu-22.04: 'dokken/ubuntu-22.04/**'
             dokken/ubuntu-24.04: 'dokken/ubuntu-24.04/**'
@@ -82,10 +73,9 @@ jobs:
             node/20/jammy-slim: 'node/20/jammy-slim/**'
             node/22/jammy-slim: 'node/22/jammy-slim/**'
             op: 'op/**'
-            paperspace-cli: 'paperspace-cli/**'
             portainer-ce: 'portainer-ce/**'
-            postgres/15/jammy: 'postgres/15/jammy/**'
-            postgres/16/jammy: 'postgres/16/jammy/**'
+            postgres/15/noble: 'postgres/15/noble/**'
+            postgres/16/noble: 'postgres/16/noble/**'
             prometheus/alertmanager: 'prometheus/alertmanager/**'
             prometheus/blackbox_exporter: 'prometheus/blackbox_exporter/**'
             prometheus/collectd_exporter: 'prometheus/collectd_exporter/**'
@@ -95,10 +85,6 @@ jobs:
             pulumi/pulumi-base: 'pulumi/pulumi-base/**'
             pulumi/pulumi-python: 'pulumi/pulumi-python/**'
             redis/7.2/jammy: 'redis/7.2/jammy/**'
-            ruby/3.1/jammy: 'ruby/3.1/jammy/**'
-            ruby/3.1/noble: 'ruby/3.1/noble/**'
-            ruby/3.1/slim-jammy: 'ruby/3.1/slim-jammy/**'
-            ruby/3.1/slim-noble: 'ruby/3.1/slim-noble/**'
             ruby/3.2/jammy: 'ruby/3.2/jammy/**'
             ruby/3.2/noble: 'ruby/3.2/noble/**'
             ruby/3.2/slim-jammy: 'ruby/3.2/slim-jammy/**'
@@ -107,6 +93,10 @@ jobs:
             ruby/3.3/noble: 'ruby/3.3/noble/**'
             ruby/3.3/slim-jammy: 'ruby/3.3/slim-jammy/**'
             ruby/3.3/slim-noble: 'ruby/3.3/slim-noble/**'
+            ruby/3.4/jammy: 'ruby/3.4/jammy/**'
+            ruby/3.4/noble: 'ruby/3.4/noble/**'
+            ruby/3.4/slim-jammy: 'ruby/3.4/slim-jammy/**'
+            ruby/3.4/slim-noble: 'ruby/3.4/slim-noble/**'
             shellcheck: 'shellcheck/**'
             shfmt: 'shfmt/**'
             smokeping: 'smokeping/**'
@@ -130,10 +120,13 @@ jobs:
         shell: bash
         working-directory: ${{ matrix.image }}
         run: |
-          echo "run-lint-stage=$($(git rev-parse --show-toplevel)/bin/run-lint-stage.sh)" >> $GITHUB_ENV
-          echo "run-test-stage=$($(git rev-parse --show-toplevel)/bin/run-test-stage.sh)" >> $GITHUB_ENV
-          echo "test-entrypoint=$($(git rev-parse --show-toplevel)/bin/test-entrypoint.sh)" >> $GITHUB_ENV
-          cat $GITHUB_ENV
+          TOPLEVEL=$(git rev-parse --show-toplevel)
+          {
+            echo "run-lint-stage=$("${TOPLEVEL}/bin/run-lint-stage.sh")"
+            echo "run-test-stage=$("${TOPLEVEL}/bin/run-test-stage.sh")"
+            echo "test-entrypoint=$("${TOPLEVEL}/bin/test-entrypoint.sh")"
+          } >> "${GITHUB_ENV}"
+          cat "${GITHUB_ENV}"
 
       - uses: polymathrobotics/container-build-publish-action@main
         with:
@@ -160,10 +153,13 @@ jobs:
         shell: bash
         working-directory: ${{ matrix.directory }}
         run: |
-          echo "run-lint-stage=$($(git rev-parse --show-toplevel)/bin/run-lint-stage.sh)" >> $GITHUB_ENV
-          echo "run-test-stage=$($(git rev-parse --show-toplevel)/bin/run-test-stage.sh)" >> $GITHUB_ENV
-          echo "test-entrypoint=$($(git rev-parse --show-toplevel)/bin/test-entrypoint.sh)" >> $GITHUB_ENV
-          cat $GITHUB_ENV
+          TOPLEVEL=$(git rev-parse --show-toplevel)
+          {
+            echo "run-lint-stage=$("${TOPLEVEL}/bin/run-lint-stage.sh")"
+            echo "run-test-stage=$("${TOPLEVEL}/bin/run-test-stage.sh")"
+            echo "test-entrypoint=$("${TOPLEVEL}/bin/test-entrypoint.sh")"
+          } >> "${GITHUB_ENV}"
+          cat "${GITHUB_ENV}"
 
       - uses: polymathrobotics/container-build-publish-action@main
         with:
@@ -207,12 +203,10 @@ jobs:
             ros/jazzy/ubuntu/noble: 'ros/jazzy/ubuntu/noble/**'
             ros/noetic/ubuntu/focal: 'ros/noetic/ubuntu/focal/**'
             ros/ready/ubuntu: 'ros/ready/ubuntu/**'
-            ros/rolling/ubuntu/jammy: 'ros/rolling/ubuntu/jammy/**'
-            ros/rolling/ubuntu/noble: 'ros/rolling/ubuntu/noble/**'
             polymath-ros/humble/ubuntu/jammy: 'polymath-ros/humble/ubuntu/jammy/**'
             polymath-ros/iron/ubuntu/jammy: 'polymath-ros/iron/ubuntu/jammy/**'
             polymath-ros/jazzy/ubuntu/noble: 'polymath-ros/jazzy/ubuntu/noble/**'
-            polymath-ros/rolling/ubuntu/jammy: 'polymath-ros/rolling/ubuntu/jammy/**'
+
 
   # Job to build and test each of the modified images
   self-hosted-build:
@@ -232,10 +226,13 @@ jobs:
         shell: bash
         working-directory: ${{ matrix.image }}
         run: |
-          echo "run-lint-stage=$($(git rev-parse --show-toplevel)/bin/run-lint-stage.sh)" >> $GITHUB_ENV
-          echo "run-test-stage=$($(git rev-parse --show-toplevel)/bin/run-test-stage.sh)" >> $GITHUB_ENV
-          echo "test-entrypoint=$($(git rev-parse --show-toplevel)/bin/test-entrypoint.sh)" >> $GITHUB_ENV
-          cat $GITHUB_ENV
+          TOPLEVEL=$(git rev-parse --show-toplevel)
+          {
+            echo "run-lint-stage=$("${TOPLEVEL}/bin/run-lint-stage.sh")"
+            echo "run-test-stage=$("${TOPLEVEL}/bin/run-test-stage.sh")"
+            echo "test-entrypoint=$("${TOPLEVEL}/bin/test-entrypoint.sh")"
+          } >> "${GITHUB_ENV}"
+          cat "${GITHUB_ENV}"
 
       - uses: polymathrobotics/container-build-publish-action@main
         with:

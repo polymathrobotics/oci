@@ -3,7 +3,7 @@ variable "TAG_PREFIX" {
 }
 
 variable "VERSION" {
-  default = "3.2.6"
+  default = "3.2.8"
 }
 
 
