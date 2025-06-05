@@ -113,6 +113,57 @@ control 'jazzy-builder' do
   end
 end
 
+# docker.io/polymathrobotics/ros:kilted-ready-ubuntu
+control 'kilted-ready' do
+  only_if('kilted-ready') do
+    input('test_container_image').include?('ros:kilted-ready-ubuntu')
+  end
+  describe os do
+    its('name') { should eq 'ubuntu' }
+    its('release') { should eq '24.04' }
+  end
+  describe os_env('ROS_DISTRO') do
+    its('content') { should eq 'kilted' }
+  end
+  describe file('/etc/apt/sources.list.d/ros2-latest.list') do
+      it { should exist }
+      its('content') { should match %r{noble main} }
+  end
+  %w(
+    colcon
+    rosdep
+  ).each do |cmd|
+    describe command(cmd) do
+      it { should_not exist }
+    end
+  end
+end
+
+# docker.io/polymathrobotics/ros:kilted-builder-ubuntu
+control 'kilted-builder' do
+  only_if('kilted-builder') do
+    input('test_container_image').include?('ros:kilted-builder-ubuntu')
+  end
+  describe os do
+    its('name') { should eq 'ubuntu' }
+    its('release') { should eq '24.04' }
+  end
+  describe os_env('ROS_DISTRO') do
+    its('content') { should eq 'kilted' }
+  end
+  %w(
+    colcon
+    rosdep
+  ).each do |cmd|
+    describe command(cmd) do
+      it { should exist }
+    end
+  end
+  describe file('/usr/local/bin/gather-rosdeps') do
+    it { should exist }
+  end
+end
+
 # docker.io/polymathrobotics/ros:rolling-ready-ubuntu
 control 'rolling-ready' do
   only_if('rolling-ready') do
