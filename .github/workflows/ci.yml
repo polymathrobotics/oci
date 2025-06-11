@@ -38,7 +38,6 @@ jobs:
             actionlint: 'actionlint/**'
             aws-cli: 'aws-cli/**'
             black: 'black/**'
-            buildpack-deps/ubuntu/focal: 'buildpack-deps/ubuntu/focal/**'
             buildpack-deps/ubuntu/jammy: 'buildpack-deps/ubuntu/jammy/**'
             buildpack-deps/ubuntu/noble: 'buildpack-deps/ubuntu/noble/**'
             cinc/cinc-auditor: 'cinc/cinc-auditor/**'
