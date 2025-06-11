@@ -38,8 +38,6 @@ jobs:
             actionlint: 'actionlint/**'
             aws-cli: 'aws-cli/**'
             black: 'black/**'
-            buildpack-deps/ubuntu/jammy: 'buildpack-deps/ubuntu/jammy/**'
-            buildpack-deps/ubuntu/noble: 'buildpack-deps/ubuntu/noble/**'
             cinc/cinc-auditor: 'cinc/cinc-auditor/**'
             doctl: 'doctl/**'
             couchdb: 'couchdb/**'
@@ -184,6 +182,8 @@ jobs:
         with:
           base: ${{ github.ref }}
           filters: |
+            buildpack-deps/ubuntu/jammy: 'buildpack-deps/ubuntu/jammy/**'
+            buildpack-deps/ubuntu/noble: 'buildpack-deps/ubuntu/noble/**'
             dokken/cinc: 'dokken/cinc/**'
             python/3.9/focal: 'python/3.9/focal/**'
             python/3.9/slim-focal: 'python/3.9/slim-focal/**'
