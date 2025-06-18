@@ -75,7 +75,6 @@ jobs:
             postgres/16/noble: 'postgres/16/noble/**'
             prometheus/alertmanager: 'prometheus/alertmanager/**'
             prometheus/blackbox-exporter: 'prometheus/blackbox-exporter/**'
-            prometheus/collectd_exporter: 'prometheus/collectd_exporter/**'
             prometheus/node_exporter: 'prometheus/node_exporter/**'
             prometheus/prometheus: 'prometheus/prometheus/**'
             pspace: 'pspace/**'
