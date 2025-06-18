@@ -97,6 +97,7 @@ jobs:
             shellcheck: 'shellcheck/**'
             shfmt: 'shfmt/**'
             smokeping: 'smokeping/**'
+            snmp: 'snmp/**'
             ubuntu-autoinstall: 'ubuntu-autoinstall/**'
 
   # Job to build and test each of the modified images
