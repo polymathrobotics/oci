@@ -10,7 +10,7 @@ Image Source: https://github.com/polymathrobotics/oci/tree/main/prometheus/black
 CLI
 ---
 ```
-% docker run -it --rm docker.io/polymathrobotics/blackbox_exporter --help
+% docker run -it --rm docker.io/polymathrobotics/blackbox-exporter --help
 usage: blackbox_exporter [<flags>]
 
     Flags:
