@@ -1,13 +1,12 @@
 # syntax=docker/dockerfile:1
-ARG BASE_IMAGE=docker.io/ubuntu:jammy-20240808
+ARG BASE_IMAGE=docker.io/ubuntu:noble-20250529
+# hadolint ignore=DL3006
 FROM $BASE_IMAGE AS base
 
 ARG PROMETHEUS_URL_AMD64
 ARG PROMETHEUS_SHA256_AMD64
 ARG PROMETHEUS_URL_ARM64
 ARG PROMETHEUS_SHA256_ARM64
-ARG PROMETHEUS_URL_ARMHF
-ARG PROMETHEUS_SHA256_ARMHF
 
 FROM base AS download
 
@@ -27,10 +26,6 @@ RUN apt-get update \
       PROMETHEUS_URL="${PROMETHEUS_URL_ARM64}" \
       PROMETHEUS_SHA256="${PROMETHEUS_SHA256_ARM64}" \
       ;; \
-    armhf) \
-      PROMETHEUS_URL="${PROMETHEUS_URL_ARMHF}" \
-      PROMETHEUS_SHA256="${PROMETHEUS_SHA256_ARMHF}" \
-      ;; \
     *) echo "unsupported architecture"; exit 1 ;; \
     esac \
   && curl -fsSL -o /tmp/prometheus.tar.gz ${PROMETHEUS_URL} \
@@ -44,8 +39,6 @@ WORKDIR /prometheus
 COPY --chmod=755 --from=download /tmp/prometheus/prometheus /usr/local/bin/prometheus
 COPY --chmod=755 --from=download /tmp/prometheus/promtool /usr/local/bin/promtool
 COPY --from=download /tmp/prometheus/prometheus.yml /etc/prometheus/prometheus.yml
-COPY --from=download /tmp/prometheus/console_libraries/ /usr/share/prometheus/console_libraries/
-COPY --from=download /tmp/prometheus/consoles/ /usr/share/prometheus/consoles/
 COPY --from=download /tmp/prometheus/LICENSE /LICENSE
 COPY --from=download /tmp/prometheus/NOTICE /NOTICE
 
@@ -62,6 +55,4 @@ VOLUME ["/prometheus"]
 ENTRYPOINT ["/usr/local/bin/prometheus"]
 CMD        [ "--config.file=/etc/prometheus/prometheus.yml", \
              "--storage.tsdb.path=/prometheus", \
-             "--storage.tsdb.retention.time=15d", \
-             "--web.console.libraries=/usr/share/prometheus/console_libraries", \
-             "--web.console.templates=/usr/share/prometheus/consoles" ]
+             "--storage.tsdb.retention.time=15d" ]
