@@ -75,7 +75,7 @@ jobs:
             postgres/16/noble: 'postgres/16/noble/**'
             prometheus/alertmanager: 'prometheus/alertmanager/**'
             prometheus/blackbox-exporter: 'prometheus/blackbox-exporter/**'
-            prometheus/node_exporter: 'prometheus/node_exporter/**'
+            prometheus/node-exporter: 'prometheus/node-exporter/**'
             prometheus/prometheus: 'prometheus/prometheus/**'
             pspace: 'pspace/**'
             pulumi/pulumi-base: 'pulumi/pulumi-base/**'
