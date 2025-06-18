@@ -78,6 +78,7 @@ jobs:
             prometheus/node-exporter: 'prometheus/node-exporter/**'
             prometheus/prometheus: 'prometheus/prometheus/**'
             prometheus/snmp-exporter: 'prometheus/snmp-exporter/**'
+            prometheus/snmp-generator: 'prometheus/snmp-generator/**'
             pspace: 'pspace/**'
             pulumi/pulumi-base: 'pulumi/pulumi-base/**'
             pulumi/pulumi-python: 'pulumi/pulumi-python/**'
