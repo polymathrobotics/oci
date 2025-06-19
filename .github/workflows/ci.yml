@@ -60,6 +60,7 @@ jobs:
             hadolint: 'hadolint/**'
             hashicorp/terraform: 'hashicorp/terraform/**'
             jfrog/jfrog-cli: 'jfrog/jfrog-cli/**'
+            jsonnet: 'jsonnet/**'
             ldap-utils: 'ldap-utils/**'
             markdownlint: 'markdownlint/**'
             meshcmd: 'meshcmd/**'
