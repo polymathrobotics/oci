@@ -2,4 +2,4 @@
 
 docker container run --rm \
   --mount type=bind,source="$(pwd)",target=/share,readonly \
-  docker.io/boxcutter/shellcheck ./*.sh
+  docker.io/polymathrobotics/shellcheck ./*.sh
