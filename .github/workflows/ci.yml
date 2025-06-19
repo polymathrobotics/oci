@@ -55,6 +55,7 @@ jobs:
             glab: 'glab/**'
             go2chef: 'go2chef/**'
             golang/1.23/noble: 'golang/1.23/noble/**'
+            golang/1.24/noble: 'golang/1.24/noble/**'
             grafana/grafana-oss: 'grafana/grafana-oss/**'
             hadolint: 'hadolint/**'
             hashicorp/terraform: 'hashicorp/terraform/**'
