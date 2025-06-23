@@ -243,10 +243,10 @@ docker run --rm \
   --env=DIGITALOCEAN_ACCESS_TOKEN \
   --env=DIGITALOCEAN_SSH_KEY_IDS \
   --env=DIGITALOCEAN_REGION \
-  docker.io/polymathrobotics/doctl compute droplet create ubuntu22-04 \
+  docker.io/polymathrobotics/doctl compute droplet create ubuntu24-04 \
     --ssh-keys $DIGITALOCEAN_SSH_KEY_IDS \
     --size s-1vcpu-1gb \
-    --image ubuntu-22-04-x64 \
+    --image ubuntu-24-04-x64 \
     --region $DIGITALOCEAN_REGION \
     --enable-ipv6 \
     --enable-monitoring
