@@ -62,6 +62,7 @@ jobs:
             jfrog/jfrog-cli: 'jfrog/jfrog-cli/**'
             jsonnet: 'jsonnet/**'
             ldap-utils: 'ldap-utils/**'
+            luxonis-list-devices: 'luxonis-list-devices/**'
             markdownlint: 'markdownlint/**'
             meshcmd: 'meshcmd/**'
             netbox: 'netbox/**'
