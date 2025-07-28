@@ -1,6 +1,6 @@
 # syntax=docker/dockerfile:1
 # Arguments used in FROM need to be defined before the first build stage
-ARG BUILD_IMAGE=docker.io/ubuntu:noble-20250529
+ARG BUILD_IMAGE=docker.io/ubuntu:noble-20250714
 ARG BASE_IMAGE=docker.io/polymathrobotics/python:3.9-noble
 # hadolint ignore=DL3006
 FROM $BUILD_IMAGE AS build
