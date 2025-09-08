@@ -1,36 +1,21 @@
 # syntax=docker/dockerfile:1
 # Arguments used in FROM need to be defined before the first build stage
-ARG BUILD_IMAGE=docker.io/ubuntu:noble-20250714
-ARG BASE_IMAGE=docker.io/polymathrobotics/python:3.9-noble
+ARG LANGUAGE_VERSION=3.13
+ARG BUILD_IMAGE=docker.io/ubuntu:noble-20250805
+ARG BASE_IMAGE=docker.io/polymathrobotics/python:${LANGUAGE_VERSION}-slim-noble
 # hadolint ignore=DL3006
 FROM $BUILD_IMAGE AS build
 
 ARG PULUMI_VERSION
-ARG CINC_AUDITOR_URL_AMD64
-ARG CINC_AUDITOR_SHA256_AMD64
-ARG CINC_AUDITOR_URL_ARM64
-ARG CINC_AUDITOR_SHA256_ARM64
 
 SHELL ["/bin/bash", "-o", "pipefail", "-c"]
 RUN <<EOF
   apt-get update
   apt-get install -y --no-install-recommends \
     ca-certificates \
-    curl
-  dpkgArch="$(dpkg --print-architecture)"
-  case "${dpkgArch##*-}" in \
-    amd64) \
-      CINC_AUDITOR_URL="$CINC_AUDITOR_URL_AMD64" \
-      CINC_AUDITOR_SHA256="$CINC_AUDITOR_SHA256_AMD64" \
-      ;; \
-    arm64) \
-      CINC_AUDITOR_URL="$CINC_AUDITOR_URL_ARM64" \
-      CINC_AUDITOR_SHA256="$CINC_AUDITOR_SHA256_ARM64" \
-      ;; \
-    *) echo "unsupported architecture"; exit 1 ;; \
-    esac
-  curl -fsSL -o /tmp/cinc-auditor.deb "${CINC_AUDITOR_URL}"
-  echo "${CINC_AUDITOR_SHA256} /tmp/cinc-auditor.deb" | sha256sum -c -
+    curl \
+    build-essential \
+    git
 EOF
 
 # Install the Pulumi SDK, including the CLI and language runtimes.
@@ -42,37 +27,25 @@ RUN curl -fsSL https://get.pulumi.com/ | bash -s -- --version $PULUMI_VERSION
 # hadolint ignore=DL3006
 FROM $BASE_IMAGE
 
-ENV PATH=/opt/cinc-auditor/bin:/opt/cinc-auditor/embedded/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin
-
-# Run the entire container with the default locale to be en_US.UTF-8
-RUN <<EOF
-  apt-get update
-  apt-get install -y --no-install-recommends locales
-  locale-gen en_US.UTF-8
-  update-locale LANG=en_US.UTF-8
-  # The official Ubuntu images automatically run `apt-get clean`, so explicit
-  # invocation is not required
-  rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/*
-EOF
-
-ENV LANG=en_US.UTF-8 \
-    LANGUAGE=en_US:en \
-    LC_ALL=en_US.UTF-8
-
 WORKDIR /pulumi/projects
 
-COPY --from=build /tmp/cinc-auditor.deb  /tmp/cinc-auditor.deb
-
-RUN --mount=type=cache,target=/var/lib/apt/list \
-    --mount=type=cache,target=/var/cache/apt <<EOF
-  apt-get update
-  apt-get install -y --no-install-recommends /tmp/cinc-auditor.deb
-  rm -rf /tmp/cinc-auditor.deb
+RUN <<EOF
+  apt-get update -y
   DEBIAN_FRONTEND=noninteractive apt-get install -y --no-install-recommends \
     ca-certificates \
+    curl \
     git \
     vim
 EOF
+
+# Install poetry
+RUN curl -sSL https://install.python-poetry.org | POETRY_HOME=/usr/local/share/pypoetry python3 -
+RUN ln -s /usr/local/share/pypoetry/bin/poetry /usr/local/bin/
+
+# Install uv
+RUN curl -LsSf https://astral.sh/uv/install.sh | XDG_BIN_HOME=/usr/local/share/uv bash -s -- --no-modify-path
+RUN ln -s /usr/local/share/uv/uv /usr/local/bin/
+RUN ln -s /usr/local/share/uv/uvx /usr/local/bin/
 
 # Uses the workdir, copies from pulumi interim container
 COPY --from=build /root/.pulumi/bin/pulumi /pulumi/bin/pulumi
