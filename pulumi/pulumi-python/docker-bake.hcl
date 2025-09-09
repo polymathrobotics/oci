@@ -3,7 +3,7 @@ variable "TAG_PREFIX" {
 }
 
 variable "VERSION" {
-  default =  "3.192.0"
+  default =  "3.193.0"
 }
 
 # Explicitly define the latest Python version used for the consolidated image
