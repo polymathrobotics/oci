@@ -20,7 +20,7 @@ jobs:
       # Expose matched filters as job 'images' output variable
       images: ${{ steps.filter.outputs.changes }}
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v5
 
       - name: Determine Paths to Build for Auto Trigger
         uses: dorny/paths-filter@v3
@@ -113,7 +113,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout code
-        uses: actions/checkout@v4
+        uses: actions/checkout@v5
 
       - name: Get build parameters
         shell: bash
@@ -146,7 +146,7 @@ jobs:
     runs-on: [self-hosted, multi-arch]
     steps:
       - name: Checkout code
-        uses: actions/checkout@v4
+        uses: actions/checkout@v5
 
       - name: Get build parameters
         shell: bash
@@ -163,89 +163,6 @@ jobs:
       - uses: polymathrobotics/container-build-publish-action@main
         with:
           workdir: ${{ matrix.directory }}
-          build-type: 'local'
-          run-lint-stage: ${{ env.run-lint-stage }}
-          run-test-stage: ${{ env.run-test-stage }}
-          test-entrypoint: ${{ env.test-entrypoint }}
-          dockerhub-username: ${{ secrets.CONTAINER_REGISTRY_USERNAME }}
-          dockerhub-password: ${{ secrets.CONTAINER_DESCRIPTION_PASSWORD }}
-
-  # Job to run change detection
-  self-hosted-changes:
-    if: ${{ github.event_name != 'workflow_dispatch' }}
-    runs-on: [self-hosted, multi-arch]
-    outputs:
-      images: ${{ steps.self-hosted-filter.outputs.changes }}
-    steps:
-      - uses: actions/checkout@v4
-
-      - uses: dorny/paths-filter@v3
-        id: self-hosted-filter
-        with:
-          base: ${{ github.ref }}
-          filters: |
-            buildpack-deps/ubuntu/jammy: 'buildpack-deps/ubuntu/jammy/**'
-            buildpack-deps/ubuntu/noble: 'buildpack-deps/ubuntu/noble/**'
-            dokken/cinc: 'dokken/cinc/**'
-            python/3.9/jammy: 'python/3.9/jammy/**'
-            python/3.9/slim-jammy: 'python/3.9/slim-jammy/**'
-            python/3.9/noble: 'python/3.9/noble/**'
-            python/3.9/slim-noble: 'python/3.9/slim-noble/**'
-            python/3.10/jammy: 'python/3.10/jammy/**'
-            python/3.10/slim-jammy: 'python/3.10/slim-jammy/**'
-            python/3.10/noble: 'python/3.10/noble/**'
-            python/3.10/slim-noble: 'python/3.10/slim-noble/**'
-            python/3.11/jammy: 'python/3.11/jammy/**'
-            python/3.11/slim-jammy: 'python/3.11/slim-jammy/**'
-            python/3.11/noble: 'python/3.11/noble/**'
-            python/3.11/slim-noble: 'python/3.11/slim-noble/**'
-            python/3.12/jammy: 'python/3.12/jammy/**'
-            python/3.12/slim-jammy: 'python/3.12/slim-jammy/**'
-            python/3.12/noble: 'python/3.12/noble/**'
-            python/3.12/slim-noble: 'python/3.12/slim-noble/**'
-            python/3.13/jammy: 'python/3.13/jammy/**'
-            python/3.13/slim-jammy: 'python/3.13/slim-jammy/**'
-            python/3.13/noble: 'python/3.13/noble/**'
-            python/3.13/slim-noble: 'python/3.13/slim-noble/**'
-            ros/humble/ubuntu/jammy: 'ros/humble/ubuntu/jammy/**'
-            ros/iron/ubuntu/jammy: 'ros/iron/ubuntu/jammy/**'
-            ros/jazzy/ubuntu/noble: 'ros/jazzy/ubuntu/noble/**'
-            ros/noetic/ubuntu/focal: 'ros/noetic/ubuntu/focal/**'
-            ros/ready/ubuntu: 'ros/ready/ubuntu/**'
-            polymath-ros/humble/ubuntu/jammy: 'polymath-ros/humble/ubuntu/jammy/**'
-            polymath-ros/iron/ubuntu/jammy: 'polymath-ros/iron/ubuntu/jammy/**'
-            polymath-ros/jazzy/ubuntu/noble: 'polymath-ros/jazzy/ubuntu/noble/**'
-
-
-  # Job to build and test each of the modified images
-  self-hosted-build:
-    needs: self-hosted-changes
-    strategy:
-      matrix:
-        # Parse JSON array containing names of all filters matching any of changed files
-        # e.g. ['image1', 'image2'] if both image folders contains changes
-        image: ${{ fromJSON(needs.self-hosted-changes.outputs.images) }}
-    if: ${{ needs.self-hosted-changes.outputs.images != '[]' && needs.self-hosted-changes.outputs.images != '' && github.event_name != 'workflow_dispatch'}}
-    runs-on: [self-hosted, multi-arch]
-    steps:
-      - name: Checkout code
-        uses: actions/checkout@v4
-
-      - name: Get build parameters
-        shell: bash
-        working-directory: ${{ matrix.image }}
-        run: |
-          TOPLEVEL=$(git rev-parse --show-toplevel)
-          {
-            echo "run-lint-stage=$("${TOPLEVEL}/bin/run-lint-stage.sh")"
-            echo "run-test-stage=$("${TOPLEVEL}/bin/run-test-stage.sh")"
-            echo "test-entrypoint=$("${TOPLEVEL}/bin/test-entrypoint.sh")"
-          } >> "${GITHUB_ENV}"
-          cat "${GITHUB_ENV}"
-
-      - uses: polymathrobotics/container-build-publish-action@main
-        with:
-          workdir: ${{ matrix.image }}
           build-type: 'local'
           run-lint-stage: ${{ env.run-lint-stage }}
           run-test-stage: ${{ env.run-test-stage }}
