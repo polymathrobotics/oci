@@ -9,10 +9,10 @@ variable "LOCAL_PLATFORM" {
 
 variable "DISTRO" {
   default = [
-    {ros = "humble",  base_image = "ubuntu:jammy-20250530"},
-    {ros = "jazzy",   base_image = "ubuntu:noble-20250529"},
-    {ros = "kilted",  base_image = "ubuntu:noble-20250529"},
-    {ros = "rolling", base_image = "ubuntu:noble-20250529"},
+    {ros = "humble",  base_image = "ubuntu:jammy-20260217"},
+    {ros = "jazzy",   base_image = "ubuntu:noble-20260217"},
+    {ros = "kilted",  base_image = "ubuntu:noble-20260217"},
+    {ros = "rolling", base_image = "ubuntu:noble-20260217"},
   ]
 }
 
