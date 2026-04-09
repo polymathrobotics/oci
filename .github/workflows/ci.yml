@@ -54,6 +54,7 @@ jobs:
             github-cli: 'github-cli/**'
             glab: 'glab/**'
             go2chef: 'go2chef/**'
+            gstreamer-publisher: 'gstreamer-publisher/**'
             golang/1.23/noble: 'golang/1.23/noble/**'
             golang/1.24/noble: 'golang/1.24/noble/**'
             grafana/grafana-oss: 'grafana/grafana-oss/**'

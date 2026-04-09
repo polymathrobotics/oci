@@ -1,0 +1,55 @@
+# syntax=docker/dockerfile:1
+# Arguments used in FROM need to be defined before the first build stage
+ARG BUILD_IMAGE=docker.io/polymathrobotics/ros:humble-builder-ubuntu
+ARG GOLANG_IMAGE=docker.io/polymathrobotics/golang:1.24-noble
+ARG RUNTIME_BASE_IMAGE=docker.io/ubuntu:jammy-20260217
+
+FROM ${GOLANG_IMAGE} AS golang-toolchain
+
+FROM ${BUILD_IMAGE} AS build
+
+SHELL ["/bin/bash", "-o", "pipefail", "-c"]
+
+ARG GSTREAMER_PUBLISHER_REF
+
+ENV DEBIAN_FRONTEND=noninteractive
+ENV GOTOOLCHAIN=local
+ENV GOPATH=/go
+ENV PATH=/go/bin:/usr/local/go/bin:${PATH}
+
+WORKDIR /tmp
+
+COPY --from=golang-toolchain /usr/local/go /usr/local/go
+
+RUN apt-get update \
+ && apt-get install -y --no-install-recommends \
+      git \
+      libgstreamer-plugins-base1.0-dev \
+      libgstreamer1.0-dev \
+      pkg-config \
+ && rm -rf /var/lib/apt/lists/*
+
+RUN git init /tmp/gstreamer-publisher \
+ && git -C /tmp/gstreamer-publisher remote add origin https://github.com/livekit/gstreamer-publisher \
+ && git -C /tmp/gstreamer-publisher fetch --depth 1 origin "${GSTREAMER_PUBLISHER_REF}" \
+ && git -C /tmp/gstreamer-publisher checkout FETCH_HEAD \
+ && GOFLAGS='-p=1' go build -C /tmp/gstreamer-publisher -o /usr/local/bin/gstreamer-publisher .
+
+FROM ${RUNTIME_BASE_IMAGE}
+
+SHELL ["/bin/bash", "-o", "pipefail", "-c"]
+
+ENV DEBIAN_FRONTEND=noninteractive
+
+RUN apt-get update \
+ && apt-get install -y --no-install-recommends \
+      ca-certificates \
+      gstreamer1.0-plugins-base \
+      gstreamer1.0-plugins-good \
+      gstreamer1.0-tools \
+ && rm -rf /var/lib/apt/lists/*
+
+COPY --from=build --chmod=755 /usr/local/bin/gstreamer-publisher /usr/local/bin/gstreamer-publisher
+
+ENTRYPOINT ["/usr/local/bin/gstreamer-publisher"]
+CMD ["--help"]

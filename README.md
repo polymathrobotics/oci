@@ -19,6 +19,7 @@ The images are pubished to https://hub.docker.com/u/polymathrobotics
 | [gh](https://hub.docker.com/r/polymathrobotics/gh) | The GitHub CLI tool | [github-cli](https://github.com/polymathrobotics/oci/tree/main/github-cli) |
 | [glab](https://hub.docker.com/r/polymathrobotics/glab) | The GitLab CLI tool | [glab](https://github.com/polymathrobotics/oci/tree/main/glab) |
 | [go2chef](https://hub.docker.com/r/polymathrobotics/go2chef) | A Golang tool to bootstrap a system from zero so that it's able to run Chef | [go2chef](https://github.com/polymathrobotics/oci/tree/main/go2chef) |
+| [gstreamer-publisher](https://hub.docker.com/r/polymathrobotics/gstreamer-publisher) | Command-line app that publishes any GStreamer pipeline to LiveKit | [gstreamer-publisher](https://github.com/polymathrobotics/oci/tree/main/gstreamer-publisher) |
 | [golang](https://hub.docker.com/r/polymathrobotics/golang) | Go (golang) is a general purpose, higher-level, imperative programming language. | [golang](https://github.com/polymathrobotics/oci/tree/main/golang) |
 | [grafana-oss](https://hub.docker.com/r/polymathrobotics/grafana-oss) | Grafana - the open observability platform | [grafana/grafana-oss](https://github.com/polymathrobotics/oci/tree/main/grafana/grafana-oss) |
 | [hadolint](https://hub.docker.com/r/polymathrobotics/hadolint) | Containerfile/Dockerfile linter | [hadolint](https://github.com/polymathrobotics/oci/tree/main/hadolint) |
