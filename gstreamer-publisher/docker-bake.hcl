@@ -70,5 +70,5 @@ target "default" {
     GSTREAMER_PUBLISHER_REF = distro.gstreamer_publisher_ref
     RUNTIME_BASE_IMAGE = distro.runtime_base_image
   }
-  platforms = ["linux/amd64"]
+  platforms = ["linux/amd64", "linux/arm64/v8"]
 }
