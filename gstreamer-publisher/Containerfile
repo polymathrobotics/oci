@@ -4,8 +4,10 @@ ARG BUILD_IMAGE=docker.io/polymathrobotics/ros:humble-builder-ubuntu
 ARG GOLANG_IMAGE=docker.io/polymathrobotics/golang:1.24-noble
 ARG RUNTIME_BASE_IMAGE=docker.io/ubuntu:jammy-20260217
 
+# hadolint ignore=DL3006
 FROM ${GOLANG_IMAGE} AS golang-toolchain
 
+# hadolint ignore=DL3006
 FROM ${BUILD_IMAGE} AS build
 
 SHELL ["/bin/bash", "-o", "pipefail", "-c"]
@@ -35,6 +37,7 @@ RUN git init /tmp/gstreamer-publisher \
  && git -C /tmp/gstreamer-publisher checkout FETCH_HEAD \
  && GOFLAGS='-p=1' go build -C /tmp/gstreamer-publisher -o /usr/local/bin/gstreamer-publisher .
 
+# hadolint ignore=DL3006
 FROM ${RUNTIME_BASE_IMAGE}
 
 SHELL ["/bin/bash", "-o", "pipefail", "-c"]
@@ -44,10 +47,12 @@ ENV DEBIAN_FRONTEND=noninteractive
 RUN apt-get update \
  && apt-get install -y --no-install-recommends \
       ca-certificates \
+      gstreamer1.0-plugins-bad \
       gstreamer1.0-plugins-base \
       gstreamer1.0-plugins-good \
       gstreamer1.0-plugins-ugly \
       gstreamer1.0-tools \
+      gstreamer1.0-x \
  && rm -rf /var/lib/apt/lists/*
 
 COPY --from=build --chmod=755 /usr/local/bin/gstreamer-publisher /usr/local/bin/gstreamer-publisher
