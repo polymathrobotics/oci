@@ -35,7 +35,6 @@ The images are pubished to https://hub.docker.com/u/polymathrobotics
 | [portainer-ce](https://hub.docker.com/r/polymathrobotics/portainer-ce) | ortainer Community Edition GUI-based container management platform. | [portainer-ce](https://github.com/polymathrobotics/oci/tree/main/portainer-ce) |
 | [postgres](https://hub.docker.com/r/polymathrobotics/postgres) | The PostgreSQL object-relational database system provides reliability and data integrity | [postgres](https://github.com/polymathrobotics/oci/tree/main/postgres) |
 | [prometheus](https://hub.docker.com/r/polymathrobotics/prometheus)<br>[alertmanager](https://hub.docker.com/r/polymathrobotics/alertmanager)<br>[blackbox_exporter](https://hub.docker.com/r/polymathrobotics/blackbox_exporter)<br>[collectd_exporter](https://hub.docker.com/r/polymathrobotics/collectd_exporter)<br>[node_exporter](https://hub.docker.com/r/polymathrobotics/node_exporter) | Prometheus monitoring system and time series database | [prometheus/prometheus](https://github.com/polymathrobotics/oci/tree/main/prometheus/prometheus)<br>[prometheus/alertmanager](https://github.com/polymathrobotics/oci/tree/main/prometheus/alertmanager)<br>[prometheus/blackbox_exporter](https://github.com/polymathrobotics/oci/tree/main/prometheus/blackbox_exporter)<br>[prometheus/collectd_exporter](https://github.com/polymathrobotics/oci/tree/main/prometheus/collectd_exporter)<br>[prometheus/node_exporter](https://github.com/polymathrobotics/oci/tree/main/prometheus/node_exporter) |
-| [pulumi-base](https://hub.docker.com/r/polymathrobotics/pulumi-base)<br>[pulumi-python](https://hub.docker.com/r/polymathrobotics/pulumi-python) | Pulumi Infrastructure as Code CLI | [pulumi-base](https://github.com/polymathrobotics/oci/tree/main/pulumi/pulumi-base)<br>[pulumi-python](https://github.com/polymathrobotics/oci/tree/main/pulumi/pulumi-python) |
 | [python](https://hub.docker.com/r/polymathrobotics/python) | The Python programming language | [python](https://github.com/polymathrobotics/oci/tree/main/python) |
 | [redis](https://hub.docker.com/r/polymathrobotics/redis) | Redis is an open source key-value store that functions as a data structure server. | [redis](https://github.com/polymathrobotics/oci/tree/main/redis) |
 | [ros](https://hub.docker.com/r/polymathrobotics/ros) | The Robot Operating System | [humble-jammy](https://github.com/polymathrobotics/oci/tree/main/ros/humble/ubuntu/jammy)<br>[jazzy-noble](https://github.com/polymathrobotics/oci/tree/main/ros/jazzy/ubuntu/noble)<br>[rolling-jammy](https://github.com/polymathrobotics/oci/tree/main/ros/rolling/ubuntu/jammy) |
@@ -89,14 +88,14 @@ The repo has the following structure:
 - Rest of the directories contain all the source code for the images, primarily
   Containerfiles/Dockerfiles in BuildKit format. An alphabetical
   index is also provided in this README.md.
-  
+
 # Developing
 
 Following container image conventions there is a separate directory for each container image. The container image
 tools have a single target directory for source files and by default the image tools scan all files in a directory
 for some operations. Thus there is a subdirectory per image, though a single image may be built for multiple
 platforms. The source for all the container images is under the `src/` tree in this repo. GitHub Actions pipelines
-in `.github/workflows` have been set up to publish these images to the 
+in `.github/workflows` have been set up to publish these images to the
 [polymathrobotics org](https://hub.docker.com/u/polymathrobotics) on DockerHub.
 
 Since container image source code packaging is small, for convenience all the source is together in one big repo.
